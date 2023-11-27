@@ -70,5 +70,10 @@
   "bash": {
 	  "pywal_colors": true
   },
-	"wallpaper": "000.png"
+	"wallpaper": "000.png",
+  "vim": {
+	  "colorscheme": "everforest",
+	  "airline_theme": "everforest",
+	  "plugs": ["sainnhe/everforest"]
+  }
 }

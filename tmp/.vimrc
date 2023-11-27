@@ -33,6 +33,7 @@ endif
 
 
 call plug#begin('~/.vim/plugged')
+Plug 'sainnhe/everforest'
 Plug 'dylanaraps/wal.vim'
 Plug 'preservim/nerdtree'
 Plug 'victor-iyi/commentary.vim'
@@ -142,7 +143,7 @@ syntax on
 
 set background=dark
 
-" colorscheme options:
+colorscheme everforest
 " gruvbox, blue_in_green
 " options listed here: https://github.com/rafi/awesome-vim-colorschemes
 colorscheme
@@ -217,7 +218,7 @@ let g:airline_right_sep = ''
 let g:airline_detect_modified=1
 let g:airline_detect_paste=1
 let g:airline_detect_spell=1
-let g:airline_theme='dark'
+let g:airline_theme="everforest"
 let g:airline_powerline_fonts=1
 " set statusline=helloworld
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
