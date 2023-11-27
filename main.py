@@ -2,6 +2,7 @@ import logging
 from scripts.colors import parse_colors
 from scripts.i3 import parse_i3
 from scripts.wallpapers import parse_wallpaper
+from scripts.bash import parse_bash
 import os
 import argparse
 import json
@@ -25,12 +26,18 @@ path_config = {
         'template': './i3.config',
         'dest': os.path.expanduser("~/.config/i3/config"),
         'func': parse_i3,
-        }
+        },
+    'bash': {
+        'template': './.bashrc',
+        'dest': os.path.expanduser("~/.bashrc"),
+        'func': parse_bash
+        },
     }
 
 order = ['colors',
          'wallpaper',
          'i3wm',
+         'bash'
          ]
 
 def parse_args():
