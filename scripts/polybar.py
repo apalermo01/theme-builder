@@ -2,6 +2,8 @@ import os
 import shutil
 from typing import Dict
 import configparser
+import logging
+
 
 logger = logging.getLogger(__name__)
 
@@ -27,6 +29,24 @@ def parse_polybar(config: Dict,
     polybar = _parse_colors(polybar, config)
     polybar = _init_modules(polybar, config)
     polybar = _parse_includes(polybar, config, theme_name)
+
+
+    # write config
+    with open(dest, "w") as f:
+        polybar.write(f)
+
+    # launch script
+    src_script = "./scripts/i3wmthemer_bar_launch.sh"
+    dest = "/" + os.path.join(*dest.split('/')[:-1])
+    dest_script = os.path.join(dest, "i3wmthemer_bar_launch.sh")
+    if not os.path.exists(dest):
+        os.makedirs(dest)
+    with open(dest_script, 'w') as f:
+        pass
+    shutil.copy2(src_script, dest)
+
+    return config
+
 def _parse_colors(polybar: configparser.ConfigParser,
                   config: Dict):
     if 'colors' not in polybar:

@@ -3,6 +3,9 @@ from scripts.colors import parse_colors
 from scripts.i3 import parse_i3
 from scripts.wallpapers import parse_wallpaper
 from scripts.bash import parse_bash
+from scripts.polybar import parse_polybar
+from scripts.vim import parse_vim
+from scripts.picom import parse_picom
 import os
 import argparse
 import json
@@ -27,17 +30,35 @@ path_config = {
         'dest': os.path.expanduser("~/.config/i3/config"),
         'func': parse_i3,
         },
+    'polybar': {
+        'template': './polybar.ini',
+        'dest': os.path.expanduser("~/.config/polybar/config.ini"),
+        'func': parse_polybar
+        },
+    'vim': {
+        'template': './init.vim',
+        'dest': os.path.expanduser("~/.config/nvim/init.vim"),
+        'func': parse_vim,
+        },
     'bash': {
         'template': './.bashrc',
         'dest': os.path.expanduser("~/.bashrc"),
         'func': parse_bash
         },
+    'picom': {
+        'template': None,
+        'dest': os.path.expanduser("~/.config/picom.conf"),
+        'func': parse_picom,
+        }
     }
 
 order = ['colors',
          'wallpaper',
          'i3wm',
-         'bash'
+         'polybar',
+         'vim',
+         'bash',
+         'picom'
          ]
 
 def parse_args():
