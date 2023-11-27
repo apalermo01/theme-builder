@@ -1,5 +1,5 @@
 import logging
-from typing import Dict
+from typing import Dict, Any
 import os
 import json
 import subprocess
@@ -10,9 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 def parse_colors(
-    config: Dict,
-    template=None,
-    dest=None,
+    config: Dict, **kwargs
 ) -> Dict:
     """parse_colors.
 

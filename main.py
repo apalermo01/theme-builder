@@ -8,7 +8,7 @@ import json
 import sys
 
 logger = logging.getLogger(__name__)
-
+logging.basicConfig(level=logging.INFO)
 
 path_config = {
     'colors': {
@@ -53,7 +53,8 @@ def main():
             config = path_config[key]['func'](
                     template = path_config[key]['template'],
                     dest = path_config[key]['dest'],
-                    config = config
+                    config = config,
+                    theme_name = theme_name
                     )
 
 if __name__ == '__main__':

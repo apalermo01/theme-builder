@@ -38,6 +38,7 @@ def feh_theme(config: Dict):
     # if just the filename was given, look in the project's wallpaper folder:
     if '/' not in wallpaper_path:
         wallpaper_path = os.path.join('.', 'wallpapers', wallpaper_path)
+
     logger.info(f"wallpaper path is: {wallpaper_path}")
 
     if not os.path.exists(os.path.expanduser("~/Pictures/wallpapers/")):
@@ -46,7 +47,6 @@ def feh_theme(config: Dict):
     logger.warning("Loading wallpaper")
     
     if 'i3wm' in config:
-        # TODO: move this functionality to the i3 module
         if 'extra_lines' not in config['i3wm']:
             config['i3wm']['extra_lines'] = []
 
