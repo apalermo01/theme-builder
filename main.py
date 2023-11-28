@@ -6,6 +6,7 @@ from scripts.bash import parse_bash
 from scripts.polybar import parse_polybar
 from scripts.vim import parse_vim
 from scripts.picom import parse_picom
+from scripts.tmux import parse_tmux
 import os
 import argparse
 import json
@@ -49,7 +50,12 @@ path_config = {
         'template': None,
         'dest': os.path.expanduser("~/.config/picom.conf"),
         'func': parse_picom,
-        }
+        },
+    'tmux': {
+        'template': './.tmux.conf',
+        'dest': os.path.expanduser("~/.tmux.conf"),
+        'func': parse_tmux,
+    }
     }
 
 order = ['colors',
@@ -58,7 +64,8 @@ order = ['colors',
          'polybar',
          'vim',
          'bash',
-         'picom'
+         'picom',
+         'tmux'
          ]
 
 def parse_args():

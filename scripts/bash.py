@@ -41,7 +41,7 @@ def parse_bash(template: str,
             """))
 
     if bash_config.get('neofetch'):
-        bash_config['extra_lines'].append("neofetch'\n")
+        bash_config['extra_lines'].append("neofetch\n")
 
     # write to file
     with open(dest, "w") as f_out, open(template, "r") as f_in:

@@ -8,7 +8,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 def parse_picom(theme_name: str,
-                dest: str):
+                dest: str,
+                **kwargs):
 
     # kill picom if its already running
     subprocess.run(['killall', 'picom'])
@@ -17,4 +18,5 @@ def parse_picom(theme_name: str,
     if os.path.exists(theme_path):
         logger.info("found picom.conf")
         shutil.copy(src=theme_path, dst=dest)
-    return config
+
+    return kwargs['config']
