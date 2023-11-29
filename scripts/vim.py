@@ -56,7 +56,9 @@ def parse_vim(template: str,
     _configure_colorsfile(vim_config, theme_name, dest)
     _configure_airline_theme(vim_config)
     _configure_settings(vim_config)
+    _configure_extra_lines(vim_config)
     shutil.copy(src=TMP_PATH, dst=dest)
+
     return config
 
 def _iterate_until_text(text: Iterable[str],
@@ -115,9 +117,10 @@ def _configure_colorsfile(vim_config: Dict,
         return
 
     colors_path = f"./themes/{theme_name}/{colors_file}"
-    colors_dest = os.path.join(dest, "colors", colors_file)
+    colors_dest = os.path.join('/'.join(dest.split('/')[:-1]), "colors", colors_file)
 
-    shutil.copy(src=colors_path, dst=colors_dst)
+    logger.info(f"copying colors file from {colors_path} to {colors_dest}")
+    shutil.copy(src=colors_path, dst=colors_dest)
 
 def _configure_airline_theme(vim_config: Dict):
 
@@ -129,3 +132,10 @@ def _configure_settings(vim_config: Dict):
     for setting in vim_config.get('settings', []):
         _overwrite_or_append_line(pattern=setting,
                                   replace_text=f"{setting}{vim_config['settings'][setting]}")
+
+def _configure_extra_lines(vim_config: Dict):
+    if not vim_config.get('extra_lines'):
+        return
+    with open(TMP_PATH, "a") as f:
+        for line in vim_config.get('extra_lines'):
+            f.write(line+"\n")

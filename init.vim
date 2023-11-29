@@ -143,10 +143,10 @@ syntax on
 
 set background=dark
 
-" colorscheme options:
+" options:
 " gruvbox, blue_in_green
 " options listed here: https://github.com/rafi/awesome-vim-colorschemes
-colorscheme
+colorscheme 
 
 set encoding=utf8
 
