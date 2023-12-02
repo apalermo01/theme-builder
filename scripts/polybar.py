@@ -7,6 +7,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def parse_polybar(config: Dict,
                   template: str,
                   dest: str,
@@ -29,7 +30,7 @@ def parse_polybar(config: Dict,
     polybar = _parse_colors(polybar, config)
     polybar = _init_modules(polybar, config)
     polybar = _parse_includes(polybar, config, theme_name)
-
+    polybar = _parse_opts(polybar, config)
 
     # write config
     with open(dest, "w") as f:
@@ -63,6 +64,7 @@ def _parse_colors(polybar: configparser.ConfigParser,
 
 def _init_modules(polybar: configparser.ConfigParser,
                   config: Dict):
+
     for module in config['polybar']:
         if '/' in module:
             if module not in polybar:
@@ -91,19 +93,11 @@ def _parse_includes(polybar: configparser.ConfigParser,
 
 def _parse_opts(polybar: configparser.ConfigParser,
                 config: Dict):
-    for key in config['polybar']:
-        if "/" in key and "include" in config['polybar'][key]:
-            include_path = config['polybar'][key]['include']
-
-            # relative path from project source
-            if include_path[0] == '.':
-                path = os.path.abspath(include_path)
-                logger.info(f"using relative path - pulling module {key} from {path}")
-            # module file lives in theme directory
-            else:
-                path = os.path.abspath(os.path.join('.', 'themes', theme_name, include_path))
-                logger.info(f"using theme path - pulling module {key} from {path}")
-            polybar[key]['include-file'] = path
-
-    return polybar
     
+    for key in config['polybar']:
+        if '/' in key:
+            for option in config['polybar'][key]:
+                if option != 'include':
+                    logger.info(f"parsing {key} @ {option}")
+                    polybar[key][option] = config['polybar'][key][option]
+    return polybar

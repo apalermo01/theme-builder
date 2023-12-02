@@ -44,9 +44,12 @@
 	},
 	"polybar": {
 		"bar/main": {
-			"modules-left": "i3",
+			"modules-left": "xworkspaces",
 			"modules-center": "date",
-			"modules-right": "wlan eth powermenu"
+			"modules-right": "wlan eth pulseaudio powermenu"
+		},
+		"module/pulseaudio": {
+			"include": "pulseaudio.ini"
 		},
 		"colors": {
     		"background": "#1d1f21",
@@ -63,6 +66,8 @@
     		"label-visible-background": "#81a2be",
     		"label-visible-foreground": "#1d1f21",
 			"label-active-background": "#81a2be",
+			"label-active-underline": "#81a2be",
+			"label-urgent-background": "#ff0000",
     		"format-foreground": "#1d1f21",
     		"format-background": "#81a2be",
     		"label-open-foreground": "#81a2be",
