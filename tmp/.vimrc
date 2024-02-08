@@ -33,7 +33,6 @@ endif
 
 
 call plug#begin('~/.vim/plugged')
-Plug 'sainnhe/everforest'
 Plug 'dylanaraps/wal.vim'
 Plug 'preservim/nerdtree'
 Plug 'victor-iyi/commentary.vim'
@@ -50,6 +49,7 @@ Plug 'rafi/awesome-vim-colorschemes'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', {'branch': '0.1.x'}
 "Plug 'itchyny/lightline.vim'
+Plug 'arakkkkk/kanban.nvim'
 call plug#end()
 let mapleader = "," 
 
@@ -147,7 +147,7 @@ set background=dark
 " options:
 " gruvbox, blue_in_green
 " options listed here: https://github.com/rafi/awesome-vim-colorschemes
-colorscheme everforest
+colorscheme darcula
 
 set encoding=utf8
 
@@ -219,7 +219,7 @@ let g:airline_right_sep = ''
 let g:airline_detect_modified=1
 let g:airline_detect_paste=1
 let g:airline_detect_spell=1
-let g:airline_theme="everforest"
+let g:airline_theme="cobalt2"
 let g:airline_powerline_fonts=1
 " set statusline=helloworld
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -312,7 +312,7 @@ let python_highlight_all = 1
 " au BufNewFile,BufRead *.jinja set syntax=htmljinja
 " au BufNewFile,BufRead *.mako set ft=mako
 " 
-" au FileType python map <buffer> F :set foldmethod=indent<cr>
+au FileType python map <buffer> F :set foldmethod=indent<cr>
 " 
 " au FileType python inoremap <buffer> $r return 
 " au FileType python inoremap <buffer> $i import 

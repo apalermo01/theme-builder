@@ -85,9 +85,9 @@
   },
 	"wallpaper": "000.png",
   "vim": {
-	  "colorscheme": "everforest",
-	  "airline_theme": "everforest",
-	  "plugs": ["sainnhe/everforest"]
+	  "colorscheme": "darcula",
+	  "airline_theme": "cobalt2",
+	  "colors_file": "darcula.vim"
   },
   "picom": {},
   "tmux": {}

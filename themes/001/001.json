@@ -44,7 +44,10 @@
 		"bar/main":{
     		"modules-left": "xworkspaces",
     		"modules-center": "date",
-    		"modules-right": "wlan eth powermenu"
+    		"modules-right": "wlan eth pulseaudio powermenu"
+		},
+		"modules/pulseaudio": {
+			"include": "pulseaudio.ini"
 		},
 		"colors": {
     	    "label-unfocused-background": "#78824b",
@@ -76,9 +79,6 @@
 	"wallpaper": "001.png",
 	"vim": {
 		"airline_theme": "zenburn",
-		"plugs": [
-			"phha/zenburn.nvim"
-		],
 		"colorscheme": "zenburn"
 	},
 	"picom": {},

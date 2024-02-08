@@ -49,6 +49,7 @@ Plug 'rafi/awesome-vim-colorschemes'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', {'branch': '0.1.x'}
 "Plug 'itchyny/lightline.vim'
+Plug 'arakkkkk/kanban.nvim'
 call plug#end()
 let mapleader = "," 
 
@@ -231,7 +232,7 @@ map 0 ^
 
 " fast quit / save
 nmap <leader>w :w!<cr>
-nmap <leader>q :q!<cr>
+"nmap <leader>q :q!<cr>
 
 " clear highlight on pressing ESC
 " nnoremap <esc> :noh<return><esc>
@@ -311,16 +312,16 @@ let python_highlight_all = 1
 " au BufNewFile,BufRead *.jinja set syntax=htmljinja
 " au BufNewFile,BufRead *.mako set ft=mako
 " 
-" au FileType python map <buffer> F :set foldmethod=indent<cr>
+au FileType python map <buffer> F :set foldmethod=indent<cr>
 " 
 " au FileType python inoremap <buffer> $r return 
 " au FileType python inoremap <buffer> $i import 
 " au FileType python inoremap <buffer> $p print 
 " au FileType python inoremap <buffer> $f # --- <esc>a
-" au FileType python map <buffer> <leader>1 /class 
-" au FileType python map <buffer> <leader>2 /def 
-" au FileType python map <buffer> <leader>C ?class 
-" au FileType python map <buffer> <leader>D ?def 
+au FileType python map <buffer> <leader>1 /class 
+au FileType python map <buffer> <leader>2 /def 
+au FileType python map <buffer> <leader>C ?class 
+au FileType python map <buffer> <leader>D ?def 
 
 """"""""""""""""""""""""""""""
 " Markdown
