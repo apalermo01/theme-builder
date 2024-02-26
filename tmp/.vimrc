@@ -49,7 +49,7 @@ Plug 'rafi/awesome-vim-colorschemes'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', {'branch': '0.1.x'}
 "Plug 'itchyny/lightline.vim'
-Plug 'arakkkkk/kanban.nvim'
+Plug 'lambdalisue/nerdfont.vim'
 call plug#end()
 let mapleader = "," 
 
@@ -147,7 +147,7 @@ set background=dark
 " options:
 " gruvbox, blue_in_green
 " options listed here: https://github.com/rafi/awesome-vim-colorschemes
-colorscheme darcula
+colorscheme 
 
 set encoding=utf8
 
@@ -219,7 +219,7 @@ let g:airline_right_sep = ''
 let g:airline_detect_modified=1
 let g:airline_detect_paste=1
 let g:airline_detect_spell=1
-let g:airline_theme="cobalt2"
+let g:airline_theme='dark'
 let g:airline_powerline_fonts=1
 " set statusline=helloworld
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -232,7 +232,7 @@ map 0 ^
 
 " fast quit / save
 nmap <leader>w :w!<cr>
-nmap <leader>q :q!<cr>
+"nmap <leader>q :q!<cr>
 
 " clear highlight on pressing ESC
 " nnoremap <esc> :noh<return><esc>
@@ -318,10 +318,10 @@ au FileType python map <buffer> F :set foldmethod=indent<cr>
 " au FileType python inoremap <buffer> $i import 
 " au FileType python inoremap <buffer> $p print 
 " au FileType python inoremap <buffer> $f # --- <esc>a
-" au FileType python map <buffer> <leader>1 /class 
-" au FileType python map <buffer> <leader>2 /def 
-" au FileType python map <buffer> <leader>C ?class 
-" au FileType python map <buffer> <leader>D ?def 
+au FileType python map <buffer> <leader>1 /class 
+au FileType python map <buffer> <leader>2 /def 
+au FileType python map <buffer> <leader>C ?class 
+au FileType python map <buffer> <leader>D ?def 
 
 """"""""""""""""""""""""""""""
 " Markdown

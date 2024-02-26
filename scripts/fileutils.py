@@ -2,9 +2,21 @@ import logging
 from tempfile import mkstemp
 from os import remove
 from shutil import move
+import shutil
+import os
 
 logger = logging.getLogger(__name__)
 
+def configure_other_files(files_cfg):
+    logger.info(f"copying additional files")
+    for key in files_cfg.keys():
+        src = files_cfg[key]['src']
+        dest = os.path.expanduser(files_cfg[key]['dest'])
+        logger.info(f"copying {src} to {dest}")
+        with open(src, "r") as f_out, open(dest, "w") as f_in:
+            for line in f_out.readlines():
+                f_in.write(line)
+        # shutil.copy(src=src, dst=dest)
 
 
 def replace_line(file: str,
@@ -37,7 +49,7 @@ def replace_line(file: str,
                     try:
                         new_file.write(line)
                     except IOError:
-                        )                            logger.error('Failed!')
+                        logger.error('Failed!')
     remove(file)
     move(abs_path, file)
     return pattern_found

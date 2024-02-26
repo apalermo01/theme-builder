@@ -49,7 +49,7 @@ Plug 'rafi/awesome-vim-colorschemes'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', {'branch': '0.1.x'}
 "Plug 'itchyny/lightline.vim'
-Plug 'arakkkkk/kanban.nvim'
+Plug 'lambdalisue/nerdfont.vim'
 call plug#end()
 let mapleader = "," 
 

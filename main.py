@@ -7,6 +7,10 @@ from scripts.polybar import parse_polybar
 from scripts.vim import parse_vim
 from scripts.picom import parse_picom
 from scripts.tmux import parse_tmux
+from scripts.hypr import parse_hypr
+from scripts.alacritty import parse_alacritty
+from scripts.fish import parse_fish
+from scripts.waybar import parse_waybar
 import os
 import argparse
 import json
@@ -31,10 +35,25 @@ path_config = {
         'dest': os.path.expanduser("~/.config/i3/config"),
         'func': parse_i3,
         },
+    'hypr': {
+        'template': './hyper.config',
+        'dest': os.path.expanduser('~/.config/hypr/hyprland.conf'),
+        'func': parse_hypr,
+        },
     'polybar': {
         'template': './polybar.ini',
         'dest': os.path.expanduser("~/.config/polybar/config.ini"),
         'func': parse_polybar
+        },
+    'waybar': {
+        'template': {
+            'config': './waybar/config',
+            'css': './waybar/style.css'},
+        'dest': {
+            'config': os.path.expanduser("~/.config/waybar/config"),
+            'css': os.path.expanduser("~/.config/waybar/style.css")
+            },
+        'func': parse_waybar,
         },
     'vim': {
         'template': './init.vim',
@@ -46,6 +65,11 @@ path_config = {
         'dest': os.path.expanduser("~/.bashrc"),
         'func': parse_bash
         },
+    'fish': {
+        'template': './config.fish',
+        'dest': os.path.expanduser("~/.config/fish/config.fish"),
+        'func': parse_fish
+        },
     'picom': {
         'template': None,
         'dest': os.path.expanduser("~/.config/picom.conf"),
@@ -55,15 +79,23 @@ path_config = {
         'template': './.tmux.conf',
         'dest': os.path.expanduser("~/.tmux.conf"),
         'func': parse_tmux,
-    }
+    },
+    "alacritty": {
+        "template": "",
+        "dest": os.path.expanduser("~/.config/alacritty/alacritty.toml"),
+        "func": parse_alacritty,
+        },
     }
 
 order = ['colors',
          'wallpaper',
          'i3wm',
+         'hypr',
          'polybar',
+         'waybar',
          'vim',
          'bash',
+         'alacritty',
          'picom',
          'tmux'
          ]

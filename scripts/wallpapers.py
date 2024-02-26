@@ -26,10 +26,47 @@ def parse_wallpaper(config: Dict, *args, **kwargs):
 
     if method == 'feh':
         config = feh_theme(config)
+
+    elif method == 'hyprpaper':
+        config = hyprpaper_theme(config)
+
     else:
         raise NotImplementedError
+
     return config
 
+def hyprpaper_theme(config: Dict):
+
+    wallpaper_path = config['wallpaper']['name']
+    hyprpaper_config_path = os.path.expanduser("~/.config/hypr/hyprpaper.conf")
+
+    # if just the filename was given, look in the project's wallpaper folder:
+    if '/' not in wallpaper_path:
+        wallpaper_path = os.path.join('.', 'wallpapers', wallpaper_path)
+
+    logger.info(f"wallpaper path is: {wallpaper_path}")
+
+    if not os.path.exists(os.path.expanduser("~/Pictures/wallpapers/")):
+        os.makedirs(os.path.expanduser("~/Pictures/wallpapers/"))
+
+    wp_dest_path = os.path.expanduser(f"~/Pictures/wallpapers/{wallpaper_path.split('/')[-1]}")
+    logger.warning("Loading wallpaper")
+
+    if 'hyprpaper_path' not in config['wallpaper']:
+        with open(hyprpaper_config_path, "w") as f:
+            f.write(f"preload={wp_dest_path}\n")
+            f.write(f"wallpaper= eDP-1, {wp_dest_path}\n")
+            f.write(f"wallpaper= HDMI-A-2, {wp_dest_path}\n")
+    else:
+        with open(config['wallpaper']['hyprpaper_path'], "r") as f_out, \
+            open(hyprpaper_config_path, "w") as f_in:
+            for line in f_out.readlines():
+                f_in.write(line)
+
+    shutil.copy2(src=wallpaper_path,
+                 dst=wp_dest_path)
+
+    return config
 def feh_theme(config: Dict):
 
     # wallpaper path is a path or filename
@@ -45,7 +82,7 @@ def feh_theme(config: Dict):
         os.makedirs(os.path.expanduser("~/Picutres/wallpapers/"))
 
     logger.warning("Loading wallpaper")
-    
+
     if 'i3wm' in config:
         if 'extra_lines' not in config['i3wm']:
             config['i3wm']['extra_lines'] = []

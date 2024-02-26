@@ -2,6 +2,7 @@ from typing import Dict, List, Iterable, Tuple
 import os
 import logging
 import shutil
+import subprocess
 logger = logging.getLogger(__name__)
 
 TMP_PATH = "./tmp/.vimrc"
@@ -29,28 +30,10 @@ def parse_vim(template: str,
         for line in f_out.readlines():
             f_in.write(line)
 
-    # color_file = vim_config.get('color_file', 'gruvbox')
-    # colorscheme = vim_config.get('colorscheme', 'gruvbox')
-    # airline_theme  = vim_config.get('airline_theme', 'dark')
-    # plugs = vim_config.get('plugs', [])
-    # extra_lines = vim_config.get('extra_lines', [])
-
-    # logger.info(f"color_file = {color_file}")
-    # logger.info(f"colorscheme = {colorscheme}")
-    # 
-    # # logging extra plugs and lines
-    # if len(plugs) > 0:
-    #     logger.info("Plugs:")
-    #     for p in plugs:
-    #         logger.info(p)
-    #     logger.info("end vim plugs")
-
-    # if len(extra_lines) > 0:
-    #     logger.info("extra lines for vimrc:")
-    #     for l in extra_lines:
-    #         logger.info(l)
-    #     logger.info("end extra lines for vim")
-
+    if 'custom_func' in vim_config:
+        assert vim_config['custom_func'] == 'use_NvChad'
+        subprocess.run(['git',  'clone', 'https://github.com/NvChad/NvChad', '~/.config/nvim', '--depth',  '1'])
+        return config
     _configure_plugs(vim_config)
     _configure_colorscheme(vim_config)
     _configure_colorsfile(vim_config, theme_name, dest)
