@@ -1,0 +1,33 @@
+{
+	"hypr": {
+		"default_path": "./themes/hyprland_default/hyprland.conf"
+	},
+
+	"wallpaper": {
+		"method": "hyprpaper",
+		"name": "cat1.jpg"
+	},
+
+	"waybar": {
+		"default_path": {
+			"config": "./themes/hyprland_default/waybar/config",
+			"css": "./themes/hyprland_default/waybar/style.css"
+		}
+	},
+
+	"vim": {
+		"custom_func": "use_NvChad"
+  	}, 
+  
+	"alacritty": {
+	  "default_path": "./themes/hyprland_default/alacritty.toml"
+	},
+
+	"fish": {
+		"neofetch": ""
+	},
+
+	"tmux": {
+	  "default_path": "./themes/hyprland_default/tmux.conf"
+	}
+}
