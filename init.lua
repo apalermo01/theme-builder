@@ -17,6 +17,18 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+
+-----------------------------
+-- define functions ---------
+-----------------------------
+-- https://github.com/nvim-lualine/lualine.nvim/wiki/Component-snippets
+local function keymap()
+  if vim.opt.iminsert:get() > 0 and vim.b.keymap_name then
+    return '⌨ ' .. vim.b.keymap_name
+  end
+  return ''
+end
+
 -----------------------------
 -- define plugins -----------
 -----------------------------
@@ -57,7 +69,21 @@ require("lazy").setup({
             "tree-sitter-grammars/tree-sitter-markdown",
         },
         config=true,
-    }
+    },
+
+    -- markdown preview
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        build = "cd app && yarn install",
+        init = function()
+          vim.g.mkdp_filetypes = { "markdown" }
+        end,
+        ft = { "markdown" },
+    },
+    
+    -- unicode
+    "chrisbra/unicode.vim"
 })
   
 
@@ -110,15 +136,25 @@ keymap("n", "<leader>to", ":tabonly", {})
 
 -- neotree
 -- keymap("n", "/", ":Neotree toggle current reveal_force_cwd<cr>", default_opts)
-keymap("n", "|", ":Neotree toggle reveal<cr>", default_opts)
-
+-- keymap("n", "|", ":Neotree toggle reveal<cr>", default_opts)
+vim.cmd[[ nnoremap <C-t> :Neotree toggle reveal<cr> ]]
 
 -----------------------------
 -- statusline ---------------
 -----------------------------
 require('lualine').setup {
     options = {
-        theme = "dracula-nvim"
+        theme = "dracula-nvim",
+        component_separators = "✓",
+        section_separators = {left="", right=""},
+        sections = {
+            lualine_a = {'mode'},
+            lualine_b = {'branch', 'diff', 'diagnostics'},
+            lualine_c = {'filename'},
+            lualine_x = {'encoding', 'fileformat', 'filetype'},
+            lualine_y = {'progress'},
+            lualine_z = {'location'}
+        },
     }
 }
 
