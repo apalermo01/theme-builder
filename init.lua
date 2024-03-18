@@ -89,6 +89,11 @@ require("lazy").setup({
     -- telescope
     {
         'nvim-telescope/telescope.nvim', tag='0.1.6'
+    },
+
+    -- treesitter
+    {
+        'nvim-treesitter/nvim-treesitter'
     }
 })
   
