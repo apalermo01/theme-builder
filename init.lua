@@ -135,19 +135,18 @@ vim.cmd[[ nnoremap <esc> :noh<return><esc> ]]
 -- key mappings -------------
 -----------------------------
 -- newlines above and below
-keymap("n", "oo", "o<Esc>k", default_opts)
-keymap("n", "OO", "O<Esc>j", default_opts)
+vim.cmd[[ nnoremap oo o<Esc>k ]]
+vim.cmd[[ nnoremap OO O<Esc>j ]]
 
 -- tabs
-keymap("n", "<leader>tn", ":tabnew<cr>", {})
-keymap("n", "<leader>t<leader>", ":tabnext", {})
-keymap("n", "<leader>tm", ":tabmove", {})
-keymap("n", "<leader>tc", ":tabclose", {})
-keymap("n", "<leader>to", ":tabonly", {})
+
+vim.cmd[[ nnoremap <leader>tn :tabnew<cr> ]]
+vim.cmd[[ nnoremap <leader>t<leader> :tabnext ]]
+vim.cmd[[ nnoremap <leader>tm :tabmove ]]
+vim.cmd[[ nnoremap <leader>tc :tabclose ]]
+vim.cmd[[ nnoremap <leader>to :tabonly ]]
 
 -- neotree
--- keymap("n", "/", ":Neotree toggle current reveal_force_cwd<cr>", default_opts)
--- keymap("n", "|", ":Neotree toggle reveal<cr>", default_opts)
 vim.cmd[[ nnoremap <C-t> :Neotree toggle reveal<cr> ]]
 
 -----------------------------
@@ -238,3 +237,9 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "text",
+  callback = function()
+    vim.opt_local.textwidth = 100
+  end,
+})

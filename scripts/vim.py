@@ -24,7 +24,7 @@ def parse_vim(template: str,
 
     logger.info("starting to parse vimrc")
     vim_config = config.get('vim', {})
-
+    
     # copy template into temp file
     with open(template, "r") as f_out, open(TMP_PATH, "w") as f_in:
         for line in f_out.readlines():
@@ -34,6 +34,7 @@ def parse_vim(template: str,
         assert vim_config['custom_func'] == 'use_NvChad'
         subprocess.run(['git',  'clone', 'https://github.com/NvChad/NvChad', '~/.config/nvim', '--depth',  '1'])
         return config
+
     _configure_plugs(vim_config)
     _configure_colorscheme(vim_config)
     _configure_colorsfile(vim_config, theme_name, dest)

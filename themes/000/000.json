@@ -89,6 +89,19 @@
 	  "airline_theme": "cobalt2",
 	  "colors_file": "darcula.vim"
   },
+	"nvim": {
+        "colorscheme": "dracula",
+        "lualine": {
+            "component_separators": "✓",
+            "left_sep": "",
+            "right_sep": "",
+            "sections": {
+                "lualine_a": "{'mode'}",
+                "lualine_b": "{'branch', 'diff', 'diagnostics'}",
+                "lualine_c": "{'filename'}",
+                "lualine_x": "{'encoding', 'fileformat', 'filetype'}",
+                "lualine_z": "{'location'}"
+  	}}}, 
   "picom": {},
   "tmux": {}
 }

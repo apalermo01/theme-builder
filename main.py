@@ -5,6 +5,7 @@ from scripts.wallpapers import parse_wallpaper
 from scripts.bash import parse_bash
 from scripts.polybar import parse_polybar
 from scripts.vim import parse_vim
+from scripts.nvim import parse_nvim
 from scripts.picom import parse_picom
 from scripts.tmux import parse_tmux
 from scripts.hypr import parse_hypr
@@ -59,6 +60,11 @@ path_config = {
         'template': './init.vim',
         'dest': os.path.expanduser("~/.config/nvim/init.vim"),
         'func': parse_vim,
+        },
+    'nvim': {
+        'template': './init.lua',
+        'dest': os.path.expanduser("~/.config/nvim/init.lua"),
+        'func': parse_nvim,
         },
     'bash': {
         'template': './.bashrc',

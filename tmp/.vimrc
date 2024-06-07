@@ -147,7 +147,7 @@ set background=dark
 " options:
 " gruvbox, blue_in_green
 " options listed here: https://github.com/rafi/awesome-vim-colorschemes
-colorscheme 
+colorscheme darcula
 
 set encoding=utf8
 
@@ -219,7 +219,7 @@ let g:airline_right_sep = ''
 let g:airline_detect_modified=1
 let g:airline_detect_paste=1
 let g:airline_detect_spell=1
-let g:airline_theme='dark'
+let g:airline_theme="cobalt2"
 let g:airline_powerline_fonts=1
 " set statusline=helloworld
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
