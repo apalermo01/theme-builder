@@ -32,24 +32,24 @@ path_config = {
         'func': parse_wallpaper,
         },
     'i3wm': {
-        'template': './i3.config',
+        'template': './default_configs/i3.config',
         'dest': os.path.expanduser("~/.config/i3/config"),
         'func': parse_i3,
         },
     'hypr': {
-        'template': './hyper.config',
+        'template': './default_configs/hyper.config',
         'dest': os.path.expanduser('~/.config/hypr/hyprland.conf'),
         'func': parse_hypr,
         },
     'polybar': {
-        'template': './polybar.ini',
+        'template': './default_configs/polybar.ini',
         'dest': os.path.expanduser("~/.config/polybar/config.ini"),
         'func': parse_polybar
         },
     'waybar': {
         'template': {
-            'config': './waybar/config',
-            'css': './waybar/style.css'},
+            'config': './default_configs/waybar/config',
+            'css': './default_configs/waybar/style.css'},
         'dest': {
             'config': os.path.expanduser("~/.config/waybar/config"),
             'css': os.path.expanduser("~/.config/waybar/style.css")
@@ -57,37 +57,37 @@ path_config = {
         'func': parse_waybar,
         },
     'vim': {
-        'template': './init.vim',
+        'template': './default_configs/init.vim',
         'dest': os.path.expanduser("~/.config/nvim/init.vim"),
         'func': parse_vim,
         },
     'nvim': {
-        'template': './init.lua',
+        'template': './default_configs/init.lua',
         'dest': os.path.expanduser("~/.config/nvim/init.lua"),
         'func': parse_nvim,
         },
     'bash': {
-        'template': './.bashrc',
+        'template': './default_configs/.bashrc',
         'dest': os.path.expanduser("~/.bashrc"),
         'func': parse_bash
         },
     'fish': {
-        'template': './config.fish',
+        'template': './default_configs/config.fish',
         'dest': os.path.expanduser("~/.config/fish/config.fish"),
         'func': parse_fish
         },
     'picom': {
-        'template': None,
+        'template': './default_configs/picom.conf',
         'dest': os.path.expanduser("~/.config/picom.conf"),
         'func': parse_picom,
         },
     'tmux': {
-        'template': './.tmux.conf',
+        'template': './default_configs/.tmux.conf',
         'dest': os.path.expanduser("~/.tmux.conf"),
         'func': parse_tmux,
     },
     "alacritty": {
-        "template": "",
+        "template": "./default_configs/alacritty.toml",
         "dest": os.path.expanduser("~/.config/alacritty/alacritty.toml"),
         "func": parse_alacritty,
         },

@@ -1,6 +1,23 @@
 {
 	"hypr": {
-		"default_path": "./themes/hyprland_default/hyprland.conf"
+        "colors": {
+            "inactive_border": {
+                "color1": "270146"
+            },
+            "active_border": {
+                "color1": "EE3035",
+                "color2": "51A0FC",
+                "angle": 45
+            },
+            "nogroup_border": {
+                "color1": "270146"
+            },
+            "nogroup_border_active": {
+                "color1": "EE035",
+                "color2": "51A0FC",
+                "angle": 45
+            }
+        }
 	},
 
 	"wallpaper": {
@@ -27,6 +44,8 @@
                 "lualine_c": "{'filename'}",
                 "lualine_x": "{'encoding', 'fileformat', 'filetype'}",
                 "lualine_z": "{'location'}"
+            }
+        }
   	}, 
   
 	"alacritty": {
