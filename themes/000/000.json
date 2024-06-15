@@ -83,7 +83,9 @@
 	  "pywal_colors": true,
 	  "neofetch": true
   },
-	"wallpaper": "000.png",
+
+  "wallpaper": "000.png",
+
   "vim": {
 	  "colorscheme": "darcula",
 	  "airline_theme": "cobalt2",

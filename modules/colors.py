@@ -38,7 +38,7 @@ def parse_colors(
     # Use pywal to derive colors
     if config is None or (
         "settings" in config["colors"]
-        and config["colors"]["settings"]["color_mode"] == "pywal"
+        and config["colors"]["settings"].get("color_mode") == "pywal"
     ):
         wallpaper_path = config["wallpaper"]
         if "wallpapers" not in wallpaper_path:
@@ -67,7 +67,9 @@ def parse_colors(
     # add black to the pallet
     if "black" not in config["colors"]["pallet"]:
         config["colors"]["pallet"]["black"] = "#000000"
-
+    
+    if "red" not in config["colors"]["pallet"]:
+        config["colors"]["pallet"]["red"] = "#F2340B"
     # write the color pallet to temp file for reference
     make_pallet_image(pallet)
     with open("./tmp/pallet.json", "w") as f:

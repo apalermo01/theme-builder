@@ -1,17 +1,17 @@
 import logging
-from scripts.colors import parse_colors
-from scripts.i3 import parse_i3
-from scripts.wallpapers import parse_wallpaper
-from scripts.bash import parse_bash
-from scripts.polybar import parse_polybar
-from scripts.vim import parse_vim
-from scripts.nvim import parse_nvim
-from scripts.picom import parse_picom
-from scripts.tmux import parse_tmux
-from scripts.hypr import parse_hypr
-from scripts.alacritty import parse_alacritty
-from scripts.fish import parse_fish
-from scripts.waybar import parse_waybar
+from modules.colors import parse_colors
+from modules.i3 import parse_i3
+from modules.wallpapers import parse_wallpaper
+from modules.bash import parse_bash
+from modules.polybar import parse_polybar
+from modules.vim import parse_vim
+from modules.nvim import parse_nvim
+from modules.picom import parse_picom
+from modules.tmux import parse_tmux
+from modules.hypr import parse_hypr
+from modules.alacritty import parse_alacritty
+from modules.fish import parse_fish
+from modules.waybar import parse_waybar
 import os
 import argparse
 import json

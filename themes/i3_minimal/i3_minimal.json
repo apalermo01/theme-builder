@@ -1,0 +1,48 @@
+{
+    "colors": {
+        "settings": {
+            "color_mode": "pywal"
+        }
+    },
+
+    "i3wm": {
+        "colors": {
+            "background": "background",
+            "focused": "color2 background color2 color2 color2",
+            "unfocused": "color3 background color3 foreground color3",
+            "focused_inactive": "color2 background color2 foreground color2",
+            "urgent": "red background color2 foreground color2",
+            "placeholder": "color3 background color3 foreground color3"
+        },
+
+        "extra_lines": [
+            "exec bash ~/shift_monitor.sh",
+            "exec killall picom",
+            "exec_always picom --config ~/.config/picom.conf"
+        ]
+    },
+
+
+    "wallpaper": "i3_minimal.jpg",
+
+    "nvim": {
+        "colorscheme": "dracula",
+        "lualine": {
+            "component_separators": "✓",
+            "left_sep": "",
+            "right_sep": "",
+            "sections": {
+                "lualine_a": "{'mode'}",
+                "lualine_b": "{'branch', 'diff', 'diagnostics'}",
+                "lualine_c": "{'filename'}",
+                "lualine_x": "{'encoding', 'fileformat', 'filetype'}",
+                "lualine_z": "{'location'}"
+            }
+        }
+    },
+
+    "polybar": {},
+
+    "picom": {},
+    "tmux": {}
+}

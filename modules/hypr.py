@@ -74,7 +74,8 @@ def _write_colors(config):
             color2 = hypr_colors[key].get('color2')
             angle = hypr_colors[key].get('angle')
             new_str = f"    col.{key} = rbg({color1}) rbg({color2}) {angle}deg"
-            
+        elif '}' in t:
+            break
         else:
             new_text.append(t)
 

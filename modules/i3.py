@@ -85,7 +85,7 @@ def _write_colors(config: Dict):
    
     def _generate_color_str(key: str,
                             colors: str,
-                            pallet: Dict) -> str:
+                            theme_config: Dict) -> str:
 
         newline = f"client.{key}"
 
@@ -101,7 +101,9 @@ def _write_colors(config: Dict):
 
             # look up from pallet
             else:
-                newline += f"\t{pallet[color_name]}"
+                print("pallet = ", pallet)
+                print("color name = ", color_name)
+                newline += f"\t{theme_config['colors']['pallet'][color_name]}"
 
         return newline
 
@@ -117,7 +119,7 @@ def _write_colors(config: Dict):
         if 'client' in t:
             key = t.split(' ')[0].split('.')[1]
             colors = i3_colors[key] 
-            new_text.append(_generate_color_str(key, colors, Dict) + "\n")
+            new_text.append(_generate_color_str(key, colors, config) + "\n")
 
         else:
             new_text.append(t)
