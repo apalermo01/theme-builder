@@ -20,13 +20,62 @@ Link to wallpaper for first hyprland rice: https://wallpaperaccess.com/download/
 
 Each of the headings and sub-headings below represent an available key in the theme config. Keys that link to specific settings are shown as plain text, followed by a colon and a description of the available options
 
-## Colors
-## settings
+## alacritty
 
-- Color mode: "pywal" or "manual"
+- `default_path` - copies the alacritty config from this path into the normal config directory for the app
+
+There isn't any configuration to do in the theme's json file. If you want a custom alacritty config, save it in the theme's folder and link to it in default path.
+
+Examples:
+
+using global default config:
+
+```json
+{
+    "alacritty": {}
+}
+```
+
+using an overwritten config specific to the theme
+
+```json
+{
+    "alacritty": {
+        "default_path": "./themes/my_theme_name/alacritty.toml"
+        }
+}
+```
+## bash
+
+## colors
+
+### settings
+- `color_mode`: "pywal" or "manual"
     - if "pywal" is selected, then pywal will be used to generate a colorscheme based on the wallpaper path. If manual, then the user will be expected to populate the "pallet" component of the colors entry.
 
-
-## pallet
-- color_name: hex code for colors
+### pallet
+- <color_name>: hex code for colors
     - this takes a series of keys representing the hex code of colors for the given template
+
+## fish
+
+## hypr
+
+## i3
+
+## mako
+
+## nvim
+
+## picom
+
+## tmux
+
+## vim
+
+## wallpapers
+
+## waybar
+
+## wofi
+

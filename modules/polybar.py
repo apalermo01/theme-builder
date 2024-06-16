@@ -58,8 +58,13 @@ def _parse_colors(polybar: configparser.ConfigParser,
 
     if 'colors' in config['polybar']:
         for c in config['polybar']['colors']:
-            polybar['colors'][c] = config['polybar']['colors'][c]
-    
+            print(c)
+            if '#' in config['polybar']['colors'][c]:
+                polybar['colors'][c] = config['polybar']['colors'][c]
+            else:
+                color_name = config['polybar']['colors'][c]
+                hex_code = config['colors']['pallet'][color_name]
+                polybar['colors'][c] = hex_code
     return polybar
 
 def _init_modules(polybar: configparser.ConfigParser,

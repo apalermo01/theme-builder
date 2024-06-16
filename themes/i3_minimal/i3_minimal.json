@@ -41,7 +41,40 @@
         }
     },
 
-    "polybar": {},
+    "polybar": {
+        "bar/main": {
+            "modules-left": "xworkspaces",
+            "modules-center": "date",
+            "modules-right": "wlan eth pulseaudio powermenu"
+        },
+        "module/pulseaudio": {
+            "include": "pulseaudio.ini"
+        },
+        "colors": {
+            "background": "background",
+            "foreground": "foreground",
+    		"label-unfocused-background": "color4",
+    		"label-unfocused-foreground": "foreground",
+    		"label-mode-background": "color4",
+    		"label-mode-foreground": "foreground",
+    		"label-focused-foreground": "color1",
+    		"label-focused-background": "color3",
+    		"label-visible-background": "color4",
+    		"label-visible-foreground": "foreground",
+			"label-active-background": "color3",
+			"label-active-underline": "color3",
+			"label-urgent-background": "#ff0000",
+    		"format-foreground": "#1d1f21",
+    		"format-background": "#81a2be",
+    		"label-open-foreground": "#81a2be",
+    		"label-close-foreground": "#81a2be",
+    		"label-separator-foreground": "#81a2be",
+    		"format-connected-foreground": "#1d1f21",
+    		"format-connected-background": "#81a2be",
+    		"format-connected-prefix-foreground": "#1d1f21",
+    		"ramp-signal-foreground": "#1d1f21"
+        }
+    },
 
     "picom": {},
     "tmux": {}
