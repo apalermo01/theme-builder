@@ -37,7 +37,7 @@ path_config = {
         'func': parse_i3,
         },
     'hypr': {
-        'template': './default_configs/hyper.config',
+        'template': './default_configs/hyprland/hyprland.conf',
         'dest': os.path.expanduser('~/.config/hypr/hyprland.conf'),
         'func': parse_hypr,
         },
