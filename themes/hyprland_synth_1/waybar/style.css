@@ -1,8 +1,14 @@
 /* source: https://github.com/coltwillcox/linuxwave/tree/master */
-@define-color border #9963ff;
+
+/*@define-color border #9963ff;*/
+@define-color border #8C4FA6;
+/*@define-color background #161925;*/
 @define-color background #161925;
+/*@define-color font1 #f222ff;*/
 @define-color font1 #f222ff;
+/*@define-color font2 #ffd318;*/
 @define-color font2 #ffd318;
+/*@define-color shadow #fc199a;*/
 @define-color shadow #fc199a;
 
 * {
@@ -13,9 +19,9 @@
     border: none;
     border-radius: 0;
     font-weight: bold;
-    text-shadow: 0 0 5px @shadow;
-}
+    text-shadow: 0 0 2px @shadow;
 
+}
 /*
 window#waybar {
     background-color: rgba(47, 55, 69, 0.7);
@@ -86,9 +92,17 @@ button:hover {
 #workspaces button.focused {
 	color: @font2;
 	border-radius: 26px;
-	background: rgba(12, 14, 20, 1);
+	background: @border;
 	border: 2px solid @border;
 }
+
+
+/*#workspaces button.active {
+	color: @font2;
+	border-radius: 26px;
+	background: rgba(12, 14, 20, 1);
+}
+*/
 
 #workspaces button:hover {
 	transition: none;
@@ -110,7 +124,15 @@ window#waybar.empty #window {
 	border: none;
 }
 
-#window {
+#window,
+#cpu,
+#memory,
+#pulseaudio,
+#network,
+#backlight,
+#battery,
+#tray
+{
 	margin-top: 8px;
 	margin-top: 8px;
 	margin-left: 8px;
@@ -123,102 +145,6 @@ window#waybar.empty #window {
 	border: 2px solid @border;
 }
 
-#cpu {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding: 6px 16px 6px 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
-	color: @font1;
-	background: @background;
-	border: 2px solid @border;
-}
-
-#memory {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding: 6px 16px 6px 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
-	color: @font1;
-	background: @background;
-	border: 2px solid @border;
-}
-
-#temperature {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding: 6px 16px 6px 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
-	color: @font1;
-	background: @background;
-	border: 2px solid @border;
-}
-
-#custom-netspeed {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding: 6px 16px 6px 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
-	color: @font1;
-	background: @background;
-	border: 2px solid @border;
-}
-
-#pulseaudio {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding: 6px 16px 6px 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
-	color: @font1;
-	background: @background;
-	border: 2px solid @border;
-}
-
-#tray {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding: 6px 16px 6px 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
-	color: @font1;
-	background: @background;
-	border: 2px solid @border;
-}
-
-#tray menu {
-	margin-top: 8px;
-	margin-left: 8px;
-	padding: 6px 16px 6px 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
-	color: @font1;
-	background: @background;
-	border: 2px solid @border;
-}
-
-#clock {
-	margin-top: 8px;
-	margin-left: 8px;
-	margin-right: 12px;
-	padding: 6px 16px 6px 16px;
-	margin-bottom: 0;
-	border-radius: 26px;
-	transition: none;
-	color: @font2;
-	background: @background;
-	border: 2px solid @border;
-}
 
 tooltip {
 	background: @background;

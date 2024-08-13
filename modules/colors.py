@@ -40,12 +40,21 @@ def parse_colors(
         "settings" in config["colors"]
         and config["colors"]["settings"].get("color_mode") == "pywal"
     ):
-        wallpaper_path = config["wallpaper"]
-        if "wallpapers" not in wallpaper_path:
-            logger.warning(
-                f"{wallpaper_path} does not look like a full path. Changing to ./wallpapers/{wallpaper_path}"
-            )
-            wallpaper_path = f"./wallpapers/{wallpaper_path}"
+
+        wallpaper_cfg = config["wallpaper"]
+        wallpaper_path = "./wallpapers/" + wallpaper_cfg['name']
+        # if "wallpapers" not in wallpaper_cfg:
+        #     logger.warning(
+        #         f"{wallpaper_cfg} does not look like a full path. Changing to ./wallpapers/{wallpaper_cfg}"
+        #     )
+        #     wallpaper_path = f"./wallpapers/{wallpaper_cfg}"
+        # elif 'name' in wallpaper_cfg:
+        #     logger.warnging(
+        #             f"{wallpaper_cfg} might be a dict. Changing to ./wallpapers/{wallpaper_cfg['name']}"
+        #             )
+        #     wallpaper_path = "./wallpapers/{wallpaper_cfg['name']"
+        # else:
+        #     wallpaper_path = wallpaper_cfg
         logger.info(f"loading wallpaper from {wallpaper_path}")
         pallet = configure_pywal_colors(wallpaper_path)
         logger.debug(f"pallet derived from pywal")
@@ -70,6 +79,7 @@ def parse_colors(
     
     if "red" not in config["colors"]["pallet"]:
         config["colors"]["pallet"]["red"] = "#F2340B"
+
     # write the color pallet to temp file for reference
     make_pallet_image(pallet)
     with open("./tmp/pallet.json", "w") as f:
