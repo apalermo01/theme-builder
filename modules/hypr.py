@@ -76,7 +76,7 @@ def _write_colors_and_general_settings(config):
             color1 = hypr_colors[key].get('color1')
             color2 = hypr_colors[key].get('color2', color1)
             angle = hypr_colors[key].get('angle', 0)
-            new_str = f"\tcol.{key} = rbg({color1}) rbg({color2}) {angle}deg\n"
+            new_str = f"\tcol.{key} = rgb({color1}) rgb({color2}) {angle}deg\n"
             new_text.append(new_str)
         elif '}' in t:
             new_text.append('}')
