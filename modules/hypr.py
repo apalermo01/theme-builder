@@ -68,11 +68,8 @@ def _write_colors_and_general_settings(config):
     config_text, new_text = _iterate_until_text(iter(_read_tmp()), new_text, "general {")
 
     for t in config_text:
-        print(t)
         if "col" in t:
-            print("FOUND A COLOR")
             key = t.split('.')[1].split(' ')[0]
-            print("key = ", key)
             color1 = hypr_colors[key].get('color1')
             color2 = hypr_colors[key].get('color2', color1)
             angle = hypr_colors[key].get('angle', 0)

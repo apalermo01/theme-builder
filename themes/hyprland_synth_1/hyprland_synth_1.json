@@ -1,0 +1,44 @@
+{
+    "hypr": {
+        "colors": {
+            "active_border": {
+                "color1": "8C4FA6",
+                "color2": "506AA6"
+            },
+            
+            "inactive_border": {
+                "color1": "0D0515"
+            },
+
+            "nogroup_border": {
+                "color1": "FFFFFF"
+            },
+
+            "nogroup_border_active": {
+                "color1": "FFFFFF"
+            }
+        }
+    },
+
+    "wallpaper": {
+        "method": "hyprpaper",
+        "name": "synth.jpg"
+    },
+
+    "waybar": {
+        "default_path": {
+            "config": "./themes/hyprland_synth_1/waybar/config",
+            "css": "./themes/hyprland_synth_1/waybar/style.css"
+        }
+    },
+
+    "nvim": {
+        "default_path": "./themes/hyprland_synth_1/init.lua"
+    },
+
+    "tmux": {
+    }
+
+
+}
+

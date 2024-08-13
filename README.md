@@ -14,6 +14,7 @@ Theme specific configs are located in `./themes/<theme_name>/<theme_name>.json`.
 Link to wallpaper for first hyprland rice: https://wallpaperaccess.com/download/cats-in-space-439064
 
 - i3_minimal: https://www.hongkiat.com/blog/beautiful-minimalist-desktop-wallpapers/
+- hypr_synth1: https://www.uhdpaper.com/2024/05/moon-retrowave-4k-8k-8433a.html?m=0
 
 
 # Wiki of available options

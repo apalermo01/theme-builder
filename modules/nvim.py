@@ -72,12 +72,16 @@ def parse_nvim(template: str,
 
     logger.info("starting to parse nvim config")
     nvim_config = config.get('nvim', {})
-
-    with open(template, "r") as f_out, open(TMP_PATH, "w") as f_in:
+    
+    if 'default_path' in nvim_config:
+        template = nvim_config['default_path']
+    logger.info(f"template path: {template}")
+    logger.info(f"dest path: {dest}")
+    with open(template, "r") as f_out, open(dest, "w") as f_in:
         for line in f_out.readlines():
             f_in.write(line)
-
-
+    
+    return config
 def _configure_colorscheme(nvim_config):
 
     colorscheme = nvim_config.get('colorscheme', 'gruvbox')
