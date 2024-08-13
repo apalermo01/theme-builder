@@ -28,7 +28,8 @@ def parse_hypr(template: str,
     
     # all settings
     _write_colors_and_general_settings(config)
-    #_write_animations(config)
+    _write_decoration(config)
+    _write_animations(config)
 
     # write final config to dest
     with open(TMP_PATH, "r") as f_in, open(dest, "w") as f_out:
@@ -216,4 +217,78 @@ def _write_animations(config):
         new_text.append(t)
 
     
+    _write_tmp(new_text)
+
+
+def _write_decoration(config):
+
+    new_text = []
+    decoration_cfg = config['hypr'].get('decoration')
+    if decoration_cfg is None:
+        return
+    
+    blur_cfg = decoration_cfg.get('blur', {})
+     
+
+    config_text, new_text = _iterate_until_text(iter(_read_tmp()), new_text, "decoration {")
+    cfg_to_write = {'blur': {}}
+
+    # grab existing settings
+    hit_blur = False
+    for t in config_text:
+        print("t = ", t)
+        if 'blur' in t:
+            hit_blur = True
+            print("hit blur")
+            continue
+
+        if '}' in t and not hit_blur:
+            print("breaking out of loop")
+            break
+
+        if '}' in t and hit_blur:
+            hit_blur = False
+            print("out of blur")
+            continue
+
+        if '=' not in t:
+            continue
+
+        key = t.split('=')[0].strip()
+        value = t.split('=')[1].strip()
+
+        if hit_blur:
+
+            if decoration_cfg.get(key) is None:
+                cfg_to_write['blur'][key] = value
+            else:
+                cfg_to_write['blur'][key] = decoration_cfg[key]
+
+        else:
+
+            if blur_cfg.get(key) is None:
+                cfg_to_write[key] = value
+            else:
+                cfg_to_write[key] = blur_cfg[value]
+
+    print("cfg to write = ", cfg_to_write)
+
+    # now write the new settings
+    # _, new_text = _iterate_until_text(iter(_read_tmp()), new_text, "decoration {")
+
+    for k in cfg_to_write:
+
+        if k != 'blur':
+            new_text.append(f'\t{k} = {cfg_to_write[k]}\n')
+    
+    new_text.append('\tblur {\n')
+
+    for k in cfg_to_write['blur']:
+        new_text.append(f'\t\t{k} = {cfg_to_write["blur"][k]}\n')
+    
+    new_text.append('\t}\n}\n')
+
+    for t in config_text:
+        new_text.append(t)
+
     _write_tmp(new_text)

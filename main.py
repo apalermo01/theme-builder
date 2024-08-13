@@ -102,6 +102,7 @@ order = ['colors',
          'vim',
          'nvim',
          'bash',
+         'fish',
          'alacritty',
          'picom',
          'tmux'

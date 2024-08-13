@@ -1,4 +1,9 @@
 {
+    "colors": {
+        "settings": {
+            "color_mode": "pywal"
+        }
+    },
     "hypr": {
         "colors": {
             "active_border": {
@@ -17,6 +22,11 @@
             "nogroup_border_active": {
                 "color1": "FFFFFF"
             }
+        },
+
+        "decoration": {
+            "active_opacity": 0.95,
+            "inactive_opacity": 0.90
         }
     },
 
@@ -34,6 +44,13 @@
 
     "nvim": {
         "default_path": "./themes/hyprland_synth_1/init.lua"
+    },
+
+    "fish": {
+       "extra_lines": [
+           "fortune | cowsay -f $(ls /usr/share/cows/ | shuf -n1)"
+       ],
+       "pywal_colors": true
     },
 
     "tmux": {

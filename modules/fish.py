@@ -19,8 +19,8 @@ def parse_fish(template: str,
         logger.warning(f"overwriting template {template} with the one in config: {fist_config['default_path']}")
         template = fish_config['default_path']
 
-    if 'extra_lines' not in bash_config:
-        bash_config['extra_lines'] = []
+    if 'extra_lines' not in fish_config:
+        fish_config['extra_lines'] = []
 
     if fish_config.get('pywal_colors'):
         if 'name' in config['wallpaper']:
@@ -52,7 +52,7 @@ def parse_fish(template: str,
         for line in f_in.readlines():
             f_out.write(line)
 
-        for line in bash_config['extra_lines']:
+        for line in fish_config['extra_lines']:
             f_out.write(line)
 
     return config
