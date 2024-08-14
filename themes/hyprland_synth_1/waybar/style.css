@@ -97,12 +97,13 @@ button:hover {
 }
 
 
-/*#workspaces button.active {
-	color: @font2;
+#workspaces button.active {
+	color: @font1;
 	border-radius: 26px;
-	background: rgba(12, 14, 20, 1);
+	background: #331956;
+	/*border: 2px solid @border;*/
 }
-*/
+
 
 #workspaces button:hover {
 	transition: none;
