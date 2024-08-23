@@ -57,6 +57,7 @@ def hyprpaper_theme(config: Dict):
             f.write(f"preload={wp_dest_path}\n")
             f.write(f"wallpaper= eDP-1, {wp_dest_path}\n")
             f.write(f"wallpaper= HDMI-A-2, {wp_dest_path}\n")
+            f.write(f"wallpaper= DP-1, {wp_dest_path}\n")
     else:
         with open(config['wallpaper']['hyprpaper_path'], "r") as f_out, \
             open(hyprpaper_config_path, "w") as f_in:
