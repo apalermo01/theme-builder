@@ -1,7 +1,14 @@
 {
   "color1": "#75C4E6",
   "color2": "#03051A",
-  "color3": "#dee7f0",
+  "color3": "#DEE7f0",
   "color4": "#88A0B9",
-  "color5": "#F2340B"
+
+  "black": "#000000",
+  "white": "#FFFFFF",
+  "active": "#68913B",
+  "inactive": "#2a4166",
+  "text": "#c8d3e6",
+  "alert": "#F2340B"
 }
+
