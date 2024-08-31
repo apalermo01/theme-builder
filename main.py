@@ -7,6 +7,7 @@ from modules.wallpaper import parse_wallpaper
 from modules.i3 import parse_i3
 from modules.polybar import parse_polybar
 from modules.nvim import parse_nvim
+from modules.nvchad import parse_nvchad
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -40,7 +41,13 @@ path_config = {
         'template': './default_configs/nvim/',
         'dest': os.path.expanduser("~/.config/nvim/"),
         'func': parse_nvim
-    }
+    },
+
+    'nvchad': {
+        'template': './default_configs/nvchad/',
+        'dest': os.path.expanduser("~/.config/nvim/"),
+        'func': parse_nvchad
+    },
 }
 
 order = [
@@ -48,7 +55,8 @@ order = [
     'i3wm',
     'polybar',
     'wallpaper',
-    'nvim'
+    'nvim',
+    'nvchad',
 ]
 
 
