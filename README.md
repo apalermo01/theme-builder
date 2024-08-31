@@ -7,9 +7,28 @@ The main configurations with everything that is consistent across themes (keybin
 Theme specific configs are located in `./themes/<theme_name>/<theme_name>.json`. `./themes/<theme_name>/` also contains any specific files that are meant to overwrite the default configs.
 
 
+# Project plan for next iteration
+
+The objective of this next phase of development is to drastically simplify the parsing process. Instead of restricting the entire theme to a single json file, I'm going to (wherever possible) define the persistent settings in default configs and set up files that append to these defaults. Any parsing that needs to be done to the default configs will be defined in a single json file for each theme. 
+
+## Checklist of tools:
+
+- [ ] i3 
+- [ ] hyprland 
+- [ ] polybar
+- [ ] waybar
+- [ ] neovim
+- [ ] picom
+- [ ] alacritty
+- [ ] bash
+- [ ] fish
+- [ ] firefox
+- [ ] zathura
+- [ ] rofi / wofi
+- [ ] tmux
 
 
-# Wallpaper sources
+## Wallpaper sources
 
 Link to wallpaper for first hyprland rice: https://wallpaperaccess.com/download/cats-in-space-439064
 
@@ -17,11 +36,11 @@ Link to wallpaper for first hyprland rice: https://wallpaperaccess.com/download/
 - hypr_synth1: https://www.uhdpaper.com/2024/05/moon-retrowave-4k-8k-8433a.html?m=0
 
 
-# Wiki of available options
+## Wiki of available options
 
 Each of the headings and sub-headings below represent an available key in the theme config. Keys that link to specific settings are shown as plain text, followed by a colon and a description of the available options
 
-## alacritty
+### alacritty
 
 - `default_path` - copies the alacritty config from this path into the normal config directory for the app
 
@@ -57,26 +76,3 @@ using an overwritten config specific to the theme
 ### pallet
 - <color_name>: hex code for colors
     - this takes a series of keys representing the hex code of colors for the given template
-
-## fish
-
-## hypr
-
-## i3
-
-## mako
-
-## nvim
-
-## picom
-
-## tmux
-
-## vim
-
-## wallpapers
-
-## waybar
-
-## wofi
-
