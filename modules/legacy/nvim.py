@@ -14,9 +14,11 @@ def _read_tmp() -> List:
         lines = f.readlines()
     return lines
 
+
 def _write_tmp(text: List[str]):
     with open(TMP_PATH, "w") as f:
         f.writelines(text)
+
 
 def _iterate_until_text(text: Iterable[str],
                         new_text: List[str],
@@ -31,10 +33,11 @@ def _iterate_until_text(text: Iterable[str],
         new_text.append(t)
     return text, new_text
 
+
 def _overwrite_or_append_line(
         pattern: str,
         replace_text: str,
-        ):
+):
     config_text = _read_tmp()
     new_text = []
 
@@ -48,11 +51,12 @@ def _overwrite_or_append_line(
 
     _write_tmp(new_text)
 
+
 def _overwrite_or_append_block(
     pattern: str,
     end_pattern: str,
     replace_text: str,
-    ):
+):
 
     config_text = _read_tmp()
     new_text = []
@@ -64,15 +68,15 @@ def _overwrite_or_append_block(
     # TODO: add everything in replace_text, then loop config_text until
     # end_pattern, then add the rest of config_text
 
-def parse_nvim(template: str,
-              dest: str,
-              config: Dict,
-              theme_name: str):
 
+def parse_nvim(template: str,
+               dest: str,
+               config: Dict,
+               theme_name: str):
 
     logger.info("starting to parse nvim config")
     nvim_config = config.get('nvim', {})
-    
+
     if 'default_path' in nvim_config:
         template = nvim_config['default_path']
     logger.info(f"template path: {template}")
@@ -80,17 +84,18 @@ def parse_nvim(template: str,
     with open(template, "r") as f_out, open(dest, "w") as f_in:
         for line in f_out.readlines():
             f_in.write(line)
-    
+
     return config
+
+
 def _configure_colorscheme(nvim_config):
 
     colorscheme = nvim_config.get('colorscheme', 'gruvbox')
     _overwrite_or_append_line(pattern='vim.cmd[[colorscheme',
                               replace_text=f'vim.cmd[[colorscheme {colorscheme}]]')
 
+
 def _configure_lualine(nvim_config):
     lualine_cfg = nvim_config.get("lualine")
     if lualine_cfg is None:
         return
-
-

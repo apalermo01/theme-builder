@@ -6,6 +6,7 @@ from modules.colors import parse_colors
 from modules.wallpaper import parse_wallpaper
 from modules.i3 import parse_i3
 from modules.polybar import parse_polybar
+from modules.nvim import parse_nvim
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -33,6 +34,12 @@ path_config = {
         'template': './default_configs/polybar/',
         'dest': os.path.expanduser("~/.config/polybar/config.ini"),
         'func': parse_polybar
+    },
+
+    'nvim': {
+        'template': './default_configs/nvim/',
+        'dest': os.path.expanduser("~/.config/nvim/"),
+        'func': parse_nvim
     }
 }
 
@@ -40,7 +47,8 @@ order = [
     'colors',
     'i3wm',
     'polybar',
-    'wallpaper'
+    'wallpaper',
+    'nvim'
 ]
 
 
