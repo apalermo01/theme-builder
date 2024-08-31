@@ -13,6 +13,8 @@ The objective of this next phase of development is to drastically simplify the p
 
 ## Checklist of tools:
 
+- [ ] colors
+- [ ] wallpaper
 - [ ] i3 
 - [ ] hyprland 
 - [ ] polybar
@@ -27,6 +29,8 @@ The objective of this next phase of development is to drastically simplify the p
 - [ ] rofi / wofi
 - [ ] tmux
 
+## theme structure
+each theme has a set of folders, each corresponding to a tool / progam. there is a master json file specifying which tools are used.
 
 ## Wallpaper sources
 
@@ -35,8 +39,22 @@ Link to wallpaper for first hyprland rice: https://wallpaperaccess.com/download/
 - i3_minimal: https://www.hongkiat.com/blog/beautiful-minimalist-desktop-wallpapers/
 - hypr_synth1: https://www.uhdpaper.com/2024/05/moon-retrowave-4k-8k-8433a.html?m=0
 
+# Wiki of available options (CURRENT)
 
-## Wiki of available options
+## Colors 
+
+This is one of the required options. Pass this as the colors option in theme.json. It should look something like this:
+
+```json
+"colors": {
+    "method": ...
+}
+```
+
+As of writing, the only supported option is "manual". In the colors folder of the theme, there should be a `colorscheme.json` file with key-value pairs for the color names. All other parsers in the theme will reference this file for color codes.
+
+
+## Wiki of available options (OLD)
 
 Each of the headings and sub-headings below represent an available key in the theme config. Keys that link to specific settings are shown as plain text, followed by a colon and a description of the available options
 
