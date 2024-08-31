@@ -21,7 +21,7 @@ def parse_i3(template: str,
         template = os.path.join(template, "i3.config")
 
     # copy template into temp file
-    with open(template, "r") as f_in, open(TMP_PATH, "a") as f_out:
+    with open(template, "r") as f_in, open(TMP_PATH, "w") as f_out:
         for line in f_in.readlines():
             f_out.write(line)
 
@@ -38,7 +38,9 @@ def parse_i3(template: str,
 
     # now copy the config file to the destination directory
     dest_path = os.path.join(dest, "config")
-    shutil.copy2(src=TMP_PATH, dst=dest_path)
+    with open(TMP_PATH, "r") as tmp, open(dest_path, "w") as dest:
+        for line in tmp.readlines():
+            dest.write(line)
     logger.info(f"copied {TMP_PATH} to {dest_path}")
     return config
 
