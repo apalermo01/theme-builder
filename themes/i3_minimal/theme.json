@@ -2,6 +2,11 @@
   "colors": {
     "method": "manual"
   },
-  "wallpaper": {},
-  "i3": {}
+  "wallpaper": {
+    "method": "feh",
+    "file": "000.png"
+  },
+  "i3wm": {
+    "terminal": "kitty"
+  }
 }

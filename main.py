@@ -2,8 +2,9 @@ import logging
 import os
 import argparse
 import json
-import sys
-import modules as m
+from modules.colors import parse_colors
+from modules.wallpaper import parse_wallpaper
+from modules.i3 import parse_i3
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -12,21 +13,28 @@ path_config = {
     'colors': {
         'template': None,
         'dest': None,
-        'func': m.colors.parse_colors
+        'func': parse_colors
     },
 
     'wallpaper': {
         'template': None,
         'dest': None,
-        'func': m.wallpaper.parse_wallpaper
+        'func': parse_wallpaper
     },
 
     'i3wm': {
         'template': './default_configs/i3/',
-        'dest': os.paht.expanduser("~/.config/i3/"),
-        'func': m.i3.parse_i3
+        'dest': os.path.expanduser("~/.config/i3/"),
+        'func': parse_i3
     }
 }
+
+order = [
+    'colors',
+    'i3wm',
+    'wallpaper',
+]
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -34,6 +42,7 @@ def parse_args():
 #    parser.add_argument("--backup", action=argparse.BooleanOptionalAction)
     args = parser.parse_args()
     return args
+
 
 def main():
     args = parse_args()
@@ -45,15 +54,14 @@ def main():
 
     for key in order:
         if key in config:
+            logger.info(f"processing {key}")
             config = path_config[key]['func'](
-                    template = path_config[key]['template'],
-                    dest = path_config[key]['dest'],
-                    config = config,
-                    theme_name = theme_name
-                    )
+                template=path_config[key]['template'],
+                dest=path_config[key]['dest'],
+                config=config,
+                theme_name=theme_name
+            )
+
 
 if __name__ == '__main__':
     main()
-
-
-
