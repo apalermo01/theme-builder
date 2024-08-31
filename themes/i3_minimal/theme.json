@@ -8,5 +8,6 @@
   },
   "i3wm": {
     "terminal": "kitty"
-  }
+  },
+  "polybar": {}
 }

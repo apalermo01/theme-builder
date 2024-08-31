@@ -2,7 +2,6 @@ from typing import Dict, List, Iterable, Tuple
 import logging
 import os
 import json
-import shutil
 
 TMP_PATH = "./tmp/i3.config"
 logger = logging.getLogger(__name__)

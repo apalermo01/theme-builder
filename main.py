@@ -5,6 +5,7 @@ import json
 from modules.colors import parse_colors
 from modules.wallpaper import parse_wallpaper
 from modules.i3 import parse_i3
+from modules.polybar import parse_polybar
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -26,6 +27,12 @@ path_config = {
         'template': './default_configs/i3/',
         'dest': os.path.expanduser("~/.config/i3/"),
         'func': parse_i3
+    },
+
+    'polybar': {
+        'template': './default_configs/polybar/',
+        'dest': os.path.expanduser("~/.config/polybar/config.ini"),
+        'func': parse_polybar
     }
 }
 
@@ -33,6 +40,7 @@ order = [
     'colors',
     'wallpaper',
     'i3wm',
+    'polybar'
 ]
 
 
