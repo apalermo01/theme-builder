@@ -2,12 +2,12 @@
   "colors": {
     "method": "manual"
   },
-  "wallpaper": {
-    "method": "feh",
-    "file": "000.png"
-  },
   "i3wm": {
     "terminal": "kitty"
   },
-  "polybar": {}
+  "polybar": {},
+  "wallpaper": {
+    "method": "feh",
+    "file": "black_background.jpg"
+  }
 }

@@ -38,9 +38,9 @@ path_config = {
 
 order = [
     'colors',
-    'wallpaper',
     'i3wm',
-    'polybar'
+    'polybar',
+    'wallpaper'
 ]
 
 
