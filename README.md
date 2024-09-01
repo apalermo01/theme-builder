@@ -32,12 +32,14 @@ The objective of this next phase of development is to drastically simplify the p
 - [ ] alacritty
 - [ ] bash
 - [ ] fish
+    - [x] initial pass
+    - [ ] configure prompt
 - [ ] firefox
 - [ ] zathura
 - [x] rofi
 - [ ] wofi
 - [ ] tmux
- - [x] initial Pass
+ - [x] initial pass
  - [ ] auto-parse true color terminal settings
 
 ## theme structure

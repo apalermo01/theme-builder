@@ -12,5 +12,8 @@
   },
   "nvchad": {},
   "tmux": {},
-  "rofi": {}
+  "rofi": {},
+  "fish": {
+    "feats": ["cowsay_fortune", "neofetch", "git_onefetch"]
+  }
 }

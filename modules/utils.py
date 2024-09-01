@@ -33,3 +33,9 @@ def append_source_to_file(src: str, dst: str):
             f_dst.write(line)
 
     logger.info(f"appended {src} to {dst}")
+
+
+def append_text(src: str, text: str):
+
+    with open(src, "a") as f:
+        f.write(text)

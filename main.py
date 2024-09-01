@@ -11,6 +11,8 @@ from modules.nvchad import parse_nvchad
 from modules.tmux import parse_tmux
 from modules.rofi import parse_rofi
 from modules.picom import parse_picom
+from modules.fish import parse_fish
+
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -65,9 +67,15 @@ path_config = {
     },
 
     'picom': {
-        'template': './default_configs/picom',
+        'template': './default_configs/picom/',
         'dest': os.path.expanduser("~/.config/"),
         'func': parse_picom,
+    },
+
+    'fish': {
+        'template': './default_configs/fish/',
+        'dest': os.path.expanduser('~/.config/fish/'),
+        'func': parse_fish
     }
 }
 
@@ -81,6 +89,7 @@ order = [
     'tmux',
     'rofi',
     'picom',
+    'fish'
 ]
 
 
