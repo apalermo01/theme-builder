@@ -10,6 +10,7 @@ from modules.nvim import parse_nvim
 from modules.nvchad import parse_nvchad
 from modules.tmux import parse_tmux
 from modules.rofi import parse_rofi
+from modules.picom import parse_picom
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -58,9 +59,15 @@ path_config = {
     },
 
     'rofi': {
-        'template': './default_config/rofi/',
+        'template': './default_configs/rofi/',
         'dest': os.path.expanduser("~/.config/rofi/"),
         'func': parse_rofi
+    },
+
+    'picom': {
+        'template': './default_configs/picom',
+        'dest': os.path.expanduser("~/.config/"),
+        'func': parse_picom,
     }
 }
 
@@ -71,7 +78,9 @@ order = [
     'wallpaper',
     'nvim',
     'nvchad',
-    'tmux'
+    'tmux',
+    'rofi',
+    'picom',
 ]
 
 

@@ -27,7 +27,7 @@ The objective of this next phase of development is to drastically simplify the p
     - [x] basic nvchad setup
     - [ ] specify nvchad theme in config 
     - [ ] specify separators (and other configurable things) in json file
-- [ ] picom
+- [x] picom
 - [ ] kitty
 - [ ] alacritty
 - [ ] bash
@@ -36,7 +36,9 @@ The objective of this next phase of development is to drastically simplify the p
 - [ ] zathura
 - [x] rofi
 - [ ] wofi
-- [x] tmux
+- [ ] tmux
+ - [x] initial Pass
+ - [ ] auto-parse true color terminal settings
 
 ## theme structure
 each theme has a set of folders, each corresponding to a tool / progam. there is a master json file specifying which tools are used.
