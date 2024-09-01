@@ -14,12 +14,19 @@ The objective of this next phase of development is to drastically simplify the p
 ## Checklist of tools:
 
 - [ ] colors
+    - [ ] pywal
 - [ ] wallpaper
-- [ ] i3 
+    - [x] feh
+    - [ ] hyprpaper
+- [x] i3 
 - [ ] hyprland 
-- [ ] polybar
+- [x] polybar
 - [ ] waybar
 - [ ] neovim
+    - [x] default configs
+    - [x] basic nvchad setup
+    - [ ] specify nvchad theme in config 
+    - [ ] specify separators (and other configurable things) in json file
 - [ ] picom
 - [ ] alacritty
 - [ ] bash
