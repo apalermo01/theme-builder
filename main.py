@@ -8,6 +8,7 @@ from modules.i3 import parse_i3
 from modules.polybar import parse_polybar
 from modules.nvim import parse_nvim
 from modules.nvchad import parse_nvchad
+from modules.tmux import parse_tmux
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -48,6 +49,12 @@ path_config = {
         'dest': os.path.expanduser("~/.config/nvim/"),
         'func': parse_nvchad
     },
+
+    'tmux': {
+        'template': './default_configs/tmux/',
+        'dest': os.path.expanduser("~/"),
+        'func': parse_tmux
+    }
 }
 
 order = [
@@ -57,6 +64,7 @@ order = [
     'wallpaper',
     'nvim',
     'nvchad',
+    'tmux'
 ]
 
 
