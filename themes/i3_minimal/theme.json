@@ -1,4 +1,5 @@
 {
+  "font_family": "font_family JetBrainsMonoNL NFM medium",
   "colors": {
     "method": "manual"
   },
@@ -15,5 +16,6 @@
   "rofi": {},
   "fish": {
     "feats": ["cowsay_fortune", "neofetch", "git_onefetch"]
-  }
+  },
+  "kitty": {}
 }

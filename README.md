@@ -18,7 +18,9 @@ The objective of this next phase of development is to drastically simplify the p
 - [ ] wallpaper
     - [x] feh
     - [ ] hyprpaper
-- [x] i3 
+- [ ] i3 
+    - [x] initial pass
+    - [ ] configure terminal based on what's in config file
 - [ ] hyprland 
 - [x] polybar
 - [ ] waybar
@@ -29,6 +31,8 @@ The objective of this next phase of development is to drastically simplify the p
     - [ ] specify separators (and other configurable things) in json file
 - [x] picom
 - [ ] kitty
+    - [x] initial pass
+    - [ ] colorscheme support
 - [ ] alacritty
 - [ ] bash
 - [ ] fish
@@ -40,7 +44,7 @@ The objective of this next phase of development is to drastically simplify the p
 - [ ] wofi
 - [ ] tmux
  - [x] initial pass
- - [ ] auto-parse true color terminal settings
+ - [ ] auto-parse true color terminal settings based on what terminals are in theme file
 
 ## theme structure
 each theme has a set of folders, each corresponding to a tool / progam. there is a master json file specifying which tools are used.

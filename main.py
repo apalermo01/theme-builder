@@ -12,6 +12,7 @@ from modules.tmux import parse_tmux
 from modules.rofi import parse_rofi
 from modules.picom import parse_picom
 from modules.fish import parse_fish
+from modules.kitty import parse_kitty
 
 
 logger = logging.getLogger(__name__)
@@ -76,6 +77,12 @@ path_config = {
         'template': './default_configs/fish/',
         'dest': os.path.expanduser('~/.config/fish/'),
         'func': parse_fish
+    },
+
+    'kitty': {
+        'template': './default_configs/kitty/',
+        'dest': os.path.expanduser('~/.config/kitty/'),
+        'func': parse_kitty
     }
 }
 
@@ -89,7 +96,8 @@ order = [
     'tmux',
     'rofi',
     'picom',
-    'fish'
+    'fish',
+    'kitty'
 ]
 
 
