@@ -9,6 +9,7 @@ from modules.polybar import parse_polybar
 from modules.nvim import parse_nvim
 from modules.nvchad import parse_nvchad
 from modules.tmux import parse_tmux
+from modules.rofi import parse_rofi
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -54,6 +55,12 @@ path_config = {
         'template': './default_configs/tmux/',
         'dest': os.path.expanduser("~/"),
         'func': parse_tmux
+    },
+
+    'rofi': {
+        'template': './default_config/rofi/',
+        'dest': os.path.expanduser("~/.config/rofi/"),
+        'func': parse_rofi
     }
 }
 

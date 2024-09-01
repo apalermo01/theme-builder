@@ -34,7 +34,8 @@ The objective of this next phase of development is to drastically simplify the p
 - [ ] fish
 - [ ] firefox
 - [ ] zathura
-- [ ] rofi / wofi
+- [x] rofi
+- [ ] wofi
 - [x] tmux
 
 ## theme structure
