@@ -3,9 +3,7 @@
   "colors": {
     "method": "manual"
   },
-  "i3wm": {
-    "terminal": "kitty"
-  },
+  "i3wm": {},
   "polybar": {},
   "wallpaper": {
     "method": "feh",

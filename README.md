@@ -20,7 +20,7 @@ The objective of this next phase of development is to drastically simplify the p
     - [ ] hyprpaper
 - [ ] i3 
     - [x] initial pass
-    - [ ] configure terminal based on what's in config file
+    - [x] configure terminal based on what's in config file
 - [ ] hyprland 
 - [x] polybar
 - [ ] waybar

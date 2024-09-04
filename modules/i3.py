@@ -2,6 +2,7 @@ from typing import Dict, List, Iterable, Tuple
 import logging
 import os
 import json
+from . import available_terminals
 
 TMP_PATH = "./tmp/i3.config"
 logger = logging.getLogger(__name__)
@@ -46,7 +47,12 @@ def parse_i3(template: str,
 
 def _configure_terminal(config: Dict):
 
-    terminal: str = config['i3wm'].get('terminal', 'gnome-terminal')
+    terminal: str = 'gnome-terminal'
+    for i in available_terminals:
+        if i in config:
+            terminal = i
+            logger.info(f"Found {i} in theme's config. Assigning this terminal to $mod+Return")
+
     pattern: str = "bindsym $mod+Return exec"
     replace_text: str = f"bindsym $mod+Return exec {terminal}"
 
