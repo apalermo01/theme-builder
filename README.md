@@ -27,7 +27,7 @@ The objective of this next phase of development is to drastically simplify the p
 - [ ] neovim
     - [x] default configs
     - [x] basic nvchad setup
-    - [ ] specify nvchad theme in config 
+    - [x] specify nvchad theme in config 
     - [ ] specify separators (and other configurable things) in json file
 - [x] picom
 - [ ] kitty
@@ -45,6 +45,7 @@ The objective of this next phase of development is to drastically simplify the p
 - [ ] tmux
  - [x] initial pass
  - [ ] auto-parse true color terminal settings based on what terminals are in theme file
+- [ ] implement a more robust way of inserting configuration options into temp config files. For example, colorscheme for nvchad relies on an exact match of 'theme = "'
 
 ## theme structure
 each theme has a set of folders, each corresponding to a tool / progam. there is a master json file specifying which tools are used.

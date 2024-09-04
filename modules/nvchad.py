@@ -17,10 +17,12 @@ nvchad_files = [
     "lua/configs/lspconfig.lua"
 ]
 
+
 def _copy_file(src, dest):
     with open(src, "r") as f_out, open(dest, 'w') as f_in:
         for line in f_out.readlines():
             f_in.write(line)
+
 
 def parse_nvchad(template: str,
                  dest: str,
@@ -32,7 +34,7 @@ def parse_nvchad(template: str,
     nvim_config: Dict = config.get('nvim', {})
     overwrite_files: List = nvim_config.get('overwrite', [])
     append_files: List = nvim_config.get('append', [])
-    
+
     logger.info(f"files to overwrite: {overwrite_files}")
     logger.info(f"files to append: {append_files}")
 
@@ -49,18 +51,21 @@ def parse_nvchad(template: str,
     for f in nvchad_files:
         if f in overwrite_files:
             _copy_file(os.path.join("themes", theme_name, "nvchad", f),
-                        os.path.join(TMP_PATH, f))
+                       os.path.join(TMP_PATH, f))
         else:
             _copy_file(os.path.join(template, f),
-                        os.path.join(TMP_PATH, f))
-            
+                       os.path.join(TMP_PATH, f))
+
     # append files as needed
     for f in append_files:
         src = os.path.join("themes", theme_name, "nvchad", f)
         dst = os.path.join(TMP_PATH, f)
         with open(src, "r") as f_src, open(dst, "a") as f_dst:
-            for line in f_scr.readlines():
+            for line in f_src.readlines():
                 f_dst.write(line)
+
+    # configure theme
+    _configure_colorscheme(nvim_config)
 
     # clear out the old config
     _delete_in_folder(os.path.expanduser("~/.config/nvim/"))
@@ -69,9 +74,11 @@ def parse_nvchad(template: str,
     lua_dest_path = os.path.join(dest, "lua")
     lua_plugins_dest_path = os.path.join(dest, "lua", "plugins")
     lua_configs_dest_path = os.path.join(dest, "lua", "configs")
+
     for path in [dest, lua_dest_path, lua_plugins_dest_path, lua_configs_dest_path]:
         if not os.path.exists(path):
             os.mkdir(path)
+
     for f in nvchad_files:
         src = os.path.join(TMP_PATH, f)
         dst = os.path.join(dest, f)
@@ -84,21 +91,28 @@ def parse_nvchad(template: str,
 
 
 def _configure_colorscheme(nvim_config):
-    pass
+    colorscheme = nvim_config.get('colorscheme', 'gruvchad')
+    pattern: str = 'theme = "'
+    text: str = f'  theme = "{colorscheme}",'
+    path: str = "./tmp/nvchad/lua/chadrc.lua"
+    _overwrite_or_append_line(path=path,
+                              pattern=pattern,
+                              replace_text=text
+                              )
     # colorscheme: str = nvim_config.get('colorscheme', 'gruvbox')
     # cmd: str = f'vim.cmd[[colorscheme {colorscheme}]]'
     # _overwrite_or_append_line(pattern='vim.cmd[[colorscheme',
     #                           replace_text=cmd)
 
 
-def _read_tmp() -> List:
-    with open(TMP_PATH, "r") as f:
+def _read_tmp(path: str) -> List:
+    with open(path, "r") as f:
         lines = f.readlines()
     return lines
 
 
-def _write_tmp(text: List[str]):
-    with open(TMP_PATH, "w") as f:
+def _write_tmp(text: List[str], path: str):
+    with open(path, "w") as f:
         f.writelines(text)
 
 
@@ -117,10 +131,11 @@ def _iterate_until_text(text: Iterable[str],
 
 
 def _overwrite_or_append_line(
+        path: str,
         pattern: str,
         replace_text: str,
 ):
-    config_text = _read_tmp()
+    config_text = _read_tmp(path)
     new_text = []
 
     config_text, new_text = _iterate_until_text(iter(config_text),
@@ -128,10 +143,11 @@ def _overwrite_or_append_line(
                                                 pattern,
                                                 append_target=False)
     new_text.append(f"{replace_text}\n")
+
     for t in config_text:
         new_text.append(t)
 
-    _write_tmp(new_text)
+    _write_tmp(new_text, path)
 
 
 def _delete_in_folder(path: str):
