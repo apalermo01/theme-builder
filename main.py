@@ -2,6 +2,7 @@ import logging
 import os
 import argparse
 import json
+from modules.utils import validate_config
 from modules.colors import parse_colors
 from modules.wallpaper import parse_wallpaper
 from modules.i3 import parse_i3
@@ -13,6 +14,7 @@ from modules.rofi import parse_rofi
 from modules.picom import parse_picom
 from modules.fish import parse_fish
 from modules.kitty import parse_kitty
+
 
 
 logger = logging.getLogger(__name__)
@@ -116,7 +118,9 @@ def main():
 
     with open(path, "r") as f:
         config = json.load(f)
-
+    if not validate_config(config):
+        
+        return
     for key in order:
         if key in config:
             logger.info(f"processing {key}")

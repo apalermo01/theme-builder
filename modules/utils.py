@@ -1,7 +1,39 @@
 import logging
 import os
+from typing import Dict
 
 logger = logging.getLogger(__name__)
+
+
+def validate_config(config: Dict) -> bool:
+    allowed_elements = dict(
+        terminals=[
+            'kitty'
+        ],
+
+        wms=[
+            'i3'
+        ],
+
+        bars=[
+            'polybar'
+        ],
+
+        shells=[
+            'fish',
+            'bash'
+        ])
+
+    for key in allowed_elements:
+
+        num_elements_of_category = sum(
+            1 for i in allowed_elements[key] if i in config.keys())
+        if num_elements_of_category > 1:
+            print(f"\x1b[31mMultiple elements found for {
+                  key}. Config must have one or none of {allowed_elements[key]}")
+
+            return False
+    return True
 
 
 def default_parser(default_config_path: str,
