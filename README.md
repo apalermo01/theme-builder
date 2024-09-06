@@ -46,7 +46,11 @@ The objective of this next phase of development is to drastically simplify the p
  - [x] initial pass
  - [ ] auto-parse true color terminal settings based on what terminals are in theme file
 - [ ] implement a more robust way of inserting configuration options into temp config files. For example, colorscheme for nvchad relies on an exact match of 'theme = "'
-- [ ] orgnaize allowed elements in utils
+- [x] orgnaize allowed elements in utils
+- [ ] documentation
+    - [ ] add info about default path parameter
+    - [ ] base configuration 
+    - [ ] appended theme-specific config options
 
 ## theme structure
 each theme has a set of folders, each corresponding to a tool / progam. there is a master json file specifying which tools are used.
@@ -58,7 +62,16 @@ Link to wallpaper for first hyprland rice: https://wallpaperaccess.com/download/
 - i3_minimal: https://www.hongkiat.com/blog/beautiful-minimalist-desktop-wallpapers/
 - hypr_synth1: https://www.uhdpaper.com/2024/05/moon-retrowave-4k-8k-8433a.html?m=0
 
-# Wiki of available options (CURRENT)
+# Configuration
+
+## Format
+
+Each theme is defined in the subfolder of the `themes` folder. The main configuration lives in a file called `theme.json`. The keys of this json file correspond to each tool / program that is modified in the specific theme. There is a QA utility that runs before any files are parsed to ensure that only one program of each type is in the config (for example, you can't have both i3wm and hyprland in the config).
+
+
+## Global Options
+
+**font_family**: for tools that have a main font family defined - specify that here
 
 ## Colors 
 
@@ -73,43 +86,41 @@ This is one of the required options. Pass this as the colors option in theme.jso
 As of writing, the only supported option is "manual". In the colors folder of the theme, there should be a `colorscheme.json` file with key-value pairs for the color names. All other parsers in the theme will reference this file for color codes.
 
 
-## Wiki of available options (OLD)
+## terminals
 
-Each of the headings and sub-headings below represent an available key in the theme config. Keys that link to specific settings are shown as plain text, followed by a colon and a description of the available options
+### Kitty
 
-### alacritty
+name in config: `kitty`
 
-- `default_path` - copies the alacritty config from this path into the normal config directory for the app
+## Window Managers
 
-There isn't any configuration to do in the theme's json file. If you want a custom alacritty config, save it in the theme's folder and link to it in default path.
+### i3
 
-Examples:
+name in config: `i3wm`
 
-using global default config:
+## Bars
 
-```json
-{
-    "alacritty": {}
-}
-```
+### Polybar
 
-using an overwritten config specific to the theme
+name in config: `polybar`
 
-```json
-{
-    "alacritty": {
-        "default_path": "./themes/my_theme_name/alacritty.toml"
-        }
-}
-```
-## bash
+## Shells
 
-## colors
+### Bash 
 
-### settings
-- `color_mode`: "pywal" or "manual"
-    - if "pywal" is selected, then pywal will be used to generate a colorscheme based on the wallpaper path. If manual, then the user will be expected to populate the "pallet" component of the colors entry.
+name in config: `bash`
 
-### pallet
-- <color_name>: hex code for colors
-    - this takes a series of keys representing the hex code of colors for the given template
+### Fish 
+
+name in config: `fish`
+
+## Neovim Distros
+
+### Vanilla neovim 
+
+name in config: `nvim`
+
+### NvChad
+
+name in config: `nvchad`
+
