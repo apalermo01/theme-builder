@@ -46,6 +46,7 @@ The objective of this next phase of development is to drastically simplify the p
  - [x] initial pass
  - [ ] auto-parse true color terminal settings based on what terminals are in theme file
 - [ ] implement a more robust way of inserting configuration options into temp config files. For example, colorscheme for nvchad relies on an exact match of 'theme = "'
+- [ ] orgnaize allowed elements in utils
 
 ## theme structure
 each theme has a set of folders, each corresponding to a tool / progam. there is a master json file specifying which tools are used.

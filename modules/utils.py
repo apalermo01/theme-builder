@@ -1,29 +1,12 @@
 import logging
 import os
 from typing import Dict
+from . import allowed_elements
 
 logger = logging.getLogger(__name__)
 
 
 def validate_config(config: Dict) -> bool:
-    allowed_elements = dict(
-        terminals=[
-            'kitty'
-        ],
-
-        wms=[
-            'i3'
-        ],
-
-        bars=[
-            'polybar'
-        ],
-
-        shells=[
-            'fish',
-            'bash'
-        ])
-
     for key in allowed_elements:
 
         num_elements_of_category = sum(

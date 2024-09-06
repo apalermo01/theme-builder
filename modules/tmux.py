@@ -1,9 +1,11 @@
 import logging
 from typing import Dict
 import os
-from .utils import default_parser
+from .utils import write_source_to_file, append_source_to_file
 
 logger = logging.getLogger(__name__)
+
+TMP_PATH = "./tmp/tmux.conf"
 
 
 def parse_tmux(config: Dict,
@@ -21,5 +23,11 @@ def parse_tmux(config: Dict,
     else:
         template = os.path.join(template, "tmux.conf")
 
-    default_parser(template, dest, theme_config, theme_name)
+    write_source_to_file(template, TMP_PATH)
+    
+    if os.path.exists(theme_config):
+        append_source_to_file(theme_config, TMP_PATH)
+
+    write_source_to_file(TMP_PATH, dest)
+    # default_parser(template, dest, theme_config, theme_name)
     return config

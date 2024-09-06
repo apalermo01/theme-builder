@@ -51,7 +51,8 @@ def _configure_terminal(config: Dict):
     for i in available_terminals:
         if i in config:
             terminal = i
-            logger.info(f"Found {i} in theme's config. Assigning this terminal to $mod+Return")
+            logger.info(
+                f"Found {i} in theme's config. Assigning this terminal to $mod+Return")
 
     pattern: str = "bindsym $mod+Return exec"
     replace_text: str = f"bindsym $mod+Return exec {terminal}"
