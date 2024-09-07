@@ -15,7 +15,6 @@ from modules.waybar import parse_waybar
 import os
 import argparse
 import json
-import sys
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)

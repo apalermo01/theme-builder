@@ -14,7 +14,7 @@ from modules.rofi import parse_rofi
 from modules.picom import parse_picom
 from modules.fish import parse_fish
 from modules.kitty import parse_kitty
-
+from modules.alacritty import parse_alacritty
 
 
 logger = logging.getLogger(__name__)
@@ -85,7 +85,12 @@ path_config = {
         'template': './default_configs/kitty/',
         'dest': os.path.expanduser('~/.config/kitty/'),
         'func': parse_kitty
-    }
+    },
+    "alacritty": {
+        "template": "./default_configs/alacritty.toml",
+        "dest": os.path.expanduser("~/.config/alacritty/alacritty.toml"),
+        "func": parse_alacritty,
+        },
 }
 
 order = [
@@ -99,7 +104,8 @@ order = [
     'rofi',
     'picom',
     'fish',
-    'kitty'
+    'kitty',
+    'alacritty',
 ]
 
 
@@ -119,7 +125,7 @@ def main():
     with open(path, "r") as f:
         config = json.load(f)
     if not validate_config(config):
-        
+
         return
     for key in order:
         if key in config:

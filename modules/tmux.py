@@ -24,7 +24,7 @@ def parse_tmux(config: Dict,
         template = os.path.join(template, "tmux.conf")
 
     write_source_to_file(template, TMP_PATH)
-    
+
     if os.path.exists(theme_config):
         append_source_to_file(theme_config, TMP_PATH)
 
