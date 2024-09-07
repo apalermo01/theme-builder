@@ -17,10 +17,8 @@ def parse_colors(
 
     Arguments to config:
 
-    - method: "manual"
+    - method: "manual" or "pywal"
 
-    TODO:
-    add option for pywal
     """
 
     allowed_methods: List[str] = ['manual', 'pywal']
@@ -61,7 +59,7 @@ def _write_pallet_to_colorscheme(pallet: str,
         for key in pallet:
             scheme[key] = pallet[key]
         with open(colorscheme_path, "w") as f:
-            json.dump(pallet, f, indent=2)
+            json.dump(scheme, f, indent=2)
 
 
 def _configure_pywal_colors(wallpaper_path: str) -> Dict:
