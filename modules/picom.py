@@ -1,6 +1,7 @@
 import logging
 from typing import Dict
 import os
+import subprocess
 from .utils import default_parser
 
 logger = logging.getLogger(__name__)
@@ -12,6 +13,7 @@ def parse_picom(config: Dict,
                 theme_name: str) -> Dict:
 
     logger.info("Loading picom...")
+    subprocess.run(['killall', 'picom'])
     dest = os.path.join(dest, "picom.conf")
     theme_config = os.path.join("themes", theme_name, "picom", "picom.conf")
 
