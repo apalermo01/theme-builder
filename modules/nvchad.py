@@ -31,7 +31,7 @@ def parse_nvchad(template: str,
 
     logger.info("Loading NvChad...")
 
-    nvim_config: Dict = config.get('nvim', {})
+    nvim_config: Dict = config.get('nvchad', {})
     overwrite_files: List = nvim_config.get('overwrite', [])
     append_files: List = nvim_config.get('append', [])
 
@@ -95,6 +95,7 @@ def parse_nvchad(template: str,
 
 def _configure_colorscheme(nvim_config):
     colorscheme = nvim_config.get('colorscheme', 'gruvchad')
+    logger.info(f"setting nvchad colorscheme to {colorscheme}")
     pattern: str = 'theme = "'
     text: str = f'  theme = "{colorscheme}",'
     path: str = "./tmp/nvchad/lua/chadrc.lua"
@@ -102,10 +103,6 @@ def _configure_colorscheme(nvim_config):
                               pattern=pattern,
                               replace_text=text
                               )
-    # colorscheme: str = nvim_config.get('colorscheme', 'gruvbox')
-    # cmd: str = f'vim.cmd[[colorscheme {colorscheme}]]'
-    # _overwrite_or_append_line(pattern='vim.cmd[[colorscheme',
-    #                           replace_text=cmd)
 
 
 def _read_tmp(path: str) -> List:

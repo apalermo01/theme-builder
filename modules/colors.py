@@ -57,11 +57,11 @@ def _write_pallet_to_colorscheme(pallet: str,
 
     else:
         with open(colorscheme_path, "r") as f:
-            scheme = json.read(f)
+            scheme = json.load(f)
         for key in pallet:
             scheme[key] = pallet[key]
         with open(colorscheme_path, "w") as f:
-            json.dump(pallet, f)
+            json.dump(pallet, f, indent=2)
 
 
 def _configure_pywal_colors(wallpaper_path: str) -> Dict:

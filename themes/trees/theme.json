@@ -1,15 +1,17 @@
 {
   "font_family": "font_family JetBrainsMonoNL NFM medium",
   "colors": {
-    "method": "manual"
+    "method": "pywal"
   },
   "i3wm": {},
   "polybar": {},
   "wallpaper": {
     "method": "feh",
-    "file": "black_background.jpg"
+    "file": "trees.jpg"
   },
-  "nvchad": {},
+  "nvchad": {
+    "colorscheme": "everforest"
+  },
   "tmux": {},
   "rofi": {},
   "fish": {},
