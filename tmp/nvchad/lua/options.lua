@@ -9,3 +9,7 @@ o.termguicolors = true
 require("colorizer").setup {
   filetypes = { "*" }
 }
+
+require("render-markdown").setup({
+  file_types = {'markdown', 'md', 'quarto'},
+})
