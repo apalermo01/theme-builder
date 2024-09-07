@@ -6,10 +6,10 @@ from .utils import default_parser
 logger = logging.getLogger(__name__)
 
 
-def parse_rofi(config: Dict,
-               template: str,
-               dest: str,
-               theme_name: str) -> Dict:
+def parse_alacritty(config: Dict,
+                    template: str,
+                    dest: str,
+                    theme_name: str) -> Dict:
 
     logger.info("Loading alacritty...")
     dest = os.path.join(dest, "alacritty.toml")
