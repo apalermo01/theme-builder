@@ -41,13 +41,27 @@ def parse_colors(
         if '/' not in wallpaper_path:
             wallpaper_path = os.path.join('.', 'wallpapers', wallpaper_path)
         pallet = _configure_pywal_colors(wallpaper_path)
-        with open(colorscheme_path, "w") as f:
-            json.dump(pallet, f)
+        _write_pallet_to_colorscheme(pallet, colorscheme_path)
 
     with open(colorscheme_path, "r") as f:
         colorscheme = json.load(f)
     make_pallet_image(colorscheme)
     return config
+
+
+def _write_pallet_to_colorscheme(pallet: str,
+                                 colorscheme_path: str):
+    if not os.path.exists(colorscheme_path):
+        with open(colorscheme_path, "w") as f:
+            json.dump(pallet, f)
+
+    else:
+        with open(colorscheme_path, "r") as f:
+            scheme = json.read(f)
+        for key in pallet:
+            scheme[key] = pallet[key]
+        with open(colorscheme_path, "w") as f:
+            json.dump(pallet, f)
 
 
 def _configure_pywal_colors(wallpaper_path: str) -> Dict:
@@ -77,6 +91,7 @@ def _configure_pywal_colors(wallpaper_path: str) -> Dict:
         pallet[s] = pywal_colors["special"][s]
     for c in pywal_colors["colors"]:
         pallet[c] = pywal_colors["colors"][c]
+
     logger.debug("pallet configuration successful")
 
     return pallet
