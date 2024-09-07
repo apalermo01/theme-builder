@@ -14,11 +14,11 @@ The objective of this next phase of development is to drastically simplify the p
 ## Checklist of tools:
 
 - [ ] colors
-    - [ ] pywal
+    - [x] pywal
 - [ ] wallpaper
     - [x] feh
     - [ ] hyprpaper
-- [ ] i3 
+- [x] i3 
     - [x] initial pass
     - [x] configure terminal based on what's in config file
 - [ ] hyprland 
@@ -33,7 +33,7 @@ The objective of this next phase of development is to drastically simplify the p
 - [ ] kitty
     - [x] initial pass
     - [ ] colorscheme support
-- [ ] alacritty
+- [x] alacritty
 - [ ] bash
 - [ ] fish
     - [x] initial pass
