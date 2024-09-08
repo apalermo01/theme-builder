@@ -35,6 +35,7 @@ def parse_i3(template: str,
             f_out.write(line)
 
     _configure_colors(theme_name)
+    _configure_picom(config)
 
     # now copy the config file to the destination directory
     dest_path = os.path.join(dest, "config")
@@ -43,6 +44,15 @@ def parse_i3(template: str,
             dest.write(line)
     logger.info(f"copied {TMP_PATH} to {dest_path}")
     return config
+
+
+def _configure_picom(config: Dict):
+    if 'picom' not in config:
+        return
+
+    logger.info("picom found in this theme's config")
+    _append_if_not_present("\nexec killall picom\n")
+    _append_if_not_present("\nexec_always picom --config ~/.config/picom.conf\n")
 
 
 def _configure_terminal(config: Dict):
@@ -123,3 +133,19 @@ def _overwrite_or_append_line(
         new_text.append(t)
 
     _write_tmp(new_text)
+
+
+def _append_if_not_present(
+        text: str
+):
+
+    config_text = _read_tmp()
+
+    text_found = False
+    for line in config_text:
+        if text in line:
+            text_found = True
+
+    if not text_found:
+        config_text.append(text)
+        _write_tmp(config_text)

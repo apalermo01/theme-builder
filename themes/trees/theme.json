@@ -15,5 +15,8 @@
   "tmux": {},
   "rofi": {},
   "fish": {},
-  "kitty": {}
+  "kitty": {},
+  "picom": {
+    "default_path": "./themes/trees/picom/picom.conf"
+  }
 }

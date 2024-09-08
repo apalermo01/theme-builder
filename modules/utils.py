@@ -28,7 +28,8 @@ def default_parser(default_config_path: str,
 
     write_source_to_file(default_config_path, destination_config_path)
 
-    if os.path.exists(theme_config_path):
+    if os.path.exists(theme_config_path) \
+            and not os.path.samefile(theme_config_path, default_config_path):
         append_source_to_file(theme_config_path, destination_config_path)
 
 
