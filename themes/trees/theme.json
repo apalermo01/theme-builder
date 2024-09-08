@@ -13,7 +13,9 @@
     "colorscheme": "everforest"
   },
   "tmux": {},
-  "rofi": {},
+  "rofi": {
+    "default_path": "./themes/trees/rofi/config.rasi"
+  },
   "fish": {},
   "kitty": {},
   "picom": {
