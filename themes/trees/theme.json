@@ -10,7 +10,8 @@
     "file": "trees.jpg"
   },
   "nvchad": {
-    "colorscheme": "everforest"
+    "colorscheme": "everforest",
+    "overwrite": ["lua/chadrc.lua"]
   },
   "tmux": {},
   "rofi": {

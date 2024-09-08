@@ -13,7 +13,7 @@ The objective of this next phase of development is to drastically simplify the p
 
 ## Checklist of tools:
 
-- [ ] colors
+- [x] colors
     - [x] pywal
 - [ ] wallpaper
     - [x] feh
@@ -28,7 +28,8 @@ The objective of this next phase of development is to drastically simplify the p
     - [x] default configs
     - [x] basic nvchad setup
     - [x] specify nvchad theme in config 
-    - [ ] specify separators (and other configurable things) in json file
+    - [x] specify separators (and other configurable things) in json files
+        - going for a simpler option here and just overwriting chadrc
 - [x] picom
 - [ ] kitty
     - [x] initial pass
