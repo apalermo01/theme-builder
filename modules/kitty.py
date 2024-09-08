@@ -20,7 +20,7 @@ def parse_kitty(config: Dict,
         template = config['kitty']['default_path']
     else:
         template = os.path.join(template, "kitty.conf")
-   
+
     write_source_to_file(template, dest)
 
     if "fish" in config:

@@ -17,7 +17,9 @@
   "rofi": {
     "default_path": "./themes/trees/rofi/config.rasi"
   },
-  "fish": {},
+  "fish": {
+    "feats": ["run_pywal"]
+  },
   "kitty": {},
   "picom": {
     "default_path": "./themes/trees/picom/picom.conf"
