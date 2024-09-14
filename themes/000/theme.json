@@ -1,5 +1,5 @@
 {
-  "font_family": "font_family JetBrainsMonoNL NFM medium",
+  "font": "JetBrainsMonoNL NFM medium",
   "colors": {
     "method": "manual"
   },
@@ -15,7 +15,7 @@
   "tmux": {},
   "rofi": {},
   "fish": {
-    "feats": ["ruN_pywal"]
+    "feats": ["run_pywal"]
   },
   "kitty": {},
   "picom": {}

@@ -28,6 +28,10 @@ def parse_tmux(config: Dict,
     if os.path.exists(theme_config):
         append_source_to_file(theme_config, TMP_PATH)
 
+    # final tpm install bit 
+    with open(TMP_PATH, "a") as f:
+        f.write("run '~/.tmux/plugins/tpm/tpm'")
+
     write_source_to_file(TMP_PATH, dest)
     # default_parser(template, dest, theme_config, theme_name)
     return config
