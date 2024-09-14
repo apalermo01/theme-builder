@@ -10,12 +10,12 @@
     "file": "000.png"
   },
   "nvchad": {
-    "theme": "nord"
+    "colorscheme": "nord"
   },
   "tmux": {},
   "rofi": {},
   "fish": {
-    "feats": ["run_pywal"]
+    "feats": ["run_pywal", "neofetch"]
   },
   "kitty": {},
   "picom": {}

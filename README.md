@@ -52,7 +52,7 @@ The objective of this next phase of development is to drastically simplify the p
     - [ ] add info about default path parameter
     - [ ] base configuration 
     - [ ] appended theme-specific config options
-
+- [ ] neofetch prompt
 ## theme structure
 each theme has a set of folders, each corresponding to a tool / progam. there is a master json file specifying which tools are used.
 

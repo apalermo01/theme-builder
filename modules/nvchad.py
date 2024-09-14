@@ -80,7 +80,9 @@ def parse_nvchad(template: str,
     lua_plugins_dest_path = os.path.join(dest, "lua", "plugins")
     lua_configs_dest_path = os.path.join(dest, "lua", "configs")
 
-    for path in [dest, lua_dest_path, lua_plugins_dest_path, lua_configs_dest_path]:
+    for path in [dest, lua_dest_path,
+                 lua_plugins_dest_path,
+                 lua_configs_dest_path]:
         if not os.path.exists(path):
             os.mkdir(path)
 
