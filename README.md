@@ -24,7 +24,7 @@ The objective of this next phase of development is to drastically simplify the p
 - [ ] hyprland 
 - [x] polybar
 - [ ] waybar
-- [ ] neovim
+- [x] neovim
     - [x] default configs
     - [x] basic nvchad setup
     - [x] specify nvchad theme in config 
@@ -32,9 +32,10 @@ The objective of this next phase of development is to drastically simplify the p
         - going for a simpler option here and just overwriting chadrc
 - [x] picom
 - [x] kitty
+    - [ ] set shell info based on theme's config
 - [x] alacritty
 - [ ] bash
-- [ ] fish
+- [x] fish
     - [x] initial pass
     - [x] configure prompt
         - this will be done in the appened snippet for each theme
@@ -73,6 +74,8 @@ Each theme is defined in the subfolder of the `themes` folder. The main configur
 
 **font_family**: for tools that have a main font family defined - specify that here
 
+**default_path**: this is a parameter that is available in **all** tools. This overwrites the location of the default config file from `./default_configs/tool_name/...` to a file or directory of your choosing. This is useful if you want to completely rewrite the default for a given theme.
+
 ## Colors 
 
 This is one of the required options. Pass this as the colors option in theme.json. It should look something like this:
@@ -83,14 +86,21 @@ This is one of the required options. Pass this as the colors option in theme.jso
 }
 ```
 
-As of writing, the only supported option is "manual". In the colors folder of the theme, there should be a `colorscheme.json` file with key-value pairs for the color names. All other parsers in the theme will reference this file for color codes.
+The two supported methods are "manual" and "pywal"
 
+**manual**
+create a file called `colorsheme.json` in the theme's directory. Keys are color names and values are hex color codes. All other modules reference this file to get their colorscheme.
+
+**pywal**
+When you run `main.py --theme <theme name>`,  pywal will append its generated colors to `colorscheme.json` for consumption by other tools. This does not overwrite existing colors in `colorscheme.json` so you can still define your own colors.
 
 ## terminals
 
 ### Kitty
 
 name in config: `kitty`
+
+There are no options to pass in `theme.json`. However, if there are commands you wish to append to the default config file, put those in `theme_directory/kitty/`
 
 ## Window Managers
 

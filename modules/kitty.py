@@ -13,6 +13,7 @@ def parse_kitty(config: Dict,
 
     logger.info("Loading kitty...")
     dest = os.path.join(dest, "kitty.conf")
+
     theme_config = os.path.join("themes", theme_name, "kitty", "kitty.conf")
 
     # copy template file to destination
@@ -29,7 +30,7 @@ def parse_kitty(config: Dict,
     if "font" in config:
         append_text(dest, f"font_family {config['font']}\n")
 
-    if os.path.exists(theme_config):
+    if os.path.exists(theme_config) and theme_config != template:
         append_source_to_file(theme_config, dest)
 
     return config
