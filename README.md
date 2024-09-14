@@ -124,6 +124,8 @@ There are no options to pass in `theme.json`. However, if there are commands you
 
 When preparing the final config file, this sets the default shell using `chsh` (right now this only works for fish) and updates the "font_family" option to match "font" in the theme's config (if it exists).
 
+### alacritty
+
 ## Window Managers
 
 ### i3
@@ -140,6 +142,10 @@ It is highly recommended that you always make a file that appends settings for i
 ### Polybar
 
 name in config: `polybar`
+
+## Compositors
+
+### picom 
 
 ## Shells
 
@@ -161,3 +167,10 @@ name in config: `nvim`
 
 name in config: `nvchad`
 
+**Important note**: the theme change in nvchad only works when you select the theme using `,th` (default for changing theme) or save lua/chadrc.lua in nvim. Whenver you switch the theme, open `~/.config/nvim/lua/chadrc.lua` and hit `:w` to re-save the file and have the new theme take effect.
+
+## Other tools
+
+### tmux
+
+### rofi

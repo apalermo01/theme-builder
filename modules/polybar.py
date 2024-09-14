@@ -22,8 +22,11 @@ def parse_polybar(config: Dict,
         polybar.read(custom_path)
         logger.info(f"loaded custom polybar config from {custom_path}")
     else:
-        polybar.read(template)
-        logger.info("loaded default polybar config from default template")
+        logger.error(f"polybar requires a custom config at {custom_path}")
+        raise FileNotFoundError(
+            f"polybar requires a custom config at {custom_path}")
+        # polybar.read(template)
+        # logger.info("loaded default polybar config from default template")
 
     polybar = _parse_colors(polybar, theme_name)
 
@@ -57,6 +60,8 @@ def _parse_colors(polybar: configparser.ConfigParser, theme_name: str):
 
     for c in polybar['colors']:
         color_str = polybar['colors'][c]
+        if '<' not in color_str:
+            continue
         color_key = color_str.split('<')[1].split('>')[0]
         if color_key in colorscheme:
             polybar['colors'][c] = colorscheme[color_key]

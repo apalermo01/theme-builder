@@ -15,6 +15,13 @@ def parse_i3(template: str,
 
     logger.info("configuring i3...")
     # allow theme to overwrite template
+    theme_path = os.path.join(".", "themes", theme_name, "i3", "i3.config")
+    if not os.path.exists(theme_path):
+        logger.error(
+            f"Theme-specific config for i3 ({theme_path}) not found. " +
+            "This file is required")
+        raise FileNotFoundError
+
     if "template" in config['i3wm']:
         template: str = config['i3wm']['default_path']
     else:
@@ -29,7 +36,6 @@ def parse_i3(template: str,
     _configure_terminal(config)
 
     # now write the other theme-specific settings
-    theme_path = os.path.join(".", "themes", theme_name, "i3", "i3.config")
     with open(theme_path, "r") as f_in, open(TMP_PATH, "a") as f_out:
         for line in f_in.readlines():
             f_out.write(line)
@@ -52,7 +58,8 @@ def _configure_picom(config: Dict):
 
     logger.info("picom found in this theme's config")
     _append_if_not_present("\nexec killall picom\n")
-    _append_if_not_present("\nexec_always picom --config ~/.config/picom.conf\n")
+    _append_if_not_present(
+        "\nexec_always picom --config ~/.config/picom.conf\n")
 
 
 def _configure_terminal(config: Dict):
