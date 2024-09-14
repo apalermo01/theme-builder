@@ -94,19 +94,46 @@ create a file called `colorsheme.json` in the theme's directory. Keys are color 
 **pywal**
 When you run `main.py --theme <theme name>`,  pywal will append its generated colors to `colorscheme.json` for consumption by other tools. This does not overwrite existing colors in `colorscheme.json` so you can still define your own colors.
 
+When supplying color information to config files, the syntax is `<colorname>` where `colorname` is a key in `colorscheme.json`. For example, this may be a line in a configuration file for i3:
+
+```
+client.focused	         <color1>	  <foreground>	 <color8>   	<color1>	    <color1>
+```
+
+If `colorscheme.json` contains:
+```json
+{
+    "foreground": "#dceabf",
+    "color1": "#427655",
+    "color8": "#9aa385"
+}
+```
+
+Then this line will resolve to:
+```
+client.focused	         #427655	  #dceabf	 #9aa385   	#427655	    #427655
+```
+
 ## terminals
 
 ### Kitty
 
 name in config: `kitty`
 
-There are no options to pass in `theme.json`. However, if there are commands you wish to append to the default config file, put those in `theme_directory/kitty/`
+There are no options to pass in `theme.json`. However, if there are commands you wish to append to the default config file, put those in `theme_directory/kitty/kitty.conf`.
+
+When preparing the final config file, this sets the default shell using `chsh` (right now this only works for fish) and updates the "font_family" option to match "font" in the theme's config (if it exists).
 
 ## Window Managers
 
 ### i3
 
 name in config: `i3wm`
+
+There are no options to pass in `theme.json`. However, if there are settings you wish to append to the default config file, put those in `theme_directory/i3/i3.config`
+
+#### Configuring colors in i3
+It is highly recommended that you always make a file that appends settings for i3. The base configuration has keybindings only. Things like colors, gaps, and other decorative settings must be definined in a theme-specific file.
 
 ## Bars
 
