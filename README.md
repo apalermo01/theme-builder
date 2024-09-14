@@ -31,14 +31,13 @@ The objective of this next phase of development is to drastically simplify the p
     - [x] specify separators (and other configurable things) in json files
         - going for a simpler option here and just overwriting chadrc
 - [x] picom
-- [ ] kitty
-    - [x] initial pass
-    - [ ] colorscheme support
+- [x] kitty
 - [x] alacritty
 - [ ] bash
 - [ ] fish
     - [x] initial pass
-    - [ ] configure prompt
+    - [x] configure prompt
+        - this will be done in the appened snippet for each theme
 - [ ] firefox
 - [ ] zathura
 - [x] rofi
