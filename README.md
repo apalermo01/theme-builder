@@ -12,68 +12,34 @@ Theme specific configs are located in
 contains any specific files that are meant to overwrite the default configs.
 
 
-# Project plan for next iteration
-
-The objective of this next phase of development is to drastically simplify the
-parsing process. Instead of restricting the entire theme to a single json file,
-I'm going to (wherever possible) define the persistent settings in default
-configs and set up files that append to these defaults. Any parsing that needs
-to be done to the default configs will be defined in a single json file for
-each theme. 
-
-## Checklist of tools:
-
-- [x] colors
-    - [x] pywal
-- [ ] wallpaper
-    - [x] feh
-    - [ ] hyprpaper
-- [x] i3 
-    - [x] initial pass
-    - [x] configure terminal based on what's in config file
-- [ ] hyprland 
-- [x] polybar
-- [ ] waybar
-- [x] neovim
-    - [x] default configs
-    - [x] basic nvchad setup
-    - [x] specify nvchad theme in config 
-    - [x] specify separators (and other configurable things) in json files
-        - going for a simpler option here and just overwriting chadrc
-- [x] picom
-- [x] kitty
-    - [ ] set shell info based on theme's config
-- [x] alacritty
-- [ ] bash
-- [x] fish
-    - [x] initial pass
-    - [x] configure prompt
-        - this will be done in the appened snippet for each theme
-- [ ] firefox
-- [ ] zathura
-- [x] rofi
-- [ ] wofi
-- [ ] tmux
- - [x] initial pass
- - [ ] auto-parse true color terminal settings based on what terminals are in theme file
-- [ ] implement a more robust way of inserting configuration options into temp
-config files. For example, colorscheme for nvchad relies on an exact match of
-'theme = "'
-- [x] orgnaize allowed elements in utils
-- [ ] documentation
-    - [ ] add info about default path parameter
-    - [ ] base configuration 
-    - [ ] appended theme-specific config options
-- [ ] neofetch prompt
 ## theme structure
 each theme has a set of folders, each corresponding to a tool / progam. there is a master json file specifying which tools are used.
 
 ## Wallpaper sources
 
-Link to wallpaper for first hyprland rice: https://wallpaperaccess.com/download/cats-in-space-439064
+- 000 - 
+- hyprcats https://wallpaperaccess.com/download/cats-in-space-439064
 - i3_minimal (v2): https://www.solidbackgrounds.com/black-solid-color-background.html
 - i3_minimal: https://www.hongkiat.com/blog/beautiful-minimalist-desktop-wallpapers/
 - hypr_synth1: https://www.uhdpaper.com/2024/05/moon-retrowave-4k-8k-8433a.html?m=0
+
+# Disclaimer
+
+This project is primarily for personal use and I take no responsibility for
+what happens to your system if you use this. Make sure you back up critical
+files before running this. 
+
+# Installation instructions
+
+## Dependencies
+- any modern version of python should be sufficient. Required python packages
+are toml and matplotlib.
+
+## Instructions
+- clone this repo
+- make sure python is installed
+- install matplotlib and toml using your method of choice (requirements.txt is provided)
+
 
 # Configuration
 
@@ -283,3 +249,30 @@ config, then create the `them_directory/rofi/config.rasi` file and also pass the
     }
 }
 ```
+
+# Roadmap
+
+Aside from constant documentation updates, here is a list of programs that I
+plan to add to the parser:
+
+- [ ] backup functionality
+- [ ] dry-run functionality
+- [ ] installation scripts
+- [ ] hyprpaper
+- [ ] hyprland
+- [ ] waybar 
+- [ ] other neovim distros (e.g. LunarVim)
+- [ ] firefox
+- [ ] zathura
+- [ ] wofi
+- [ ] neofetch (for custom prompts)
+- [ ] fastfetch (for custom prompts)
+
+- [ ] investigate nix (I've never used nix before, but it would be interesting
+to see if I can port this over).
+
+# Credits
+
+Big thanks to Stavros Grigoriou (stav121) for providing the initial inspriation
+for this project: https://github.com/stav121/i3wm-themer.
+
