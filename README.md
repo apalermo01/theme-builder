@@ -1,15 +1,25 @@
 # Dotfiles repo
 
-This repo contains the default configuration for all my dotfiles, plus a series of python scripts that modify these configurations to be specific to a given theme.
+This repo contains the default configuration for all my dotfiles, plus a series
+of python scripts that modify these configurations to be specific to a given
+theme.
 
-The main configurations with everything that is consistent across themes (keybindings, vim plugins, etc.) is located in `./default_configs/`. 
+The main configurations with everything that is consistent across themes
+(keybindings, vim plugins, etc.) is located in `./default_configs/`. 
 
-Theme specific configs are located in `./themes/<theme_name>/<theme_name>.json`. `./themes/<theme_name>/` also contains any specific files that are meant to overwrite the default configs.
+Theme specific configs are located in
+`./themes/<theme_name>/<theme_name>.json`. `./themes/<theme_name>/` also
+contains any specific files that are meant to overwrite the default configs.
 
 
 # Project plan for next iteration
 
-The objective of this next phase of development is to drastically simplify the parsing process. Instead of restricting the entire theme to a single json file, I'm going to (wherever possible) define the persistent settings in default configs and set up files that append to these defaults. Any parsing that needs to be done to the default configs will be defined in a single json file for each theme. 
+The objective of this next phase of development is to drastically simplify the
+parsing process. Instead of restricting the entire theme to a single json file,
+I'm going to (wherever possible) define the persistent settings in default
+configs and set up files that append to these defaults. Any parsing that needs
+to be done to the default configs will be defined in a single json file for
+each theme. 
 
 ## Checklist of tools:
 
@@ -46,7 +56,9 @@ The objective of this next phase of development is to drastically simplify the p
 - [ ] tmux
  - [x] initial pass
  - [ ] auto-parse true color terminal settings based on what terminals are in theme file
-- [ ] implement a more robust way of inserting configuration options into temp config files. For example, colorscheme for nvchad relies on an exact match of 'theme = "'
+- [ ] implement a more robust way of inserting configuration options into temp
+config files. For example, colorscheme for nvchad relies on an exact match of
+'theme = "'
 - [x] orgnaize allowed elements in utils
 - [ ] documentation
     - [ ] add info about default path parameter
@@ -120,9 +132,13 @@ client.focused	         #427655	  #dceabf	 #9aa385   	#427655	    #427655
 
 name in config: `kitty`
 
-There are no options to pass in `theme.json`. However, if there are commands you wish to append to the default config file, put those in `theme_directory/kitty/kitty.conf`.
+There are no options to pass in `theme.json`. However, if there are commands
+you wish to append to the default config file, put those in
+`theme_directory/kitty/kitty.conf`.
 
-When preparing the final config file, this sets the default shell using `chsh` (right now this only works for fish) and updates the "font_family" option to match "font" in the theme's config (if it exists).
+When preparing the final config file, this sets the default shell using `chsh`
+(right now this only works for fish) and updates the "font_family" option to
+match "font" in the theme's config (if it exists).
 
 ### alacritty
 
@@ -132,20 +148,36 @@ When preparing the final config file, this sets the default shell using `chsh` (
 
 name in config: `i3wm`
 
-There are no options to pass in `theme.json`. However, if there are settings you wish to append to the default config file, put those in `theme_directory/i3/i3.config`
+There are no options to pass in `theme.json`. However, you must create a
+`theme_directory/i3/i3.config` file to manage colors at a minimum. You're free
+to put other settings and bindings in there specific to the theme as well.
 
-#### Configuring colors in i3
-It is highly recommended that you always make a file that appends settings for i3. The base configuration has keybindings only. Things like colors, gaps, and other decorative settings must be definined in a theme-specific file.
+#### Coordination with other modules 
 
+##### picom
+
+If picom is also in the theme's config, then the following lines are automatically appended to the i3 config:
+
+```
+exec killall picom
+exec_always picom --config ~/.config/picom.conf
+```
 ## Bars
 
 ### Polybar
 
 name in config: `polybar`
 
+There is no default polybar theme, you must create a
+`theme_directory/polybar/polybar.ini` file to manage the polybar theme.
+
 ## Compositors
 
 ### picom 
+
+name in config: `picom`
+
+Create a `theme_directory/picom/picom.conf` file to overwrite default settings.
 
 ## Shells
 
@@ -153,9 +185,26 @@ name in config: `polybar`
 
 name in config: `bash`
 
+The only supported setting in `theme.json` is "feats". This is a list of
+additions to bashrc. These are the allowed feats:
+
+- `cowsay_fortune`: pipes fortune into a random cow from cowsay 
+- `neofetch`: runs neofetch 
+- `run_pywal`: runs pywal on the passed wallapper path. This will automatically
+change the terminal colors to match the theme.
+- `git_onefetch`: prints info about a git repo when you cd into it.
+
 ### Fish 
 
 name in config: `fish`
+
+The only supported setting in `theme.json` is "feats". This is a list of
+additions to bashrc. These are the allowed feats:
+
+- `cowsay_fortune`: pipes fortune into a random cow from cowsay 
+- `neofetch`: runs neofetch 
+- `run_pywal`: runs pywal on the passed wallapper path. This will automatically change the terminal colors to match the theme.
+- `git_onefetch`: prints info about a git repo when you cd into it.
 
 ## Neovim Distros
 
@@ -167,7 +216,10 @@ name in config: `nvim`
 
 name in config: `nvchad`
 
-**Important note**: the theme change in nvchad only works when you select the theme using `,th` (default for changing theme) or save lua/chadrc.lua in nvim. Whenver you switch the theme, open `~/.config/nvim/lua/chadrc.lua` and hit `:w` to re-save the file and have the new theme take effect.
+**Important note**: the theme change in nvchad only works when you select the
+theme using `,th` (default for changing theme) or save lua/chadrc.lua in nvim.
+Whenver you switch the theme, open `~/.config/nvim/lua/chadrc.lua` and hit `:w`
+to re-save the file and have the new theme take effect.
 
 ## Other tools
 

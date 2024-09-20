@@ -17,3 +17,4 @@ map("n", "<C-k>", "<cmd> TmuxNavigateUp<CR>")
 -- Goto preview
 map("n", "<leader>gpD", "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>")
 map("n", "<leader>gP", "<cmd>lua require('goto-preview').close_all_win()<CR>")
+
