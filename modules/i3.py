@@ -22,7 +22,7 @@ def parse_i3(template: str,
             "This file is required")
         raise FileNotFoundError
 
-    if "template" in config['i3wm']:
+    if "default_path" in config['i3wm']:
         template: str = config['i3wm']['default_path']
     else:
         template = os.path.join(template, "i3.config")
