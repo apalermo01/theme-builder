@@ -25,7 +25,7 @@ def parse_tmux(config: Dict,
 
     write_source_to_file(template, TMP_PATH)
 
-    if os.path.exists(theme_config):
+    if os.path.exists(theme_config) and theme_config != template:
         append_source_to_file(theme_config, TMP_PATH)
 
     # final tpm install bit 

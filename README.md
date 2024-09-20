@@ -194,6 +194,16 @@ additions to bashrc. These are the allowed feats:
 change the terminal colors to match the theme.
 - `git_onefetch`: prints info about a git repo when you cd into it.
 
+example:
+
+```json
+{
+    'bash': {
+        'feats': ['neofetch', 'cowsay_fortune']
+    }
+}
+```
+
 ### Fish 
 
 name in config: `fish`
@@ -206,6 +216,15 @@ additions to bashrc. These are the allowed feats:
 - `run_pywal`: runs pywal on the passed wallapper path. This will automatically change the terminal colors to match the theme.
 - `git_onefetch`: prints info about a git repo when you cd into it.
 
+example:
+
+```json
+{
+    'fish': {
+        'feats': ['neofetch', 'cowsay_fortune']
+    }
+}
+```
 ## Neovim Distros
 
 ### Vanilla neovim 
@@ -225,4 +244,42 @@ to re-save the file and have the new theme take effect.
 
 ### tmux
 
+name in config: `tmux` 
+
+If you want to replace or append to the default config, create a
+`theme_directory/tmux/tmux.conf` file.
+
+If this file is meant to **replace** the default config, then pass 
+`default_path` as an option in `theme.json`. Here's an example:
+
+```json
+{
+    tmux: {
+        'default_path': './themes/theme_name/tmux/tmux.conf'
+    }
+}
+```
+
+If this file is meant to **append** to the default config, then don't pass
+anything in `theme.json`
+
+After all files are processed, the parser always writes the tpm run command to the bottom of the config, so there's no need to put that in your custom config. Here's the exact command:
+
+`run ~/.tmux/plugins/tpm/tpm`
+
 ### rofi
+
+name in config: `rofi`
+
+No custom settings in `theme.json` are available, but if you want to **append**
+any settings to the default config, then create the
+`theme_directory/rofi/config.rasi` file. If you want to **replace** the default
+config, then create the `them_directory/rofi/config.rasi` file and also pass the path to that file as the `default path` parameter. Here's an example:
+
+```json
+{
+    rofi: {
+        'default_path': './themes/theme_name/rofi/config.rasi'
+    }
+}
+```
