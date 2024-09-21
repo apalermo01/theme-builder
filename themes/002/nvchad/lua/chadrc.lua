@@ -5,7 +5,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "gruvchad",
+  theme = "melange",
 }
 
 M.ui = {

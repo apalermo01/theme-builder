@@ -201,10 +201,28 @@ name in config: `nvim`
 
 name in config: `nvchad`
 
+`colorscheme`: the name of the colorscheme to use. To find the list of
+available options, hit `,th` while nvchad is open.
+
 **Important note**: the theme change in nvchad only works when you select the
 theme using `,th` (default for changing theme) or save lua/chadrc.lua in nvim.
 Whenver you switch the theme, open `~/.config/nvim/lua/chadrc.lua` and hit `:w`
 to re-save the file and have the new theme take effect.
+
+`overwrite`: this is a list of files in `theme_directory/theme_name/nvchad`
+that will be loaded in place of the default version of the file.
+
+In this example, the default chadrc is overwritten by
+`theme_directory/theme_name/nvchad/lua/chadrc.lua`. The will probably be a
+common pattern, since the options for configuring the UI (e.g. changes to
+tabufile, statusline, etc.) live in chadrc.lua (see
+[here](#https://nvchad.com/docs/config/nvchad_ui) for documentation)
+
+```json
+"nvchad": {
+    "overwrite": ["lua/chadrc.lua"]
+},
+```
 
 ## Other tools
 
