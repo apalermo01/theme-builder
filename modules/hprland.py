@@ -46,3 +46,9 @@ def parse_hyprland(template: str,
             dest.write(line)
     logger.info(f"copied {TMP_PATH} to {dest_path}")
     return config
+
+def _configure_terminal():
+    pass
+
+def _configure_colors():
+    pass

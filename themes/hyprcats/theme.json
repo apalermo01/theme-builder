@@ -1,0 +1,27 @@
+{
+  "colors": {
+    "method": "pywal"
+  },
+
+  "hyprland": {},
+  "wallpaper": {
+    "method": "hyprpaper",
+    "name": "cat1.jpg"
+  },
+
+  "waybar": {
+
+  },
+
+  "nvchad": {
+    "overwrite": ["lua/chadrc.lua"]
+  },
+
+  "fish": {
+    "feats": ["neofetch"]
+  },
+
+  "kitty": {},
+
+  "tmux": {}
+}
