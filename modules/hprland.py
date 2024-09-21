@@ -18,12 +18,8 @@ def parse_hyprland(template: str,
 
     # allow theme to overwrite template
     theme_path = os.path.join(
-        ".", "themes", theme_name, "hyprland", "hyprland.conf")
-    if not os.path.exists(theme_path):
-        logger.error(
-            f"Theme-specific config for hyprland ({theme_path}) not found. " +
-            "This file is required")
-        raise FileNotFoundError
+        ".", "themes", theme_name, "hyprland")
+
 
     if "default_path" in config['hyprland']:
         template: str = config['hyprland']['default_path']
@@ -35,9 +31,13 @@ def parse_hyprland(template: str,
         for line in f_in.readlines():
             f_out.write(line)
 
-    # configure terminal
-    # configure colors
-    # append theme-specific config
+    _configure_terminal(config)
+    _configure_general(theme_path)
+    _configure_decoration(theme_path)
+    _configure_animations(theme_path)
+
+    if os.path.exists(os.path.join(theme_path, "hyprland.conf")):
+        pass
 
     # now copy the config file to the destination directory
     dest_path = os.path.join(dest, "hyprland.conf")
@@ -47,8 +47,21 @@ def parse_hyprland(template: str,
     logger.info(f"copied {TMP_PATH} to {dest_path}")
     return config
 
-def _configure_terminal():
+
+def _configure_terminal(config: Dict):
     pass
 
-def _configure_colors():
-    pass
+
+def _configure_general(theme_path: str):
+    if os.path.exists(os.path.join(theme_path, "hyprland", "general.conf")):
+        pass
+
+
+def _configure_decoration(theme_path: str):
+    if os.path.exists(os.path.join(theme_path, "hyprland", "decoration.conf")):
+        pass
+
+
+def _configure_animations(theme_path: str):
+    if os.path.exists(os.path.join(theme_path, "hyprland", "animations.conf")):
+        pass
