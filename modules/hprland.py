@@ -3,6 +3,7 @@ import logging
 import os
 import json
 from . import available_terminals
+from .utils import append_source_to_file, append_text
 
 
 TMP_PATH = "./tmp/hyprland.conf"
@@ -13,13 +14,15 @@ def parse_hyprland(template: str,
                    dest: str,
                    config: Dict,
                    theme_name: str):
+    """
+    TODO: validate variables. For example, check if a terminal is passed to hyprland that is not present in the wider config.
+    """
 
     logger.info("configuring hyprland...")
 
     # allow theme to overwrite template
     theme_path = os.path.join(
         ".", "themes", theme_name, "hyprland")
-
 
     if "default_path" in config['hyprland']:
         template: str = config['hyprland']['default_path']
@@ -31,7 +34,7 @@ def parse_hyprland(template: str,
         for line in f_in.readlines():
             f_out.write(line)
 
-    _configure_terminal(config)
+    _configure_variables(config)
     _configure_general(theme_path)
     _configure_decoration(theme_path)
     _configure_animations(theme_path)
@@ -48,20 +51,34 @@ def parse_hyprland(template: str,
     return config
 
 
-def _configure_terminal(config: Dict):
-    pass
+def _configure_variables(config: Dict):
+    term = config['hyprland'].get('terminal', 'kitty')
+    file_manager = config['hyprland'].get('fileManager', 'thunar')
+    browser = config['hyprland'].get('browser', 'firefox')
+    menu = config['hyprland'].get('menu', 'wofi --show drun')
+
+    append_text(TMP_PATH, f"$terminal = {term}")
+    append_text(TMP_PATH, f"$fileManager = {file_manager}")
+    append_text(TMP_PATH, f"$browser = {browser}")
+    append_text(TMP_PATH, f"$menu = {menu}")
 
 
 def _configure_general(theme_path: str):
-    if os.path.exists(os.path.join(theme_path, "hyprland", "general.conf")):
-        pass
+    src = os.path.join(theme_path, "hyprland", "general.conf")
+    if not os.path.exists(src):
+        src = os.path.join("./default_configs", "hyprland", "general.conf")
+    append_source_to_file(src, TMP_PATH)
 
 
 def _configure_decoration(theme_path: str):
-    if os.path.exists(os.path.join(theme_path, "hyprland", "decoration.conf")):
-        pass
+    src = os.path.join(theme_path, "hyprland", "decoration.conf")
+    if not os.path.exists(src):
+        src = os.path.join("./default_configs", "hyprland", "decoration.conf")
+    append_source_to_file(src, TMP_PATH)
 
 
 def _configure_animations(theme_path: str):
-    if os.path.exists(os.path.join(theme_path, "hyprland", "animations.conf")):
-        pass
+    src = os.path.join(theme_path, "hyprland", "animations.conf")
+    if not os.path.exists(src):
+        src = os.path.join("./default_configs", "hyprland", "animations.conf")
+    append_source_to_file(src, TMP_PATH)

@@ -43,6 +43,9 @@ def write_source_to_file(src: str, dst: str):
 
 
 def append_source_to_file(src: str, dst: str):
+    
+    if not os.path.exists(src):
+        return
 
     with open(src, "r") as f_src, open(dst, "a") as f_dst:
         for line in f_src.readlines():
