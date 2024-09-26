@@ -4,14 +4,13 @@
   },
 
   "hyprland": {},
+
   "wallpaper": {
     "method": "hyprpaper",
     "name": "cat1.jpg"
   },
 
-  "waybar": {
-
-  },
+  "waybar": {},
 
   "nvchad": {
     "overwrite": ["lua/chadrc.lua"]
