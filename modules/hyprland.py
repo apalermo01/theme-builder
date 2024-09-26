@@ -15,7 +15,8 @@ def parse_hyprland(template: str,
                    config: Dict,
                    theme_name: str):
     """
-    TODO: validate variables. For example, check if a terminal is passed to hyprland that is not present in the wider config.
+    TODO: validate variables. For example, check if a terminal is passed to
+    hyprland that is not present in the wider config.
     """
 
     logger.info("configuring hyprland...")

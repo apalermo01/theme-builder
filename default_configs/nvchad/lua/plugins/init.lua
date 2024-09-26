@@ -48,7 +48,8 @@ return {
   	opts = {
   		ensure_installed = {
   			"vim", "lua", "vimdoc",
-        "html", "css", "markdown", "markdown_inline"
+        "html", "css", "markdown", "markdown_inline",
+        "typescript", "tsx"
   		},
   	},
   },

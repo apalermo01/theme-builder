@@ -16,6 +16,7 @@ from modules.fish import parse_fish
 from modules.bash import parse_bash
 from modules.kitty import parse_kitty
 from modules.alacritty import parse_alacritty
+from modules.hyprland import parse_hyprland
 
 
 logger = logging.getLogger(__name__)
@@ -94,15 +95,21 @@ path_config = {
         'func': parse_bash
     },
     "alacritty": {
-        "template": "./default_configs/",
+        "template": "./default_configs/alacritty/",
         "dest": os.path.expanduser("~/.config/alacritty/alacritty.toml"),
         "func": parse_alacritty,
     },
+    "hyprland": {
+        "template": "./default_configs/hyprland/",
+        "dest": os.path.expanduser('~/.config/hypr/'),
+        "func": parse_hyprland,
+    }
 }
 
 order = [
     'colors',
     'i3wm',
+    'hyprland',
     'polybar',
     'wallpaper',
     'nvim',
