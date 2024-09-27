@@ -17,10 +17,6 @@ each theme has a set of folders, each corresponding to a tool / progam. there is
 
 ## Wallpaper sources
 
-- 000 - 
-- hyprcats https://wallpaperaccess.com/download/cats-in-space-439064
-- i3_minimal (v2): https://www.solidbackgrounds.com/black-solid-color-background.html
-- i3_minimal: https://www.hongkiat.com/blog/beautiful-minimalist-desktop-wallpapers/
 - hypr_synth1: https://www.uhdpaper.com/2024/05/moon-retrowave-4k-8k-8433a.html?m=0
 
 # Disclaimer
