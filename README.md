@@ -128,6 +128,17 @@ If picom is also in the theme's config, then the following lines are automatical
 exec killall picom
 exec_always picom --config ~/.config/picom.conf
 ```
+
+### hyprland
+
+name in config: `hyprland`
+
+There are no options to pass in `theme.json`. However, there are several files
+you must create inside `theme_directory/hyprland/` to overwrite default
+settings. These files are `animations.conf`, `decoration.conf`, and
+`general.conf`. These files are appended to the base config if provided and
+correspond to the associated keys in the config file.
+
 ## Bars
 
 ### Polybar
@@ -136,6 +147,14 @@ name in config: `polybar`
 
 There is no default polybar theme, you must create a
 `theme_directory/polybar/polybar.ini` file to manage the polybar theme.
+
+### waybar
+
+name in config: `waybar`
+
+There is no default waybar theme. You must create
+`theme_directory/waybar/config` and `theme_directory/waybar/style.css` to manage
+the waybar theme.
 
 ## Compositors
 
