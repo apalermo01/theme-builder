@@ -17,7 +17,7 @@
   },
 
   "fish": {
-    "feats": ["neofetch"]
+    "feats": ["neofetch", "run_pywal"]
   },
 
   "waybar": {},
