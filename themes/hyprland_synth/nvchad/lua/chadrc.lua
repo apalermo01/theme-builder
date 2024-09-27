@@ -1,3 +1,5 @@
+
+
 -- This file needs to have same structure as nvconfig.lua 
 -- https://github.com/NvChad/ui/blob/v2.5/lua/nvconfig.lua
 
@@ -15,12 +17,8 @@ M.base46 = {
 
 M.ui = {
   statusline = {
-    theme = "default",
-      separator_style = "round",
-  },
-  nvdash = {
-    load_on_startup = true,
+    separator_style = "round"
   }
-
 }
+
 return M

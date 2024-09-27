@@ -54,12 +54,14 @@ def parse_nvchad(template: str,
 
     # write to tmp
     for f in nvchad_files:
+        dest_tmp = os.path.join(TMP_PATH, f)
         if f in overwrite_files:
-            _copy_file(os.path.join("themes", theme_name, "nvchad", f),
-                       os.path.join(TMP_PATH, f))
+            src = os.path.join("themes", theme_name, "nvchad", f)
         else:
-            _copy_file(os.path.join(template, f),
-                       os.path.join(TMP_PATH, f))
+            src = os.path.join(template, f)
+
+        logger.info(f"copying {src} to {dest}")
+        _copy_file(src, dest_tmp)
 
     # append files as needed
     for f in append_files:
@@ -70,7 +72,11 @@ def parse_nvchad(template: str,
                 f_dst.write(line)
 
     # configure theme
-    _configure_colorscheme(nvim_config)
+    if "lua/chadrc.lua" not in overwrite_files:
+        _configure_colorscheme(nvim_config)
+
+    if "lua/chadrc.lua" not in overwrite_files:
+        _configure_seperator(nvim_config)
 
     # clear out the old config
     _delete_in_folder(os.path.expanduser("~/.config/nvim/"))
@@ -98,7 +104,7 @@ def parse_nvchad(template: str,
 
 
 def _configure_colorscheme(nvim_config):
-    colorscheme = nvim_config.get('colorscheme', 'gruvchad')
+    colorscheme: str = nvim_config.get('colorscheme', 'gruvchad')
     logger.info(f"setting nvchad colorscheme to {colorscheme}")
     pattern: str = 'theme = "'
     text: str = f'  theme = "{colorscheme}",'
@@ -107,6 +113,17 @@ def _configure_colorscheme(nvim_config):
                               pattern=pattern,
                               replace_text=text
                               )
+
+
+def _configure_seperator(nvim_config):
+    separator: str = nvim_config.get('separator', 'round')
+    logger.info(f"setting nvchad separator to {separator}")
+    pattern: str = 'separator_style = "'
+    text: str = f'      separator_style = "{separator}",'
+    path: str = "./tmp/nvchad/lua/chadrc.lua"
+    _overwrite_or_append_line(path=path,
+                              pattern=pattern,
+                              replace_text=text)
 
 
 def _read_tmp(path: str) -> List:

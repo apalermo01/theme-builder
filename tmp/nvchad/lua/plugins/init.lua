@@ -27,12 +27,6 @@ return {
 
   {
     "williamboman/mason.nvim",
-    opts = {
-      ensure_insalled = {
-        "lua-language-server",
-        "python-lsp-server"
-      }
-    }
   },
   {
       'MeanderingProgrammer/render-markdown.nvim',

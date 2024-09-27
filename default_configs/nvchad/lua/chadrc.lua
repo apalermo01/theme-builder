@@ -13,4 +13,14 @@ M.base46 = {
 	-- },
 }
 
+M.ui = {
+  statusline = {
+    theme = "default",
+    separator_style = "default"
+  },
+  nvdash = {
+    load_on_startup = true,
+  }
+
+}
 return M
