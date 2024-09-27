@@ -18,7 +18,7 @@ def parse_waybar(config: Dict,
     """
     Requires waybar config to be fully defined in the theme
     """
-    custom_path: str = f"./themes/{theme_name}/waybary/"
+    custom_path: str = f"./themes/{theme_name}/waybar/"
     config_path: str = os.path.join(custom_path, "config")
     css_path: str = os.path.join(custom_path, "style.css")
 
@@ -39,8 +39,11 @@ def parse_waybar(config: Dict,
 
     config_final_path = os.path.expanduser("~/.config/waybar/config")
     css_final_path = os.path.expanduser("~/.config/waybar/style.css")
+
     shutil.copy2(CONFIG_TMP_PATH, config_final_path)
+    logger.info(f"wrote {CONFIG_TMP_PATH} to {config_final_path}")
     shutil.copy2(CSS_TMP_PATH, css_final_path)
+    logger.info(f"wrote {CSS_TMP_PATH} to {css_final_path}")
 
     return config
 
@@ -48,7 +51,7 @@ def parse_waybar(config: Dict,
 def _parse_colors(css, theme_name: str):
 
     colorscheme_path: str = \
-        os.path.join("themes", theme_name, "colors", "colroscheme.json")
+        os.path.join("themes", theme_name, "colors", "colorscheme.json")
 
     with open(colorscheme_path, "r") as f:
         colorscheme: Dict = json.load(f)

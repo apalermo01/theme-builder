@@ -7,7 +7,7 @@
 
   "wallpaper": {
     "method": "hyprpaper",
-    "name": "cat1.jpg"
+    "file": "cat1.jpg"
   },
 
   "waybar": {},
@@ -19,6 +19,8 @@
   "fish": {
     "feats": ["neofetch"]
   },
+
+  "waybar": {},
 
   "kitty": {},
 

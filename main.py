@@ -17,6 +17,7 @@ from modules.bash import parse_bash
 from modules.kitty import parse_kitty
 from modules.alacritty import parse_alacritty
 from modules.hyprland import parse_hyprland
+from modules.waybar import parse_waybar
 
 
 logger = logging.getLogger(__name__)
@@ -103,6 +104,11 @@ path_config = {
         "template": "./default_configs/hyprland/",
         "dest": os.path.expanduser('~/.config/hypr/'),
         "func": parse_hyprland,
+    },
+    "waybar": {
+        "template": "./default_configs/waybar/",
+        "dest": os.path.expanduser('~/.config/waybar/'),
+        "func": parse_waybar,
     }
 }
 
@@ -111,6 +117,7 @@ order = [
     'i3wm',
     'hyprland',
     'polybar',
+    'waybar',
     'wallpaper',
     'nvim',
     'nvchad',

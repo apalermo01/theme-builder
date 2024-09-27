@@ -30,12 +30,15 @@ def parse_hyprland(template: str,
     else:
         template = os.path.join(template, "hyprland.conf")
 
+    with open(TMP_PATH, 'w') as f:
+        f.write("# generated using hyprland.py in dotfiles project\n\n")
     # copy template into temp file
-    with open(template, "r") as f_in, open(TMP_PATH, "w") as f_out:
+    _configure_variables(config)
+
+    with open(template, "r") as f_in, open(TMP_PATH, "a") as f_out:
         for line in f_in.readlines():
             f_out.write(line)
 
-    _configure_variables(config)
     _configure_general(theme_path)
     _configure_decoration(theme_path)
     _configure_animations(theme_path)
@@ -58,10 +61,10 @@ def _configure_variables(config: Dict):
     browser = config['hyprland'].get('browser', 'firefox')
     menu = config['hyprland'].get('menu', 'wofi --show drun')
 
-    append_text(TMP_PATH, f"$terminal = {term}")
-    append_text(TMP_PATH, f"$fileManager = {file_manager}")
-    append_text(TMP_PATH, f"$browser = {browser}")
-    append_text(TMP_PATH, f"$menu = {menu}")
+    append_text(TMP_PATH, f"$terminal = {term}\n")
+    append_text(TMP_PATH, f"$fileManager = {file_manager}\n")
+    append_text(TMP_PATH, f"$browser = {browser}\n")
+    append_text(TMP_PATH, f"$menu = {menu}\n")
 
 
 def _configure_general(theme_path: str):

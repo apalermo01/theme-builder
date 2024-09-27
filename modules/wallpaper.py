@@ -104,6 +104,6 @@ def hyprpaper_theme(config: Dict, theme_name: str):
     with open(hyprpaper_path, "w") as f:
         f.write(f"preload = {wallpaper_dest}\n")
         for m in monitors:
-            f.write(f"wallpaper = {m}, {wallpaper_dest}\n")
+            f.write(f"wallpaper = {m[:-1]}, {wallpaper_dest}\n")
     logger.info(f"wrote wallpaper info to {hyprpaper_path}")
     return config
