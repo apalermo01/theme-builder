@@ -1,0 +1,22 @@
+{
+  "font": "JetBrainsMonoNL NFM medium",
+  "colors": {
+    "method": "manual"
+  },
+  "i3wm": {},
+  "polybar": {},
+  "wallpaper": {
+    "method": "feh",
+    "file": "000.png"
+  },
+  "nvchad": {
+    "colorscheme": "nord"
+  },
+  "tmux": {},
+  "rofi": {},
+  "fish": {
+    "feats": ["run_pywal", "neofetch"]
+  },
+  "kitty": {},
+  "picom": {}
+}

@@ -1,22 +1,27 @@
+import logging
+from typing import Dict
 import os
 import subprocess
-from typing import Dict
-import shutil
-import logging
-
+from .utils import default_parser
 
 logger = logging.getLogger(__name__)
 
-def parse_picom(theme_name: str,
+
+def parse_picom(config: Dict,
+                template: str,
                 dest: str,
-                **kwargs):
+                theme_name: str) -> Dict:
 
-    # kill picom if its already running
+    logger.info("Loading picom...")
     subprocess.run(['killall', 'picom'])
-    theme_path = os.path.join(".", "themes", theme_name, "picom.conf")
+    dest = os.path.join(dest, "picom.conf")
+    theme_config = os.path.join("themes", theme_name, "picom", "picom.conf")
 
-    if os.path.exists(theme_path):
-        logger.info("found picom.conf")
-        shutil.copy(src=theme_path, dst=dest)
+    # copy template file to destination
+    if "default_path" in config['picom']:
+        template = config['picom']['default_path']
+    else:
+        template = os.path.join(template, "picom.conf")
 
-    return kwargs['config']
+    default_parser(template, dest, theme_config, theme_name)
+    return config

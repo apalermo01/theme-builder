@@ -1,0 +1,27 @@
+{
+  "font_family": "font_family JetBrainsMonoNL NFM medium",
+  "colors": {
+    "method": "pywal"
+  },
+  "i3wm": {},
+  "polybar": {},
+  "wallpaper": {
+    "method": "feh",
+    "file": "trees.jpg"
+  },
+  "nvchad": {
+    "colorscheme": "everforest",
+    "overwrite": ["lua/chadrc.lua"]
+  },
+  "tmux": {},
+  "rofi": {
+    "default_path": "./themes/trees/rofi/config.rasi"
+  },
+  "fish": {
+    "feats": ["run_pywal"]
+  },
+  "kitty": {},
+  "picom": {
+    "default_path": "./themes/trees/picom/picom.conf"
+  }
+}

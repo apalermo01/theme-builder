@@ -1,25 +1,26 @@
-from typing import Dict, Union, List, Iterable, Tuple
 import logging
+from typing import Dict
 import os
-import shutil
-import toml
+from .utils import default_parser
 
-TMP_PATH = "./tmp/alacritty.toml"
 logger = logging.getLogger(__name__)
 
-def parse_alacritty(template: str,
-               dest: str,
-               config: Dict,
-               theme_name: str):
 
-    if "default_path" in config["alacritty"]:
-        template = config["alacritty"]["default_path"]
+def parse_alacritty(config: Dict,
+                    template: str,
+                    dest: str,
+                    theme_name: str) -> Dict:
+
+    logger.info("Loading alacritty...")
+    dest = os.path.join(dest, "alacritty.toml")
+    theme_config = os.path.join(
+        "themes", theme_name, "alacritty", "alacritty.toml")
+
+    # copy template file to destination
+    if "default_path" in config['rofi']:
+        template = config['rofi']['default_path']
     else:
-        template = "./alacritty.toml"
+        template = os.path.join(template, "alacritty.toml")
 
-    with open(template, "r") as f:
-        alacritty_template = toml.load(f)
-
-    with open(dest, "w") as f:
-        _ = toml.dump(alacritty_template, f)
+    default_parser(template, dest, theme_config, theme_name)
     return config

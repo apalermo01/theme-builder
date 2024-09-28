@@ -1,0 +1,25 @@
+{
+  "colors": {
+    "method": "pywal"
+  },
+
+  "hyprland": {},
+
+  "wallpaper": {
+    "method": "hyprpaper",
+    "file": "synth.jpg"
+  },
+
+  "waybar": {},
+
+  "nvchad": {
+    "colorscheme": "catppuccin",
+    "separator": "round"
+  },
+
+  "tmux": {},
+
+  "fish": {
+    "feats": ["cowsay_fortune", "run_pywal"]
+  }
+}

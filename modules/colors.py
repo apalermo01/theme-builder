@@ -1,94 +1,68 @@
 import logging
-from typing import Dict, Any
-import os
+from typing import Dict, List
 import json
 import subprocess
 import matplotlib.pyplot as plt
-import json
+import os
 
 logger = logging.getLogger(__name__)
 
 
 def parse_colors(
-    config: Dict, **kwargs
+        config: Dict,
+        theme_name: str,
+        **kwargs
 ) -> Dict:
-    """parse_colors.
+    """Function to parse the colorscheme
 
-    Parameters
-    -----------
-    config : Dict
-        This is the configuration for colors. It should be in this format:
+    Arguments to config:
 
-        ```
-        "colors": {
-            "settings": {
-                "color_mode": <"manual" or "pywal">
-                },
-            (optional) "pallet": {}
-        ```
+    - method: "manual" or "pywal"
 
-        if the "color_mode" is "pywal", then the colors will be generated from the
-        wallpaper. If the mode is "manual", then the "pallet" dictionary should be
-        filled out.
-
-        TODO: fill out exactly what options are expected for colors. Theme 000
-        has "background", "foreground", "cursorcolor", and "color0" through "color15"
     """
 
-    # Use pywal to derive colors
-    if config is None or (
-        "settings" in config["colors"]
-        and config["colors"]["settings"].get("color_mode") == "pywal"
-    ):
+    allowed_methods: List[str] = ['manual', 'pywal']
+    method: str = config['colors'].get('method', 'manual')
 
-        wallpaper_cfg = config["wallpaper"]
-        wallpaper_path = "./wallpapers/" + wallpaper_cfg['name']
-        # if "wallpapers" not in wallpaper_cfg:
-        #     logger.warning(
-        #         f"{wallpaper_cfg} does not look like a full path. Changing to ./wallpapers/{wallpaper_cfg}"
-        #     )
-        #     wallpaper_path = f"./wallpapers/{wallpaper_cfg}"
-        # elif 'name' in wallpaper_cfg:
-        #     logger.warnging(
-        #             f"{wallpaper_cfg} might be a dict. Changing to ./wallpapers/{wallpaper_cfg['name']}"
-        #             )
-        #     wallpaper_path = "./wallpapers/{wallpaper_cfg['name']"
-        # else:
-        #     wallpaper_path = wallpaper_cfg
-        logger.info(f"loading wallpaper from {wallpaper_path}")
-        pallet = configure_pywal_colors(wallpaper_path)
-        logger.debug(f"pallet derived from pywal")
-        config["colors"]["pallet"] = pallet
+    if method not in allowed_methods:
+        raise ValueError("method not supported. Expected one of: " +
+                         allowed_methods + f" but got {method}")
 
-    elif config["colors"]["settings"]["color_mode"] == "manual":
-        # remove rofi colors (used in default configs)
-        pallet_new = {}
-        for p in config["colors"]["pallet"]:
-            if "rofi" not in p:
-                pallet_new[p] = config["colors"]["pallet"][p]
-        config["colors"]["pallet"] = pallet_new
-        pallet = config["colors"]["pallet"]
+    colorscheme_path: str = os.path.join(
+        ".", "themes", theme_name, "colors", "colorscheme.json")
 
-        logger.debug("using manual pallet")
-    else:
-        raise ValueError("unexpected combination of parameters in settings")
+    if method == 'pywal':
+        wallpaper_path: str = config['wallpaper']['file']
 
-    # add black to the pallet
-    if "black" not in config["colors"]["pallet"]:
-        config["colors"]["pallet"]["black"] = "#000000"
-    
-    if "red" not in config["colors"]["pallet"]:
-        config["colors"]["pallet"]["red"] = "#F2340B"
+        # if just the filename was given, look in the project'
+        # wallpaper folder:
+        if '/' not in wallpaper_path:
+            wallpaper_path = os.path.join('.', 'wallpapers', wallpaper_path)
+        pallet = _configure_pywal_colors(wallpaper_path)
+        _write_pallet_to_colorscheme(pallet, colorscheme_path)
 
-    # write the color pallet to temp file for reference
-    make_pallet_image(pallet)
-    with open("./tmp/pallet.json", "w") as f:
-        json.dump(pallet, f, indent=2)
-
+    with open(colorscheme_path, "r") as f:
+        colorscheme = json.load(f)
+    make_pallet_image(colorscheme)
     return config
 
 
-def configure_pywal_colors(wallpaper_path: str) -> Dict:
+def _write_pallet_to_colorscheme(pallet: str,
+                                 colorscheme_path: str):
+    if not os.path.exists(colorscheme_path):
+        with open(colorscheme_path, "w") as f:
+            json.dump(pallet, f)
+
+    else:
+        with open(colorscheme_path, "r") as f:
+            scheme = json.load(f)
+        for key in pallet:
+            scheme[key] = pallet[key]
+        with open(colorscheme_path, "w") as f:
+            json.dump(scheme, f, indent=2)
+
+
+def _configure_pywal_colors(wallpaper_path: str) -> Dict:
     """Generate a color pallet using pywal.
 
     Parameters
@@ -98,7 +72,8 @@ def configure_pywal_colors(wallpaper_path: str) -> Dict:
     """
 
     # run pywal in the shell
-    subprocess.run(["wal", "-n", "-e", "-i", wallpaper_path], capture_output=False)
+    subprocess.run(["wal", "-n", "-e", "-i", wallpaper_path],
+                   capture_output=False)
     logger.debug(f"ran pywal on {wallpaper_path}")
 
     # get the colors file generated by pywal
@@ -114,7 +89,9 @@ def configure_pywal_colors(wallpaper_path: str) -> Dict:
         pallet[s] = pywal_colors["special"][s]
     for c in pywal_colors["colors"]:
         pallet[c] = pywal_colors["colors"][c]
+
     logger.debug("pallet configuration successful")
+
     return pallet
 
 

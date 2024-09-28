@@ -1,6 +1,2 @@
-isort
-black
-mypy
-flake8
 matplotlib
 toml

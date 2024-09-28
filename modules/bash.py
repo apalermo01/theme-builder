@@ -1,36 +1,30 @@
 import logging
-import os
-from textwrap import dedent
 from typing import Dict
+import os
+from .utils import append_text, write_source_to_file, append_source_to_file
+from textwrap import dedent
 
 logger = logging.getLogger(__name__)
 
 
-def parse_bash(template: str,
+def parse_bash(config: Dict,
+               template: str,
                dest: str,
-               config: Dict,
-               **kwargs):
+               theme_name: str) -> Dict:
 
-    # TODO: backup
+    logger.info("Loading bash...")
 
-    bash_config = config['bash']
+    wallpaper_file = config['wallpaper']['file']
+    feats = config['bash'].get('feats', [])
+    wallpaper_path = os.path.expanduser(
+        f"~/Pictures/wallpapers/{wallpaper_file}")
 
-    if 'extra_lines' not in bash_config:
-        bash_config['extra_lines'] = []
-
-    if bash_config.get('pywal_colors'):
-        if 'name' in config['wallpaper']:
-            wp_name = config['wallpaper']['name'].split("/")[-1]
-        else:
-            wp_name = config['wallpaper'].split("/")[-1]
-
-        wallpaper_path = os.path.expanduser(f"~/Pictures/wallpapers/{wp_name}")
-        bash_config['extra_lines'].append(dedent(f"""
-            wal -n -e -i {wallpaper_path} > /dev/null \n
-        """))
-
-    if bash_config.get('git_onefetch'):
-        bash_config['extra_lines'].append(dedent("""
+    prompts_dict = {
+        'cowsay_fortune': ("fortune | cowsay -f $(ls /usr/share/cowsay/cows/ "
+                           "| shuf -n1)\n"),
+        'neofetch': "neofetch\n",
+        'run_pywal': f"wal -n -e -i {wallpaper_path} > /dev/null \n",
+        "git_onefetch": dedent("""
                 function show_onefetch() {
                     if [ -d .git ]; then
                         onefetch
@@ -38,17 +32,23 @@ def parse_bash(template: str,
                 }
                 function cd() { builtin cd "$@" && show_onefetch; }
                 \n
-            """))
+            """)
+                }
+    dest = os.path.join(dest, ".bashrc")
+    theme_config = os.path.join("themes", theme_name, "bash", ".bashrc")
 
-    if bash_config.get('neofetch'):
-        bash_config['extra_lines'].append("neofetch\n")
+    # copy template file to destination
+    if "default_path" in config['bash']:
+        template = config['bash']['default_path']
+    else:
+        template = os.path.join(template, ".bashrc")
 
-    # write to file
-    with open(dest, "w") as f_out, open(template, "r") as f_in:
-        for line in f_in.readlines():
-            f_out.write(line)
+    write_source_to_file(template, dest)
 
-        for line in bash_config['extra_lines']:
-            f_out.write(line)
+    if os.path.exists(theme_config):
+        append_source_to_file(theme_config, dest)
 
+    for d in prompts_dict:
+        if d in feats:
+            append_text(dest, prompts_dict[d])
     return config

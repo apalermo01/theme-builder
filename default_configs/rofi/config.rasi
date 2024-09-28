@@ -1,0 +1,4 @@
+@theme "default"
+ configuration {
+   modes: [drun, filebrowser];
+ }

@@ -1,0 +1,17 @@
+{
+  "font_family": "font_family JetBrainsMonoNL NFM medium",
+  "colors": {
+    "method": "manual"
+  },
+  "i3wm": {},
+  "polybar": {},
+  "wallpaper": {
+    "method": "feh",
+    "file": "black_background.jpg"
+  },
+  "nvchad": {},
+  "tmux": {},
+  "rofi": {},
+  "fish": {},
+  "kitty": {}
+}
