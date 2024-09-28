@@ -13,11 +13,7 @@ contains any specific files that are meant to overwrite the default configs.
 
 
 ## theme structure
-each theme has a set of folders, each corresponding to a tool / progam. there is a master json file specifying which tools are used.
-
-## Wallpaper sources
-
-- hypr_synth1: https://www.uhdpaper.com/2024/05/moon-retrowave-4k-8k-8433a.html?m=0
+each theme has a set of folders, each corresponding to a tool / progam. There is a master json file specifying which tools are used.
 
 # Disclaimer
 
