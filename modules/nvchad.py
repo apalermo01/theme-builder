@@ -21,8 +21,6 @@ nvchad_files = [
 def _copy_file(src, dest):
     with open(src, "r") as f_out, open(dest, 'w') as f_in:
         for line in f_out.readlines():
-            if "chadrc" in src:
-                print(line)
             f_in.write(line)
 
 
