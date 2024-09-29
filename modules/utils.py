@@ -2,6 +2,7 @@ import logging
 import os
 from typing import Dict
 from . import allowed_elements
+import shutil
 
 logger = logging.getLogger(__name__)
 
@@ -58,3 +59,20 @@ def append_text(src: str, text: str):
 
     with open(src, "a") as f:
         f.write(text)
+
+
+def copy_all_files(src_folder: str, dest_folder: str):
+
+    for root, dirs, files in os.walk():
+        rel_path = os.path.relpath(root, src_folder)
+        dest_subfolder = os.path.join(dest_folder, rel_path)
+
+        if not os.path.exists(dest_subfolder):
+            os.makedirs(dest_subfolder)
+
+        for file in files:
+            src_file = os.path.join(root, file)
+            dest_file = os.path.join(dest_subfolder, file)
+
+            shutil.copy2(src_file, dest_file)
+            logger.info(f"copied {src_file} to {dest_file}")
