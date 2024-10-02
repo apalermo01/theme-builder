@@ -1,10 +1,10 @@
 /* source: https://github.com/coltwillcox/linuxwave/tree/master */
 
-@define-color border #11111b;
-@define-color background #11111b;
-@define-color font1 #cdd6f4;
-@define-color font2 #585b70;
-@define-color shadow #f5c2e7;
+@define-color border <crust>;
+@define-color background <crust>;
+@define-color font1 <text>;
+@define-color font2 <surface2>;
+@define-color shadow <pink>;
 
 
 * {
@@ -39,7 +39,7 @@ window {
 	margin-bottom: 0;
 	border-radius: 10px;
 	transition: none;
-	color: #585b70;
+	color: <surface2>;
 	border: 0px solid @border;
 }
 
@@ -50,57 +50,57 @@ window {
 
 #workspaces button {
 	transition: none;
-	background: #f5e0dc;
+	background: <rosewater>;
 	text-shadow: 2px 2px 5px @shadow;
 }
 
 #workspaces button.focused {
-	background: #89b4fa;
-	border: 0px solid #f5e0dc;
+	background: <blue>;
+	border: 0px solid <rosewater>;
 }
 
 
 #workspaces button.active {
-	background: #89b4fa;
-	border: 2px solid #f5e0dc;
+	background: <blue>;
+	border: 2px solid <rosewater>;
 }
 
 #workspaces button:hover {
 	transition: none;
-	text-shadow: 0px 0px 2px #f38ba8;
+	text-shadow: 0px 0px 2px <red>;
 }
 
 #clock {
-  background: #f5c2e7;
+  background: <pink>;
 }
 
 #pulseaudio {
 
-  background: #cba6f7;
+  background: <mauve>;
 }
 
 #network {
-  background: #f38ba8;
+  background: <red>;
 }
 
 #cpu {
-  background: #eba0ac;
+  background: <maroon>;
 }
 
 #memory {
-  background: #fab387;
+  background: <peach>;
 }
 
 #backlight {
-  background: #f9e2af;
+  background: <yellow>;
 }
 
 #battery {
-  background: #a6e3a1;
+  background: <green>;
 }
 
 #tray {
-  background: #94e2d5;
+  background: <teal>;
 }
 
 tooltip {

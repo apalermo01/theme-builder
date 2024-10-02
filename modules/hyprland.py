@@ -23,7 +23,7 @@ def parse_hyprland(template: str,
 
     # allow theme to overwrite template
     theme_path = os.path.join(
-        ".", "themes", theme_name, "hyprland")
+        ".", "themes", theme_name)
 
     if "default_path" in config['hyprland']:
         template: str = config['hyprland']['default_path']
@@ -32,6 +32,7 @@ def parse_hyprland(template: str,
 
     with open(TMP_PATH, 'w') as f:
         f.write("# generated using hyprland.py in dotfiles project\n\n")
+
     # copy template into temp file
     _configure_variables(config)
 
@@ -42,6 +43,8 @@ def parse_hyprland(template: str,
     _configure_general(theme_path)
     _configure_decoration(theme_path)
     _configure_animations(theme_path)
+
+    _configure_colors(theme_name)
 
     if os.path.exists(os.path.join(theme_path, "hyprland.conf")):
         pass
@@ -71,6 +74,7 @@ def _configure_general(theme_path: str):
     src = os.path.join(theme_path, "hyprland", "general.conf")
     if not os.path.exists(src):
         src = os.path.join("./default_configs", "hyprland", "general.conf")
+    logger.info(f"loading general.conf from {src}")
     append_source_to_file(src, TMP_PATH)
 
 
@@ -78,11 +82,41 @@ def _configure_decoration(theme_path: str):
     src = os.path.join(theme_path, "hyprland", "decoration.conf")
     if not os.path.exists(src):
         src = os.path.join("./default_configs", "hyprland", "decoration.conf")
+    logger.info(f"loading decoration.conf from {src}")
     append_source_to_file(src, TMP_PATH)
 
 
 def _configure_animations(theme_path: str):
     src = os.path.join(theme_path, "hyprland", "animations.conf")
+    print("custom animations path: ", src)
     if not os.path.exists(src):
         src = os.path.join("./default_configs", "hyprland", "animations.conf")
+    logger.info(f"loading annimations.conf from {src}")
     append_source_to_file(src, TMP_PATH)
+
+
+def _configure_colors(theme_name: str):
+    colorscheme_path: str = os.path.join(
+        '.', 'themes', theme_name, 'colors', 'colorscheme.json')
+    if not os.path.exists(colorscheme_path):
+        raise FileNotFoundError(f"could not find {colorscheme_path}")
+
+    with open(colorscheme_path, "r") as f:
+        colorscheme: Dict = json.load(f)
+
+    print(f"opening tmp file from {TMP_PATH}")
+    with open(TMP_PATH, "r") as f:
+        config: List = f.readlines()
+
+    new_lines: List[str] = []
+    # print("parsing colors")
+    for line in config:
+        # print(f"line = {line}")
+        for colorname in colorscheme:
+            color: str = colorscheme[colorname].replace("#", '')
+            line = line.replace(f"<{colorname}>", f"rgb({color})")
+        # print("new line = ", line)
+        new_lines.append(line)
+
+    with open(TMP_PATH, "w") as f:
+        f.writelines(new_lines)

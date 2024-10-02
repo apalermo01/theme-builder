@@ -1,0 +1,20 @@
+{
+  "colors": {
+    "method": "manual"
+  },
+
+  "hyprland": {},
+  "wallpaper": {
+    "method": "hyprpaper",
+    "file": "mandelbrot_full_flamingo.png"
+  },
+  "waybar": {},
+  "nvchad": {
+    "colorscheme": "catppuccin",
+    "separator": "round"
+  },
+  "tmux": {},
+  "fish": {
+    "feats": ["neofetch"]
+  }
+}
