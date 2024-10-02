@@ -41,9 +41,16 @@ return {
   	"nvim-treesitter/nvim-treesitter",
   	opts = {
   		ensure_installed = {
-  			"vim", "lua", "vimdoc",
-        "html", "css", "markdown", "markdown_inline",
-        "typescript", "tsx"
+  			"vim",
+        "lua",
+        "vimdoc",
+        "html",
+        "css",
+        "markdown",
+        "markdown_inline",
+        "typescript",
+        "tsx",
+        "svelte"
   		},
   	},
   },
