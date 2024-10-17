@@ -1,8 +1,7 @@
-from typing import Dict, List, Iterable, Tuple
+from typing import Dict, List
 import logging
 import os
 import json
-from . import available_terminals
 from .utils import append_source_to_file, append_text
 
 
