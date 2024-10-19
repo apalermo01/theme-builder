@@ -57,5 +57,7 @@ return {
   {
     "ekickx/clipboard-image.nvim"
   },
-
+  {
+    "epwalsh/obsidian.nvim"
+  }
 }
