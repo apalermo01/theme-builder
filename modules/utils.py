@@ -1,10 +1,18 @@
 import logging
 import os
-from typing import Dict
+from typing import Dict, List
 from . import allowed_elements
 import shutil
 
 logger = logging.getLogger(__name__)
+
+
+def configure_destination(dest: str, *subfolders: List):
+    dest = os.path.join(dest, *subfolders[:-1])
+    if not os.path.exists(dest):
+        logger.info(f"creating path {dest}")
+        os.makedirs(dest)
+    return os.path.join(dest, *subfolders)
 
 
 def validate_config(config: Dict) -> bool:

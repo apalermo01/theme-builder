@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 def parse_bash(config: Dict,
                template: str,
-               dest: str,
+               # dest: str,
                theme_name: str) -> Dict:
 
     logger.info("Loading bash...")
@@ -34,7 +34,8 @@ def parse_bash(config: Dict,
                 \n
             """)
                 }
-    dest = os.path.join(dest, ".bashrc")
+    # dest = os.path.join(dest, ".bashrc")
+    dest = f"./themes/{theme_name}/dotfiles/.bashrc"
     theme_config = os.path.join("themes", theme_name, "bash", ".bashrc")
 
     # copy template file to destination

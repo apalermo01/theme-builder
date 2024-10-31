@@ -8,11 +8,12 @@ logger = logging.getLogger(__name__)
 
 def parse_kitty(config: Dict,
                 template: str,
-                dest: str,
+                # dest: str,
                 theme_name: str) -> Dict:
 
     logger.info("Loading kitty...")
-    dest = os.path.join(dest, "kitty.conf")
+    # dest = os.path.join(dest, "kitty.conf")
+    dest = os.path.join("")
 
     theme_config = os.path.join("themes", theme_name, "kitty", "kitty.conf")
 

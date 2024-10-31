@@ -26,7 +26,7 @@ logging.basicConfig(level=logging.INFO)
 path_config = {
     'colors': {
         'template': None,
-        'dest': None,
+        'dest': "",
         'func': parse_colors
     },
 
@@ -38,7 +38,8 @@ path_config = {
 
     'i3wm': {
         'template': './default_configs/i3/',
-        'dest': os.path.expanduser("~/.config/i3/"),
+        'dest': "i3",
+        # 'dest': os.path.expanduser("~/.config/i3/"),
         'func': parse_i3
     },
 
@@ -68,46 +69,49 @@ path_config = {
 
     'rofi': {
         'template': './default_configs/rofi/',
-        'dest': os.path.expanduser("~/.config/rofi/"),
+        # 'dest': os.path.expanduser("~/.config/rofi/"),
         'func': parse_rofi
     },
 
     'picom': {
         'template': './default_configs/picom/',
-        'dest': os.path.expanduser("~/.config/"),
+        # 'dest': os.path.expanduser("~/.config/"),
         'func': parse_picom,
     },
 
     'fish': {
         'template': './default_configs/fish/',
-        'dest': os.path.expanduser('~/.config/fish/'),
+        # 'dest': os.path.expanduser('~/.config/fish/'),
         'func': parse_fish
     },
 
     'kitty': {
         'template': './default_configs/kitty/',
-        'dest': os.path.expanduser('~/.config/kitty/'),
+        # 'dest': os.path.expanduser('~/.config/kitty/'),
         'func': parse_kitty
     },
 
     'bash': {
         'template': './default_configs/bash/',
-        'dest': os.path.expanduser('~/'),
+        # 'dest': os.path.expanduser('~/'),
         'func': parse_bash
     },
+
     "alacritty": {
         "template": "./default_configs/alacritty/",
-        "dest": os.path.expanduser("~/.config/alacritty/alacritty.toml"),
+        # "dest": os.path.expanduser("~/.config/alacritty/alacritty.toml"),
         "func": parse_alacritty,
     },
+
     "hyprland": {
         "template": "./default_configs/hyprland/",
-        "dest": os.path.expanduser('~/.config/hypr/'),
+        # "dest": os.path.expanduser('~/.config/hypr/'),
         "func": parse_hyprland,
     },
+
     "waybar": {
         "template": "./default_configs/waybar/",
-        "dest": os.path.expanduser('~/.config/waybar/'),
+        # "dest": os.path.expanduser('~/.config/waybar/'),
         "func": parse_waybar,
     }
 }
@@ -134,7 +138,6 @@ order = [
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--theme")
-#    parser.add_argument("--backup", action=argparse.BooleanOptionalAction)
     args = parser.parse_args()
     return args
 
@@ -152,9 +155,12 @@ def main():
     for key in order:
         if key in config:
             logger.info(f"processing {key}")
+            dest = os.path.join("themes", theme_name, "dots")
+            if not os.path.exists(dest):
+                os.mkdir(dest)
             config = path_config[key]['func'](
                 template=path_config[key]['template'],
-                dest=path_config[key]['dest'],
+                dest=os.path.join(dest, path_config[key]['dest']),
                 config=config,
                 theme_name=theme_name
             )

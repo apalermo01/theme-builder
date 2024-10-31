@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 
 def parse_fish(config: Dict,
                template: str,
-               dest: str,
+               # dest: str,
                theme_name: str) -> Dict:
 
     logger.info("Loading fish...")
@@ -36,8 +36,9 @@ def parse_fish(config: Dict,
                 show_onefetch
             end
             """)
-                }
-    dest = os.path.join(dest, "config.fish")
+    }
+    # dest = os.path.join(dest, "config.fish")
+    dest = os.path.join("themes", theme_name, "dotifles", "fish", "config.fish")
     theme_config = os.path.join("themes", theme_name, "fish", "config.fish")
 
     # copy template file to destination
