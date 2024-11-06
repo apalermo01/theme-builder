@@ -43,6 +43,7 @@ def parse_colors(
 
     with open(colorscheme_path, "r") as f:
         colorscheme = json.load(f)
+
     make_pallet_image(colorscheme)
     return config
 

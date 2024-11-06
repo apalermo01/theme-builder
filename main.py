@@ -30,108 +30,108 @@ path_config = {
         'func': parse_colors
     },
 
-    'wallpaper': {
-        'template': None,
-        'dest': None,
-        'func': parse_wallpaper
-    },
-
-    'i3wm': {
-        'template': './default_configs/i3/',
-        'dest': "i3",
-        # 'dest': os.path.expanduser("~/.config/i3/"),
-        'func': parse_i3
-    },
-
-    'polybar': {
-        'template': './default_configs/polybar/',
-        'dest': os.path.expanduser("~/.config/polybar/config.ini"),
-        'func': parse_polybar
-    },
-
-    'nvim': {
-        'template': './default_configs/nvim/',
-        'dest': os.path.expanduser("~/.config/nvim/"),
-        'func': parse_nvim
-    },
-
-    'nvchad': {
-        'template': './default_configs/nvchad/',
-        'dest': os.path.expanduser("~/.config/nvim/"),
-        'func': parse_nvchad
-    },
-
-    'tmux': {
-        'template': './default_configs/tmux/',
-        'dest': os.path.expanduser("~/"),
-        'func': parse_tmux
-    },
-
-    'rofi': {
-        'template': './default_configs/rofi/',
-        # 'dest': os.path.expanduser("~/.config/rofi/"),
-        'func': parse_rofi
-    },
-
-    'picom': {
-        'template': './default_configs/picom/',
-        # 'dest': os.path.expanduser("~/.config/"),
-        'func': parse_picom,
-    },
-
-    'fish': {
-        'template': './default_configs/fish/',
-        # 'dest': os.path.expanduser('~/.config/fish/'),
-        'func': parse_fish
-    },
-
-    'kitty': {
-        'template': './default_configs/kitty/',
-        # 'dest': os.path.expanduser('~/.config/kitty/'),
-        'func': parse_kitty
-    },
-
-    'bash': {
-        'template': './default_configs/bash/',
-        # 'dest': os.path.expanduser('~/'),
-        'func': parse_bash
-    },
-
-    "alacritty": {
-        "template": "./default_configs/alacritty/",
-        # "dest": os.path.expanduser("~/.config/alacritty/alacritty.toml"),
-        "func": parse_alacritty,
-    },
-
-    "hyprland": {
-        "template": "./default_configs/hyprland/",
-        # "dest": os.path.expanduser('~/.config/hypr/'),
-        "func": parse_hyprland,
-    },
-
-    "waybar": {
-        "template": "./default_configs/waybar/",
-        # "dest": os.path.expanduser('~/.config/waybar/'),
-        "func": parse_waybar,
-    }
+    # 'wallpaper': {
+    #     'template': None,
+    #     'dest': None,
+    #     'func': parse_wallpaper
+    # },
+    #
+    # 'i3wm': {
+    #     'template': './default_configs/i3/',
+    #     'dest': "i3",
+    #     # 'dest': os.path.expanduser("~/.config/i3/"),
+    #     'func': parse_i3
+    # },
+    #
+    # 'polybar': {
+    #     'template': './default_configs/polybar/',
+    #     'dest': os.path.expanduser("~/.config/polybar/config.ini"),
+    #     'func': parse_polybar
+    # },
+    #
+    # 'nvim': {
+    #     'template': './default_configs/nvim/',
+    #     'dest': os.path.expanduser("~/.config/nvim/"),
+    #     'func': parse_nvim
+    # },
+    #
+    # 'nvchad': {
+    #     'template': './default_configs/nvchad/',
+    #     'dest': os.path.expanduser("~/.config/nvim/"),
+    #     'func': parse_nvchad
+    # },
+    #
+    # 'tmux': {
+    #     'template': './default_configs/tmux/',
+    #     'dest': os.path.expanduser("~/"),
+    #     'func': parse_tmux
+    # },
+    #
+    # 'rofi': {
+    #     'template': './default_configs/rofi/',
+    #     # 'dest': os.path.expanduser("~/.config/rofi/"),
+    #     'func': parse_rofi
+    # },
+    #
+    # 'picom': {
+    #     'template': './default_configs/picom/',
+    #     # 'dest': os.path.expanduser("~/.config/"),
+    #     'func': parse_picom,
+    # },
+    #
+    # 'fish': {
+    #     'template': './default_configs/fish/',
+    #     # 'dest': os.path.expanduser('~/.config/fish/'),
+    #     'func': parse_fish
+    # },
+    #
+    # 'kitty': {
+    #     'template': './default_configs/kitty/',
+    #     # 'dest': os.path.expanduser('~/.config/kitty/'),
+    #     'func': parse_kitty
+    # },
+    #
+    # 'bash': {
+    #     'template': './default_configs/bash/',
+    #     # 'dest': os.path.expanduser('~/'),
+    #     'func': parse_bash
+    # },
+    #
+    # "alacritty": {
+    #     "template": "./default_configs/alacritty/",
+    #     # "dest": os.path.expanduser("~/.config/alacritty/alacritty.toml"),
+    #     "func": parse_alacritty,
+    # },
+    #
+    # "hyprland": {
+    #     "template": "./default_configs/hyprland/",
+    #     # "dest": os.path.expanduser('~/.config/hypr/'),
+    #     "func": parse_hyprland,
+    # },
+    #
+    # "waybar": {
+    #     "template": "./default_configs/waybar/",
+    #     # "dest": os.path.expanduser('~/.config/waybar/'),
+    #     "func": parse_waybar,
+    # }
 }
 
 order = [
     'colors',
-    'i3wm',
-    'hyprland',
-    'polybar',
-    'waybar',
-    'wallpaper',
-    'nvim',
-    'nvchad',
-    'tmux',
-    'rofi',
-    'picom',
-    'fish',
-    'bash',
-    'kitty',
-    'alacritty',
+    # 'i3wm',
+    # 'hyprland',
+    # 'polybar',
+    # 'waybar',
+    # 'wallpaper',
+    # 'nvim',
+    # 'nvchad',
+    # 'tmux',
+    # 'rofi',
+    # 'picom',
+    # 'fish',
+    # 'bash',
+    # 'kitty',
+    # 'alacritty',
 ]
 
 
