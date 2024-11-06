@@ -3,23 +3,26 @@ import logging
 import os
 import json
 from . import available_terminals
-from .utils import configure_destination
+from .utils import configure_destination, module_wrapper
 
-# TMP_PATH = "./tmp/i3.config"
 logger = logging.getLogger(__name__)
 
 
+@module_wrapper(tool='i3wm')
 def parse_i3(template: str,
              dest: str,
              config: Dict,
              theme_name: str):
-
+    """
+    Parser for i3
+    expects a key for "i3wm" in the theme's config file. If there are files in
+        <theme_name>/i3/, then those get copied to the 
+    """
     logger.info("configuring i3...")
-    dest = configure_destination(dest, "config")
+    # dest = configure_destination(dest, "config")
 
     # allow theme to overwrite template
-
-    theme_path = os.path.join(".", "themes", theme_name, "i3", "i3.config")
+    theme_path = os.path.join(".", "themes", theme_name, "i3wm", "i3.config")
     if not os.path.exists(theme_path):
         logger.error(
             f"Theme-specific config for i3 ({theme_path}) not found. " +

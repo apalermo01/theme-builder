@@ -7,6 +7,60 @@ import shutil
 logger = logging.getLogger(__name__)
 
 
+def module_wrapper(tool):
+    def func_runner(module):
+        def inner(config: Dict,
+                  theme_name: str,
+                  **kwargs):
+            module(config=config, theme_name=theme_name, **kwargs)
+            if 'copy' in config[tool]:
+                copy_files_from_filelist(config[tool]['copy'],
+                                         theme_name,
+                                         tool)
+
+        return inner
+    return func_runner
+
+
+def copy_files_from_filelist(file_list: List[Dict[str, str]],
+                             theme_name: str,
+                             tool_name: str):
+    """
+    Copy folder structure into dotfiles.
+
+    file_list is a list of dictionaries with the structure:
+    [
+        {"from": <theme file to copy from>,
+         "to": <theme file to copy to>}
+    ]
+
+    if the "to" file already exists, then "from" gets appended to "to"
+
+    theme_name and tool_name are used to configure the base paths:
+    "from": ./themes/<theme_name>/<tool_name>/<from path>
+    "to": ./themes/<theme_name>/dots/<to path>
+    """
+
+    for file_info in file_list:
+        from_path = os.path.join(
+            os.getcwd(), "themes", theme_name, tool_name, file_info["from"])
+        to_path = os.path.join(os.getcwd(), "themes",
+                               theme_name, "dots", file_info["to"])
+
+        if not os.path.exists('/'.join(to_path.split('/')[:-1])):
+            os.makedirs('/'.join(to_path.split('/')[:-1]))
+
+        if os.path.isfile(to_path):
+            logger.info(f"appending {from_path} to {to_path}")
+            with open(from_path, "r") as f_from, \
+                    open(to_path, "a") as f_to:
+                for line in f_from.readlines():
+                    f_to.write(line)
+        else:
+            logger.info(f"copying {from_path} to {to_path}")
+            shutil.copy2(from_path, to_path)
+
+
 def configure_destination(dest: str, *subfolders: List):
     dest = os.path.join(dest, *subfolders[:-1])
     if not os.path.exists(dest):

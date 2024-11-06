@@ -3,7 +3,14 @@
   "colors": {
     "method": "manual"
   },
-  "i3wm": {},
+
+  "i3wm": {
+    "copy": [{
+      "from": "i3.config",
+      "to": "config"
+    }]
+  },
+
   "polybar": {},
   "wallpaper": {
     "method": "feh",

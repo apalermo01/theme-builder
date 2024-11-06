@@ -2,6 +2,7 @@ import logging
 import os
 import argparse
 import json
+import shutil
 from modules.utils import validate_config
 from modules.colors import parse_colors
 from modules.wallpaper import parse_wallpaper
@@ -26,23 +27,21 @@ logging.basicConfig(level=logging.INFO)
 path_config = {
     'colors': {
         'template': None,
-        'dest': "",
         'func': parse_colors
     },
 
-    # 'wallpaper': {
-    #     'template': None,
-    #     'dest': None,
-    #     'func': parse_wallpaper
-    # },
-    #
-    # 'i3wm': {
-    #     'template': './default_configs/i3/',
-    #     'dest': "i3",
-    #     # 'dest': os.path.expanduser("~/.config/i3/"),
-    #     'func': parse_i3
-    # },
-    #
+    'wallpaper': {
+        'template': None,
+        'func': parse_wallpaper
+    },
+
+    'i3wm': {
+        'template': './default_configs/i3/',
+        'dest': "i3",
+        # 'dest': os.path.expanduser("~/.config/i3/"),
+        'func': parse_i3
+    },
+
     # 'polybar': {
     #     'template': './default_configs/polybar/',
     #     'dest': os.path.expanduser("~/.config/polybar/config.ini"),
@@ -117,8 +116,8 @@ path_config = {
 }
 
 order = [
-    'colors',
-    # 'i3wm',
+    # 'colors',
+    'i3wm',
     # 'hyprland',
     # 'polybar',
     # 'waybar',
@@ -150,17 +149,21 @@ def main():
     with open(path, "r") as f:
         config = json.load(f)
     if not validate_config(config):
-
         return
+
+    dest = os.path.join("themes", theme_name, "dots")
+    if os.path.exists(dest):
+        shutil.rmtree(dest)
+        logger.info(f"removing directory {dest}")
+    os.makedirs(dest)
+    logger.info(f"created directory {dest}")
+
     for key in order:
         if key in config:
             logger.info(f"processing {key}")
-            dest = os.path.join("themes", theme_name, "dots")
-            if not os.path.exists(dest):
-                os.mkdir(dest)
             config = path_config[key]['func'](
                 template=path_config[key]['template'],
-                dest=os.path.join(dest, path_config[key]['dest']),
+                dest=os.path.join(dest, path_config[key].get('dest', "")),
                 config=config,
                 theme_name=theme_name
             )
