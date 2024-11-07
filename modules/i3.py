@@ -1,15 +1,19 @@
-from typing import Dict, List, Iterable, Tuple
+from typing import Dict, List
 import logging
 import os
 import json
 from . import available_terminals
-from .utils import configure_destination, module_wrapper
+from .utils import (overwrite_or_append_line,
+                    module_wrapper,
+                    append_if_not_present,
+                    read_file,
+                    write_file)
 
 logger = logging.getLogger(__name__)
 
 
 @module_wrapper(tool='i3wm')
-def parse_i3(template: str,
+def parse_i3(template_dir: str,
              dest: str,
              config: Dict,
              theme_name: str):
@@ -19,36 +23,14 @@ def parse_i3(template: str,
         <theme_name>/i3/, then those get copied to the 
     """
     logger.info("configuring i3...")
+    logger.info("dest = " + dest)
     # dest = configure_destination(dest, "config")
 
     # allow theme to overwrite template
-    theme_path = os.path.join(".", "themes", theme_name, "i3wm", "i3.config")
-    if not os.path.exists(theme_path):
-        logger.error(
-            f"Theme-specific config for i3 ({theme_path}) not found. " +
-            "This file is required")
-        raise FileNotFoundError
-
-    if "default_path" in config['i3wm']:
-        template: str = config['i3wm']['default_path']
-    else:
-        template = os.path.join(template, "i3.config")
-
-    # copy template into temp file
-    with open(template, "r") as f_in, open(dest, "w") as f_out:
-        for line in f_in.readlines():
-            f_out.write(line)
-
     # add terminal option
-    _configure_terminal(config, dest)
-
-    # now write the other theme-specific settings
-    with open(theme_path, "r") as f_in, open(dest, "a") as f_out:
-        for line in f_in.readlines():
-            f_out.write(line)
-
-    _configure_colors(theme_name, dest)
-    _configure_picom(config, dest)
+    _configure_terminal(config, dest, theme_name)
+    _configure_colors(config, dest, theme_name)
+    _configure_picom(config, dest, theme_name)
 
     # now copy the config file to the destination directory
     # dest_path = os.path.join(dest, "config")
@@ -59,17 +41,7 @@ def parse_i3(template: str,
     return config
 
 
-def _configure_picom(config: Dict, dest: str):
-    if 'picom' not in config:
-        return
-
-    logger.info("picom found in this theme's config")
-    _append_if_not_present("\nexec killall picom\n", dest)
-    _append_if_not_present(
-        "\nexec_always picom --config ~/.config/picom.conf\n", dest)
-
-
-def _configure_terminal(config: Dict, dest: str):
+def _configure_terminal(config: Dict, dest: str, theme_name: str):
 
     terminal: str = 'gnome-terminal'
     for i in available_terminals:
@@ -77,25 +49,44 @@ def _configure_terminal(config: Dict, dest: str):
             terminal = i
             logger.info(
                 f"Found {i} in theme's config. Assigning this terminal to $mod+Return")
-
+    if 'terminal' not in config['i3wm']:
+        terminal_path = ".config/i3/i3.config"
+    else:
+        terminal_path = config['i3wm']['termainal'].get(
+            'terminal_path', '.config/i3/i3.config')
+    terminal_path = os.path.join(
+        ".", "themes", theme_name, "dots", terminal_path)
     pattern: str = "bindsym $mod+Return exec"
     replace_text: str = f"bindsym $mod+Return exec {terminal}"
 
-    _overwrite_or_append_line(pattern=pattern,
-                              replace_text=replace_text,
-                              dest=dest)
+    overwrite_or_append_line(pattern=pattern,
+                             replace_text=replace_text,
+                             dest=terminal_path)
 
     logger.info(f"updated terminal: {terminal}")
 
 
-def _configure_colors(theme_name: str, dest: str):
+def _configure_picom(config: Dict, dest: str, theme_name: str):
+
+    if 'picom' not in config:
+        return
+    dest_path = os.path.join(dest, "i3.config")
+    logger.info("picom found in this theme's config")
+    append_if_not_present("\nexec killall picom\n", dest_path)
+    append_if_not_present(
+        "\nexec_always picom --config ~/.config/picom.conf\n", dest_path)
+
+
+def _configure_colors(config: Dict, dest: str, theme_name: str):
     colorscheme_path: str =\
         os.path.join("themes", theme_name, "colors", "colorscheme.json")
 
     with open(colorscheme_path, "r") as f:
         colorscheme: Dict = json.load(f)
 
-    text: List[str] = _read_tmp(dest)
+    colors_file = config['i3wm'].get("i3_write_colors_to", "i3.config")
+    dest = os.path.join(dest, colors_file)
+    text: List[str] = read_file(dest)
 
     new_text: List[str] = []
 
@@ -104,65 +95,4 @@ def _configure_colors(theme_name: str, dest: str):
             line = line.replace(f"<{color}>", colorscheme[color])
         new_text.append(line)
 
-    _write_tmp(new_text, dest)
-
-
-def _read_tmp(tmp_path: str) -> List:
-    with open(tmp_path, "r") as f:
-        lines = f.readlines()
-    return lines
-
-
-def _write_tmp(text: List[str], tmp_path: str):
-    with open(tmp_path, "w") as f:
-        f.writelines(text)
-
-
-def _iterate_until_text(text: Iterable[str],
-                        new_text: List[str],
-                        target_text: str,
-                        append_target: bool = True,
-                        ) -> Tuple[Iterable[str], List[str]]:
-    for t in text:
-        if target_text in t:
-            if append_target:
-                new_text.append(t)
-            break
-        new_text.append(t)
-    return text, new_text
-
-
-def _overwrite_or_append_line(
-        pattern: str,
-        replace_text: str,
-        dest: str
-):
-    config_text = _read_tmp(dest)
-    new_text = []
-
-    config_text, new_text = _iterate_until_text(iter(config_text),
-                                                new_text,
-                                                pattern,
-                                                append_target=False)
-    new_text.append(f"{replace_text}\n")
-    for t in config_text:
-        new_text.append(t)
-
-    _write_tmp(new_text, dest)
-
-
-def _append_if_not_present(
-        text: str,
-        dest: str
-):
-
-    config_text = _read_tmp(dest)
-
-    text_found = False
-    for line in config_text:
-        if text in line:
-            text_found = True
-
-    if not text_found:
-        config_text.append(text)
-        _write_tmp(config_text, dest)
+    write_file(new_text, dest)

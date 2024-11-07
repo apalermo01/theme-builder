@@ -7,7 +7,7 @@
   "i3wm": {
     "copy": [{
       "from": "i3.config",
-      "to": "config"
+      "to": ".config/i3/i3.config"
     }]
   },
 

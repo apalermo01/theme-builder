@@ -36,9 +36,8 @@ path_config = {
     },
 
     'i3wm': {
-        'template': './default_configs/i3/',
-        'dest': "i3",
-        # 'dest': os.path.expanduser("~/.config/i3/"),
+        'template_dir': 'default_configs/i3wm/',
+        'dest': ".config/i3",
         'func': parse_i3
     },
 
@@ -161,9 +160,10 @@ def main():
     for key in order:
         if key in config:
             logger.info(f"processing {key}")
+            dest = os.path.join(dest, path_config[key].get('dest', ""))
             config = path_config[key]['func'](
-                template=path_config[key]['template'],
-                dest=os.path.join(dest, path_config[key].get('dest', "")),
+                template_dir=path_config[key]['template_dir'],
+                dest=dest,
                 config=config,
                 theme_name=theme_name
             )
