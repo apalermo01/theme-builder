@@ -22,8 +22,8 @@ def parse_nvim(template_dir: str,
     if 'default_path' in nvim_config:
         template: str = nvim_config['default_path']
     else:
-        template = os.path.join(template, "init.lua")
-
+        template = os.path.join(template_dir, "init.lua")
+    print("template = ", template)
     # write to tmp path
     # with open(template, "r") as f_out, open(TMP_PATH, 'w') as f_in:
     #     for line in f_out.readlines():
@@ -51,7 +51,7 @@ def _configure_colorscheme(nvim_config):
 
     colorscheme: str = colorscheme_config.get('colorscheme', 'gruvbox')
     colorscheme_dir: str = colorscheme_config.get(
-        'colorscheme_path', '.config/nvim/init.lua')
+        'colorscheme_path', 'init.lua')
     cmd: str = f'vim.cmd[[colorscheme {colorscheme}]]'
 
     overwrite_or_append_line(pattern='vim.cmd[[colorscheme',

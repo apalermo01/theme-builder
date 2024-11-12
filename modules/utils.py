@@ -25,10 +25,10 @@ def module_wrapper(tool):
                 copy_files_from_filelist(config[tool]['copy'],
                                          theme_name,
                                          tool)
-            module(config=config,
-                   theme_name=theme_name,
-                   template_dir=template_dir,
-                   dest=dest)
+            return module(config=config,
+                          theme_name=theme_name,
+                          template_dir=template_dir,
+                          dest=dest)
 
         return inner
     return func_runner

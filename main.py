@@ -150,17 +150,18 @@ def main():
     if not validate_config(config):
         return
 
-    dest = os.path.join("themes", theme_name, "dots")
-    if os.path.exists(dest):
-        shutil.rmtree(dest)
-        logger.info(f"removing directory {dest}")
-    os.makedirs(dest)
-    logger.info(f"created directory {dest}")
+    dest_base = os.path.join("themes", theme_name, "dots")
+    if os.path.exists(dest_base):
+        shutil.rmtree(dest_base)
+        logger.info(f"removing directory {dest_base}")
+    os.makedirs(dest_base)
+    logger.info(f"created directory {dest_base}")
 
     for key in order:
         if key in config:
             logger.info(f"processing {key}")
-            dest = os.path.join(dest, path_config[key].get('dest', ""))
+            dest = os.path.join(dest_base, path_config[key].get('dest', ""))
+            print("dest = ", dest)
             config = path_config[key]['func'](
                 template_dir=path_config[key]['template_dir'],
                 dest=dest,
