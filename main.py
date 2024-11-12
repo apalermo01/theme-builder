@@ -47,11 +47,11 @@ path_config = {
     #     'func': parse_polybar
     # },
     #
-    # 'nvim': {
-    #     'template': './default_configs/nvim/',
-    #     'dest': os.path.expanduser("~/.config/nvim/"),
-    #     'func': parse_nvim
-    # },
+    'nvim': {
+        'template_dir': './default_configs/nvim/',
+        'dest': ".config/nvim",
+        'func': parse_nvim
+    },
     #
     # 'nvchad': {
     #     'template': './default_configs/nvchad/',
@@ -121,7 +121,7 @@ order = [
     # 'polybar',
     # 'waybar',
     # 'wallpaper',
-    # 'nvim',
+    'nvim',
     # 'nvchad',
     # 'tmux',
     # 'rofi',

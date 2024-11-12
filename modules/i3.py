@@ -49,13 +49,16 @@ def _configure_terminal(config: Dict, dest: str, theme_name: str):
             terminal = i
             logger.info(
                 f"Found {i} in theme's config. Assigning this terminal to $mod+Return")
+
     if 'terminal' not in config['i3wm']:
         terminal_path = ".config/i3/i3.config"
     else:
-        terminal_path = config['i3wm']['termainal'].get(
+        terminal_path = config['i3wm']['terminal'].get(
             'terminal_path', '.config/i3/i3.config')
+
     terminal_path = os.path.join(
         ".", "themes", theme_name, "dots", terminal_path)
+
     pattern: str = "bindsym $mod+Return exec"
     replace_text: str = f"bindsym $mod+Return exec {terminal}"
 
@@ -70,7 +73,9 @@ def _configure_picom(config: Dict, dest: str, theme_name: str):
 
     if 'picom' not in config:
         return
+
     dest_path = os.path.join(dest, "i3.config")
+
     logger.info("picom found in this theme's config")
     append_if_not_present("\nexec killall picom\n", dest_path)
     append_if_not_present(
