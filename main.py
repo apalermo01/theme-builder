@@ -98,7 +98,7 @@ path_config = {
 }
 
 order = [
-    # 'colors',
+    'colors',
     'i3wm',
     # 'hyprland',
     # 'polybar',

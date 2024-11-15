@@ -19,8 +19,6 @@ def parse_i3(template_dir: str,
              theme_name: str):
     """
     Parser for i3
-    expects a key for "i3wm" in the theme's config file. If there are files in
-        <theme_name>/i3/, then those get copied to the 
     """
     logger.info("configuring i3...")
     logger.info("dest = " + dest_dir)
@@ -38,7 +36,8 @@ def _configure_terminal(config: Dict, dest: str, theme_name: str):
         if i in config:
             terminal = i
             logger.info(
-                f"Found {i} in theme's config. Assigning this terminal to $mod+Return")
+                f"Found {i} in theme's config. " +
+                "Assigning this terminal to $mod+Return")
 
     if 'terminal' not in config['i3wm']:
         terminal_path = ".config/i3/i3.config"

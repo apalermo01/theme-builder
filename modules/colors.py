@@ -20,7 +20,7 @@ def parse_colors(
     - method: "manual" or "pywal"
 
     """
-
+    logger.info(f"configuring colors for {theme_name}")
     allowed_methods: List[str] = ['manual', 'pywal']
     method: str = config['colors'].get('method', 'manual')
 
