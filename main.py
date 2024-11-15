@@ -103,7 +103,7 @@ order = [
     # 'hyprland',
     # 'polybar',
     # 'waybar',
-    # 'wallpaper',
+    'wallpaper',
     # 'nvim',
     # 'tmux',
     # 'rofi',

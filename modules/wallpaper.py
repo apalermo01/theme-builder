@@ -9,12 +9,13 @@ logger = logging.getLogger(__name__)
 def parse_wallpaper(
         config: Dict,
         theme_name: str,
+        dest_dir: str,
         **kwargs
 ) -> Dict:
     """Parse wallpaper info
 
     config options:
-    method: "feh" (TODO: or hyprpaper)
+    method: "feh" or "hyprpaper"
     file: filenanme in <project root>/wallpapers
     """
 
@@ -56,7 +57,8 @@ def feh_theme(config: Dict, theme_name: str):
     text: str = f"exec_always feh --bg-fill {wallpaper_dest}"
 
     # TODO: copy text to additional i3 config file
-    path: str = os.path.join(".", "themes", theme_name, "dots", "i3", "config")
+    path: str = os.path.join(".", "themes", theme_name,
+                             "dots", ".config", "i3", "i3.config")
     with open(path, 'r') as f:
         lines = f.readlines()
 
@@ -75,7 +77,13 @@ def feh_theme(config: Dict, theme_name: str):
 def hyprpaper_theme(config: Dict, theme_name: str):
 
     wallpaper_path: str = config['wallpaper']['file']
-    hyprpaper_path: str = os.path.expanduser("~/.config/hypr/hyprpaper.conf")
+
+    hyprpaper_path: str = os.path.join(
+        ".", "themes", theme_name, "dots", ".config", "hypr")
+    if not os.path.exists(hyprpaper_path):
+        os.makedirs(hyprpaper_path)
+    hyprpaper_path = os.path.join(hyprpaper_path, "hyprpaper.conf")
+    # hyprpaper_path: str = os.path.expanduser("~/.config/hypr/hyprpaper.conf")
 
     # if just the filename was given, look in the project's wallpaper folder:
     if '/' not in wallpaper_path:
