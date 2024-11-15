@@ -42,7 +42,7 @@ path_config = {
         'dest': ".config/nvim",
         'func': parse_nvim
     },
-    #
+
     # 'tmux': {
     #     'template': './default_configs/tmux/',
     #     'dest': os.path.expanduser("~/"),
