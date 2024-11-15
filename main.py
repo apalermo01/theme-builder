@@ -36,6 +36,7 @@ path_config = {
     #     'func': parse_polybar
     # },
     #
+
     'nvim': {
         'template_dir': './default_configs/nvim/',
         'dest': ".config/nvim",
@@ -104,7 +105,7 @@ order = [
     # 'polybar',
     # 'waybar',
     'wallpaper',
-    # 'nvim',
+    'nvim',
     # 'tmux',
     # 'rofi',
     # 'picom',
