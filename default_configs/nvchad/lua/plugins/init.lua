@@ -53,11 +53,20 @@ return {
         "svelte"
   		},
   	},
+    highlight = {
+      enable = true,
+    }
   },
   {
     "ekickx/clipboard-image.nvim"
   },
   {
-    "epwalsh/obsidian.nvim"
+    "epwalsh/obsidian.nvim",
+  },
+  {
+    'nvim-lua/plenary.nvim'
+  },
+  {
+    'hrsh7th/nvim-cmp'
   }
 }
