@@ -16,7 +16,9 @@
     "method": "feh",
     "file": "black_background.jpg"
   },
-  "nvim": {},
+  "nvim": {
+    "template_dir": "./default_configs/nvchad"
+  },
   "tmux": {},
   "rofi": {},
   "fish": {},

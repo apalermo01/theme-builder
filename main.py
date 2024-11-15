@@ -7,18 +7,7 @@ from modules.utils import validate_config
 from modules.colors import parse_colors
 from modules.wallpaper import parse_wallpaper
 from modules.i3 import parse_i3
-from modules.polybar import parse_polybar
 from modules.nvim import parse_nvim
-from modules.nvchad import parse_nvchad
-from modules.tmux import parse_tmux
-from modules.rofi import parse_rofi
-from modules.picom import parse_picom
-from modules.fish import parse_fish
-from modules.bash import parse_bash
-from modules.kitty import parse_kitty
-from modules.alacritty import parse_alacritty
-from modules.hyprland import parse_hyprland
-from modules.waybar import parse_waybar
 
 
 logger = logging.getLogger(__name__)
@@ -26,18 +15,18 @@ logging.basicConfig(level=logging.INFO)
 
 path_config = {
     'colors': {
-        'template': None,
+        'template_dir': None,
         'func': parse_colors
     },
 
     'wallpaper': {
-        'template': None,
+        'template_dir': None,
         'func': parse_wallpaper
     },
 
     'i3wm': {
         'template_dir': 'default_configs/i3wm/',
-        'dest': ".config/i3",
+        'dest_dir': ".config/i3/",
         'func': parse_i3
     },
 
@@ -52,12 +41,6 @@ path_config = {
         'dest': ".config/nvim",
         'func': parse_nvim
     },
-    #
-    # 'nvchad': {
-    #     'template': './default_configs/nvchad/',
-    #     'dest': os.path.expanduser("~/.config/nvim/"),
-    #     'func': parse_nvchad
-    # },
     #
     # 'tmux': {
     #     'template': './default_configs/tmux/',
@@ -121,8 +104,7 @@ order = [
     # 'polybar',
     # 'waybar',
     # 'wallpaper',
-    'nvim',
-    # 'nvchad',
+    # 'nvim',
     # 'tmux',
     # 'rofi',
     # 'picom',
@@ -160,11 +142,12 @@ def main():
     for key in order:
         if key in config:
             logger.info(f"processing {key}")
-            dest = os.path.join(dest_base, path_config[key].get('dest', ""))
-            print("dest = ", dest)
+            dest_dir = os.path.join(
+                dest_base, path_config[key].get('dest_dir', ""))
+            print("dest = ", dest_dir)
             config = path_config[key]['func'](
                 template_dir=path_config[key]['template_dir'],
-                dest=dest,
+                dest_dir=dest_dir,
                 config=config,
                 theme_name=theme_name
             )

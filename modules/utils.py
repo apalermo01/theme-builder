@@ -12,13 +12,13 @@ def module_wrapper(tool):
         def inner(config: Dict,
                   theme_name: str,
                   template_dir: str,
-                  dest: str):
+                  dest_dir: str):
 
             # default files
             if 'template_dir' in config[tool]:
                 template_dir = config[tool]['template_dir']
 
-            copy_all_files(template_dir, dest)
+            copy_all_files(template_dir, dest_dir)
 
             # files to append
             if 'copy' in config[tool]:
@@ -28,7 +28,7 @@ def module_wrapper(tool):
             return module(config=config,
                           theme_name=theme_name,
                           template_dir=template_dir,
-                          dest=dest)
+                          dest_dir=dest_dir)
 
         return inner
     return func_runner
@@ -94,20 +94,6 @@ def validate_config(config: Dict) -> bool:
     return True
 
 
-def default_parser(default_config_path: str,
-                   destination_config_path: str,
-                   theme_config_path: str,
-                   theme_name: str,):
-
-    logger.info(f"{theme_name} is running the default parser")
-
-    write_source_to_file(default_config_path, destination_config_path)
-
-    if os.path.exists(theme_config_path) \
-            and not os.path.samefile(theme_config_path, default_config_path):
-        append_source_to_file(theme_config_path, destination_config_path)
-
-
 def write_source_to_file(src: str, dst: str):
 
     with open(src, "r") as f_src, open(dst, "w") as f_dst:
@@ -137,16 +123,20 @@ def append_text(src: str, text: str):
 
 def copy_all_files(src_folder: str, dest_folder: str):
 
+    logger.info(f"os is walking {src_folder}")
     for root, dirs, files in os.walk(src_folder):
-        rel_path = os.path.relpath(root, src_folder)
-        dest_subfolder = os.path.join(dest_folder, rel_path)
+        logger.info("=============")
+        logger.info(f"root = {root}")
+        logger.info(f"dirs = {dirs}")
+        logger.info(f"files = {files}")
 
-        if not os.path.exists(dest_subfolder):
-            os.makedirs(dest_subfolder)
+        if not os.path.exists(dest_folder):
+            logger.info(f"making dest subfolder: {dest_folder}")
+            os.makedirs(dest_folder)
 
         for file in files:
             src_file = os.path.join(root, file)
-            dest_file = os.path.join(dest_subfolder, file)
+            dest_file = os.path.join(dest_folder, file)
 
             shutil.copy2(src_file, dest_file)
             logger.info(f"copied {src_file} to {dest_file}")

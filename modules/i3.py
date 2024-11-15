@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 @module_wrapper(tool='i3wm')
 def parse_i3(template_dir: str,
-             dest: str,
+             dest_dir: str,
              config: Dict,
              theme_name: str):
     """
@@ -23,21 +23,11 @@ def parse_i3(template_dir: str,
         <theme_name>/i3/, then those get copied to the 
     """
     logger.info("configuring i3...")
-    logger.info("dest = " + dest)
-    # dest = configure_destination(dest, "config")
+    logger.info("dest = " + dest_dir)
+    _configure_terminal(config, dest_dir, theme_name)
+    _configure_colors(config, dest_dir, theme_name)
+    _configure_picom(config, dest_dir, theme_name)
 
-    # allow theme to overwrite template
-    # add terminal option
-    _configure_terminal(config, dest, theme_name)
-    _configure_colors(config, dest, theme_name)
-    _configure_picom(config, dest, theme_name)
-
-    # now copy the config file to the destination directory
-    # dest_path = os.path.join(dest, "config")
-    # with open(tmp_path, "r") as tmp, open(dest_path, "w") as dest:
-    # for line in tmp.readlines():
-    # dest.write(line)
-    # logger.info(f"copied {tmp_path} to {dest_path}")
     return config
 
 
