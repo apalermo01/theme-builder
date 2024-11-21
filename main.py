@@ -9,6 +9,7 @@ from modules.wallpaper import parse_wallpaper
 from modules.i3 import parse_i3
 from modules.nvim import parse_nvim
 from modules.tmux import parse_tmux
+from modules.rofi import parse_rofi
 
 
 logger = logging.getLogger(__name__)
@@ -50,11 +51,11 @@ path_config = {
         'func': parse_tmux
     },
 
-    # 'rofi': {
-    #     'template': './default_configs/rofi/',
-    #     # 'dest': os.path.expanduser("~/.config/rofi/"),
-    #     'func': parse_rofi
-    # },
+    'rofi': {
+        'template_dir': './default_configs/rofi/',
+        'destination_dir':".config/rofi",
+        'func': parse_rofi
+    },
     #
     # 'picom': {
     #     'template': './default_configs/picom/',
@@ -108,7 +109,7 @@ order = [
     'wallpaper',
     'nvim',
     'tmux',
-    # 'rofi',
+    'rofi',
     # 'picom',
     # 'fish',
     # 'bash',
