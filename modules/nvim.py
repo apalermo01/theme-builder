@@ -46,13 +46,17 @@ def parse_nvim(template_dir: str,
     """
     logger.info("Loading nvim...")
     nvim_config: Dict = config.get('nvim', {})
+
     if 'colorscheme' in nvim_config:
         _configure_colorscheme(nvim_config, theme_name)
+
     if 'nvchad_colorscheme' in nvim_config:
         _configure_nvchad_colorscheme(nvim_config, theme_name)
 
     if 'nvchad_separator' in nvim_config:
         _configure_nvchad_separator(nvim_config, theme_name)
+
+    return config
 
 
 def _configure_colorscheme(nvim_config: Dict, theme_name: str):

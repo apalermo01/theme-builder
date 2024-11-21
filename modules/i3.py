@@ -14,17 +14,17 @@ logger = logging.getLogger(__name__)
 
 @module_wrapper(tool='i3wm')
 def parse_i3(template_dir: str,
-             dest_dir: str,
+             destination_dir: str,
              config: Dict,
              theme_name: str):
     """
     Parser for i3
     """
     logger.info("configuring i3...")
-    logger.info("dest = " + dest_dir)
-    _configure_terminal(config, dest_dir, theme_name)
-    _configure_colors(config, dest_dir, theme_name)
-    _configure_picom(config, dest_dir, theme_name)
+    logger.info("dest = " + destination_dir)
+    _configure_terminal(config, destination_dir, theme_name)
+    _configure_colors(config, destination_dir, theme_name)
+    _configure_picom(config, destination_dir, theme_name)
 
     return config
 

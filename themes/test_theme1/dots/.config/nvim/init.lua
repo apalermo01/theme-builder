@@ -243,4 +243,3 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.opt_local.textwidth = 100
 	end,
 })
-vim.cmd[[colorscheme gruvbox]]

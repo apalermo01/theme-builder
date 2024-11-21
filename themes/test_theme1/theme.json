@@ -2,5 +2,7 @@
   "colors": {
     "method": "manual"
   },
-  "i3wm": {}
+  "i3wm": {},
+  "tmux": {},
+  "nvim": {}
 }

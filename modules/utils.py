@@ -12,13 +12,13 @@ def module_wrapper(tool):
         def inner(config: Dict,
                   theme_name: str,
                   template_dir: str,
-                  dest_dir: str):
+                  destination_dir: str):
 
             # default files
             if 'template_dir' in config[tool]:
                 template_dir = config[tool]['template_dir']
 
-            copy_all_files(template_dir, dest_dir)
+            copy_all_files(template_dir, destination_dir)
 
             # files to append
             if 'copy' in config[tool]:
@@ -28,7 +28,7 @@ def module_wrapper(tool):
             return module(config=config,
                           theme_name=theme_name,
                           template_dir=template_dir,
-                          dest_dir=dest_dir)
+                          destination_dir=destination_dir)
 
         return inner
     return func_runner

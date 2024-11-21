@@ -8,6 +8,7 @@ from modules.colors import parse_colors
 from modules.wallpaper import parse_wallpaper
 from modules.i3 import parse_i3
 from modules.nvim import parse_nvim
+from modules.tmux import parse_tmux
 
 
 logger = logging.getLogger(__name__)
@@ -26,7 +27,7 @@ path_config = {
 
     'i3wm': {
         'template_dir': 'default_configs/i3wm/',
-        'dest_dir': ".config/i3/",
+        'destination_dir': ".config/i3/",
         'func': parse_i3
     },
 
@@ -39,16 +40,16 @@ path_config = {
 
     'nvim': {
         'template_dir': './default_configs/nvim/',
-        'dest': ".config/nvim",
+        'destination_dir': ".config/nvim",
         'func': parse_nvim
     },
 
-    # 'tmux': {
-    #     'template': './default_configs/tmux/',
-    #     'dest': os.path.expanduser("~/"),
-    #     'func': parse_tmux
-    # },
-    #
+    'tmux': {
+        'template_dir': './default_configs/tmux/',
+        'destination_dir': "",
+        'func': parse_tmux
+    },
+
     # 'rofi': {
     #     'template': './default_configs/rofi/',
     #     # 'dest': os.path.expanduser("~/.config/rofi/"),
@@ -106,7 +107,7 @@ order = [
     # 'waybar',
     'wallpaper',
     'nvim',
-    # 'tmux',
+    'tmux',
     # 'rofi',
     # 'picom',
     # 'fish',
@@ -143,12 +144,12 @@ def main():
     for key in order:
         if key in config:
             logger.info(f"processing {key}")
-            dest_dir = os.path.join(
-                dest_base, path_config[key].get('dest_dir', ""))
-            print("dest = ", dest_dir)
+            destination_dir = os.path.join(
+                dest_base, path_config[key].get('destination_dir', ""))
+            print("dest = ", destination_dir)
             config = path_config[key]['func'](
                 template_dir=path_config[key]['template_dir'],
-                dest_dir=dest_dir,
+                destination_dir=destination_dir,
                 config=config,
                 theme_name=theme_name
             )
