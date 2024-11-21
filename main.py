@@ -10,6 +10,7 @@ from modules.i3 import parse_i3
 from modules.nvim import parse_nvim
 from modules.tmux import parse_tmux
 from modules.rofi import parse_rofi
+from modules.polybar import parse_polybar
 
 
 logger = logging.getLogger(__name__)
@@ -32,12 +33,12 @@ path_config = {
         'func': parse_i3
     },
 
-    # 'polybar': {
-    #     'template': './default_configs/polybar/',
-    #     'dest': os.path.expanduser("~/.config/polybar/config.ini"),
-    #     'func': parse_polybar
-    # },
-    #
+    'polybar': {
+        'template_dir': 'default_configs/polybar/',
+        'destination_dir': ".config/polybar/",
+        'func': parse_polybar
+    },
+
 
     'nvim': {
         'template_dir': './default_configs/nvim/',
@@ -53,7 +54,7 @@ path_config = {
 
     'rofi': {
         'template_dir': './default_configs/rofi/',
-        'destination_dir':".config/rofi",
+        'destination_dir': ".config/rofi",
         'func': parse_rofi
     },
     #
@@ -104,7 +105,7 @@ order = [
     'colors',
     'i3wm',
     # 'hyprland',
-    # 'polybar',
+    'polybar',
     # 'waybar',
     'wallpaper',
     'nvim',
@@ -132,7 +133,8 @@ def main():
 
     with open(path, "r") as f:
         config = json.load(f)
-    if not validate_config(config):
+    res, config = validate_config(config, theme_name)
+    if not res:
         return
 
     dest_base = os.path.join("themes", theme_name, "dots")

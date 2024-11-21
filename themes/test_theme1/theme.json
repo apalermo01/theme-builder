@@ -3,7 +3,5 @@
     "method": "manual"
   },
   "i3wm": {},
-  "tmux": {},
-  "nvim": {},
-  "rofi": {}
+  "polybar": {}
 }

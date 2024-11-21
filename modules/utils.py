@@ -3,6 +3,7 @@ import os
 from typing import Dict, List, Iterable, Tuple
 from . import allowed_elements
 import shutil
+from .validate_modules import validate_polybar
 
 logger = logging.getLogger(__name__)
 
@@ -81,7 +82,7 @@ def configure_destination(dest: str, *subfolders: List):
     return os.path.join(dest, *subfolders)
 
 
-def validate_config(config: Dict) -> bool:
+def validate_config(config: Dict, theme_name: str) -> bool:
     for key in allowed_elements:
 
         num_elements_of_category = sum(
@@ -90,8 +91,11 @@ def validate_config(config: Dict) -> bool:
             print(f"\x1b[31mMultiple elements found for {
                   key}. Config must have one or none of {allowed_elements[key]}")
 
-            return False
-    return True
+            return False, {}
+
+    if 'polybar' in config:
+        return validate_polybar(config, theme_name)
+    return True, config
 
 
 def write_source_to_file(src: str, dst: str):
@@ -125,10 +129,10 @@ def copy_all_files(src_folder: str, dest_folder: str):
 
     logger.info(f"os is walking {src_folder}")
     for root, dirs, files in os.walk(src_folder):
-        logger.info("=============")
-        logger.info(f"root = {root}")
-        logger.info(f"dirs = {dirs}")
-        logger.info(f"files = {files}")
+        # logger.info("=============")
+        # logger.info(f"root = {root}")
+        # logger.info(f"dirs = {dirs}")
+        # logger.info(f"files = {files}")
 
         if not os.path.exists(dest_folder):
             logger.info(f"making dest subfolder: {dest_folder}")

@@ -21,7 +21,6 @@ def parse_i3(template_dir: str,
     Parser for i3
     """
     logger.info("configuring i3...")
-    logger.info("dest = " + destination_dir)
     _configure_terminal(config, destination_dir, theme_name)
     _configure_colors(config, destination_dir, theme_name)
     _configure_picom(config, destination_dir, theme_name)
