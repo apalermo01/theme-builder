@@ -11,6 +11,7 @@ from modules.nvim import parse_nvim
 from modules.tmux import parse_tmux
 from modules.rofi import parse_rofi
 from modules.polybar import parse_polybar
+from modules.picom import parse_picom
 
 
 logger = logging.getLogger(__name__)
@@ -57,13 +58,13 @@ path_config = {
         'destination_dir': ".config/rofi",
         'func': parse_rofi
     },
-    #
-    # 'picom': {
-    #     'template': './default_configs/picom/',
-    #     # 'dest': os.path.expanduser("~/.config/"),
-    #     'func': parse_picom,
-    # },
-    #
+
+    'picom': {
+        'template_dir': './default_configs/picom/',
+        'destination_dir': ".config/",
+        'func': parse_picom,
+    },
+
     # 'fish': {
     #     'template': './default_configs/fish/',
     #     # 'dest': os.path.expanduser('~/.config/fish/'),
@@ -90,7 +91,7 @@ path_config = {
     #
     # "hyprland": {
     #     "template": "./default_configs/hyprland/",
-    #     # "dest": os.path.expanduser('~/.config/hypr/'),
+    #     # "dest": os.path.expanduser('~/.config/hypr/')
     #     "func": parse_hyprland,
     # },
     #
@@ -111,7 +112,7 @@ order = [
     'nvim',
     'tmux',
     'rofi',
-    # 'picom',
+    'picom',
     # 'fish',
     # 'bash',
     # 'kitty',

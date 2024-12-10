@@ -3,5 +3,7 @@
     "method": "manual"
   },
   "i3wm": {},
-  "polybar": {}
+  "polybar": {},
+  "picom": {},
+  "tmux": {}
 }
