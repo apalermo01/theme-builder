@@ -5,5 +5,10 @@
   "i3wm": {},
   "polybar": {},
   "picom": {},
-  "tmux": {}
+  "tmux": {},
+  "fish": {
+    "feats": [
+      "cowsay_fortune"
+    ]
+  }
 }

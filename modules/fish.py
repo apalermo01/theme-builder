@@ -1,23 +1,29 @@
 import logging
 from typing import Dict
 import os
-from .utils import append_text, write_source_to_file, append_source_to_file
+from .utils import (append_text,
+                    module_wrapper)
 from textwrap import dedent
 
 logger = logging.getLogger(__name__)
 
 
+@module_wrapper(tool='fish')
 def parse_fish(config: Dict,
-               template: str,
-               # dest: str,
+               template_dir: str,
+               destination_dir: str,
                theme_name: str) -> Dict:
 
     logger.info("Loading fish...")
 
-    wallpaper_file = config['wallpaper']['file']
     feats = config['fish'].get('feats', [])
-    wallpaper_path = os.path.expanduser(
-        f"~/Pictures/wallpapers/{wallpaper_file}")
+
+    if 'wallpaper' in config:
+        wallpaper_file = config['wallpaper']['file']
+        wallpaper_path = os.path.expanduser(
+            f"~/Pictures/wallpapers/{wallpaper_file}")
+    else:
+        wallpaper_path = None
 
     prompts_dict = {
         'cowsay_fortune': ("fortune | cowsay -f $(ls /usr/share/cowsay/cows/ "
@@ -37,22 +43,11 @@ def parse_fish(config: Dict,
             end
             """)
     }
-    # dest = os.path.join(dest, "config.fish")
-    dest = os.path.join("themes", theme_name, "dotifles", "fish", "config.fish")
-    theme_config = os.path.join("themes", theme_name, "fish", "config.fish")
-
-    # copy template file to destination
-    if "default_path" in config['fish']:
-        template = config['fish']['default_path']
-    else:
-        template = os.path.join(template, "config.fish")
-
-    write_source_to_file(template, dest)
-
-    if os.path.exists(theme_config):
-        append_source_to_file(theme_config, dest)
-
+    dest = os.path.join(destination_dir, "config.fish")
     for d in prompts_dict:
         if d in feats:
+            if d == 'run_pywal' and wallpaper_path is None:
+                logger.error("Cannot add pywal to fish config, no wallpaper")
+                continue
             append_text(dest, prompts_dict[d])
     return config

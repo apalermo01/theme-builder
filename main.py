@@ -12,6 +12,7 @@ from modules.tmux import parse_tmux
 from modules.rofi import parse_rofi
 from modules.polybar import parse_polybar
 from modules.picom import parse_picom
+from modules.fish import parse_fish
 
 
 logger = logging.getLogger(__name__)
@@ -65,12 +66,12 @@ path_config = {
         'func': parse_picom,
     },
 
-    # 'fish': {
-    #     'template': './default_configs/fish/',
-    #     # 'dest': os.path.expanduser('~/.config/fish/'),
-    #     'func': parse_fish
-    # },
-    #
+    'fish': {
+        'template_dir': './default_configs/fish/',
+        'destination_dir': '.config/fish/',
+        'func': parse_fish
+    },
+
     # 'kitty': {
     #     'template': './default_configs/kitty/',
     #     # 'dest': os.path.expanduser('~/.config/kitty/'),
@@ -113,7 +114,7 @@ order = [
     'tmux',
     'rofi',
     'picom',
-    # 'fish',
+    'fish',
     # 'bash',
     # 'kitty',
     # 'alacritty',
