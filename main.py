@@ -13,6 +13,8 @@ from modules.rofi import parse_rofi
 from modules.polybar import parse_polybar
 from modules.picom import parse_picom
 from modules.fish import parse_fish
+from modules.kitty import parse_kitty
+from modules.hyprland import parse_hyprland
 
 
 logger = logging.getLogger(__name__)
@@ -72,12 +74,12 @@ path_config = {
         'func': parse_fish
     },
 
-    # 'kitty': {
-    #     'template': './default_configs/kitty/',
-    #     # 'dest': os.path.expanduser('~/.config/kitty/'),
-    #     'func': parse_kitty
-    # },
-    #
+    'kitty': {
+        'template_dir': './default_configs/kitty/',
+        'destination_dir': '.config/kitty/',
+        'func': parse_kitty
+    },
+
     # 'bash': {
     #     'template': './default_configs/bash/',
     #     # 'dest': os.path.expanduser('~/'),
@@ -89,13 +91,13 @@ path_config = {
     #     # "dest": os.path.expanduser("~/.config/alacritty/alacritty.toml"),
     #     "func": parse_alacritty,
     # },
-    #
-    # "hyprland": {
-    #     "template": "./default_configs/hyprland/",
-    #     # "dest": os.path.expanduser('~/.config/hypr/')
-    #     "func": parse_hyprland,
-    # },
-    #
+
+    "hyprland": {
+        "template_dir": "./default_configs/hyprland/",
+        'destination_dir': ".config/hypr/",
+        "func": parse_hyprland,
+    },
+
     # "waybar": {
     #     "template": "./default_configs/waybar/",
     #     # "dest": os.path.expanduser('~/.config/waybar/'),
@@ -106,7 +108,7 @@ path_config = {
 order = [
     'colors',
     'i3wm',
-    # 'hyprland',
+    'hyprland',  # needs testing
     'polybar',
     # 'waybar',
     'wallpaper',
@@ -116,7 +118,7 @@ order = [
     'picom',
     'fish',
     # 'bash',
-    # 'kitty',
+    'kitty',  # needs testing
     # 'alacritty',
 ]
 
