@@ -1,23 +1,29 @@
 import logging
 from typing import Dict
 import os
-from .utils import append_text, write_source_to_file, append_source_to_file
+# from .utils import append_text, write_source_to_file, append_source_to_file
+from .utils import (append_text,
+                    module_wrapper)
 from textwrap import dedent
 
 logger = logging.getLogger(__name__)
 
 
+@module_wrapper(tool='bash')
 def parse_bash(config: Dict,
                template: str,
-               # dest: str,
+               destination_dir: str,
                theme_name: str) -> Dict:
 
     logger.info("Loading bash...")
+    
+    feats = config['fish'].get('feats', [])
 
-    wallpaper_file = config['wallpaper']['file']
-    feats = config['bash'].get('feats', [])
-    wallpaper_path = os.path.expanduser(
-        f"~/Pictures/wallpapers/{wallpaper_file}")
+    if 'wallpaper' in config:
+        wallpaper_file = config['wallpaper']['file']
+        wallpaper_path = os.path.expanduser(
+            f"~/Pictures/wallpapers/{wallpaper_file}"
+        )
 
     prompts_dict = {
         'cowsay_fortune': ("fortune | cowsay -f $(ls /usr/share/cowsay/cows/ "
@@ -34,22 +40,13 @@ def parse_bash(config: Dict,
                 \n
             """)
                 }
-    # dest = os.path.join(dest, ".bashrc")
-    dest = f"./themes/{theme_name}/dotfiles/.bashrc"
-    theme_config = os.path.join("themes", theme_name, "bash", ".bashrc")
-
-    # copy template file to destination
-    if "default_path" in config['bash']:
-        template = config['bash']['default_path']
-    else:
-        template = os.path.join(template, ".bashrc")
-
-    write_source_to_file(template, dest)
-
-    if os.path.exists(theme_config):
-        append_source_to_file(theme_config, dest)
+    dest = os.path.join(destination_dir, ".bashrc")
 
     for d in prompts_dict:
         if d in feats:
-            append_text(dest, prompts_dict[d])
+            if d == 'run_pywal' and wallpaper_path is None:
+                logger.error("Cannot add pywal to bash config, no wallpaper")
+                continue
+            append_txt(dest, prompts_dict[d])
+
     return config

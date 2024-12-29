@@ -80,12 +80,12 @@ path_config = {
         'func': parse_kitty
     },
 
-    # 'bash': {
-    #     'template': './default_configs/bash/',
-    #     # 'dest': os.path.expanduser('~/'),
-    #     'func': parse_bash
-    # },
-    #
+    'bash': {
+        'template': './default_configs/bash/',
+        'destination_dir': '/',
+        'func': parse_bash
+    },
+
     # "alacritty": {
     #     "template": "./default_configs/alacritty/",
     #     # "dest": os.path.expanduser("~/.config/alacritty/alacritty.toml"),
@@ -117,7 +117,7 @@ order = [
     'rofi',
     'picom',
     'fish',
-    # 'bash',
+    'bash', # needs testing
     'kitty',  # needs testing
     # 'alacritty',
 ]
@@ -126,6 +126,7 @@ order = [
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--theme")
+    parser.add_argument("--test", default=True, action=argparse.BooleanOPtionalAction)
     args = parser.parse_args()
     return args
 
@@ -133,7 +134,10 @@ def parse_args():
 def main():
     args = parse_args()
     theme_name = args.theme
-    path = f"./themes/{theme_name}/theme.json"
+    if args.test:
+        path = f"./tests/{theme_name}/theme.json"
+    else:
+        path = f"./themes/{theme_name}/theme.json"
 
     with open(path, "r") as f:
         config = json.load(f)
