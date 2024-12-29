@@ -99,11 +99,11 @@ path_config = {
         "func": parse_hyprland,
     },
 
-    "waybar": {
-        "template": "./default_configs/waybar/",
-        "destination_dir": ".config/waybar/",
-        "func": parse_waybar,
-    }
+    # "waybar": {
+    #     "template": "./default_configs/waybar/",
+    #     "destination_dir": ".config/waybar/",
+    #     "func": parse_waybar,
+    # }
 }
 
 order = [
@@ -111,7 +111,7 @@ order = [
     'i3wm',
     'hyprland',  # needs testing
     'polybar',
-    'waybar',
+    # 'waybar',
     'wallpaper',
     'nvim',
     'tmux',
@@ -136,17 +136,17 @@ def main():
     args = parse_args()
     theme_name = args.theme
     if args.test:
-        path = f"./tests/{theme_name}/theme.json"
+        theme_path = f"./tests/{theme_name}"
     else:
-        path = f"./themes/{theme_name}/theme.json"
+        theme_path = f"./themes/{theme_name}"
 
-    with open(path, "r") as f:
+    with open(os.path.join(theme_path, "theme.json"), "r") as f:
         config = json.load(f)
-    res, config = validate_config(config, theme_name)
+    res, config = validate_config(config, os.path.join(theme_path, "theme.json"))
     if not res:
         return
 
-    dest_base = os.path.join("themes", theme_name, "dots")
+    dest_base = os.path.join(theme_path, "dots")
     if os.path.exists(dest_base):
         shutil.rmtree(dest_base)
         logger.info(f"removing directory {dest_base}")
@@ -163,7 +163,7 @@ def main():
                 template_dir=path_config[key]['template_dir'],
                 destination_dir=destination_dir,
                 config=config,
-                theme_name=theme_name
+                theme_path=theme_path
             )
 
 

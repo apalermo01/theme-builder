@@ -13,11 +13,11 @@ logger = logging.getLogger(__name__)
 def parse_bash(config: Dict,
                template: str,
                destination_dir: str,
-               theme_name: str) -> Dict:
+               theme_path: str) -> Dict:
 
     logger.info("Loading bash...")
     
-    feats = config['fish'].get('feats', [])
+    feats = config['bash'].get('feats', [])
 
     if 'wallpaper' in config:
         wallpaper_file = config['wallpaper']['file']

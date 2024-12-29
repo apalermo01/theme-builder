@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 def module_wrapper(tool):
     def func_runner(module):
         def inner(config: Dict,
-                  theme_name: str,
+                  theme_path: str,
                   template_dir: str,
                   destination_dir: str):
 
@@ -24,10 +24,10 @@ def module_wrapper(tool):
             # files to append
             if 'copy' in config[tool]:
                 copy_files_from_filelist(config[tool]['copy'],
-                                         theme_name,
+                                         theme_path,
                                          tool)
             return module(config=config,
-                          theme_name=theme_name,
+                          theme_path=theme_path,
                           template_dir=template_dir,
                           destination_dir=destination_dir)
 
@@ -36,7 +36,7 @@ def module_wrapper(tool):
 
 
 def copy_files_from_filelist(file_list: List[Dict[str, str]],
-                             theme_name: str,
+                             theme_path: str,
                              tool_name: str):
     """
     Copy folder structure into dotfiles.
@@ -56,9 +56,8 @@ def copy_files_from_filelist(file_list: List[Dict[str, str]],
 
     for file_info in file_list:
         from_path = os.path.join(
-            os.getcwd(), "themes", theme_name, tool_name, file_info["from"])
-        to_path = os.path.join(os.getcwd(), "themes",
-                               theme_name, "dots", file_info["to"])
+            os.getcwd(), theme_path, tool_name, file_info["from"])
+        to_path = os.path.join(os.getcwd(), theme_path, "dots", file_info["to"])
 
         if not os.path.exists('/'.join(to_path.split('/')[:-1])):
             os.makedirs('/'.join(to_path.split('/')[:-1]))
@@ -82,7 +81,7 @@ def configure_destination(dest: str, *subfolders: List):
     return os.path.join(dest, *subfolders)
 
 
-def validate_config(config: Dict, theme_name: str) -> bool:
+def validate_config(config: Dict, theme_path: str) -> bool:
     for key in allowed_elements:
 
         num_elements_of_category = sum(
@@ -94,7 +93,7 @@ def validate_config(config: Dict, theme_name: str) -> bool:
             return False, {}
 
     if 'polybar' in config:
-        return validate_polybar(config, theme_name)
+        return validate_polybar(config, theme_path)
     return True, config
 
 
@@ -133,7 +132,7 @@ def copy_all_files(src_folder: str, dest_folder: str):
         # logger.info(f"root = {root}")
         # logger.info(f"dirs = {dirs}")
         # logger.info(f"files = {files}")
-
+        #
         if not os.path.exists(dest_folder):
             logger.info(f"making dest subfolder: {dest_folder}")
             os.makedirs(dest_folder)

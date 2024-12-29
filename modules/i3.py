@@ -16,19 +16,19 @@ logger = logging.getLogger(__name__)
 def parse_i3(template_dir: str,
              destination_dir: str,
              config: Dict,
-             theme_name: str):
+             theme_path: str):
     """
     Parser for i3
     """
     logger.info("configuring i3...")
-    _configure_terminal(config, destination_dir, theme_name)
-    _configure_colors(config, destination_dir, theme_name)
-    _configure_picom(config, destination_dir, theme_name)
+    _configure_terminal(config, destination_dir, theme_path)
+    _configure_colors(config, destination_dir, theme_path)
+    _configure_picom(config, destination_dir, theme_path)
 
     return config
 
 
-def _configure_terminal(config: Dict, dest: str, theme_name: str):
+def _configure_terminal(config: Dict, dest: str, theme_path: str):
 
     terminal: str = 'gnome-terminal'
     for i in available_terminals:
@@ -45,7 +45,7 @@ def _configure_terminal(config: Dict, dest: str, theme_name: str):
             'terminal_path', '.config/i3/i3.config')
 
     terminal_path = os.path.join(
-        ".", "themes", theme_name, "dots", terminal_path)
+        theme_path, "dots", terminal_path)
 
     pattern: str = "bindsym $mod+Return exec"
     replace_text: str = f"bindsym $mod+Return exec {terminal}"
@@ -57,7 +57,7 @@ def _configure_terminal(config: Dict, dest: str, theme_name: str):
     logger.info(f"updated terminal: {terminal}")
 
 
-def _configure_picom(config: Dict, dest: str, theme_name: str):
+def _configure_picom(config: Dict, dest: str, theme_path: str):
 
     if 'picom' not in config:
         return
@@ -70,9 +70,9 @@ def _configure_picom(config: Dict, dest: str, theme_name: str):
         "\nexec_always picom --config ~/.config/picom.conf\n", dest_path)
 
 
-def _configure_colors(config: Dict, dest: str, theme_name: str):
+def _configure_colors(config: Dict, dest: str, theme_path: str):
     colorscheme_path: str =\
-        os.path.join("themes", theme_name, "colors", "colorscheme.json")
+        os.path.join(theme_path, "colors", "colorscheme.json")
 
     with open(colorscheme_path, "r") as f:
         colorscheme: Dict = json.load(f)

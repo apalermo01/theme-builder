@@ -1,0 +1,17 @@
+{
+  "colors": {
+    "method": "pywal"
+  },
+
+  "wallpaper": {
+    "file": "cat1.jpg",
+    "method": "feh"
+  },
+
+  "i3wm": {
+    "copy": [{
+      "from": "i3.config",
+      "to": ".config/i3/i3.config"
+    }]
+  }
+}

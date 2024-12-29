@@ -5,9 +5,9 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def validate_polybar(config: Dict, theme_name: str):
+def validate_polybar(config: Dict, theme_path: str):
     polybar_path: str = os.path.join(
-        "./themes", theme_name, "polybar", "polybar.ini")
+        theme_path, "polybar", "polybar.ini")
     if not os.path.exists(polybar_path):
         logger.critical(f"Polybar needs a custom config in {polybar_path}")
         return False, {}
