@@ -15,6 +15,7 @@ from modules.picom import parse_picom
 from modules.fish import parse_fish
 from modules.kitty import parse_kitty
 from modules.hyprland import parse_hyprland
+from modules.bash import parse_bash
 
 
 logger = logging.getLogger(__name__)
@@ -82,7 +83,7 @@ path_config = {
 
     'bash': {
         'template': './default_configs/bash/',
-        'destination_dir': '/',
+        'destination_dir': '',
         'func': parse_bash
     },
 
@@ -98,11 +99,11 @@ path_config = {
         "func": parse_hyprland,
     },
 
-    # "waybar": {
-    #     "template": "./default_configs/waybar/",
-    #     # "dest": os.path.expanduser('~/.config/waybar/'),
-    #     "func": parse_waybar,
-    # }
+    "waybar": {
+        "template": "./default_configs/waybar/",
+        "destination_dir": ".config/waybar/",
+        "func": parse_waybar,
+    }
 }
 
 order = [
@@ -110,7 +111,7 @@ order = [
     'i3wm',
     'hyprland',  # needs testing
     'polybar',
-    # 'waybar',
+    'waybar',
     'wallpaper',
     'nvim',
     'tmux',
@@ -126,7 +127,7 @@ order = [
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--theme")
-    parser.add_argument("--test", default=True, action=argparse.BooleanOPtionalAction)
+    parser.add_argument("--test", default=True, action=argparse.BooleanOptionalAction)
     args = parser.parse_args()
     return args
 

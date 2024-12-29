@@ -13,11 +13,12 @@ CONFIG_TMP_PATH = os.path.join("./tmp/waybar_config")
 
 def parse_waybar(config: Dict,
                  template: str,
-                 dest: str,
+                 destination_dir: str,
                  theme_name: str):
     """
     Requires waybar config to be fully defined in the theme
     """
+
     custom_path: str = f"./themes/{theme_name}/waybar/"
     config_path: str = os.path.join(custom_path, "config")
     css_path: str = os.path.join(custom_path, "style.css")
