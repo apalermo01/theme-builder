@@ -9,6 +9,6 @@ logger = logging.getLogger(__name__)
 def parse_rofi(config: Dict,
                template_dir: str,
                destination_dir: str,
-               theme_name: str) -> Dict:
+               theme_path: str) -> Dict:
 
     return config

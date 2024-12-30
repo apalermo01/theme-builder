@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 def parse_polybar(config: Dict,
                   template_dir: str,
                   destination_dir: str,
-                  theme_name: str):
+                  theme_path: str):
 
     logger.info("Loading polybar...")
     polybar = configparser.ConfigParser()
@@ -32,7 +32,7 @@ def parse_polybar(config: Dict,
             polybar = configparser.ConfigParser()
             polybar.read(config_subfile)
             if 'colors' in polybar:
-                polybar = _parse_colors(polybar, theme_name)
+                polybar = _parse_colors(polybar, theme_path)
                 with open(config_subfile, "w") as f:
                     polybar.write(f)
                 logger.info(f"wrote polybar config with colors to {
@@ -52,10 +52,10 @@ def parse_polybar(config: Dict,
     return config
 
 
-def _parse_colors(polybar: configparser.ConfigParser, theme_name: str):
+def _parse_colors(polybar: configparser.ConfigParser, theme_path: str):
 
     colorscheme_path: str =\
-        os.path.join("themes", theme_name, "colors", "colorscheme.json")
+        os.path.join(theme_path, "colors", "colorscheme.json")
 
     with open(colorscheme_path, "r") as f:
         colorscheme: Dict = json.load(f)

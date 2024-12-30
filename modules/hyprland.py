@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 def parse_hyprland(template_dir: str,
                    destination_dir: str,
                    config: Dict,
-                   theme_name: str):
+                   theme_path: str):
     """
     TODO: validate variables. For example, check if a terminal is passed to
     hyprland that is not present in the wider config.
@@ -22,16 +22,16 @@ def parse_hyprland(template_dir: str,
     logger.info("configuring hyprland...")
 
     # copy template into temp file
-    _configure_variables(config, destination_dir, theme_name)
-    _configure_general(config, destination_dir, theme_name)
-    _configure_decoration(config, destination_dir, theme_name)
-    _configure_animations(config, destination_dir, theme_name)
-    _configure_colors(config, destination_dir, theme_name)
+    _configure_variables(config, destination_dir, theme_path)
+    _configure_general(config, destination_dir, theme_path)
+    _configure_decoration(config, destination_dir, theme_path)
+    _configure_animations(config, destination_dir, theme_path)
+    _configure_colors(config, destination_dir, theme_path)
 
     return config
 
 
-def _configure_variables(config: Dict, destination_dir: str, theme_name: str):
+def _configure_variables(config: Dict, destination_dir: str, theme_path: str):
     term = config['hyprland'].get('terminal', 'kitty')
     file_manager = config['hyprland'].get('fileManager', 'thunar')
     browser = config['hyprland'].get('browser', 'firefox')
@@ -44,8 +44,7 @@ def _configure_variables(config: Dict, destination_dir: str, theme_name: str):
     append_text(path, f"$menu = {menu}\n")
 
 
-def _configure_general(config: Dict, destination_dir: str, theme_name: str):
-    theme_path = os.path.join("themes", theme_name)
+def _configure_general(config: Dict, destination_dir: str, theme_path: str):
     write_path = os.path.join(destination_dir, "hyprland.conf")
     src = os.path.join(theme_path, "hypr", "general.conf")
     if not os.path.exists(src):
@@ -55,8 +54,7 @@ def _configure_general(config: Dict, destination_dir: str, theme_name: str):
     append_source_to_file(src, write_path)
 
 
-def _configure_decoration(config: Dict, destination_dir: str, theme_name: str):
-    theme_path = os.path.join("themes", theme_name)
+def _configure_decoration(config: Dict, destination_dir: str, theme_path: str):
     write_path = os.path.join(destination_dir, "hyprland.conf")
     src = os.path.join(theme_path, "hypr", "decoration.conf")
     if not os.path.exists(src):
@@ -66,8 +64,7 @@ def _configure_decoration(config: Dict, destination_dir: str, theme_name: str):
     append_source_to_file(src, write_path)
 
 
-def _configure_animations(config: Dict, destination_dir: str, theme_name: str):
-    theme_path = os.path.join("themes", theme_name)
+def _configure_animations(config: Dict, destination_dir: str, theme_path: str):
     write_path = os.path.join(destination_dir, "hyprland.conf")
     src = os.path.join(theme_path, "hypr", "animations.conf")
     if not os.path.exists(src):
@@ -77,9 +74,9 @@ def _configure_animations(config: Dict, destination_dir: str, theme_name: str):
     append_source_to_file(src, write_path)
 
 
-def _configure_colors(config: Dict, destination_dir: str, theme_name: str):
+def _configure_colors(config: Dict, destination_dir: str, theme_path: str):
     colorscheme_path: str = os.path.join(
-        '.', 'themes', theme_name, 'colors', 'colorscheme.json')
+        theme_path, 'colors', 'colorscheme.json')
     if not os.path.exists(colorscheme_path):
         raise FileNotFoundError(f"could not find {colorscheme_path}")
 

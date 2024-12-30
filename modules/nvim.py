@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 def parse_nvim(template_dir: str,
                destination_dir: str,
                config: Dict,
-               theme_name: str):
+               theme_path: str):
     """
     Example neovim configs:
 
@@ -48,27 +48,27 @@ def parse_nvim(template_dir: str,
     nvim_config: Dict = config.get('nvim', {})
 
     if 'colorscheme' in nvim_config:
-        _configure_colorscheme(nvim_config, theme_name)
+        _configure_colorscheme(nvim_config, theme_path)
 
     if 'nvchad_colorscheme' in nvim_config:
-        _configure_nvchad_colorscheme(nvim_config, theme_name)
+        _configure_nvchad_colorscheme(nvim_config, theme_path)
 
     if 'nvchad_separator' in nvim_config:
-        _configure_nvchad_separator(nvim_config, theme_name)
+        _configure_nvchad_separator(nvim_config, theme_path)
 
     return config
 
 
-def _configure_colorscheme(nvim_config: Dict, theme_name: str):
+def _configure_colorscheme(nvim_config: Dict, theme_path: str):
     if isinstance(nvim_config['colorsheme'], str):
         colorscheme: str = nvim_config['colorscheme']
         colorscheme_path: str = os.path.join(
-            ".", "themes", theme_name, "dots", ".config", "nvim", "init.lua"
+            ".", "themes", theme_path, "dots", ".config", "nvim", "init.lua"
         )
     else:
         colorscheme: str = nvim_config['colorscheme']['colorscheme']
         colorscheme_path: str = os.path.join(
-            ".", "themes", theme_name, "dots", ".config", "nvim",
+            ".", "themes", theme_path, "dots", ".config", "nvim",
             nvim_config['colorscheme']['file']
         )
         if not os.path.exists(os.path.split(colorscheme_path)[0]):
@@ -81,24 +81,24 @@ def _configure_colorscheme(nvim_config: Dict, theme_name: str):
                              dest=colorscheme_path)
 
 
-def _configure_nvchad_colorscheme(nvim_config: Dict, theme_name: str):
+def _configure_nvchad_colorscheme(nvim_config: Dict, theme_path: str):
     colorscheme: str = nvim_config['nvchad_colorscheme']
     pattern: str = 'theme = "'
     text: str = f'    theme = "{colorscheme}",'
     path: str = os.path.join(
-        "themes", theme_name, "dots", ".config", "nvim", "lua", "chadrc.lua"
+        theme_path, "dots", ".config", "nvim", "lua", "chadrc.lua"
     )
     overwrite_or_append_line(path=path,
                              pattern=pattern,
                              replace_text=text)
 
 
-def _configure_nvchad_separator(nvim_config: Dict, theme_name: str):
+def _configure_nvchad_separator(nvim_config: Dict, theme_path: str):
     separator: str = nvim_config['nvchad_separator']
     pattern: str = 'separator_style = "'
     text: str = f'       separator_style = "{separator}",'
     path: str = os.path.join(
-        "themes", theme_name, "dots", ".config", "nvim", "lua", "chadrc.lua"
+        theme_path, "dots", ".config", "nvim", "lua", "chadrc.lua"
     )
     overwrite_or_append_line(path=path,
                              pattern=pattern,
