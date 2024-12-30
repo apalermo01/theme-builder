@@ -44,7 +44,8 @@ def copy_files_from_filelist(file_list: List[Dict[str, str]],
     file_list is a list of dictionaries with the structure:
     [
         {"from": <theme file to copy from>,
-         "to": <theme file to copy to>}
+         "to": <theme file to copy to>,
+         "overwrite": <optional: overwrites the default file>}
     ]
 
     if the "to" file already exists, then "from" gets appended to "to"
@@ -61,8 +62,10 @@ def copy_files_from_filelist(file_list: List[Dict[str, str]],
 
         if not os.path.exists('/'.join(to_path.split('/')[:-1])):
             os.makedirs('/'.join(to_path.split('/')[:-1]))
-
-        if os.path.isfile(to_path):
+        
+        logger.info("file info = ")
+        logger.info(file_info)
+        if os.path.isfile(to_path) and not file_info.get('overwrite', False):
             logger.info(f"appending {from_path} to {to_path}")
             with open(from_path, "r") as f_from, \
                     open(to_path, "a") as f_to:
@@ -128,11 +131,11 @@ def copy_all_files(src_folder: str, dest_folder: str):
 
     logger.info(f"os is walking {src_folder}")
     for root, dirs, files in os.walk(src_folder):
-        # logger.info("=============")
-        # logger.info(f"root = {root}")
-        # logger.info(f"dirs = {dirs}")
-        # logger.info(f"files = {files}")
-        #
+        logger.info("=============")
+        logger.info(f"root = {root}")
+        logger.info(f"dirs = {dirs}")
+        logger.info(f"files = {files}")
+
         if not os.path.exists(dest_folder):
             logger.info(f"making dest subfolder: {dest_folder}")
             os.makedirs(dest_folder)

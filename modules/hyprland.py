@@ -48,30 +48,43 @@ def _configure_general(config: Dict, destination_dir: str, theme_path: str):
     write_path = os.path.join(destination_dir, "hyprland.conf")
     src = os.path.join(theme_path, "hypr", "general.conf")
     if not os.path.exists(src):
-        src = os.path.join("./default_configs", "hypr", "general.conf")
+        src = os.path.join("./default_configs", "hyprland", "general.conf")
 
     logger.info(f"loading general.conf from {src}")
     append_source_to_file(src, write_path)
+
+    if os.path.exists(os.path.join(destination_dir, "general.conf")):
+        os.remove(os.path.join(destination_dir, "general.conf"))
+        logger.info(f"removed {os.path.join(destination_dir, 'general.conf')} due to redundancy")
 
 
 def _configure_decoration(config: Dict, destination_dir: str, theme_path: str):
     write_path = os.path.join(destination_dir, "hyprland.conf")
     src = os.path.join(theme_path, "hypr", "decoration.conf")
     if not os.path.exists(src):
-        src = os.path.join("./default_configs", "hypr", "general.conf")
+        src = os.path.join("./default_configs", "hyprland", "decoration.conf")
 
-    logger.info(f"loading general.conf from {src}")
+    logger.info(f"loading decoration.conf from {src}")
     append_source_to_file(src, write_path)
+
+    if os.path.exists(os.path.join(destination_dir, "decoration.conf")):
+        os.remove(os.path.join(destination_dir, "decoration.conf"))
+        logger.info(f"removed {os.path.join(destination_dir, 'decoration.conf')} due to redundancy")
 
 
 def _configure_animations(config: Dict, destination_dir: str, theme_path: str):
+
     write_path = os.path.join(destination_dir, "hyprland.conf")
     src = os.path.join(theme_path, "hypr", "animations.conf")
     if not os.path.exists(src):
-        src = os.path.join("./default_configs", "hypr", "general.conf")
+        src = os.path.join("./default_configs", "hyprland", "animations.conf")
 
-    logger.info(f"loading general.conf from {src}")
+    logger.info(f"loading animations.conf from {src}")
     append_source_to_file(src, write_path)
+
+    if os.path.exists(os.path.join(destination_dir, "animations.conf")):
+        os.remove(os.path.join(destination_dir, "animations.conf"))
+        logger.info(f"removed {os.path.join(destination_dir, 'animations.conf')} due to redundancy")
 
 
 def _configure_colors(config: Dict, destination_dir: str, theme_path: str):
