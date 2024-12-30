@@ -1,0 +1,8 @@
+{
+  "kitty": {"copy": [
+    {"from": "kitty_extra.conf",
+     "to": "kitty.conf"}
+  ]},
+  "fish": {},
+  "font_family": "JetBrainsMonoNL NFM medium"
+}

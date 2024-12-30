@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 def parse_kitty(config: Dict,
                 template_dir: str,
                 destination_dir: str,
-                them_path: str) -> Dict:
+                theme_path: str) -> Dict:
 
     logger.info("Loading kitty...")
     # dest = os.path.join(dest, "kitty.conf")
@@ -21,10 +21,10 @@ def parse_kitty(config: Dict,
             'kitty.conf'
         ), "chsh -s /usr/bin/fish\n")
 
-    if "font" in config:
+    if "font_family" in config:
         append_text(os.path.join(
             destination_dir,
             'kitty.conf'
-        ), f"font_family {config['font']}\n")
+        ), f"font_family {config['font_family']}\n")
 
     return config
