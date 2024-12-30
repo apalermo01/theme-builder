@@ -121,6 +121,8 @@ fi
 
 # run neovim when I use vim by accident
 alias vim="nvim"
+# Append some commands to bash init
+echo "I was appended to the default config!"
 fortune | cowsay -f $(ls /usr/share/cowsay/cows/ | shuf -n1)
 neofetch
 wal -n -e -i /home/alex/Pictures/wallpapers/cat1.jpg > /dev/null 

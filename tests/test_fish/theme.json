@@ -1,5 +1,5 @@
 {
-  "bash": {
+  "fish": {
     "feats": [
       "cowsay_fortune",
       "neofetch",
@@ -7,8 +7,8 @@
       "git_onefetch"
     ],
     "copy": [{
-      "from": "bash_extras.sh",
-      "to": ".bashrc"
+      "from": "fish_extras.fish",
+      "to": ".config/fish/config.fish"
     }]
   },
   "wallpaper": {
