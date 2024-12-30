@@ -1,0 +1,24 @@
+{
+  "polybar": {"copy": [
+    {
+      "from": "date.ini",
+      "to": ".config/polybar/date.ini"
+    },
+    {
+      "from": "powermenu.ini",
+      "to": ".config/polybar/powermenu.ini"
+    },
+    {
+      "from": "wlan.ini",
+      "to": ".config/polybar/wlan.ini"
+    },
+    {
+      "from": "xworkspaces.ini",
+      "to": ".config/polybar/xworkspaces.ini"
+    },
+    {
+      "from": "polybar.ini",
+      "to": ".config/polybar/polybar.ini"
+    }
+  ]}
+}

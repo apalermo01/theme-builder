@@ -17,4 +17,5 @@ def validate_polybar(config: Dict, theme_path: str):
             'to': '.config/polybar/polybar.ini',
             'from': 'polybar.ini'
         }]
+
     return True, config

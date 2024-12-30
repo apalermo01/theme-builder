@@ -22,28 +22,31 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 path_config = {
+    # tested
     'colors': {
         'template_dir': None,
         'func': parse_colors
     },
-
+    
+    # tested
     'wallpaper': {
         'template_dir': None,
         'func': parse_wallpaper
     },
-
+    
+    #tested
     'i3wm': {
         'template_dir': 'default_configs/i3wm/',
         'destination_dir': ".config/i3/",
         'func': parse_i3
     },
-
+    
+    # tested
     'polybar': {
         'template_dir': 'default_configs/polybar/',
         'destination_dir': ".config/polybar/",
         'func': parse_polybar
     },
-
 
     'nvim': {
         'template_dir': './default_configs/nvim/',
@@ -69,18 +72,21 @@ path_config = {
         'func': parse_picom,
     },
 
+    # tested
     'fish': {
         'template_dir': './default_configs/fish/',
         'destination_dir': '.config/fish/',
         'func': parse_fish
     },
 
+    # tested
     'kitty': {
         'template_dir': './default_configs/kitty/',
         'destination_dir': '.config/kitty/',
         'func': parse_kitty
     },
 
+    # tested
     'bash': {
         'template_dir': './default_configs/bash/',
         'destination_dir': '',
@@ -93,6 +99,7 @@ path_config = {
     #     "func": parse_alacritty,
     # },
 
+    # tested
     "hyprland": {
         "template_dir": "./default_configs/hyprland/",
         'destination_dir': ".config/hypr/",
@@ -109,7 +116,7 @@ path_config = {
 order = [
     'colors',
     'i3wm',
-    'hyprland',  # needs testing
+    'hyprland', 
     'polybar',
     # 'waybar',
     'wallpaper',
@@ -118,8 +125,8 @@ order = [
     'rofi',
     'picom',
     'fish',
-    'bash', # needs testing
-    'kitty',  # needs testing
+    'bash',
+    'kitty',
     # 'alacritty',
 ]
 
@@ -142,7 +149,7 @@ def main():
 
     with open(os.path.join(theme_path, "theme.json"), "r") as f:
         config = json.load(f)
-    res, config = validate_config(config, os.path.join(theme_path, "theme.json"))
+    res, config = validate_config(config, theme_path)
     if not res:
         return
 
