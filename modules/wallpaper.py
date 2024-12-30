@@ -21,7 +21,7 @@ def parse_wallpaper(
 
     logger.info("Loading wallpaper...")
 
-    allowed_methods: List[str] = ['feh', 'hyprpaper']
+    allowed_methods: List[str] = ['feh', 'hyprpaper', 'None']
     method: str = config['wallpaper'].get('method', 'feh')
 
     if method not in allowed_methods:
@@ -32,7 +32,27 @@ def parse_wallpaper(
         return feh_theme(config, theme_path)
     if method == 'hyprpaper':
         return hyprpaper_theme(config, theme_path)
+    if method == 'None':
+        return move_wp_only(config, theme_path)
 
+def move_wp_only(config: Dict, theme_path: str):
+
+    wallpaper_path: str = config['wallpaper']['file']
+    # if just the filename was given, look in the project's wallpaper folder:
+    if '/' not in wallpaper_path:
+        wallpaper_path = os.path.join('.', 'wallpapers', wallpaper_path)
+
+    wallpaper_dest: str = os.path.expanduser(
+        f"~/Pictures/wallpapers/{wallpaper_path.split('/')[-1]}"
+    )
+
+    if not os.path.exists(os.path.expanduser("~/Pictures/wallpapers/")):
+        os.makedirs(os.path.expanduser("~/Pictures/wallpapers/"))
+
+    shutil.copy2(src=wallpaper_path, dst=wallpaper_dest)
+    logger.info(f"copied {wallpaper_path} to {wallpaper_dest}")
+    
+    return config 
 
 def feh_theme(config: Dict, theme_path: str):
 

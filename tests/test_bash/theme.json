@@ -1,0 +1,14 @@
+{
+  "bash": {
+    "feats": [
+      "cowsay_fortune",
+      "neofetch",
+      "run_pywal",
+      "git_onefetch"
+    ]
+  },
+  "wallpaper": {
+    "file": "cat1.jpg",
+    "method": "None"
+  }
+}

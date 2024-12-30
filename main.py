@@ -82,7 +82,7 @@ path_config = {
     },
 
     'bash': {
-        'template': './default_configs/bash/',
+        'template_dir': './default_configs/bash/',
         'destination_dir': '',
         'func': parse_bash
     },

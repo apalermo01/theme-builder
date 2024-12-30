@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 @module_wrapper(tool='bash')
 def parse_bash(config: Dict,
-               template: str,
+               template_dir: str,
                destination_dir: str,
                theme_path: str) -> Dict:
 
@@ -47,6 +47,6 @@ def parse_bash(config: Dict,
             if d == 'run_pywal' and wallpaper_path is None:
                 logger.error("Cannot add pywal to bash config, no wallpaper")
                 continue
-            append_txt(dest, prompts_dict[d])
+            append_text(dest, prompts_dict[d])
 
     return config
