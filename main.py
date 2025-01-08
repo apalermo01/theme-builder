@@ -47,7 +47,8 @@ path_config = {
         'destination_dir': ".config/polybar/",
         'func': parse_polybar
     },
-
+    
+    # tested
     'nvim': {
         'template_dir': './default_configs/nvim/',
         'destination_dir': ".config/nvim",
