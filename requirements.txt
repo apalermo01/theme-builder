@@ -1,2 +1,4 @@
 matplotlib
 toml
+isort
+black

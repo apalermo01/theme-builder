@@ -3,48 +3,30 @@ import shutil
 from typing import Dict
 import logging
 import json
-
+from .utils import module_wrapper
 
 logger = logging.getLogger(__name__)
 
-CSS_TMP_PATH = os.path.join("./tmp/waybar_css.css")
-CONFIG_TMP_PATH = os.path.join("./tmp/waybar_config")
-
-
+@module_wrapper(tool='waybar')
 def parse_waybar(config: Dict,
-                 template: str,
+                 template_dir: str,
                  destination_dir: str,
                  theme_path: str):
     """
     Requires waybar config to be fully defined in the theme
     """
-
-    custom_path = os.path.join(theme_path, "waybar")
-    config_path: str = os.path.join(custom_path, "config")
-    css_path: str = os.path.join(custom_path, "style.css")
-
-    if not os.path.exists(config_path):
-        raise FileNotFoundError(f"could not find {config_path}")
-    if not os.path.exists(css_path):
-        raise FileNotFoundError(f"could not find {css_path}")
-
+    
+    css_path = config['waybar'].get('css_path', 'style.css')
+    css_path = os.path.join(theme_path, "dots", ".config", "waybar", css_path)
     with open(css_path, "r") as f:
         css: list = f.readlines()
 
     css = _parse_colors(css, theme_path)
 
-    shutil.copy2(config_path, CONFIG_TMP_PATH)
-    with open(CSS_TMP_PATH, "w") as f:
+    with open(css_path, "w") as f:
         for line in css:
             f.write(line)
 
-    config_final_path = os.path.expanduser("~/.config/waybar/config")
-    css_final_path = os.path.expanduser("~/.config/waybar/style.css")
-
-    shutil.copy2(CONFIG_TMP_PATH, config_final_path)
-    logger.info(f"wrote {CONFIG_TMP_PATH} to {config_final_path}")
-    shutil.copy2(CSS_TMP_PATH, css_final_path)
-    logger.info(f"wrote {CSS_TMP_PATH} to {css_final_path}")
 
     return config
 
@@ -62,4 +44,5 @@ def _parse_colors(css, theme_path: str):
         for color in colorscheme:
             line = line.replace(f"<{color}>", colorscheme[color])
         new_lines.append(line)
+
     return new_lines

@@ -11,4 +11,5 @@ def parse_rofi(config: Dict,
                destination_dir: str,
                theme_path: str) -> Dict:
 
+    logger.info("Loading rofi...")
     return config

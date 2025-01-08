@@ -1,22 +1,24 @@
-import logging
-import os
 import argparse
 import json
+import logging
+import os
 import shutil
-from modules.utils import validate_config
-from modules.colors import parse_colors
-from modules.wallpaper import parse_wallpaper
-from modules.i3 import parse_i3
-from modules.nvim import parse_nvim
-from modules.tmux import parse_tmux
-from modules.rofi import parse_rofi
-from modules.polybar import parse_polybar
-from modules.picom import parse_picom
-from modules.fish import parse_fish
-from modules.kitty import parse_kitty
-from modules.hyprland import parse_hyprland
-from modules.bash import parse_bash
 
+from modules.alacritty import parse_alacritty
+from modules.bash import parse_bash
+from modules.colors import parse_colors
+from modules.fish import parse_fish
+from modules.hyprland import parse_hyprland
+from modules.i3 import parse_i3
+from modules.kitty import parse_kitty
+from modules.nvim import parse_nvim
+from modules.picom import parse_picom
+from modules.polybar import parse_polybar
+from modules.rofi import parse_rofi
+from modules.tmux import parse_tmux
+from modules.utils import validate_config
+from modules.wallpaper import parse_wallpaper
+from modules.waybar import parse_waybar
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -54,19 +56,22 @@ path_config = {
         'destination_dir': ".config/nvim",
         'func': parse_nvim
     },
-
+    
+    # tested
     'tmux': {
         'template_dir': './default_configs/tmux/',
         'destination_dir': "",
         'func': parse_tmux
     },
 
+    # minimal, no test needed
     'rofi': {
         'template_dir': './default_configs/rofi/',
         'destination_dir': ".config/rofi",
         'func': parse_rofi
     },
-
+    
+    # minimal, no test needed
     'picom': {
         'template_dir': './default_configs/picom/',
         'destination_dir': ".config/",
@@ -93,12 +98,13 @@ path_config = {
         'destination_dir': '',
         'func': parse_bash
     },
-
-    # "alacritty": {
-    #     "template": "./default_configs/alacritty/",
-    #     # "dest": os.path.expanduser("~/.config/alacritty/alacritty.toml"),
-    #     "func": parse_alacritty,
-    # },
+    
+    # minimal, no test needed
+    "alacritty": {
+        "template_dir": "./default_configs/alacritty/",
+        "testination_dir": ".config/alacritty/",
+        "func": parse_alacritty,
+    },
 
     # tested
     "hyprland": {
@@ -106,12 +112,13 @@ path_config = {
         'destination_dir': ".config/hypr/",
         "func": parse_hyprland,
     },
-
-    # "waybar": {
-    #     "template": "./default_configs/waybar/",
-    #     "destination_dir": ".config/waybar/",
-    #     "func": parse_waybar,
-    # }
+    
+    # tested
+    "waybar": {
+        "template_dir": "./default_configs/waybar/",
+        "destination_dir": ".config/waybar/",
+        "func": parse_waybar,
+    }
 }
 
 order = [
@@ -119,7 +126,7 @@ order = [
     'i3wm',
     'hyprland', 
     'polybar',
-    # 'waybar',
+    'waybar',
     'wallpaper',
     'nvim',
     'tmux',
@@ -128,7 +135,7 @@ order = [
     'fish',
     'bash',
     'kitty',
-    # 'alacritty',
+    'alacritty',
 ]
 
 
