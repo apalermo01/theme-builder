@@ -3,7 +3,7 @@ client.focused	         <foreground>	  <background>	 <foreground>   	<color12>	 
 client.focused_inactive	 <foreground>	  <background> <foreground>	    <color4>	    <color4>
 client.unfocused	       <foreground>	<background>	 <foreground>	    <color4>	  <color4>
 client.urgent	           <foreground>	   <background>	 <foreground>	    <color4>	      <color4>
-client.placeholder	     <foreground>	   <backgrouns>	 <foreground>	    <color4>	   <color4>
+client.placeholder	     <foreground>	   <background>	 <foreground>	    <color4>	   <color4>
 
 client.background	<background>
 

@@ -25,6 +25,7 @@ def module_wrapper(tool):
 
             # files to append
             if 'copy' in config[tool]:
+                print("config = ", config)
                 copy_files_from_filelist(config[tool]['copy'],
                                          theme_path,
                                              tool)
@@ -137,19 +138,19 @@ def copy_all_files(src_folder: str, dest_folder: str):
         os.makedirs(dest_folder)
 
     for root, dirs, files in os.walk(src_folder):
-        logger.info("=============")
-        logger.info(f"root = {root}")
-        logger.info(f"dirs = {dirs}")
-        logger.info(f"files = {files}")
-        logger.info(f"dest folder = {dest_folder}")
+        # logger.info("=============")
+        # logger.info(f"root = {root}")
+        # logger.info(f"dirs = {dirs}")
+        # logger.info(f"files = {files}")
+        # logger.info(f"dest folder = {dest_folder}")
 
         subfolder = root.replace(src_folder, "")
         folder = os.path.join(dest_folder, subfolder)
-        logger.info(f"folder = {folder}")
+        # logger.info(f"folder = {folder}")
 
         if not os.path.exists(folder):
             os.makedirs(folder)
-            logger.info(f"created a new folder: {folder}")
+            # logger.info(f"created a new folder: {folder}")
 
         for file in files:
             src_file = os.path.join(root, file)

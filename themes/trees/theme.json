@@ -23,7 +23,11 @@
     "template_dir": "./themes/trees/rofi/"
   },
   "fish": {
-    "feats": ["run_pywal"]
+    "feats": ["run_pywal"],
+    "copy": [{
+      "from": "config.fish",
+      "to": ".config/fish/config.fish"
+    }]
   },
   "kitty": {},
   "picom": {

@@ -39,10 +39,10 @@ def _configure_terminal(config: Dict, dest: str, theme_path: str):
                 "Assigning this terminal to $mod+Return")
 
     if 'terminal' not in config['i3wm']:
-        terminal_path = ".config/i3/i3.config"
+        terminal_path = ".config/i3/config"
     else:
         terminal_path = config['i3wm']['terminal'].get(
-            'terminal_path', '.config/i3/i3.config')
+            'terminal_path', '.config/i3/config')
 
     terminal_path = os.path.join(
         theme_path, "dots", terminal_path)
@@ -62,7 +62,7 @@ def _configure_picom(config: Dict, dest: str, theme_path: str):
     if 'picom' not in config:
         return
 
-    dest_path = os.path.join(dest, "i3.config")
+    dest_path = os.path.join(dest, "config")
 
     logger.info("picom found in this theme's config")
     append_if_not_present("\nexec killall picom\n", dest_path)
@@ -77,7 +77,7 @@ def _configure_colors(config: Dict, dest: str, theme_path: str):
     with open(colorscheme_path, "r") as f:
         colorscheme: Dict = json.load(f)
 
-    colors_file = config['i3wm'].get("i3_write_colors_to", "i3.config")
+    colors_file = config['i3wm'].get("i3_write_colors_to", "config")
     dest = os.path.join(dest, colors_file)
     text: List[str] = read_file(dest)
 

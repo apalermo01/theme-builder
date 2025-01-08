@@ -78,7 +78,7 @@ def feh_theme(config: Dict, theme_path: str):
 
     # TODO: copy text to additional i3 config file
     path: str = os.path.join(theme_path,
-                             "dots", ".config", "i3", "i3.config")
+                             "dots", ".config", "i3", "config")
     with open(path, 'r') as f:
         lines = f.readlines()
 

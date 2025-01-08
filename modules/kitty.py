@@ -13,7 +13,6 @@ def parse_kitty(config: Dict,
                 theme_path: str) -> Dict:
 
     logger.info("Loading kitty...")
-    # dest = os.path.join(dest, "kitty.conf")
 
     if "fish" in config:
         append_text(os.path.join(
