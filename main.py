@@ -147,10 +147,8 @@ def parse_args():
     return args
 
 
-def main():
-    args = parse_args()
-    theme_name = args.theme
-    if args.test:
+def build_theme(theme_name, test):
+    if test:
         theme_path = f"./tests/{theme_name}"
     else:
         theme_path = f"./themes/{theme_name}"
@@ -181,6 +179,11 @@ def main():
                 theme_path=theme_path
             )
 
+def main():
+    args = parse_args()
+    theme_name = args.theme
+    
+    build_theme(theme_name, args.test)
 
 if __name__ == '__main__':
     main()
