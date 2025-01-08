@@ -65,6 +65,7 @@ def _configure_colorscheme(nvim_config: Dict, theme_path: str):
         colorscheme_path: str = os.path.join(
             theme_path, "dots", ".config", "nvim", "init.lua"
         )
+    # TODO: need to test this
     else:
         colorscheme: str = nvim_config['colorscheme']['colorscheme']
         colorscheme_path: str = os.path.join(
@@ -73,7 +74,9 @@ def _configure_colorscheme(nvim_config: Dict, theme_path: str):
         )
         if not os.path.exists(os.path.split(colorscheme_path)[0]):
             os.makedirs(os.path.split(colorscheme_path)[0])
-
+    
+    if not os.path.exists(colorscheme_path):
+        raise ValueError(f"could not find neovim config file {colorscheme_path} when parsing colorscheme")
     cmd: str = f"vim.cmd[[colorscheme {colorscheme}]]"
 
     overwrite_or_append_line(pattern="vim.cmd[[colorscheme",
@@ -88,6 +91,14 @@ def _configure_nvchad_colorscheme(nvim_config: Dict, theme_path: str):
     path: str = os.path.join(
         theme_path, "dots", ".config", "nvim", "lua", "chadrc.lua"
     )
+
+    if not os.path.exists(path):
+        raise FileNotFoundError("""
+            could not find chadrc.lua to configure colorscheme.
+            Are you using nvchad? 
+            You must pass 'template_dir': 'default_configs/nvim/' 
+            in the theme file for this to work.""")
+
     overwrite_or_append_line(dest=path,
                              pattern=pattern,
                              replace_text=text)
@@ -100,6 +111,12 @@ def _configure_nvchad_separator(nvim_config: Dict, theme_path: str):
     path: str = os.path.join(
         theme_path, "dots", ".config", "nvim", "lua", "chadrc.lua"
     )
+    if not os.path.exists(path):
+        raise FileNotFoundError("""
+            could not find chadrc.lua to configure colorscheme.
+            Are you using nvchad? 
+            You must pass 'template_dir': 'default_configs/nvim/' 
+            in the theme file for this to work.""")
     overwrite_or_append_line(dest=path,
                              pattern=pattern,
                              replace_text=text)
