@@ -9,19 +9,24 @@
     "method": "feh",
     "file": "trees.jpg"
   },
-  "nvchad": {
-    "colorscheme": "everforest",
-    "overwrite": ["lua/chadrc.lua"]
+  "nvim": {
+    "template_dir": "default_configs/nvchad",
+    "copy": [{
+      "from": "lua/chadrc.lua",
+      "to": ".config/nvim/lua/chadrc.lua",
+      "overwrite": true
+    }],
+    "nvchad_colorscheme": "everforest"
   },
   "tmux": {},
   "rofi": {
-    "default_path": "./themes/trees/rofi/config.rasi"
+    "template_dir": "./themes/trees/rofi/"
   },
   "fish": {
     "feats": ["run_pywal"]
   },
   "kitty": {},
   "picom": {
-    "default_path": "./themes/trees/picom/picom.conf"
+    "template_dir": "./themes/trees/picom/"
   }
 }

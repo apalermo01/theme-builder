@@ -18,6 +18,8 @@ def module_wrapper(tool):
             # default files
             if 'template_dir' in config[tool]:
                 template_dir = config[tool]['template_dir']
+                if template_dir[-1] != '/':
+                    template_dir = template_dir + '/'
 
             copy_all_files(template_dir, destination_dir)
 
