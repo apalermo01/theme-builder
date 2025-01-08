@@ -60,15 +60,15 @@ def parse_nvim(template_dir: str,
 
 
 def _configure_colorscheme(nvim_config: Dict, theme_path: str):
-    if isinstance(nvim_config['colorsheme'], str):
+    if isinstance(nvim_config['colorscheme'], str):
         colorscheme: str = nvim_config['colorscheme']
         colorscheme_path: str = os.path.join(
-            ".", "themes", theme_path, "dots", ".config", "nvim", "init.lua"
+            theme_path, "dots", ".config", "nvim", "init.lua"
         )
     else:
         colorscheme: str = nvim_config['colorscheme']['colorscheme']
         colorscheme_path: str = os.path.join(
-            ".", "themes", theme_path, "dots", ".config", "nvim",
+            theme_path, "dots", ".config", "nvim",
             nvim_config['colorscheme']['file']
         )
         if not os.path.exists(os.path.split(colorscheme_path)[0]):
@@ -88,7 +88,7 @@ def _configure_nvchad_colorscheme(nvim_config: Dict, theme_path: str):
     path: str = os.path.join(
         theme_path, "dots", ".config", "nvim", "lua", "chadrc.lua"
     )
-    overwrite_or_append_line(path=path,
+    overwrite_or_append_line(dest=path,
                              pattern=pattern,
                              replace_text=text)
 
@@ -100,6 +100,6 @@ def _configure_nvchad_separator(nvim_config: Dict, theme_path: str):
     path: str = os.path.join(
         theme_path, "dots", ".config", "nvim", "lua", "chadrc.lua"
     )
-    overwrite_or_append_line(path=path,
+    overwrite_or_append_line(dest=path,
                              pattern=pattern,
                              replace_text=text)

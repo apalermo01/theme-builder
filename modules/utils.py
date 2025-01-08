@@ -25,7 +25,7 @@ def module_wrapper(tool):
             if 'copy' in config[tool]:
                 copy_files_from_filelist(config[tool]['copy'],
                                          theme_path,
-                                         tool)
+                                             tool)
             return module(config=config,
                           theme_path=theme_path,
                           template_dir=template_dir,
@@ -130,22 +130,32 @@ def append_text(src: str, text: str):
 def copy_all_files(src_folder: str, dest_folder: str):
 
     logger.info(f"os is walking {src_folder}")
+    if not os.path.exists(dest_folder):
+        logger.info(f"making dest subfolder: {dest_folder}")
+        os.makedirs(dest_folder)
+
     for root, dirs, files in os.walk(src_folder):
         logger.info("=============")
         logger.info(f"root = {root}")
         logger.info(f"dirs = {dirs}")
         logger.info(f"files = {files}")
+        logger.info(f"dest folder = {dest_folder}")
 
-        if not os.path.exists(dest_folder):
-            logger.info(f"making dest subfolder: {dest_folder}")
-            os.makedirs(dest_folder)
+        subfolder = root.replace(src_folder, "")
+        folder = os.path.join(dest_folder, subfolder)
+        logger.info(f"folder = {folder}")
+
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+            logger.info(f"created a new folder: {folder}")
 
         for file in files:
             src_file = os.path.join(root, file)
-            dest_file = os.path.join(dest_folder, file)
+            dest_file = os.path.join(dest_folder, subfolder, file)
 
-            shutil.copy2(src_file, dest_file)
             logger.info(f"copied {src_file} to {dest_file}")
+            shutil.copy2(src_file, dest_file)
+    
 
 
 def overwrite_or_append_line(

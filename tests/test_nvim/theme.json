@@ -1,0 +1,6 @@
+{
+  "nvim": {
+    "template_dir": "default_configs/nvim/",
+    "colorscheme": "gruvbox"
+  }
+}
