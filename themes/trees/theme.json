@@ -3,7 +3,10 @@
   "colors": {
     "method": "pywal"
   },
-  "i3wm": {},
+  "i3": {"copy": [{
+    "from": "config",
+    "to": ".config/i3/config"
+  }]},
   "polybar": {},
   "wallpaper": {
     "method": "feh",

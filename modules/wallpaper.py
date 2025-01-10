@@ -69,7 +69,7 @@ def feh_theme(config: Dict, theme_path: str):
     if not os.path.exists(os.path.expanduser("~/Pictures/wallpapers/")):
         os.makedirs(os.path.expanduser("~/Pictures/wallpapers/"))
 
-    if 'i3wm' not in config:
+    if 'i3' not in config:
         raise KeyError(
             "This parser is only configured to work with i3 if feh is used. " +
             "Please add it to the theme's config")

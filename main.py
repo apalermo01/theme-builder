@@ -40,8 +40,8 @@ path_config = {
     },
     
     #tested
-    'i3wm': {
-        'template_dir': 'default_configs/i3wm/',
+    'i3': {
+        'template_dir': 'default_configs/i3/',
         'destination_dir': ".config/i3",
         'func': parse_i3
     },
@@ -129,7 +129,7 @@ path_config = {
 
 order = [
     'colors',
-    'i3wm',
+    'i3',
     'hyprland', 
     'polybar',
     'waybar',
@@ -156,9 +156,9 @@ def parse_args():
 
 def build_theme(theme_name, test):
     if test:
-        theme_path = f"./tests/{theme_name}"
+        theme_path = f"tests/{theme_name}"
     else:
-        theme_path = f"./themes/{theme_name}"
+        theme_path = f"themes/{theme_name}"
 
     with open(os.path.join(theme_path, "theme.json"), "r") as f:
         config = json.load(f)

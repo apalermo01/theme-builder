@@ -12,7 +12,7 @@ from .utils import (overwrite_or_append_line,
 logger = logging.getLogger(__name__)
 
 
-@module_wrapper(tool='i3wm')
+@module_wrapper(tool='i3')
 def parse_i3(template_dir: str,
              destination_dir: str,
              config: Dict,
@@ -38,10 +38,10 @@ def _configure_terminal(config: Dict, dest: str, theme_path: str):
                 f"Found {i} in theme's config. " +
                 "Assigning this terminal to $mod+Return")
 
-    if 'terminal' not in config['i3wm']:
+    if 'terminal' not in config['i3']:
         terminal_path = ".config/i3/config"
     else:
-        terminal_path = config['i3wm']['terminal'].get(
+        terminal_path = config['i3']['terminal'].get(
             'terminal_path', '.config/i3/config')
 
     terminal_path = os.path.join(
@@ -77,7 +77,7 @@ def _configure_colors(config: Dict, dest: str, theme_path: str):
     with open(colorscheme_path, "r") as f:
         colorscheme: Dict = json.load(f)
 
-    colors_file = config['i3wm'].get("i3_write_colors_to", "config")
+    colors_file = config['i3'].get("i3_write_colors_to", "config")
     dest = os.path.join(dest, colors_file)
     text: List[str] = read_file(dest)
 

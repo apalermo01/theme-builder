@@ -66,8 +66,6 @@ def copy_files_from_filelist(file_list: List[Dict[str, str]],
         if not os.path.exists('/'.join(to_path.split('/')[:-1])):
             os.makedirs('/'.join(to_path.split('/')[:-1]))
         
-        logger.info("file info = ")
-        logger.info(file_info)
         if os.path.isfile(to_path) and not file_info.get('overwrite', False):
             logger.info(f"appending {from_path} to {to_path}")
             with open(from_path, "r") as f_from, \
@@ -75,6 +73,18 @@ def copy_files_from_filelist(file_list: List[Dict[str, str]],
                 for line in f_from.readlines():
                     f_to.write(line)
         else:
+            print("file info = ")
+            logger.info(file_info)
+            if file_info.get('overwrite', False):
+                logger.info("overwrite is false")
+            else:
+                logger.info("overwrite is true")
+
+            if os.path.isfile(to_path):
+                logger.info(f"{to_path} is a file")
+
+            else:
+                logger.info(f"{to_path} is not a file")
             logger.info(f"copying {from_path} to {to_path}")
             shutil.copy2(from_path, to_path)
 
