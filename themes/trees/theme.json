@@ -21,7 +21,10 @@
     }],
     "nvchad_colorscheme": "everforest"
   },
-  "tmux": {},
+  "tmux": {"copy": [{
+    "from": "tmux.conf",
+    "to": ".tmux.conf"
+  }]},
   "rofi": {
     "template_dir": "./themes/trees/rofi/"
   },
