@@ -6,7 +6,7 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # DO NOT DELETE THIS
 # Parser for polybar DEPENDs on this line
-declare -a bar_names=()
+declare -a bar_names=( "b")
 
 if [ -z "$(pgrep -x polybar)" ]; then
   for b in "${bar_names[@]}"; do
