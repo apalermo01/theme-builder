@@ -3,25 +3,37 @@
   "colors": {
     "method": "pywal"
   },
-  "i3wm": {},
+  "i3": {"copy": [{
+    "from": "config",
+    "to": ".config/i3/config"
+  }]},
   "polybar": {},
   "wallpaper": {
     "method": "feh",
     "file": "trees.jpg"
   },
-  "nvchad": {
-    "colorscheme": "everforest",
-    "overwrite": ["lua/chadrc.lua"]
+  "nvim": {
+    "template_dir": "default_configs/nvchad",
+    "copy": [{
+      "from": "lua/chadrc.lua",
+      "to": ".config/nvim/lua/chadrc.lua",
+      "overwrite": true
+    }],
+    "nvchad_colorscheme": "everforest"
   },
   "tmux": {},
   "rofi": {
-    "default_path": "./themes/trees/rofi/config.rasi"
+    "template_dir": "./themes/trees/rofi/"
   },
   "fish": {
-    "feats": ["run_pywal"]
+    "feats": ["run_pywal"],
+    "copy": [{
+      "from": "config.fish",
+      "to": ".config/fish/config.fish"
+    }]
   },
   "kitty": {},
   "picom": {
-    "default_path": "./themes/trees/picom/picom.conf"
+    "template_dir": "./themes/trees/picom/"
   }
 }

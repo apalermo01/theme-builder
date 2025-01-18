@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 def parse_colors(
         config: Dict,
-        theme_name: str,
+        theme_path: str,
         **kwargs
 ) -> Dict:
     """Function to parse the colorscheme
@@ -20,7 +20,7 @@ def parse_colors(
     - method: "manual" or "pywal"
 
     """
-
+    logger.info(f"configuring colors for {theme_path}")
     allowed_methods: List[str] = ['manual', 'pywal']
     method: str = config['colors'].get('method', 'manual')
 
@@ -29,7 +29,10 @@ def parse_colors(
                          allowed_methods + f" but got {method}")
 
     colorscheme_path: str = os.path.join(
-        ".", "themes", theme_name, "colors", "colorscheme.json")
+        theme_path, "colors")
+
+    if not os.path.exists(colorscheme_path):
+        os.makedirs(colorscheme_path)
 
     if method == 'pywal':
         wallpaper_path: str = config['wallpaper']['file']
@@ -41,25 +44,26 @@ def parse_colors(
         pallet = _configure_pywal_colors(wallpaper_path)
         _write_pallet_to_colorscheme(pallet, colorscheme_path)
 
-    with open(colorscheme_path, "r") as f:
+    with open(os.path.join(colorscheme_path, "colorscheme.json"), "r") as f:
         colorscheme = json.load(f)
-    make_pallet_image(colorscheme)
+
+    make_pallet_image(colorscheme, theme_path)
     return config
 
 
 def _write_pallet_to_colorscheme(pallet: str,
                                  colorscheme_path: str):
-    if not os.path.exists(colorscheme_path):
-        with open(colorscheme_path, "w") as f:
-            json.dump(pallet, f)
+    # if not os.path.exists(colorscheme_path):
+    with open(os.path.join(colorscheme_path, "colorscheme.json"), "w") as f:
+        json.dump(pallet, f, indent=2)
 
-    else:
-        with open(colorscheme_path, "r") as f:
-            scheme = json.load(f)
-        for key in pallet:
-            scheme[key] = pallet[key]
-        with open(colorscheme_path, "w") as f:
-            json.dump(scheme, f, indent=2)
+    # else:
+    #     with open(colorscheme_path, "r") as f:
+    #         scheme = json.load(f)
+    #     for key in pallet:
+    #         scheme[key] = pallet[key]
+    #     with open(colorscheme_path, "w") as f:
+    #         json.dump(scheme, f, indent=2)
 
 
 def _configure_pywal_colors(wallpaper_path: str) -> Dict:
@@ -95,7 +99,7 @@ def _configure_pywal_colors(wallpaper_path: str) -> Dict:
     return pallet
 
 
-def make_pallet_image(pallet: Dict):
+def make_pallet_image(pallet: Dict, theme_path):
     """Generate an image out of all the colors in the pallet.
 
     Parameters
@@ -118,4 +122,4 @@ def make_pallet_image(pallet: Dict):
         axes[i].set_title(f"{titles[i]}: {color}")
     fig.suptitle("Color Palette", fontsize=14)
 
-    plt.savefig("./tmp/pallet.png", dpi=300, bbox_inches="tight")
+    plt.savefig(os.path.join(theme_path, "pallet.png"), dpi=300, bbox_inches="tight")

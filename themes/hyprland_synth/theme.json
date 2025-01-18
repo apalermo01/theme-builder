@@ -10,11 +10,18 @@
     "file": "synth.jpg"
   },
 
-  "waybar": {},
+  "waybar": {"copy": [{
+    "from": "config",
+    "to": ".config/waybar/config"
+  },{
+    "from": "style.css",
+    "to": ".config/waybar/style.css"
+  }]},
 
-  "nvchad": {
-    "colorscheme": "catppuccin",
-    "separator": "round"
+  "nvim": {
+    "template_dir": "default_configs/nvchad/",
+    "nvchad_colorscheme": "catppuccin",
+    "nvchad_separator": "round"
   },
 
   "tmux": {},

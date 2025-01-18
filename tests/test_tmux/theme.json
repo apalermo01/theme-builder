@@ -1,0 +1,8 @@
+{
+  "tmux": {
+    "copy": [{
+      "from": "tmux_theme.conf",
+      "to": ".tmux.conf"
+    }]  
+  }
+}

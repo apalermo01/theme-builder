@@ -3,13 +3,22 @@
   "colors": {
     "method": "manual"
   },
-  "i3wm": {},
+
+  "i3": {
+    "copy": [{
+      "from": "config",
+      "to": ".config/i3/config"
+    }]
+  },
+
   "polybar": {},
   "wallpaper": {
     "method": "feh",
     "file": "black_background.jpg"
   },
-  "nvchad": {},
+  "nvim": {
+    "template_dir": "./default_configs/nvchad"
+  },
   "tmux": {},
   "rofi": {},
   "fish": {},

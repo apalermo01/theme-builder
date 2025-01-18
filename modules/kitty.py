@@ -1,36 +1,29 @@
 import logging
 from typing import Dict
 import os
-from .utils import write_source_to_file, append_source_to_file, append_text, copy_all_files
+from .utils import module_wrapper, append_text
 
 logger = logging.getLogger(__name__)
 
 
+@module_wrapper(tool='kitty')
 def parse_kitty(config: Dict,
-                template: str,
-                dest: str,
-                theme_name: str) -> Dict:
+                template_dir: str,
+                destination_dir: str,
+                theme_path: str) -> Dict:
 
     logger.info("Loading kitty...")
-    dest = os.path.join(dest, "kitty.conf")
-
-    theme_config = os.path.join("themes", theme_name, "kitty", "kitty.conf")
-
-    # copy template file to destination
-    if "default_path" in config['kitty']:
-        template = config['kitty']['default_path']
-    else:
-        template = os.path.join(template, "kitty.conf")
-
-    write_source_to_file(template, dest)
 
     if "fish" in config:
-        append_text(dest, "chsh -s /usr/bin/fish\n")
+        append_text(os.path.join(
+            destination_dir,
+            'kitty.conf'
+        ), "chsh -s /usr/bin/fish\n")
 
-    if "font" in config:
-        append_text(dest, f"font_family {config['font']}\n")
-
-    if os.path.exists(theme_config) and theme_config != template:
-        append_source_to_file(theme_config, dest)
+    if "font_family" in config:
+        append_text(os.path.join(
+            destination_dir,
+            'kitty.conf'
+        ), f"font_family {config['font_family']}\n")
 
     return config

@@ -8,10 +8,17 @@
     "method": "hyprpaper",
     "file": "mandelbrot_full_flamingo.png"
   },
-  "waybar": {},
-  "nvchad": {
-    "colorscheme": "catppuccin",
-    "separator": "round"
+  "waybar": {"copy": [{
+    "from": "config",
+    "to": ".config/waybar/config"
+  },{
+    "from": "style.css",
+    "to": ".config/waybar/style.css"
+  }]},
+  "nvim": {
+    "template_dir": "default_configs/nvchad/",
+    "nvchad_colorscheme": "catppuccin",
+    "nvchad_separator": "round"
   },
   "tmux": {},
   "fish": {

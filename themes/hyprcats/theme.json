@@ -10,19 +10,26 @@
     "file": "cat1.jpg"
   },
 
-  "waybar": {},
+  "waybar": {"copy": [{
+    "from": "config",
+    "to": ".config/waybar/config"
+  },{
+    "from": "style.css",
+    "to": ".config/waybar/style.css"
+  }]},
 
-  "nvchad": {
-    "overwrite": ["lua/chadrc.lua"]
+  "nvim": {
+    "template_dir": "default_configs/nvchad/",
+    "copy": [{
+      "from": "lua/chadrc.lua",
+      "to": ".config/nvim/lua/chadrc.lua",
+      "overwrite": true
+    }]
   },
 
   "fish": {
     "feats": ["neofetch", "run_pywal"]
   },
-
-  "waybar": {},
-
   "kitty": {},
-
   "tmux": {}
 }

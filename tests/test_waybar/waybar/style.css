@@ -1,0 +1,115 @@
+/* source: https://github.com/coltwillcox/linuxwave/tree/master */
+
+@define-color border <crust>;
+@define-color background <crust>;
+@define-color font1 <text>;
+@define-color font2 <surface2>;
+@define-color shadow <pink>;
+
+
+* {
+    /* `otf-font-awesome` is required to be installed for icons */
+    /* font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif; */
+    font-family: JetBrainsMono Nerd Font Mono;
+    font-size: 13px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+window {
+	background-color: rgba(0, 0, 0, 0);
+}
+
+#workspaces,
+#workspaces button,
+#clock,
+#cpu,
+#memory,
+#pulseaudio,
+#network,
+#backlight,
+#battery,
+#tray
+{
+	margin-top: 0px;
+	margin-top: 0px;
+	margin-left: 2px;
+	padding: 1px 2px 1px 2px;
+	margin-bottom: 0;
+	border-radius: 10px;
+	transition: none;
+	color: <surface2>;
+	border: 0px solid @border;
+}
+
+#workspaces {
+	transition: none;
+	background: transparent;
+}
+
+#workspaces button {
+	transition: none;
+	background: <rosewater>;
+	text-shadow: 2px 2px 5px @shadow;
+}
+
+#workspaces button.focused {
+	background: <blue>;
+	border: 0px solid <rosewater>;
+}
+
+
+#workspaces button.active {
+	background: <blue>;
+	border: 2px solid <rosewater>;
+}
+
+#workspaces button:hover {
+	transition: none;
+	text-shadow: 0px 0px 2px <red>;
+}
+
+#clock {
+  background: <pink>;
+}
+
+#pulseaudio {
+
+  background: <mauve>;
+}
+
+#network {
+  background: <red>;
+}
+
+#cpu {
+  background: <maroon>;
+}
+
+#memory {
+  background: <peach>;
+}
+
+#backlight {
+  background: <yellow>;
+}
+
+#battery {
+  background: <green>;
+}
+
+#tray {
+  background: <teal>;
+}
+
+tooltip {
+	background: @background;
+	border: 2px solid @border;
+	border-radius: 26px;
+}
+
+tooltip label {
+	color: @font2;
+}
+

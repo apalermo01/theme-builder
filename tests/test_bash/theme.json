@@ -1,0 +1,18 @@
+{
+  "bash": {
+    "feats": [
+      "cowsay_fortune",
+      "neofetch",
+      "run_pywal",
+      "git_onefetch"
+    ],
+    "copy": [{
+      "from": "bash_extras.sh",
+      "to": ".bashrc"
+    }]
+  },
+  "wallpaper": {
+    "file": "cat1.jpg",
+    "method": "None"
+  }
+}

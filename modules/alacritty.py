@@ -1,26 +1,14 @@
 import logging
 from typing import Dict
 import os
-from .utils import default_parser
-
+from .utils import module_wrapper
 logger = logging.getLogger(__name__)
 
-
+@module_wrapper(tool='alacritty')
 def parse_alacritty(config: Dict,
                     template: str,
                     dest: str,
-                    theme_name: str) -> Dict:
+                    theme_path: str) -> Dict:
 
     logger.info("Loading alacritty...")
-    dest = os.path.join(dest, "alacritty.toml")
-    theme_config = os.path.join(
-        "themes", theme_name, "alacritty", "alacritty.toml")
-
-    # copy template file to destination
-    if "default_path" in config['rofi']:
-        template = config['rofi']['default_path']
-    else:
-        template = os.path.join(template, "alacritty.toml")
-
-    default_parser(template, dest, theme_config, theme_name)
     return config

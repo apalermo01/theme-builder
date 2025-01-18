@@ -1,0 +1,9 @@
+{
+  "waybar": {"copy": [{
+    "from": "config",
+    "to": ".config/waybar/config"
+  },{
+    "from": "style.css",
+    "to": ".config/waybar/style.css"
+  }]}
+}

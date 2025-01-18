@@ -4,56 +4,58 @@ from typing import Dict
 import configparser
 import logging
 import json
+from .utils import module_wrapper
 
 logger = logging.getLogger(__name__)
 
 
+@module_wrapper(tool='polybar')
 def parse_polybar(config: Dict,
-                  template: str,
-                  dest: str,
-                  theme_name: str):
+                  template_dir: str,
+                  destination_dir: str,
+                  theme_path: str):
 
     logger.info("Loading polybar...")
     polybar = configparser.ConfigParser()
 
-    # load template or theme-specific config
-    custom_path: str = f"./themes/{theme_name}/polybar/polybar.ini"
-    if os.path.exists(custom_path):
-        polybar.read(custom_path)
-        logger.info(f"loaded custom polybar config from {custom_path}")
-    else:
-        logger.error(f"polybar requires a custom config at {custom_path}")
-        raise FileNotFoundError(
-            f"polybar requires a custom config at {custom_path}")
-        # polybar.read(template)
-        # logger.info("loaded default polybar config from default template")
+    # path = os.path.join("themes", "polybar.ini")
+    # # load template or theme-specific config
+    # polybar.read(path)
+    # logger.info(f"loaded custom polybar config from {path}")
 
-    polybar = _parse_colors(polybar, theme_name)
+    polybar_files = os.walk(destination_dir)
 
-    # write config
-    with open(dest, "w") as f:
-        polybar.write(f)
+    for root, dirs, files in polybar_files:
+        for file in files:
+            config_subfile = os.path.join(root, file)
+            print("reading config subfile: ", config_subfile)
+            polybar = configparser.ConfigParser()
+            polybar.read(config_subfile)
+            if 'colors' in polybar:
+                polybar = _parse_colors(polybar, theme_path)
+                with open(config_subfile, "w") as f:
+                    polybar.write(f)
+                logger.info(f"wrote polybar config with colors to {
+                            config_subfile}")
 
-    logger.info(f"wrote polybar config to {dest}")
-
-    # launch script
+    # # launch script
     src_script = "./scripts/i3wmthemer_bar_launch.sh"
-    dest = "/" + os.path.join(*dest.split('/')[:-1])
-    dest_script = os.path.join(dest, "i3wmthemer_bar_launch.sh")
-    if not os.path.exists(dest):
-        os.makedirs(dest)
-    with open(dest_script, 'w') as f:
+    destination_dir = os.path.join(*destination_dir.split('/')[:-1])
+    destination_dir_script = os.path.join(
+        destination_dir, "i3wmthemer_bar_launch.sh")
+    with open(destination_dir_script, 'w') as f:
         pass
-    shutil.copy2(src_script, dest)
-    logger.info(f"copied polybar startup script from {src_script} to {dest}")
+    shutil.copy2(src_script, destination_dir)
+    logger.info(f"copied polybar startup script from {
+                src_script} to {destination_dir}")
 
     return config
 
 
-def _parse_colors(polybar: configparser.ConfigParser, theme_name: str):
+def _parse_colors(polybar: configparser.ConfigParser, theme_path: str):
 
     colorscheme_path: str =\
-        os.path.join("themes", theme_name, "colors", "colorscheme.json")
+        os.path.join(theme_path, "colors", "colorscheme.json")
 
     with open(colorscheme_path, "r") as f:
         colorscheme: Dict = json.load(f)
