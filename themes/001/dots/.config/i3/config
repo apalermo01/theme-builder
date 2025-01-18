@@ -270,6 +270,31 @@ for_window [urgent=latest] focus
 exec --no-startup-id nm-applet
 exec_always --no-startup-id $HOME/.config/polybar/i3wmthemer_bar_launch.sh
 exec_always $HOME/shift_monitor.sh
+#                        border    background     text      indicator     child bdr
+client.focused	         #EAD49B	  #1E272B	 #EAD49B   	#9D6A47	    #9D6A47
+client.focused_inactive	 #EAD49B	  #1E272B #EAD49B	    #78824B	    #78824B
+client.unfocused	       #EAD49B	#1E272B	 #EAD49B	    #78824B	  #78824B
+client.urgent	           #EAD49B	   #1E272B	 #EAD49B	    #78824B	      #78824B
+client.placeholder	     #EAD49B	   <backgrouns>	 #EAD49B	    #78824B	   #78824B
+
+client.background	#1E272B
+
+# Gaps
+gaps inner 10
+gaps outer -4
+
+smart_gaps on
+new_window pixel 5
+new_float normal
+
+# hide_edge_borders none
+
+floating_modifier $mod
+
+# set power-manager and volume control
+exec --no-startup-id mate-power-manager
+
+focus_follows_mouse no
 
 exec killall picom
 

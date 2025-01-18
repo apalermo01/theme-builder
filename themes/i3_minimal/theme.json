@@ -4,10 +4,10 @@
     "method": "manual"
   },
 
-  "i3wm": {
+  "i3": {
     "copy": [{
-      "from": "i3.config",
-      "to": ".config/i3/i3.config"
+      "from": "config",
+      "to": ".config/i3/config"
     }]
   },
 

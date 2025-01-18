@@ -148,11 +148,6 @@ def copy_all_files(src_folder: str, dest_folder: str):
         os.makedirs(dest_folder)
 
     for root, dirs, files in os.walk(src_folder):
-        # logger.info("=============")
-        # logger.info(f"root = {root}")
-        # logger.info(f"dirs = {dirs}")
-        # logger.info(f"files = {files}")
-        # logger.info(f"dest folder = {dest_folder}")
 
         subfolder = root.replace(src_folder, "")
         folder = os.path.join(dest_folder, subfolder)
