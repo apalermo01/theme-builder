@@ -1,0 +1,5 @@
+{
+  "polybar": {
+    "bars": ["left", "center", "right"]
+  }
+}

@@ -46,13 +46,16 @@ def parse_polybar(config: Dict,
     logger.info(f"copied polybar startup script from {
                 src_script} to {destination_dir}")
   
-    bar_names = config['polybar'].get('bar_names', ['main'])
+    bar_names = config['polybar'].get('bars', ['main'])
     bar_names_str = ""
     for b in bar_names:
-        bar_names_str += f' "b"'
+        bar_names_str += f' "{b}"'
+
+    print("source dir = ", src_script)
+    print("destination dir = ", destination_dir)
     overwrite_or_append_line("declare -a bar_names=()",
                              f"declare -a bar_names=({bar_names_str})",
-                             destination_dir)
+                             os.path.join(destination_dir, "i3wmthemer_bar_launch.sh"))
 
     return config
 
