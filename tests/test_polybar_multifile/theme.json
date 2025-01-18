@@ -17,8 +17,8 @@
       "to": ".config/polybar/xworkspaces.ini"
     },
     {
-      "from": "polybar.ini",
-      "to": ".config/polybar/polybar.ini"
+      "from": "config.ini",
+      "to": ".config/polybar/config.ini"
     }
   ]}
 }

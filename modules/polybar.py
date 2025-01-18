@@ -4,7 +4,7 @@ from typing import Dict
 import configparser
 import logging
 import json
-from .utils import module_wrapper
+from .utils import module_wrapper, overwrite_or_append_line
 
 logger = logging.getLogger(__name__)
 
@@ -17,11 +17,6 @@ def parse_polybar(config: Dict,
 
     logger.info("Loading polybar...")
     polybar = configparser.ConfigParser()
-
-    # path = os.path.join("themes", "polybar.ini")
-    # # load template or theme-specific config
-    # polybar.read(path)
-    # logger.info(f"loaded custom polybar config from {path}")
 
     polybar_files = os.walk(destination_dir)
 
@@ -43,11 +38,24 @@ def parse_polybar(config: Dict,
     destination_dir = os.path.join(*destination_dir.split('/')[:-1])
     destination_dir_script = os.path.join(
         destination_dir, "i3wmthemer_bar_launch.sh")
+
     with open(destination_dir_script, 'w') as f:
         pass
+
     shutil.copy2(src_script, destination_dir)
     logger.info(f"copied polybar startup script from {
                 src_script} to {destination_dir}")
+  
+    bar_names = config['polybar'].get('bars', ['main'])
+    bar_names_str = ""
+    for b in bar_names:
+        bar_names_str += f' "{b}"'
+
+    print("source dir = ", src_script)
+    print("destination dir = ", destination_dir)
+    overwrite_or_append_line("declare -a bar_names=()",
+                             f"declare -a bar_names=({bar_names_str})",
+                             os.path.join(destination_dir, "i3wmthemer_bar_launch.sh"))
 
     return config
 
