@@ -13,6 +13,11 @@
   }]},
   "polybar": {},
   "nvim": {
+    "copy": [{
+      "from": "lua/chadrc.lua",
+      "to": ".config/nvim/lua/chadrc.lua",
+      "overwrite": true
+    }],
     "template_dir": "default_configs/nvchad",
     "nvchad_colorscheme": "catppuccin"
   },
