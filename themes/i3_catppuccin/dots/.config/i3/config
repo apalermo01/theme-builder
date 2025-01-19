@@ -268,13 +268,13 @@ for_window [urgent=latest] focus
 
 # Autostart applications
 exec --no-startup-id nm-applet
-exec_always --no-startup-id $HOME/.config/polybar/i3wmthemer_bar_launch.sh
+exec_always --no-startup-id $HOME/.config/polybar/i3_polybar_launch.sh
 exec_always $HOME/shift_monitor.sh
 
 #                        border    background     text      indicator     child bdr
 client.focused	         #cba6f7	  #fab387   	 #cdd6f4   	#cba6f7	      #cba6f7
-client.focused_inactive	 #313244	  #fab387      #cdd6f4	    #fab387	      #fab387
-client.unfocused	       #313244	  #fab387   	 #cdd6f4	    #fab387	      #fab387
+client.focused_inactive	 #313244	  #fab387      #cdd6f4	    #fab387	      #313244
+client.unfocused	       #313244	  #fab387   	 #cdd6f4	    #fab387	      #313244
 client.urgent	           #f38ba8	    #fab387   	 #cdd6f4	    #f38ba8	        #f38ba8
 client.placeholder	     #313244	  #fab387   	 #cdd6f4	    #cba6f7	      #cba6f7
 

@@ -34,10 +34,10 @@ def parse_polybar(config: Dict,
                             config_subfile}")
 
     # # launch script
-    src_script = "./scripts/i3wmthemer_bar_launch.sh"
+    src_script = "./scripts/i3_polybar_launch.sh"
     destination_dir = os.path.join(*destination_dir.split('/')[:-1])
     destination_dir_script = os.path.join(
-        destination_dir, "i3wmthemer_bar_launch.sh")
+        destination_dir, "i3_polybar_launch.sh")
 
     with open(destination_dir_script, 'w') as f:
         pass
@@ -51,11 +51,9 @@ def parse_polybar(config: Dict,
     for b in bar_names:
         bar_names_str += f' "{b}"'
 
-    print("source dir = ", src_script)
-    print("destination dir = ", destination_dir)
     overwrite_or_append_line("declare -a bar_names=()",
                              f"declare -a bar_names=({bar_names_str})",
-                             os.path.join(destination_dir, "i3wmthemer_bar_launch.sh"))
+                             os.path.join(destination_dir, "i3_polybar_launch.sh"))
 
     return config
 

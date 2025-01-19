@@ -20,12 +20,11 @@ def module_wrapper(tool):
                 template_dir = config[tool]['template_dir']
                 if template_dir[-1] != '/':
                     template_dir = template_dir + '/'
-
+            logger.info(f"tool = {tool}. template_dir = {template_dir}. destination_dir = {destination_dir}")
             copy_all_files(template_dir, destination_dir)
 
             # files to append
             if 'copy' in config[tool]:
-                print("config = ", config)
                 copy_files_from_filelist(config[tool]['copy'],
                                          theme_path,
                                              tool)

@@ -18,6 +18,7 @@ from modules.nvim import parse_nvim
 from modules.picom import parse_picom
 from modules.polybar import parse_polybar   
 from modules.rofi import parse_rofi
+from modules.scripts import parse_scripts
 from modules.tmux import parse_tmux
 from modules.utils import validate_config
 from modules.wallpaper import parse_wallpaper
@@ -37,6 +38,11 @@ path_config = {
     'wallpaper': {
         'template_dir': None,
         'func': parse_wallpaper
+    },
+
+    'scripts': {
+        'template_dir': None,
+        'func': parse_scripts,
     },
     
     #tested
@@ -142,6 +148,7 @@ order = [
     'bash',
     'kitty',
     'alacritty',
+    'scripts'
 ]
 
 
@@ -204,7 +211,7 @@ def overwrite_theme(tools_updated: Dict, theme_path: str):
         print("="*80)
         print("tool = ", t)
         # skip colors and wallpaper 
-        if t in ['colors', 'wallpaper']:
+        if t in ['colors', 'wallpaper', 'scripts']:
             continue
 
         # looping over each file in those configs
