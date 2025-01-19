@@ -34,6 +34,11 @@
   "kitty": {},
   "picom": {
     "template_dir": "./themes/i3_catppuccin/picom/"
-  }
+  },
+  "fastfetch": {
+    "copy": [{
+    "from": "config.jsonc",
+    "to": ".config/fastfetch/config.jsonc"
+  }]}
 
 }

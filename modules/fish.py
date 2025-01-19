@@ -24,11 +24,12 @@ def parse_fish(config: Dict,
             f"~/Pictures/wallpapers/{wallpaper_file}")
     else:
         wallpaper_path = None
-
+    
     prompts_dict = {
         'cowsay_fortune': ("fortune | cowsay -f $(ls /usr/share/cowsay/cows/ "
                            "| shuf -n1)\n"),
-        'neofetch': "neofetch\n",
+        'neofetch': "fastfetch\n",
+        'fastfetch': "fastfetch\n",
         'run_pywal': f"wal -n -e -i {wallpaper_path} > /dev/null \n",
         "git_onefetch": dedent("""
             function show_onefetch
@@ -49,5 +50,7 @@ def parse_fish(config: Dict,
             if d == 'run_pywal' and wallpaper_path is None:
                 logger.error("Cannot add pywal to fish config, no wallpaper")
                 continue
+            if d == 'neofetch':
+                logger.warning("using fastfetch instead of neofetch")
             append_text(dest, prompts_dict[d])
     return config

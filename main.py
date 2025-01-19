@@ -22,6 +22,7 @@ from modules.tmux import parse_tmux
 from modules.utils import validate_config
 from modules.wallpaper import parse_wallpaper
 from modules.waybar import parse_waybar
+from modules.fastfetch import parse_fastfetch
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -124,6 +125,12 @@ path_config = {
         "template_dir": "./default_configs/waybar/",
         "destination_dir": ".config/waybar/",
         "func": parse_waybar,
+    },
+
+    "fastfetch": {
+        "template_dir": "./default_configs/fastfetch/",
+        "destination_dir": ".config/fastfetch/",
+        "func": parse_fastfetch,
     }
 }
 
@@ -142,6 +149,7 @@ order = [
     'bash',
     'kitty',
     'alacritty',
+    'fastfetch'
 ]
 
 
@@ -212,7 +220,8 @@ def overwrite_theme(tools_updated: Dict, theme_path: str):
         config_path = in_repo_path.replace(os.path.join(theme_path, "dots"), "")
         if config_path[0] == '/':
             config_path = config_path[1:]
-
+        
+        print("config path = ", config_path)
         config_path = os.path.join(Path.home(), config_path)
         in_folder = os.path.basename(os.path.normpath(config_path)) not in [username, ".config"]
         
@@ -232,6 +241,8 @@ def overwrite_theme(tools_updated: Dict, theme_path: str):
             else:
                 filename = tools_updated[t]['filename']
                 backup_path = os.path.join(backup_root, backup_id, t)
+                print("backup path = ", backup_path)
+                print("filename = ", filename)
                 backup_file = os.path.join(backup_path, filename)
                 src_path = os.path.join(config_path, filename)
                 if not os.path.exists(backup_path):
