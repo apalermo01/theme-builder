@@ -37,6 +37,11 @@
   },
   "scripts": {
     "path": "./themes/i3_catppuccin/scripts/"
-  }
+  },
+  "fastfetch": {
+    "copy": [{
+    "from": "config.jsonc",
+    "to": ".config/fastfetch/config.jsonc"
+  }]}
 
 }

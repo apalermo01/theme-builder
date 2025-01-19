@@ -28,7 +28,8 @@ def parse_bash(config: Dict,
     prompts_dict = {
         'cowsay_fortune': ("fortune | cowsay -f $(ls /usr/share/cowsay/cows/ "
                            "| shuf -n1)\n"),
-        'neofetch': "neofetch\n",
+        'neofetch': "fastfetch\n",
+        "fastfetch": "fastfetch\n",
         'run_pywal': f"wal -n -e -i {wallpaper_path} > /dev/null \n",
         "git_onefetch": dedent("""
                 function show_onefetch() {
@@ -47,6 +48,8 @@ def parse_bash(config: Dict,
             if d == 'run_pywal' and wallpaper_path is None:
                 logger.error("Cannot add pywal to bash config, no wallpaper")
                 continue
+            if d == 'neofetch':
+                logger.warning("using fastfetch instead of neofetch")
             append_text(dest, prompts_dict[d])
 
     return config
