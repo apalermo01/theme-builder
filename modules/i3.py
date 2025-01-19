@@ -67,7 +67,7 @@ def _configure_picom(config: Dict, dest: str, theme_path: str):
     logger.info("picom found in this theme's config")
     append_if_not_present("\nexec killall picom\n", dest_path)
     append_if_not_present(
-        "\nexec_always picom --config ~/.config/picom.conf\n", dest_path)
+        "\nexec_always picom --backend glx --config ~/.config/picom.conf\n", dest_path)
 
 
 def _configure_colors(config: Dict, dest: str, theme_path: str):

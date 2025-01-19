@@ -273,21 +273,18 @@ exec_always $HOME/shift_monitor.sh
 
 #                        border    background     text      indicator     child bdr
 client.focused	         #cba6f7	  #fab387   	 #cdd6f4   	#cba6f7	      #cba6f7
-client.focused_inactive	 #fab387	  #fab387      #cdd6f4	    #fab387	      #fab387
-client.unfocused	       #fab387	  #fab387   	 #cdd6f4	    #fab387	      #fab387
+client.focused_inactive	 #313244	  #fab387      #cdd6f4	    #fab387	      #fab387
+client.unfocused	       #313244	  #fab387   	 #cdd6f4	    #fab387	      #fab387
 client.urgent	           #f38ba8	    #fab387   	 #cdd6f4	    #f38ba8	        #f38ba8
-client.placeholder	     #cba6f7	  #fab387   	 #cdd6f4	    #cba6f7	      #cba6f7
+client.placeholder	     #313244	  #fab387   	 #cdd6f4	    #cba6f7	      #cba6f7
 
 client.background	#11111b
 
 # Gaps
 gaps inner 10
-
-smart_gaps inverse_outer
+gaps top 35
 new_window pixel 5
 new_float normal
-
-# hide_edge_borders none
 
 floating_modifier $mod
 
@@ -298,5 +295,5 @@ focus_follows_mouse no
 
 exec killall picom
 
-exec_always picom --config ~/.config/picom.conf
+exec_always picom --backend glx --config ~/.config/picom.conf
 exec_always feh --bg-fill /home/alex/Pictures/wallpapers/darker_unicat.png

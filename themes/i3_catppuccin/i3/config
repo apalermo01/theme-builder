@@ -1,22 +1,18 @@
 
 #                        border    background     text      indicator     child bdr
 client.focused	         <mauve>	  <peach>   	 <text>   	<mauve>	      <mauve>
-client.focused_inactive	 <peach>	  <peach>      <text>	    <peach>	      <peach>
-client.unfocused	       <peach>	  <peach>   	 <text>	    <peach>	      <peach>
+client.focused_inactive	 <surface0>	  <peach>      <text>	    <peach>	      <peach>
+client.unfocused	       <surface0>	  <peach>   	 <text>	    <peach>	      <peach>
 client.urgent	           <red>	    <peach>   	 <text>	    <red>	        <red>
-client.placeholder	     <mauve>	  <peach>   	 <text>	    <mauve>	      <mauve>
+client.placeholder	     <surface0>	  <peach>   	 <text>	    <mauve>	      <mauve>
 
 client.background	<crust>
 
 # Gaps
 gaps inner 10
 gaps top 35
-smart_gaps inverse_outer
 new_window pixel 5
 new_float normal
-
-
-# hide_edge_borders none
 
 floating_modifier $mod
 
