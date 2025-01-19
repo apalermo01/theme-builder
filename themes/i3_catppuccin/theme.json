@@ -29,7 +29,7 @@
     "template_dir": "./themes/i3_catppuccin/rofi/"
   },
   "fish": {
-    "feats": ["run_pywal", "neofetch"]
+    "feats": ["neofetch"]
   },
   "kitty": {},
   "picom": {
