@@ -36,9 +36,9 @@ def parse_polybar(
                 )
 
     # # launch script
-    src_script = "./scripts/i3wmthemer_bar_launch.sh"
+    src_script = "./scripts/i3_polybar_start.sh"
     destination_dir = os.path.join(*destination_dir.split("/")[:-1])
-    destination_dir_script = os.path.join(destination_dir, "i3wmthemer_bar_launch.sh")
+    destination_dir_script = os.path.join(destination_dir, "i3_polybar_start.sh")
 
     with open(destination_dir_script, "w") as f:
         pass
@@ -59,7 +59,7 @@ def parse_polybar(
     overwrite_or_append_line(
         "declare -a bar_names=()",
         f"declare -a bar_names=({bar_names_str})",
-        os.path.join(destination_dir, "i3wmthemer_bar_launch.sh"),
+        os.path.join(destination_dir, "i3_polybar_start.sh"),
     )
 
     return config
