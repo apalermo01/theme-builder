@@ -5,6 +5,8 @@ import shutil
 
 logger = logging.getLogger(__name__)
 
+### TODO: custom wallpaper paths
+### TODO: don't depend on i3 config being in build/i3/config
 
 def parse_wallpaper(
         config: Dict,
@@ -78,7 +80,8 @@ def feh_theme(config: Dict, theme_path: str):
 
     # TODO: copy text to additional i3 config file
     path: str = os.path.join(theme_path,
-                             "dots", ".config", "i3", "config")
+                             "build", "i3", "config")
+
     with open(path, 'r') as f:
         lines = f.readlines()
 

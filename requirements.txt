@@ -3,3 +3,4 @@ toml
 pyyaml
 isort
 black
+jinja2

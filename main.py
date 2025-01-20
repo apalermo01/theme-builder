@@ -5,7 +5,7 @@ import yaml
 import shutil
 
 from modules import modules
-from modules.utils import validate_config
+from modules.utils import validate_config, configure_colors
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -103,7 +103,8 @@ def build_theme(theme_name: str, test: bool):
                 config = config,
                 theme_path = theme_path
             )
-
+    
+    configure_colors(theme_path)
     return tools_updated, theme_path
 
 def parse_args():
@@ -115,9 +116,9 @@ def parse_args():
 
     parser.add_argument("--migration-method",
                         default="none",
-                        choices=["none", "overwrite", "copy"])
+                        choices=["none", "overwrite"])
 
-    parser.add_argument("--copy-path",
+    parser.add_argument("--destination-root",
                         default="")
 
     parser.add_argument("--make-backup",
