@@ -225,6 +225,9 @@ def configure_colors(theme_path: str):
 
     colorscheme_path = os.path.join("./", theme_path, "colors", "colorscheme.json")
 
+    if not os.path.exists(colorscheme_path):
+        return
+
     with open(colorscheme_path, "r") as f:
         colorscheme = json.load(f)
 

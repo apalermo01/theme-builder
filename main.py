@@ -4,6 +4,7 @@ import os
 import shutil
 from datetime import datetime
 from typing import Literal
+import json
 
 import yaml
 
@@ -173,7 +174,6 @@ def copy_theme(
             )
             sub_path = path_config[t]["config_path"]
         
-        print("sub path = ", len(sub_path))
         # get the source path
         source_path = tools[t]["destination_dir"]
 
@@ -190,8 +190,6 @@ def copy_theme(
                 shutil.rmtree(destination_path)
             shutil.copytree(source_path, destination_path)
         else:
-            print("source path = ", source_path)
-            print("destination_path = ", destination_path)
             for file in os.listdir(source_path):
                 if make_backup and os.path.exists(os.path.join(destination_path, file)):
                     if not os.path.exists(backup_root):
