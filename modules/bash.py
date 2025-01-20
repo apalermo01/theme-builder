@@ -47,6 +47,8 @@ def parse_bash(
             if d == "run_pywal" and wallpaper_path is None:
                 logger.error("Cannot add pywal to bash config, no wallpaper")
                 continue
+            if d == 'neofetch':
+                logger.warning("using fastfetch instead of neofetch")
             append_text(dest, prompts_dict[d])
 
     return config
