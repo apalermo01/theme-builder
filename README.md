@@ -81,9 +81,10 @@ live in `./themes/theme_name/trees/i3/config`.
 # Roadmap
 - [ ] restructure temporary dots repo 
 - [ ] configure custom scripts that get moved to home directory 
-- [ ] configure custom scripts that run when the theme is switched
+- [x] configure custom scripts that run when the theme is switched
 - [ ] make dedicated dotfiles repo 
 - [ ] make new option for builder to move dots into repo instead of directly to the final destination
+- [ ] convert all theme configs to yaml
 
 # Credits
 Big thanks to Stavros Grigoriou (stav121) for providing the initial inspriation

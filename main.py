@@ -210,8 +210,6 @@ def overwrite_theme(tools_updated: Dict, theme_path: str, config: Dict):
     username = os.path.basename(os.path.expanduser("~"))
 
     for t in tools_updated:
-        print("="*80)
-        print("tool = ", t)
         # skip colors and wallpaper 
         if t in ['colors', 'wallpaper']:
             continue
@@ -228,6 +226,7 @@ def overwrite_theme(tools_updated: Dict, theme_path: str, config: Dict):
         
         if in_folder and 'filename' not in tools_updated[t]:
             raise ValueError("mis-configured tool")
+
         # create backup
         if os.path.exists(config_path):
 
@@ -242,8 +241,6 @@ def overwrite_theme(tools_updated: Dict, theme_path: str, config: Dict):
             else:
                 filename = tools_updated[t]['filename']
                 backup_path = os.path.join(backup_root, backup_id, t)
-                print("backup path = ", backup_path)
-                print("filename = ", filename)
                 backup_file = os.path.join(backup_path, filename)
                 src_path = os.path.join(config_path, filename)
                 if not os.path.exists(backup_path):
@@ -266,8 +263,8 @@ def overwrite_theme(tools_updated: Dict, theme_path: str, config: Dict):
             shutil.copy2(src_path, dest_path)
             logger.info(f"copied {src_path} to {dest_path}")
 
-    if 'scripts' in config:
-        path = config['scripts']['path']
+    if 'theme_scripts' in config:
+        path = config['theme_scripts']['path']
         for file in os.listdir(path):
             subprocess.call(os.path.join(path, file))
 

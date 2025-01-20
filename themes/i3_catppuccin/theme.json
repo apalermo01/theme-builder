@@ -35,7 +35,7 @@
   "picom": {
     "template_dir": "./themes/i3_catppuccin/picom/"
   },
-  "scripts": {
+  "theme_scripts": {
     "path": "./themes/i3_catppuccin/scripts/"
   },
   "fastfetch": {
