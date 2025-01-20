@@ -6,6 +6,11 @@ wallpaper:
   template_path: ""
   destination_path: ""
 
+bash: 
+  template_path: 'default_configs/bash'
+  destination_path: 'bash/'
+  config_path: ''
+
 i3:
   template_path: 'default_configs/i3'
   destination_path: 'i3/'

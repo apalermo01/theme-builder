@@ -172,21 +172,34 @@ def copy_theme(
                 destination_root, path_config[t].get("config_path", "")
             )
             sub_path = path_config[t]["config_path"]
-
+        
+        print("sub path = ", len(sub_path))
         # get the source path
         source_path = tools[t]["destination_dir"]
 
         # make backup
-        if make_backup and os.path.exists(destination_path):
-            if not os.path.exists(backup_root):
-                os.makedirs(backup_root)
-            backup_path = os.path.join(backup_root, sub_path)
-            shutil.copytree(destination_path, backup_path)
+        if len(sub_path) > 0:
+            if make_backup and os.path.exists(destination_path) and len(sub_path) > 0:
+                if not os.path.exists(backup_root):
+                    os.makedirs(backup_root)
+                backup_path = os.path.join(backup_root, sub_path)
+                shutil.copytree(destination_path, backup_path)
 
-        # move the files
-        if os.path.exists(destination_path):
-            shutil.rmtree(destination_path)
-        shutil.copytree(source_path, destination_path)
+            # move the files
+            if os.path.exists(destination_path):
+                shutil.rmtree(destination_path)
+            shutil.copytree(source_path, destination_path)
+        else:
+            print("source path = ", source_path)
+            print("destination_path = ", destination_path)
+            for file in os.listdir(source_path):
+                if make_backup and os.path.exists(os.path.join(destination_path, file)):
+                    if not os.path.exists(backup_root):
+                        os.makedirs(backup_root)
+                    shutil.copy2(os.path.join(destination_path, file),
+                                 os.path.join(backup_root, file))
+                shutil.copy2(os.path.join(source_path, file),
+                             os.path.join(destination_path, file))
 
 
 def parse_args():

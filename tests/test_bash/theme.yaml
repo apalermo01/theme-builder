@@ -1,0 +1,16 @@
+colors:
+  method: pywal 
+
+bash: 
+  feats:
+    - cowsay_fortune 
+    - neofetch 
+    - run_pywal 
+    - git_onefetch
+  append:
+    - from: bash_extras.sh 
+      to: bash/.bashrc
+
+wallpaper:
+  file: cat1.jpg 
+  method: None
