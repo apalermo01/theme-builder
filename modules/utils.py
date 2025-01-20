@@ -18,6 +18,7 @@ def module_wrapper(tool):
         ):
 
             # default files
+<<<<<<< HEAD
 
             if "template_dir" in config[tool]:
                 template_dir = config[tool]["template_dir"]
@@ -43,6 +44,24 @@ def module_wrapper(tool):
                 template_dir=template_dir,
                 destination_dir=destination_dir,
             )
+=======
+            if 'template_dir' in config[tool]:
+                template_dir = config[tool]['template_dir']
+                if template_dir[-1] != '/':
+                    template_dir = template_dir + '/'
+            logger.info(f"tool = {tool}. template_dir = {template_dir}. destination_dir = {destination_dir}")
+            copy_all_files(template_dir, destination_dir)
+
+            # files to append
+            if 'copy' in config[tool]:
+                copy_files_from_filelist(config[tool]['copy'],
+                                         theme_path,
+                                             tool)
+            return module(config=config,
+                          theme_path=theme_path,
+                          template_dir=template_dir,
+                          destination_dir=destination_dir)
+>>>>>>> 5e9ce4011c25e759ea6b5da4dcb778a4203d4631
 
         return inner
 

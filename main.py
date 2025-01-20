@@ -229,7 +229,6 @@ def main():
     args = parse_args()
     theme_name = args.theme
 
-
     tools_updated, theme_path = build_theme(theme_name, args.test)
 
     if args.migration_method == "none":
