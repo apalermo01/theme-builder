@@ -1,10 +1,10 @@
 
 #                        border    background     text      indicator     child bdr
 client.focused	         <mauve>	  <peach>   	 <text>   	<mauve>	      <mauve>
-client.focused_inactive	 <surface0>	  <peach>      <text>	    <peach>	      <surface0>
-client.unfocused	       <surface0>	  <peach>   	 <text>	    <peach>	      <surface0>
+client.focused_inactive	 <surface0>	  <peach>    <text>	    <peach>	      <surface0>
+client.unfocused	       <surface0>	  <peach>    <text>	    <peach>	      <surface0>
 client.urgent	           <red>	    <peach>   	 <text>	    <red>	        <red>
-client.placeholder	     <surface0>	  <peach>   	 <text>	    <mauve>	      <mauve>
+client.placeholder	     <surface0>	  <peach>    <text>	    <mauve>	      <mauve>
 
 client.background	<crust>
 

@@ -25,7 +25,6 @@ def module_wrapper(tool):
 
             # files to append
             if 'copy' in config[tool]:
-                print("config = ", config)
                 copy_files_from_filelist(config[tool]['copy'],
                                          theme_path,
                                              tool)

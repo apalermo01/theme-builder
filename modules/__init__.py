@@ -1,3 +1,4 @@
+from . import colors
 available_terminals = ['kitty', 'alacritty']
 available_wms = ['i3wm']
 available_bars = ['polybar']
@@ -10,4 +11,8 @@ allowed_elements = {
     'bars': available_bars,
     'shells': available_shells,
     'nvim_distros': available_nvim_distros
+}
+
+modules = {
+    'colors': colors.parse_colors,
 }
