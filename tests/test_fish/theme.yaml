@@ -1,0 +1,14 @@
+colors:
+  method: pywal
+fish:
+  feats:
+    - cowsay_fortune 
+    - neofetch 
+    - run_pywal 
+    - git_onefetch 
+  append:
+    - from: fish_extras.fish
+      to: fish/config.fish
+wallpaper:
+  file: cat1.jpg 
+  method: None

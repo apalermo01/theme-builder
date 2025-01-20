@@ -1,19 +1,18 @@
-from typing import Dict, List
+import json
 import logging
 import os
-import json
-from .utils import module_wrapper, append_source_to_file, append_text
+from typing import Dict, List
 
+from .utils import append_source_to_file, append_text, module_wrapper
 
 # TMP_PATH = "./tmp/hyprland.conf"
 logger = logging.getLogger(__name__)
 
 
-@module_wrapper(tool='hyprland')
-def parse_hyprland(template_dir: str,
-                   destination_dir: str,
-                   config: Dict,
-                   theme_path: str):
+@module_wrapper(tool="hyprland")
+def parse_hyprland(
+    template_dir: str, destination_dir: str, config: Dict, theme_path: str
+):
     """
     TODO: validate variables. For example, check if a terminal is passed to
     hyprland that is not present in the wider config.
@@ -32,10 +31,10 @@ def parse_hyprland(template_dir: str,
 
 
 def _configure_variables(config: Dict, destination_dir: str, theme_path: str):
-    term = config['hyprland'].get('terminal', 'kitty')
-    file_manager = config['hyprland'].get('fileManager', 'thunar')
-    browser = config['hyprland'].get('browser', 'firefox')
-    menu = config['hyprland'].get('menu', 'wofi --show drun')
+    term = config["hyprland"].get("terminal", "kitty")
+    file_manager = config["hyprland"].get("fileManager", "thunar")
+    browser = config["hyprland"].get("browser", "firefox")
+    menu = config["hyprland"].get("menu", "wofi --show drun")
 
     path = os.path.join(destination_dir, "hyprland.conf")
     append_text(path, f"$terminal = {term}\n")
@@ -55,7 +54,9 @@ def _configure_general(config: Dict, destination_dir: str, theme_path: str):
 
     if os.path.exists(os.path.join(destination_dir, "general.conf")):
         os.remove(os.path.join(destination_dir, "general.conf"))
-        logger.info(f"removed {os.path.join(destination_dir, 'general.conf')} due to redundancy")
+        logger.info(
+            f"removed {os.path.join(destination_dir, 'general.conf')} due to redundancy"
+        )
 
 
 def _configure_decoration(config: Dict, destination_dir: str, theme_path: str):
@@ -69,7 +70,9 @@ def _configure_decoration(config: Dict, destination_dir: str, theme_path: str):
 
     if os.path.exists(os.path.join(destination_dir, "decoration.conf")):
         os.remove(os.path.join(destination_dir, "decoration.conf"))
-        logger.info(f"removed {os.path.join(destination_dir, 'decoration.conf')} due to redundancy")
+        logger.info(
+            f"removed {os.path.join(destination_dir, 'decoration.conf')} due to redundancy"
+        )
 
 
 def _configure_animations(config: Dict, destination_dir: str, theme_path: str):
@@ -84,12 +87,13 @@ def _configure_animations(config: Dict, destination_dir: str, theme_path: str):
 
     if os.path.exists(os.path.join(destination_dir, "animations.conf")):
         os.remove(os.path.join(destination_dir, "animations.conf"))
-        logger.info(f"removed {os.path.join(destination_dir, 'animations.conf')} due to redundancy")
+        logger.info(
+            f"removed {os.path.join(destination_dir, 'animations.conf')} due to redundancy"
+        )
 
 
 def _configure_colors(config: Dict, destination_dir: str, theme_path: str):
-    colorscheme_path: str = os.path.join(
-        theme_path, 'colors', 'colorscheme.json')
+    colorscheme_path: str = os.path.join(theme_path, "colors", "colorscheme.json")
     if not os.path.exists(colorscheme_path):
         raise FileNotFoundError(f"could not find {colorscheme_path}")
 
@@ -105,7 +109,7 @@ def _configure_colors(config: Dict, destination_dir: str, theme_path: str):
     for line in config:
         # print(f"line = {line}")
         for colorname in colorscheme:
-            color: str = colorscheme[colorname].replace("#", '')
+            color: str = colorscheme[colorname].replace("#", "")
             line = line.replace(f"<{colorname}>", f"rgb({color})")
         # print("new line = ", line)
         new_lines.append(line)
