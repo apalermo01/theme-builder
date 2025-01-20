@@ -3,6 +3,7 @@ import json
 import logging
 import os
 import shutil
+import subprocess
 from typing import Dict
 from pathlib import Path 
 from datetime import datetime
@@ -199,9 +200,9 @@ def build_theme(theme_name, test):
                     'filename': path_config[key].get('filename')
             }
     
-    return tools_updated, theme_path
+    return tools_updated, theme_path, config
 
-def overwrite_theme(tools_updated: Dict, theme_path: str):
+def overwrite_theme(tools_updated: Dict, theme_path: str, config: Dict):
     
     # looping over all tools
     backup_id = datetime.now().strftime("%Y-%m-%d::%X")
@@ -265,17 +266,23 @@ def overwrite_theme(tools_updated: Dict, theme_path: str):
             shutil.copy2(src_path, dest_path)
             logger.info(f"copied {src_path} to {dest_path}")
 
+    if 'scripts' in config:
+        path = config['scripts']['path']
+        for file in os.listdir(path):
+            subprocess.call(os.path.join(path, file))
+
+
 
 
 def main():
     args = parse_args()
     theme_name = args.theme
     
-    tools_updated, theme_path = build_theme(theme_name, args.test)
+    tools_updated, theme_path, config = build_theme(theme_name, args.test)
     if args.migration_method == 'none': 
         return 
     if args.migration_method == 'overwrite':
-        overwrite_theme(tools_updated, theme_path)
+        overwrite_theme(tools_updated, theme_path, config)
 
 if __name__ == '__main__':
     main()
