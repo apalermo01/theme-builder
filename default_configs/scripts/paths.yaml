@@ -1,0 +1,13 @@
+scripts:
+  - from: ./scripts/i3_left_monitor.sh 
+    to: i3_left_monitor.sh 
+  - from: ./scripts/i3_right_monitor.sh 
+    to: i3_right_monitor.sh
+  - from: ./scripts/i3_polybar_start.sh
+    to: i3_polybar_start.sh 
+  - from: ./scripts/personal_docs.sh 
+    to: personal_docs.sh
+  - from: ./scripts/reading_session.sh 
+    to: reading_session.sh 
+  - from: ./scripts/shift_monitor.sh 
+    to: shift_monitor.sh

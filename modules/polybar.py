@@ -36,16 +36,9 @@ def parse_polybar(
                 )
 
     # # launch script
-<<<<<<< HEAD
     src_script = "./scripts/i3_polybar_start.sh"
     destination_dir = os.path.join(*destination_dir.split("/")[:-1])
     destination_dir_script = os.path.join(destination_dir, "i3_polybar_start.sh")
-=======
-    src_script = "./scripts/i3_polybar_launch.sh"
-    destination_dir = os.path.join(*destination_dir.split('/')[:-1])
-    destination_dir_script = os.path.join(
-        destination_dir, "i3_polybar_launch.sh")
->>>>>>> 5e9ce4011c25e759ea6b5da4dcb778a4203d4631
 
 
     with open(destination_dir_script, "w") as f:
@@ -62,18 +55,12 @@ def parse_polybar(
     for b in bar_names:
         bar_names_str += f' "{b}"'
 
-<<<<<<< HEAD
     overwrite_or_append_line(
         "declare -a bar_names=()",
         f"declare -a bar_names=({bar_names_str})",
         os.path.join(destination_dir, "i3_polybar_start.sh"),
     )
 
-=======
-    overwrite_or_append_line("declare -a bar_names=()",
-                             f"declare -a bar_names=({bar_names_str})",
-                             os.path.join(destination_dir, "i3_polybar_launch.sh"))
->>>>>>> 5e9ce4011c25e759ea6b5da4dcb778a4203d4631
 
     return config
 
