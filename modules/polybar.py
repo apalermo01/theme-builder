@@ -54,8 +54,6 @@ def parse_polybar(
     for b in bar_names:
         bar_names_str += f' "{b}"'
 
-    print("source dir = ", src_script)
-    print("destination dir = ", destination_dir)
     overwrite_or_append_line(
         "declare -a bar_names=()",
         f"declare -a bar_names=({bar_names_str})",
