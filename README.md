@@ -78,8 +78,14 @@ Any files that are appended / copied are in the `./themes/theme_name/rule_name`
 folder. For example, custom options for i3 configuration for the trees theme
 live in `./themes/theme_name/trees/i3/config`. 
 
-# Credits
+# Roadmap
+- [ ] restructure temporary dots repo 
+- [ ] configure custom scripts that get moved to home directory 
+- [ ] configure custom scripts that run when the theme is switched
+- [ ] make dedicated dotfiles repo 
+- [ ] make new option for builder to move dots into repo instead of directly to the final destination
 
+# Credits
 Big thanks to Stavros Grigoriou (stav121) for providing the initial inspriation
 for this project: https://github.com/stav121/i3wm-themer.
 

@@ -18,6 +18,7 @@ def module_wrapper(tool):
         ):
 
             # default files
+
             if "template_dir" in config[tool]:
                 template_dir = config[tool]["template_dir"]
                 if template_dir[-1] != "/":

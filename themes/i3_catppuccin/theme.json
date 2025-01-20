@@ -29,11 +29,19 @@
     "template_dir": "./themes/i3_catppuccin/rofi/"
   },
   "fish": {
-    "feats": ["run_pywal", "neofetch"]
+    "feats": ["neofetch"]
   },
   "kitty": {},
   "picom": {
     "template_dir": "./themes/i3_catppuccin/picom/"
-  }
+  },
+  "scripts": {
+    "path": "./themes/i3_catppuccin/scripts/"
+  },
+  "fastfetch": {
+    "copy": [{
+    "from": "config.jsonc",
+    "to": ".config/fastfetch/config.jsonc"
+  }]}
 
 }

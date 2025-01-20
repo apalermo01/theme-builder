@@ -11,8 +11,10 @@ import yaml
 from modules import modules
 from modules.utils import configure_colors, validate_config
 
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
+
 
 
 def get_theme_config(theme_path: str) -> dict:
@@ -110,6 +112,7 @@ def build_theme(theme_name: str, test: bool):
                 theme_path=theme_path,
             )
 
+
             tools_updated[key] = {"destination_dir": destination_path}
 
     configure_colors(theme_path)
@@ -173,6 +176,7 @@ def copy_theme(
                 destination_root, path_config[t].get("config_path", "")
             )
             sub_path = path_config[t]["config_path"]
+
         
         # get the source path
         source_path = tools[t]["destination_dir"]
@@ -224,6 +228,7 @@ def parse_args():
 def main():
     args = parse_args()
     theme_name = args.theme
+
 
     tools_updated, theme_path = build_theme(theme_name, args.test)
 

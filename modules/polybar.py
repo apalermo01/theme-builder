@@ -40,6 +40,7 @@ def parse_polybar(
     destination_dir = os.path.join(*destination_dir.split("/")[:-1])
     destination_dir_script = os.path.join(destination_dir, "i3_polybar_start.sh")
 
+
     with open(destination_dir_script, "w") as f:
         pass
 
@@ -59,6 +60,7 @@ def parse_polybar(
         f"declare -a bar_names=({bar_names_str})",
         os.path.join(destination_dir, "i3_polybar_start.sh"),
     )
+
 
     return config
 
