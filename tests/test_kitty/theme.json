@@ -1,5 +1,5 @@
 {
-  "kitty": {"copy": [
+  "kitty": {"append": [
     {"from": "kitty_extra.conf",
      "to": "kitty.conf"}
   ]},

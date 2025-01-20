@@ -1,19 +1,14 @@
-
 import logging
-from typing import Dict
 import os
-from .utils import (module_wrapper,
-                    overwrite_or_append_line,
-                    )
+from typing import Dict
+
+from .utils import module_wrapper, overwrite_or_append_line
 
 logger = logging.getLogger(__name__)
 
 
 @module_wrapper(tool="nvim")
-def parse_nvim(template_dir: str,
-               destination_dir: str,
-               config: Dict,
-               theme_path: str):
+def parse_nvim(template_dir: str, destination_dir: str, config: Dict, theme_path: str):
     """
     Example neovim configs:
 
@@ -45,78 +40,75 @@ def parse_nvim(template_dir: str,
     ```
     """
     logger.info("Loading nvim...")
-    nvim_config: Dict = config.get('nvim', {})
+    nvim_config: Dict = config.get("nvim", {})
 
-    if 'colorscheme' in nvim_config:
+    if "colorscheme" in nvim_config:
         _configure_colorscheme(nvim_config, theme_path)
 
-    if 'nvchad_colorscheme' in nvim_config:
+    if "nvchad_colorscheme" in nvim_config:
         _configure_nvchad_colorscheme(nvim_config, theme_path)
 
-    if 'nvchad_separator' in nvim_config:
+    if "nvchad_separator" in nvim_config:
         _configure_nvchad_separator(nvim_config, theme_path)
 
     return config
 
 
 def _configure_colorscheme(nvim_config: Dict, theme_path: str):
-    if isinstance(nvim_config['colorscheme'], str):
-        colorscheme: str = nvim_config['colorscheme']
+    if isinstance(nvim_config["colorscheme"], str):
+        colorscheme: str = nvim_config["colorscheme"]
         colorscheme_path: str = os.path.join(
             theme_path, "dots", ".config", "nvim", "init.lua"
         )
     # TODO: need to test this
     else:
-        colorscheme: str = nvim_config['colorscheme']['colorscheme']
+        colorscheme: str = nvim_config["colorscheme"]["colorscheme"]
         colorscheme_path: str = os.path.join(
-            theme_path, "dots", ".config", "nvim",
-            nvim_config['colorscheme']['file']
+            theme_path, "dots", ".config", "nvim", nvim_config["colorscheme"]["file"]
         )
         if not os.path.exists(os.path.split(colorscheme_path)[0]):
             os.makedirs(os.path.split(colorscheme_path)[0])
-    
+
     if not os.path.exists(colorscheme_path):
-        raise ValueError(f"could not find neovim config file {colorscheme_path} when parsing colorscheme")
+        raise ValueError(
+            f"could not find neovim config file {colorscheme_path} when parsing colorscheme"
+        )
     cmd: str = f"vim.cmd[[colorscheme {colorscheme}]]"
 
-    overwrite_or_append_line(pattern="vim.cmd[[colorscheme",
-                             replace_text=cmd,
-                             dest=colorscheme_path)
+    overwrite_or_append_line(
+        pattern="vim.cmd[[colorscheme", replace_text=cmd, dest=colorscheme_path
+    )
 
 
 def _configure_nvchad_colorscheme(nvim_config: Dict, theme_path: str):
-    colorscheme: str = nvim_config['nvchad_colorscheme']
+    colorscheme: str = nvim_config["nvchad_colorscheme"]
     pattern: str = 'theme = "'
     text: str = f'    theme = "{colorscheme}",'
-    path: str = os.path.join(
-        theme_path, "dots", ".config", "nvim", "lua", "chadrc.lua"
-    )
+    path: str = os.path.join(theme_path, "dots", ".config", "nvim", "lua", "chadrc.lua")
 
     if not os.path.exists(path):
-        raise FileNotFoundError("""
+        raise FileNotFoundError(
+            """
             could not find chadrc.lua to configure colorscheme.
             Are you using nvchad? 
             You must pass 'template_dir': 'default_configs/nvim/' 
-            in the theme file for this to work.""")
+            in the theme file for this to work."""
+        )
 
-    overwrite_or_append_line(dest=path,
-                             pattern=pattern,
-                             replace_text=text)
+    overwrite_or_append_line(dest=path, pattern=pattern, replace_text=text)
 
 
 def _configure_nvchad_separator(nvim_config: Dict, theme_path: str):
-    separator: str = nvim_config['nvchad_separator']
+    separator: str = nvim_config["nvchad_separator"]
     pattern: str = 'separator_style = "'
     text: str = f'       separator_style = "{separator}",'
-    path: str = os.path.join(
-        theme_path, "dots", ".config", "nvim", "lua", "chadrc.lua"
-    )
+    path: str = os.path.join(theme_path, "dots", ".config", "nvim", "lua", "chadrc.lua")
     if not os.path.exists(path):
-        raise FileNotFoundError("""
+        raise FileNotFoundError(
+            """
             could not find chadrc.lua to configure colorscheme.
             Are you using nvchad? 
             You must pass 'template_dir': 'default_configs/nvim/' 
-            in the theme file for this to work.""")
-    overwrite_or_append_line(dest=path,
-                             pattern=pattern,
-                             replace_text=text)
+            in the theme file for this to work."""
+        )
+    overwrite_or_append_line(dest=path, pattern=pattern, replace_text=text)

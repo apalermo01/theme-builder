@@ -1,0 +1,68 @@
+colors:
+  template_path: ""
+  destination_path: ""
+
+wallpaper:
+  template_path: ""
+  destination_path: ""
+
+bash: 
+  template_path: 'default_configs/bash'
+  destination_path: 'bash/'
+  config_path: ''
+
+fish:
+  template_path: 'default_configs/fish'
+  destination_path: 'fish/'
+  config_path: '.config/fish/'
+
+i3:
+  template_path: 'default_configs/i3'
+  destination_path: 'i3/'
+  config_path: '.config/i3/'
+
+hyprland:
+  template_path: 'default_configs/hyprland'
+  destination_path: 'hypr/'
+  config_path: '.config/hypr/'
+
+polybar:
+  template_path:  'default_configs/polybar'
+  destination_path: 'polybar/'
+  config_path: '.config/polybar'
+
+waybar:
+  template_path: 'default_configs/waybar'
+  destination_path: 'waybar/'
+  config_path: '.config/waybar/'
+
+nvim:
+  template_path:  'default_configs/nvim'
+  destination_path: 'nvim/'
+  config_path: '.config/nvim'
+
+tmux:
+  template_path: 'default_configs/tmux'
+  destination_path: ''
+  config_path: ''
+
+rofi:
+  template_path: 'default_configs/rofi'
+  destination_path: 'rofi/'
+  config_path: '.config/rofi'
+
+picom:
+  template_path: 'default_configs/picom'
+  destination_path: 'picom/'
+  config_path: '.config/'
+
+kitty:
+  template_path: 'default_configs/kitty'
+  destination_path: 'kitty/'
+  config_path: '.config/kitty/'
+
+alacritty:
+  template_path:  'default_configs/alacritty/'
+  destination_path: 'alacritty/'
+  config_path: '.config/alacritty/'
+

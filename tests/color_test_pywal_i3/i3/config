@@ -1,11 +1,11 @@
 #                        border    background     text      indicator     child bdr
-client.focused	         <foreground>	  <background>	 <foreground>   	<color2>	    <color2>
-client.focused_inactive	 <foreground>	  <background> <foreground>	    <color4>	    <color4>
-client.unfocused	       <foreground>	<background>	 <foreground>	    <color4>	  <color4>
-client.urgent	           <foreground>	   <background>	 <foreground>	    <color4>	      <color4>
-client.placeholder	     <foreground>	   <background>	 <foreground>	    <color4>	   <color4>
+client.focused	         {{ foreground }}	  {{ background }}	 {{ foreground }}   	{{ color2 }}	    {{ color2 }}
+client.focused_inactive	 {{ foreground }}	  {{ background }} {{ foreground }}	    {{ color4 }}	    {{ color4 }}
+client.unfocused	       {{ foreground }}	  {{ background }}	 {{ foreground }}	    {{ color4 }}	  {{ color4 }}
+client.urgent	           {{ foreground }}	  {{ background }}	 {{ foreground }}	    {{ color4 }}	      {{ color4 }}
+client.placeholder	     {{ foreground }}	  {{ background }}	 {{ foreground }}	    {{ color4 }}	   {{ color4 }}
 
-client.background	<background>
+client.background	{{ background }}
 
 # Gaps
 gaps inner 10
