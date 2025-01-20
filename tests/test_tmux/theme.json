@@ -1,6 +1,6 @@
 {
   "tmux": {
-    "copy": [{
+    "append": [{
       "from": "tmux_theme.conf",
       "to": ".tmux.conf"
     }]  

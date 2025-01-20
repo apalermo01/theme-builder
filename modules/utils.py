@@ -1,21 +1,50 @@
+import json
 import logging
 import os
-from typing import Dict, List, Iterable, Tuple
-from . import allowed_elements
 import shutil
-from .validate_modules import validate_polybar
+from typing import Dict, Iterable, List, Tuple
+
+from jinja2 import Template
+
+from .validate_modules import allowed_elements, validate_polybar
 
 logger = logging.getLogger(__name__)
 
 
 def module_wrapper(tool):
     def func_runner(module):
-        def inner(config: Dict,
-                  theme_path: str,
-                  template_dir: str,
-                  destination_dir: str):
+        def inner(
+            config: Dict, theme_path: str, template_dir: str, destination_dir: str
+        ):
 
             # default files
+<<<<<<< HEAD
+
+            if "template_dir" in config[tool]:
+                template_dir = config[tool]["template_dir"]
+                if template_dir[-1] != "/":
+                    template_dir = template_dir + "/"
+
+            copy_files_from_template(template_dir, destination_dir)
+
+            # files to append
+            if "append" in config[tool]:
+                copy_files_from_filelist(
+                    config[tool]["append"], theme_path, tool, overwrite=False
+                )
+
+            if "overwrite" in config[tool]:
+                copy_files_from_filelist(
+                    config[tool]["overwrite"], theme_path, tool, overwrite=True
+                )
+
+            return module(
+                config=config,
+                theme_path=theme_path,
+                template_dir=template_dir,
+                destination_dir=destination_dir,
+            )
+=======
             if 'template_dir' in config[tool]:
                 template_dir = config[tool]['template_dir']
                 if template_dir[-1] != '/':
@@ -32,22 +61,24 @@ def module_wrapper(tool):
                           theme_path=theme_path,
                           template_dir=template_dir,
                           destination_dir=destination_dir)
+>>>>>>> 5e9ce4011c25e759ea6b5da4dcb778a4203d4631
 
         return inner
+
     return func_runner
 
 
-def copy_files_from_filelist(file_list: List[Dict[str, str]],
-                             theme_path: str,
-                             tool_name: str):
+def copy_files_from_filelist(
+    file_list: List[Dict[str, str]], theme_path: str, tool_name: str, overwrite: bool
+):
     """
     Copy folder structure into dotfiles.
 
     file_list is a list of dictionaries with the structure:
     [
         {"from": <theme file to copy from>,
-         "to": <theme file to copy to>,
-         "overwrite": <optional: overwrites the default file>}
+         "to": <theme file to copy to>
+         }
     ]
 
     if the "to" file already exists, then "from" gets appended to "to"
@@ -58,32 +89,22 @@ def copy_files_from_filelist(file_list: List[Dict[str, str]],
     """
 
     for file_info in file_list:
-        from_path = os.path.join(
-            os.getcwd(), theme_path, tool_name, file_info["from"])
-        to_path = os.path.join(os.getcwd(), theme_path, "dots", file_info["to"])
+        from_path: str = os.path.join(
+            os.getcwd(), theme_path, tool_name, file_info["from"]
+        )
 
-        if not os.path.exists('/'.join(to_path.split('/')[:-1])):
-            os.makedirs('/'.join(to_path.split('/')[:-1]))
-        
-        if os.path.isfile(to_path) and not file_info.get('overwrite', False):
+        to_path: str = os.path.join(os.getcwd(), theme_path, "build", file_info["to"])
+
+        basepath: str = "/".join(to_path.split("/")[:-1])
+        if not os.path.exists(basepath):
+            os.makedirs(basepath)
+
+        if os.path.isfile(to_path) and not overwrite:
             logger.info(f"appending {from_path} to {to_path}")
-            with open(from_path, "r") as f_from, \
-                    open(to_path, "a") as f_to:
+            with open(from_path, "r") as f_from, open(to_path, "a") as f_to:
                 for line in f_from.readlines():
                     f_to.write(line)
         else:
-            print("file info = ")
-            logger.info(file_info)
-            if file_info.get('overwrite', False):
-                logger.info("overwrite is false")
-            else:
-                logger.info("overwrite is true")
-
-            if os.path.isfile(to_path):
-                logger.info(f"{to_path} is a file")
-
-            else:
-                logger.info(f"{to_path} is not a file")
             logger.info(f"copying {from_path} to {to_path}")
             shutil.copy2(from_path, to_path)
 
@@ -100,14 +121,17 @@ def validate_config(config: Dict, theme_path: str) -> bool:
     for key in allowed_elements:
 
         num_elements_of_category = sum(
-            1 for i in allowed_elements[key] if i in config.keys())
+            1 for i in allowed_elements[key] if i in config.keys()
+        )
         if num_elements_of_category > 1:
-            print(f"\x1b[31mMultiple elements found for {
-                  key}. Config must have one or none of {allowed_elements[key]}")
+            print(
+                f"\x1b[31mMultiple elements found for {
+                  key}. Config must have one or none of {allowed_elements[key]}"
+            )
 
             return False, {}
 
-    if 'polybar' in config:
+    if "polybar" in config:
         return validate_polybar(config, theme_path)
     return True, config
 
@@ -139,9 +163,8 @@ def append_text(src: str, text: str):
         f.write(text)
 
 
-def copy_all_files(src_folder: str, dest_folder: str):
+def copy_files_from_template(src_folder: str, dest_folder: str):
 
-    logger.info(f"os is walking {src_folder}")
     if not os.path.exists(dest_folder):
         logger.info(f"making dest subfolder: {dest_folder}")
         os.makedirs(dest_folder)
@@ -162,21 +185,15 @@ def copy_all_files(src_folder: str, dest_folder: str):
 
             logger.info(f"copied {src_file} to {dest_file}")
             shutil.copy2(src_file, dest_file)
-    
 
 
-def overwrite_or_append_line(
-        pattern: str,
-        replace_text: str,
-        dest: str
-):
+def overwrite_or_append_line(pattern: str, replace_text: str, dest: str):
     config_text = read_file(dest)
     new_text = []
 
-    config_text, new_text = iterate_until_text(iter(config_text),
-                                               new_text,
-                                               pattern,
-                                               append_target=False)
+    config_text, new_text = iterate_until_text(
+        iter(config_text), new_text, pattern, append_target=False
+    )
     new_text.append(f"{replace_text}\n")
     for t in config_text:
         new_text.append(t)
@@ -195,11 +212,12 @@ def write_file(text: List[str], tmp_path: str):
         f.writelines(text)
 
 
-def iterate_until_text(text: Iterable[str],
-                       new_text: List[str],
-                       target_text: str,
-                       append_target: bool = True,
-                       ) -> Tuple[Iterable[str], List[str]]:
+def iterate_until_text(
+    text: Iterable[str],
+    new_text: List[str],
+    target_text: str,
+    append_target: bool = True,
+) -> Tuple[Iterable[str], List[str]]:
     for t in text:
         if target_text in t:
             if append_target:
@@ -209,10 +227,7 @@ def iterate_until_text(text: Iterable[str],
     return text, new_text
 
 
-def append_if_not_present(
-        text: str,
-        dest: str
-):
+def append_if_not_present(text: str, dest: str):
 
     config_text = read_file(dest)
 
@@ -224,3 +239,39 @@ def append_if_not_present(
     if not text_found:
         config_text.append(text)
         write_file(config_text, dest)
+
+
+def configure_colors(theme_path: str):
+
+    colorscheme_path = os.path.join("./", theme_path, "colors", "colorscheme.json")
+
+    if not os.path.exists(colorscheme_path):
+        return
+
+    with open(colorscheme_path, "r") as f:
+        colorscheme = json.load(f)
+
+    build_path = os.path.join(theme_path, "build")
+
+    for root, dirs, files in os.walk(build_path):
+        print("=======")
+        subfolder = root.replace(build_path, "")
+        print("build path = ", build_path)
+        print("subfolder = ", subfolder)
+
+        # subfolder[1:] ensures that it's not mistakenly taken for
+        # an absolute path
+        folder = os.path.join(build_path, subfolder[1:])
+        print("folder = ", folder)
+
+        for file in files:
+            full_path = os.path.join(folder, file)
+
+            with open(full_path, "r") as f:
+                template_content = f.read()
+
+            template = Template(template_content)
+            rendered = template.render(colorscheme)
+
+            with open(full_path, "w") as f:
+                f.write(rendered)
