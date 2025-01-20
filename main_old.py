@@ -1,12 +1,13 @@
 import argparse
 import json
-import yaml
 import logging
 import os
 import shutil
-from typing import Dict
-from pathlib import Path 
 from datetime import datetime
+from pathlib import Path
+from typing import Dict
+
+import yaml
 
 from modules.alacritty import parse_alacritty
 from modules.bash import parse_bash
@@ -17,7 +18,7 @@ from modules.i3 import parse_i3
 from modules.kitty import parse_kitty
 from modules.nvim import parse_nvim
 from modules.picom import parse_picom
-from modules.polybar import parse_polybar   
+from modules.polybar import parse_polybar
 from modules.rofi import parse_rofi
 from modules.tmux import parse_tmux
 from modules.utils import validate_config
@@ -115,20 +116,20 @@ logging.basicConfig(level=logging.INFO)
 # }
 #
 order = [
-    'colors',
-    'i3',
-    'hyprland', 
-    'polybar',
-    'waybar',
-    'wallpaper',
-    'nvim',
-    'tmux',
-    'rofi',
-    'picom',
-    'fish',
-    'bash',
-    'kitty',
-    'alacritty',
+    "colors",
+    "i3",
+    "hyprland",
+    "polybar",
+    "waybar",
+    "wallpaper",
+    "nvim",
+    "tmux",
+    "rofi",
+    "picom",
+    "fish",
+    "bash",
+    "kitty",
+    "alacritty",
 ]
 
 
@@ -136,9 +137,13 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--theme")
     parser.add_argument("--test", default=True, action=argparse.BooleanOptionalAction)
-    parser.add_argument("--migration-method", default="none", choices=["none", "overwrite", "copy"])
+    parser.add_argument(
+        "--migration-method", default="none", choices=["none", "overwrite", "copy"]
+    )
     parser.add_argument("--copy-path", default="")
-    parser.add_argument("--make-backup", default=True, action=argparse.BooleanOptionalAction)
+    parser.add_argument(
+        "--make-backup", default=True, action=argparse.BooleanOptionalAction
+    )
 
     args = parser.parse_args()
     return args
@@ -163,30 +168,33 @@ def build_theme(theme_name, test):
 
     os.makedirs(dest_base)
     logger.info(f"created directory {dest_base}")
-    
+
     tools_updated = {}
     for key in order:
         if key in config:
             logger.info(f"processing {key}")
             destination_dir = os.path.join(
-                dest_base, path_config[key].get('destination_dir', ""))
-            config = path_config[key]['func'](
-                template_dir=path_config[key]['template_dir'],
+                dest_base, path_config[key].get("destination_dir", "")
+            )
+            config = path_config[key]["func"](
+                template_dir=path_config[key]["template_dir"],
                 destination_dir=destination_dir,
                 config=config,
-                theme_path=theme_path
+                theme_path=theme_path,
             )
             tools_updated[key] = {
-                'destination_dir': destination_dir,
-                    'filename': path_config[key].get('filename')
+                "destination_dir": destination_dir,
+                "filename": path_config[key].get("filename"),
             }
-    
+
     return tools_updated, theme_path
+
 
 # def copy_theme(tools_updated: Dict, theme_path: str, copy_path: str):
 
+
 def copy_theme(tools_updated: Dict, theme_path: str, make_backup: bool):
-    
+
     # looping over all tools
     if make_backup:
         backup_id = datetime.now().strftime("%Y-%m-%d::%X")
@@ -195,20 +203,23 @@ def copy_theme(tools_updated: Dict, theme_path: str, make_backup: bool):
     username = os.path.basename(os.path.expanduser("~"))
 
     for t in tools_updated:
-        # skip colors and wallpaper 
-        if t in ['colors', 'wallpaper']:
+        # skip colors and wallpaper
+        if t in ["colors", "wallpaper"]:
             continue
 
         # looping over each file in those configs
-        in_repo_path = tools_updated[t]['destination_dir']
+        in_repo_path = tools_updated[t]["destination_dir"]
         config_path = in_repo_path.replace(os.path.join(theme_path, "dots"), "")
-        if config_path[0] == '/':
+        if config_path[0] == "/":
             config_path = config_path[1:]
 
         config_path = os.path.join(Path.home(), config_path)
-        in_folder = os.path.basename(os.path.normpath(config_path)) not in [username, ".config"]
-        
-        if in_folder and 'filename' not in tools_updated[t]:
+        in_folder = os.path.basename(os.path.normpath(config_path)) not in [
+            username,
+            ".config",
+        ]
+
+        if in_folder and "filename" not in tools_updated[t]:
             raise ValueError("mis-configured tool")
 
         # create backup
@@ -223,7 +234,7 @@ def copy_theme(tools_updated: Dict, theme_path: str, make_backup: bool):
 
             # if we're dealing with an individual file that's not connected to a subfolder
             elif make_backup:
-                filename = tools_updated[t]['filename']
+                filename = tools_updated[t]["filename"]
                 backup_path = os.path.join(backup_root, backup_id, t)
                 backup_file = os.path.join(backup_path, filename)
                 src_path = os.path.join(config_path, filename)
@@ -231,7 +242,7 @@ def copy_theme(tools_updated: Dict, theme_path: str, make_backup: bool):
                     os.makedirs(backup_path)
                 shutil.copy2(src_path, backup_file)
                 logger.info(f"backed up {src_path} to {backup_file}")
-        
+
         if in_folder:
             for root, dirs, files in os.walk(in_repo_path):
                 subfolder = root.replace(in_repo_path, "")
@@ -248,16 +259,16 @@ def copy_theme(tools_updated: Dict, theme_path: str, make_backup: bool):
             logger.info(f"copied {src_path} to {dest_path}")
 
 
-
 def main():
     args = parse_args()
     theme_name = args.theme
-    
+
     tools_updated, theme_path = build_theme(theme_name, args.test)
-    if args.migration_method == 'none': 
-        return 
-    if args.migration_method == 'overwrite':
+    if args.migration_method == "none":
+        return
+    if args.migration_method == "overwrite":
         copy_theme(tools_updated, theme_path, args.make_backup)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

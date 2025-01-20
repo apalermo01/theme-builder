@@ -1,18 +1,16 @@
-import os
-from typing import Dict, List
 import logging
+import os
 import shutil
+from typing import Dict, List
 
 logger = logging.getLogger(__name__)
 
 ### TODO: custom wallpaper paths
 ### TODO: don't depend on i3 config being in build/i3/config
 
+
 def parse_wallpaper(
-        config: Dict,
-        theme_path: str,
-        destination_dir: str,
-        **kwargs
+    config: Dict, theme_path: str, destination_dir: str, **kwargs
 ) -> Dict:
     """Parse wallpaper info
 
@@ -23,26 +21,28 @@ def parse_wallpaper(
 
     logger.info("Loading wallpaper...")
 
-    allowed_methods: List[str] = ['feh', 'hyprpaper', 'None']
-    method: str = config['wallpaper'].get('method', 'feh')
+    allowed_methods: List[str] = ["feh", "hyprpaper", "None"]
+    method: str = config["wallpaper"].get("method", "feh")
 
     if method not in allowed_methods:
-        raise ValueError("Invalid method. Expected one of " +
-                         allowed_methods + f" but got {method}")
+        raise ValueError(
+            "Invalid method. Expected one of " + allowed_methods + f" but got {method}"
+        )
 
-    if method == 'feh':
+    if method == "feh":
         return feh_theme(config, theme_path)
-    if method == 'hyprpaper':
+    if method == "hyprpaper":
         return hyprpaper_theme(config, theme_path)
-    if method == 'None':
+    if method == "None":
         return move_wp_only(config, theme_path)
+
 
 def move_wp_only(config: Dict, theme_path: str):
 
-    wallpaper_path: str = config['wallpaper']['file']
+    wallpaper_path: str = config["wallpaper"]["file"]
     # if just the filename was given, look in the project's wallpaper folder:
-    if '/' not in wallpaper_path:
-        wallpaper_path = os.path.join('.', 'wallpapers', wallpaper_path)
+    if "/" not in wallpaper_path:
+        wallpaper_path = os.path.join(".", "wallpapers", wallpaper_path)
 
     wallpaper_dest: str = os.path.expanduser(
         f"~/Pictures/wallpapers/{wallpaper_path.split('/')[-1]}"
@@ -53,16 +53,17 @@ def move_wp_only(config: Dict, theme_path: str):
 
     shutil.copy2(src=wallpaper_path, dst=wallpaper_dest)
     logger.info(f"copied {wallpaper_path} to {wallpaper_dest}")
-    
-    return config 
+
+    return config
+
 
 def feh_theme(config: Dict, theme_path: str):
 
-    wallpaper_path: str = config['wallpaper']['file']
+    wallpaper_path: str = config["wallpaper"]["file"]
 
     # if just the filename was given, look in the project's wallpaper folder:
-    if '/' not in wallpaper_path:
-        wallpaper_path = os.path.join('.', 'wallpapers', wallpaper_path)
+    if "/" not in wallpaper_path:
+        wallpaper_path = os.path.join(".", "wallpapers", wallpaper_path)
 
     wallpaper_dest: str = os.path.expanduser(
         f"~/Pictures/wallpapers/{wallpaper_path.split('/')[-1]}"
@@ -71,18 +72,18 @@ def feh_theme(config: Dict, theme_path: str):
     if not os.path.exists(os.path.expanduser("~/Pictures/wallpapers/")):
         os.makedirs(os.path.expanduser("~/Pictures/wallpapers/"))
 
-    if 'i3' not in config:
+    if "i3" not in config:
         raise KeyError(
-            "This parser is only configured to work with i3 if feh is used. " +
-            "Please add it to the theme's config")
+            "This parser is only configured to work with i3 if feh is used. "
+            + "Please add it to the theme's config"
+        )
 
     text: str = f"exec_always feh --bg-fill {wallpaper_dest}"
 
     # TODO: copy text to additional i3 config file
-    path: str = os.path.join(theme_path,
-                             "build", "i3", "config")
+    path: str = os.path.join(theme_path, "build", "i3", "config")
 
-    with open(path, 'r') as f:
+    with open(path, "r") as f:
         lines = f.readlines()
 
     if text not in lines:
@@ -99,18 +100,17 @@ def feh_theme(config: Dict, theme_path: str):
 
 def hyprpaper_theme(config: Dict, theme_path: str):
 
-    wallpaper_path: str = config['wallpaper']['file']
+    wallpaper_path: str = config["wallpaper"]["file"]
 
-    hyprpaper_path: str = os.path.join(
-        theme_path, "dots", ".config", "hypr")
+    hyprpaper_path: str = os.path.join(theme_path, "dots", ".config", "hypr")
     if not os.path.exists(hyprpaper_path):
         os.makedirs(hyprpaper_path)
     hyprpaper_path = os.path.join(hyprpaper_path, "hyprpaper.conf")
     # hyprpaper_path: str = os.path.expanduser("~/.config/hypr/hyprpaper.conf")
 
     # if just the filename was given, look in the project's wallpaper folder:
-    if '/' not in wallpaper_path:
-        wallpaper_path = os.path.join('.', 'wallpapers', wallpaper_path)
+    if "/" not in wallpaper_path:
+        wallpaper_path = os.path.join(".", "wallpapers", wallpaper_path)
 
     wallpaper_dest: str = os.path.expanduser(
         f"~/Pictures/wallpapers/{wallpaper_path.split('/')[-1]}"
@@ -119,10 +119,11 @@ def hyprpaper_theme(config: Dict, theme_path: str):
     if not os.path.exists(os.path.expanduser("~/Pictures/wallpapers/")):
         os.makedirs(os.path.expanduser("~/Picutres/wallpapers/"))
 
-    if 'hyprland' not in config:
+    if "hyprland" not in config:
         raise KeyError(
-            "This parser is only configured to work with hyprland if " +
-            "hyprpaper is used. Please add it to the theme's config")
+            "This parser is only configured to work with hyprland if "
+            + "hyprpaper is used. Please add it to the theme's config"
+        )
 
     with open("./default_configs/monitors.txt", "r") as f:
         monitors = f.readlines()

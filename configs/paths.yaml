@@ -8,5 +8,6 @@ wallpaper:
 
 i3:
   template_path: 'default_configs/i3'
-  destination_path: 'i3'
+  destination_path: 'i3/'
+  config_path: '.config/i3/'
 
