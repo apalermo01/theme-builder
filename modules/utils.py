@@ -43,6 +43,24 @@ def module_wrapper(tool):
                 template_dir=template_dir,
                 destination_dir=destination_dir,
             )
+
+            # files to append
+            if "append" in config[tool]:
+                copy_files_from_filelist(
+                    config[tool]["append"], theme_path, tool, overwrite=False
+                )
+
+            if "overwrite" in config[tool]:
+                copy_files_from_filelist(
+                    config[tool]["overwrite"], theme_path, tool, overwrite=True
+                )
+
+            return module(
+                config=config,
+                theme_path=theme_path,
+                template_dir=template_dir,
+                destination_dir=destination_dir,
+            )
         return inner
 
     return func_runner

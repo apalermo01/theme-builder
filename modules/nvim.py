@@ -102,6 +102,7 @@ def _configure_nvchad_separator(nvim_config: Dict, theme_path: str):
     pattern: str = 'separator_style = "'
     text: str = f'       separator_style = "{separator}",'
     path: str = os.path.join(theme_path, "build", "nvim", "lua", "chadrc.lua")
+
     if not os.path.exists(path):
         raise FileNotFoundError(
             """

@@ -13,6 +13,7 @@ from modules.utils import configure_colors, validate_config
 from modules.scripts import parse_scripts
 
 
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
@@ -127,6 +128,7 @@ def copy_theme(
     destination_root: str,
     orient: Literal["roles", "config"],
     config: dict
+
 ):
     """
     tools: dictionary of tools that have been updated
@@ -173,7 +175,6 @@ def copy_theme(
             destination_path = os.path.join(destination_root, t)
             sub_path = t
 
-        else:
             destination_path = os.path.join(
                 destination_root, path_config[t].get("config_path", "")
             )
@@ -228,6 +229,7 @@ def parse_args():
         "--destination-structure", default="roles", choices=["roles", "config"]
     )
 
+
     args = parser.parse_args()
     return args
 
@@ -235,8 +237,8 @@ def parse_args():
 def main():
     args = parse_args()
     theme_name = args.theme
-
     tools_updated, theme_path, config = build_theme(theme_name, args.test)
+
 
     if args.migration_method == "none":
         return
@@ -249,6 +251,7 @@ def main():
             args.destination_root,
             args.destination_structure,
             config
+
         )
 
 
