@@ -47,7 +47,7 @@ def get_theme_config(theme_path: str) -> dict:
     raise ValueError("theme file not found!")
 
 
-def build_theme(theme_name: str, test: bool):
+def build_theme(theme_name: str, test: bool, orient: str):
 
     if test:
         theme_path: str = os.path.join("tests", theme_name)
@@ -112,6 +112,7 @@ def build_theme(theme_name: str, test: bool):
                 destination_dir=destination_path,
                 config=config,
                 theme_path=theme_path,
+                orient=orient,
             )
 
 
@@ -174,7 +175,8 @@ def copy_theme(
         if orient == "roles":
             destination_path = os.path.join(destination_root, t)
             sub_path = t
-
+        
+        else:
             destination_path = os.path.join(
                 destination_root, path_config[t].get("config_path", "")
             )
@@ -201,9 +203,12 @@ def copy_theme(
                 if make_backup and os.path.exists(os.path.join(destination_path, file)):
                     if not os.path.exists(backup_root):
                         os.makedirs(backup_root)
+                    logger.info(f"backing up {os.path.join(destination_path, file)} to {os.path.join()}")
                     shutil.copy2(os.path.join(destination_path, file),
                                  os.path.join(backup_root, file))
-                shutil.copy2(os.path.join(source_path, file),
+                    
+                    logger.info(f"copying {os.path.join(source_path, file)} to {os.path.join(destination_path, file)}")
+                    shutil.copy2(os.path.join(source_path, file),
                              os.path.join(destination_path, file))
     
     if 'scripts' in config:
@@ -237,7 +242,7 @@ def parse_args():
 def main():
     args = parse_args()
     theme_name = args.theme
-    tools_updated, theme_path, config = build_theme(theme_name, args.test)
+    tools_updated, theme_path, config = build_theme(theme_name, args.test, args.destination_structure)
 
 
     if args.migration_method == "none":

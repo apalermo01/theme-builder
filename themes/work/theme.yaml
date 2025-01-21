@@ -1,0 +1,24 @@
+colors: 
+  method: manual 
+
+font_family: "font family JetBrainsMonoNL NFM medium"
+
+nvim:
+  copy:
+    - from: lua/chadrc.lua 
+      to: nvim/lua/chadrc.lua 
+  template_dir: default_configs/nvchad
+  nvchad_colorscheme: catppuccin
+
+tmux:
+  copy:
+    - from: tmux.conf 
+      to: .tmux.conf 
+
+fastfetch:
+  copy:
+    from: config.jsonrc 
+    to: fastfetch/config.jsonrc
+
+bash:
+

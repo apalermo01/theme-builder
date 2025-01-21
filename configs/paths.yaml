@@ -43,7 +43,7 @@ nvim:
 
 tmux:
   template_path: 'default_configs/tmux'
-  destination_path: ''
+  destination_path: 'tmux/'
   config_path: ''
 
 rofi:
