@@ -1,6 +1,6 @@
 {
   "wallpaper": {
-    "method": "None",
+    "method": "feh",
     "file": "darker_unicat.png"
   },
   "colors": {
@@ -24,13 +24,13 @@
   },
   "tmux": {"append": [{
     "from": "tmux.conf",
-    "to": ".tmux.conf"
+    "to": "tmux/.tmux.conf"
   }]},
   "rofi": {
     "template_dir": "./themes/i3_catppuccin/rofi/"
   },
   "fish": {
-    "feats": ["neofetch"]
+    "feats": ["fastfetch"]
   },
   "kitty": {},
   "picom": {

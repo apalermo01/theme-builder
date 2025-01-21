@@ -210,6 +210,7 @@ def copy_theme(
             # move the files
             if os.path.exists(destination_path):
                 shutil.rmtree(destination_path)
+
             print(f"moving {source_path} to {destination_path}")
             shutil.copytree(source_path, destination_path)
 
