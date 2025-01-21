@@ -1,0 +1,9 @@
+nvim:
+  template_dir: default_configs/nvchad/
+  nvchad_colorscheme: gruvbox 
+  nvchad_separator: arrow 
+
+scripts:
+  paths:
+    - from: ./tests/test_new_script/scripts/test.sh 
+      to: test_dir/test.sh

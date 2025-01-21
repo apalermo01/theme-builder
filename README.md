@@ -9,7 +9,7 @@ configuration files that append or overwrite the default configurations. This
 way, you define what you want to be common among all themes in `default_configs`
 and define the theme-specific differences in the theme-specific folder.
 
-When the theme is built, a `dots` folder is created in the theme's folder. This
+When the theme is built, a `build` folder is created in the theme's folder. This
 folder has the same structure as your home directory with the configuration for
 each program in the correct place. You can then load the configuration from the
 dots folder by using the internal overwrite tool that creates a backup in
@@ -79,11 +79,14 @@ folder. For example, custom options for i3 configuration for the trees theme
 live in `./themes/theme_name/trees/i3/config`. 
 
 # Roadmap
-- [ ] restructure temporary dots repo 
-- [ ] configure custom scripts that get moved to home directory 
-- [ ] configure custom scripts that run when the theme is switched
+- [x] restructure temporary dots repo 
+- [x] configure custom scripts that get moved to home directory 
+- [x] configure custom scripts that run when the theme is switched
 - [ ] make dedicated dotfiles repo 
 - [ ] make new option for builder to move dots into repo instead of directly to the final destination
+- [x] convert all theme configs to yaml
+- [ ] write up comprehensive documentation
+- [ ] add more screenshots / workflow demonstrations
 
 # Credits
 Big thanks to Stavros Grigoriou (stav121) for providing the initial inspriation

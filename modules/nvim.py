@@ -81,11 +81,10 @@ def _configure_colorscheme(nvim_config: Dict, theme_path: str):
 
 
 def _configure_nvchad_colorscheme(nvim_config: Dict, theme_path: str):
-    colorscheme: str = nvim_config["nvchad_colorscheme"]
-    pattern: str = 'theme = "'
-    text: str = f'    theme = "{colorscheme}",'
-    path: str = os.path.join(theme_path, "dots", ".config", "nvim", "lua", "chadrc.lua")
-
+    colorscheme = nvim_config["nvchad_colorscheme"]
+    pattern = 'theme = "'
+    text = f'    theme = "{colorscheme}",'
+    path = os.path.join(theme_path, "build", "nvim", "lua", "chadrc.lua")
     if not os.path.exists(path):
         raise FileNotFoundError(
             """
@@ -102,7 +101,8 @@ def _configure_nvchad_separator(nvim_config: Dict, theme_path: str):
     separator: str = nvim_config["nvchad_separator"]
     pattern: str = 'separator_style = "'
     text: str = f'       separator_style = "{separator}",'
-    path: str = os.path.join(theme_path, "dots", ".config", "nvim", "lua", "chadrc.lua")
+    path: str = os.path.join(theme_path, "build", "nvim", "lua", "chadrc.lua")
+
     if not os.path.exists(path):
         raise FileNotFoundError(
             """

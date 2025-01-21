@@ -1,0 +1,5 @@
+scripts:
+  - from: ./tests/test_theme_dir/test_script_1.sh 
+    to: test_dir/test_script_1_renamed.sh 
+  - from: ./tests/test_theme_dir/test_script_2.sh 
+    to: test_dir/test_subdir/test_script_2.sh
