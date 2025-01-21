@@ -1,6 +1,6 @@
 {
   "wallpaper": {
-    "method": "feh",
+    "method": "None",
     "file": "darker_unicat.png"
   },
   "colors": {
@@ -9,38 +9,40 @@
   "font_family": "font family JetBrainsMonoNL NFM medium",
   "i3": {"append": [{
     "from": "config",
-    "to": ".config/i3/config"
+    "to": "i3/config"
   }]},
-  #   "polybar": {},
-  # "nvim": {
-  #   "overwrite": [{
-  #     "from": "lua/chadrc.lua",
-  #     "to": ".config/nvim/lua/chadrc.lua"
-  #   }],
-  #   "template_dir": "default_configs/nvchad",
-  #   "nvchad_colorscheme": "catppuccin"
-  # },
-  # "tmux": {"append": [{
-  #   "from": "tmux.conf",
-  #   "to": ".tmux.conf"
-  # }]},
-  # "rofi": {
-  #   "template_dir": "./themes/i3_catppuccin/rofi/"
-  # },
-  # "fish": {
-  #   "feats": ["neofetch"]
-  # },
-  # "kitty": {},
-  # "picom": {
-  #   "template_dir": "./themes/i3_catppuccin/picom/"
-  # },
-  # "theme_scripts": {
-  #   "path": "./themes/i3_catppuccin/scripts/"
-  # },
-  # "fastfetch": {
-  #   "overwrite": [{
-  #   "from": "config.jsonc",
-  #   "to": ".config/fastfetch/config.jsonc"
-  # }]}
+  "polybar": {
+    "bars": ["left", "center", "right", "tray"]
+  },
+  "nvim": {
+    "overwrite": [{
+      "from": "lua/chadrc.lua",
+      "to": "nvim/lua/chadrc.lua"
+    }],
+    "template_dir": "default_configs/nvchad",
+    "nvchad_colorscheme": "catppuccin"
+  },
+  "tmux": {"append": [{
+    "from": "tmux.conf",
+    "to": ".tmux.conf"
+  }]},
+  "rofi": {
+    "template_dir": "./themes/i3_catppuccin/rofi/"
+  },
+  "fish": {
+    "feats": ["neofetch"]
+  },
+  "kitty": {},
+  "picom": {
+    "template_dir": "./themes/i3_catppuccin/picom/"
+  },
+  "theme_scripts": {
+    "path": "./themes/i3_catppuccin/scripts/"
+  },
+  "fastfetch": {
+    "overwrite": [{
+    "from": "config.jsonc",
+    "to": "fastfetch/config.jsonc"
+  }]}
 
 }

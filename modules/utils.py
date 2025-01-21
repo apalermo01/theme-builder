@@ -22,34 +22,19 @@ def module_wrapper(tool):
             with open("./configs/paths.yaml", "r") as f:
                 path_configs = yaml.safe_load(f)
 
-            if orient == 'role':
-                destination_dir = os.path.join(path_configs[tool]['destination_path'], destination_dir)
-            else:
-                destination_dir = os.path.join(path_configs[tool]['config_path'], destination_dir)
+            # if orient == 'role':
+            #     destination_dir = os.path.join(path_configs[tool]['destination_path'], destination_dir)
+            # else:
+            #     destination_dir = os.path.join(path_configs[tool]['config_path'], destination_dir)
+
+            print(f"template dir = {template_dir}")
+            print(f"destination dir = {destination_dir}")
             if "template_dir" in config[tool]:
                 template_dir = config[tool]["template_dir"]
                 if template_dir[-1] != "/":
                     template_dir = template_dir + "/"
 
             copy_files_from_template(template_dir, destination_dir)
-
-            # files to append
-            if "append" in config[tool]:
-                copy_files_from_filelist(
-                    config[tool]["append"], theme_path, tool, overwrite=False
-                )
-
-            if "overwrite" in config[tool]:
-                copy_files_from_filelist(
-                    config[tool]["overwrite"], theme_path, tool, overwrite=True
-                )
-
-            return module(
-                config=config,
-                theme_path=theme_path,
-                template_dir=template_dir,
-                destination_dir=destination_dir,
-            )
 
             # files to append
             if "append" in config[tool]:

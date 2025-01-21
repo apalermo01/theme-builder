@@ -10,5 +10,3 @@ i3:
     - from: config 
       to: i3/config
 
-scripts:
-
