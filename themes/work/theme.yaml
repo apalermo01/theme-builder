@@ -11,14 +11,14 @@ nvim:
   nvchad_colorscheme: catppuccin
 
 tmux:
-  copy:
+  append:
     - from: tmux.conf 
-      to: .tmux.conf 
+      to: tmux/.tmux.conf 
 
 fastfetch:
-  copy:
+  overwrite:
     from: config.jsonrc 
-    to: fastfetch/config.jsonrc
+    to: fastfetch/config.jsonc
 
 bash:
 
