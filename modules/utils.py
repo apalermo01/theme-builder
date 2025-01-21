@@ -2,6 +2,7 @@ import json
 import logging
 import os
 import shutil
+import yaml
 from typing import Dict, Iterable, List, Tuple
 
 from jinja2 import Template
@@ -14,35 +15,26 @@ logger = logging.getLogger(__name__)
 def module_wrapper(tool):
     def func_runner(module):
         def inner(
-            config: Dict, theme_path: str, template_dir: str, destination_dir: str
+            config: Dict, theme_path: str, template_dir: str, destination_dir: str, orient: str
         ):
 
             # default files
+            with open("./configs/paths.yaml", "r") as f:
+                path_configs = yaml.safe_load(f)
 
+            # if orient == 'role':
+            #     destination_dir = os.path.join(path_configs[tool]['destination_path'], destination_dir)
+            # else:
+            #     destination_dir = os.path.join(path_configs[tool]['config_path'], destination_dir)
+
+            print(f"template dir = {template_dir}")
+            print(f"destination dir = {destination_dir}")
             if "template_dir" in config[tool]:
                 template_dir = config[tool]["template_dir"]
                 if template_dir[-1] != "/":
                     template_dir = template_dir + "/"
 
             copy_files_from_template(template_dir, destination_dir)
-
-            # files to append
-            if "append" in config[tool]:
-                copy_files_from_filelist(
-                    config[tool]["append"], theme_path, tool, overwrite=False
-                )
-
-            if "overwrite" in config[tool]:
-                copy_files_from_filelist(
-                    config[tool]["overwrite"], theme_path, tool, overwrite=True
-                )
-
-            return module(
-                config=config,
-                theme_path=theme_path,
-                template_dir=template_dir,
-                destination_dir=destination_dir,
-            )
 
             # files to append
             if "append" in config[tool]:
@@ -171,11 +163,9 @@ def copy_files_from_template(src_folder: str, dest_folder: str):
 
         subfolder = root.replace(src_folder, "")
         folder = os.path.join(dest_folder, subfolder)
-        # logger.info(f"folder = {folder}")
 
         if not os.path.exists(folder):
             os.makedirs(folder)
-            # logger.info(f"created a new folder: {folder}")
 
         for file in files:
             src_file = os.path.join(root, file)

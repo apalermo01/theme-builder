@@ -3,36 +3,35 @@
   "colors": {
     "method": "pywal"
   },
-  "i3": {"copy": [{
+  "i3": {"append": [{
     "from": "config",
-    "to": ".config/i3/config"
+    "to": "i3/config"
   }]},
-  "polybar": {},
+  "polybar": {"bars": ["main"]},
   "wallpaper": {
     "method": "feh",
     "file": "trees.jpg"
   },
   "nvim": {
     "template_dir": "default_configs/nvchad",
-    "copy": [{
+    "overwrite": [{
       "from": "lua/chadrc.lua",
-      "to": ".config/nvim/lua/chadrc.lua",
-      "overwrite": true
+      "to": "nvim/lua/chadrc.lua",
     }],
     "nvchad_colorscheme": "everforest"
   },
-  "tmux": {"copy": [{
+  "tmux": {"append": [{
     "from": "tmux.conf",
-    "to": ".tmux.conf"
+    "to": "tmux/.tmux.conf"
   }]},
   "rofi": {
     "template_dir": "./themes/trees/rofi/"
   },
   "fish": {
     "feats": ["run_pywal"],
-    "copy": [{
+    "append": [{
       "from": "config.fish",
-      "to": ".config/fish/config.fish"
+      "to": "fish/config.fish"
     }]
   },
   "kitty": {},

@@ -43,7 +43,7 @@ nvim:
 
 tmux:
   template_path: 'default_configs/tmux'
-  destination_path: ''
+  destination_path: 'tmux/'
   config_path: ''
 
 rofi:
@@ -54,7 +54,7 @@ rofi:
 picom:
   template_path: 'default_configs/picom'
   destination_path: 'picom/'
-  config_path: '.config/'
+  config_path: '.config/picom'
 
 kitty:
   template_path: 'default_configs/kitty'

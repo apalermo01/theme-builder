@@ -7,29 +7,30 @@
     "method": "manual"
   },
   "font_family": "font family JetBrainsMonoNL NFM medium",
-  "i3": {"copy": [{
+  "i3": {"append": [{
     "from": "config",
-    "to": ".config/i3/config"
+    "to": "i3/config"
   }]},
-  "polybar": {},
+  "polybar": {
+    "bars": ["left", "center", "right", "tray"]
+  },
   "nvim": {
-    "copy": [{
+    "overwrite": [{
       "from": "lua/chadrc.lua",
-      "to": ".config/nvim/lua/chadrc.lua",
-      "overwrite": true
+      "to": "nvim/lua/chadrc.lua"
     }],
     "template_dir": "default_configs/nvchad",
     "nvchad_colorscheme": "catppuccin"
   },
-  "tmux": {"copy": [{
+  "tmux": {"append": [{
     "from": "tmux.conf",
-    "to": ".tmux.conf"
+    "to": "tmux/.tmux.conf"
   }]},
   "rofi": {
     "template_dir": "./themes/i3_catppuccin/rofi/"
   },
   "fish": {
-    "feats": ["neofetch"]
+    "feats": ["fastfetch"]
   },
   "kitty": {},
   "picom": {
@@ -39,9 +40,9 @@
     "path": "./themes/i3_catppuccin/scripts/"
   },
   "fastfetch": {
-    "copy": [{
+    "overwrite": [{
     "from": "config.jsonc",
-    "to": ".config/fastfetch/config.jsonc"
+    "to": "fastfetch/config.jsonc"
   }]}
 
 }

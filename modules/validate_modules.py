@@ -27,7 +27,7 @@ def validate_polybar(config: Dict, theme_path: str):
 
     if "overwrite" not in config["polybar"]:
         config["polybar"]["overwrite"] = [
-            {"to": ".config/polybar/config.ini", "from": "config.ini"}
+            {"to": "polybar/config.ini", "from": "config.ini"}
         ]
 
     return True, config

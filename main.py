@@ -5,6 +5,7 @@ import shutil
 from datetime import datetime
 from typing import Literal
 import json
+import subprocess
 
 import yaml
 
@@ -47,7 +48,7 @@ def get_theme_config(theme_path: str) -> dict:
     raise ValueError("theme file not found!")
 
 
-def build_theme(theme_name: str, test: bool):
+def build_theme(theme_name: str, test: bool, orient: str):
 
     if test:
         theme_path: str = os.path.join("tests", theme_name)
@@ -101,7 +102,6 @@ def build_theme(theme_name: str, test: bool):
             destination_path = os.path.join(
                 destination_base, path_config[key]["destination_path"]
             )
-
             if "template_path" in config[key]:
                 template_path = config[key]["template_path"]
             else:
@@ -112,6 +112,7 @@ def build_theme(theme_name: str, test: bool):
                 destination_dir=destination_path,
                 config=config,
                 theme_path=theme_path,
+                orient=orient,
             )
 
 
@@ -153,6 +154,9 @@ def copy_theme(
     ├─ .tmux.conf
 
     """
+    print("==========================")
+    print("=== COPYING THEME ========")
+    print("==========================")
 
     ### TODO: allow custom path configs
     with open("./configs/paths.yaml", "r") as f:
@@ -166,6 +170,10 @@ def copy_theme(
         backup_root = os.path.join(destination_root, "dotfiles_backups", backup_id)
 
     for t in tools:
+        print("+++++++++++++++++++++++++++++++++++++++++++++++")
+        print("+++++++++++++++++++++++++++++++++++++++++++++++")
+        print("+++++++++++++++++++++++++++++++++++++++++++++++")
+        print("tool = ", t)
         # TODO: abstract out list of roles / tools to skip
         if t in ["colors", "wallpaper"]:
             continue
@@ -174,43 +182,63 @@ def copy_theme(
         if orient == "roles":
             destination_path = os.path.join(destination_root, t)
             sub_path = t
-
+        
+        else:
             destination_path = os.path.join(
                 destination_root, path_config[t].get("config_path", "")
             )
             sub_path = path_config[t]["config_path"]
+            print("DESTINATION PATH = ", destination_path)
+            print("path config = ", path_config[t])
 
         
         # get the source path
         source_path = tools[t]["destination_dir"]
+        print("source path = ", source_path)
+        print("sub path = ", sub_path)
 
         # make backup
         if len(sub_path) > 0:
+            print("sub path is not empty")
             if make_backup and os.path.exists(destination_path) and len(sub_path) > 0:
                 if not os.path.exists(backup_root):
                     os.makedirs(backup_root)
                 backup_path = os.path.join(backup_root, sub_path)
+                print(f"backing up {destination_path} to {backup_path}")
                 shutil.copytree(destination_path, backup_path)
 
             # move the files
             if os.path.exists(destination_path):
                 shutil.rmtree(destination_path)
+
+            print(f"moving {source_path} to {destination_path}")
             shutil.copytree(source_path, destination_path)
+
         else:
+            print("looping through files in ", source_path)
             for file in os.listdir(source_path):
                 if make_backup and os.path.exists(os.path.join(destination_path, file)):
                     if not os.path.exists(backup_root):
                         os.makedirs(backup_root)
+
+                    logger.info(f"backing up {os.path.join(destination_path, file)} to {os.path.join(backup_root, file)}")
                     shutil.copy2(os.path.join(destination_path, file),
                                  os.path.join(backup_root, file))
+                    
+                logger.info(f"copying {os.path.join(source_path, file)} to {os.path.join(destination_path, file)}")
                 shutil.copy2(os.path.join(source_path, file),
-                             os.path.join(destination_path, file))
+                         os.path.join(destination_path, file))
     
     if 'scripts' in config:
         root = destination_root 
         if orient == 'roles':
             root = os.path.join(root, "scripts")
         parse_scripts(config, root)
+
+    if 'theme_scripts' in config:
+        path = config['theme_scripts']['path']
+        for file in os.listdir(path):
+            subprocess.call(os.path.join(path, file))
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -237,7 +265,9 @@ def parse_args():
 def main():
     args = parse_args()
     theme_name = args.theme
-    tools_updated, theme_path, config = build_theme(theme_name, args.test)
+    tools_updated, theme_path, config = build_theme(theme_name,
+                                                    args.test,
+                                                    args.destination_structure)
 
 
     if args.migration_method == "none":

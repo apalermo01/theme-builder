@@ -27,7 +27,8 @@ def parse_fish(
         "cowsay_fortune": (
             "fortune | cowsay -f $(ls /usr/share/cowsay/cows/ " "| shuf -n1)\n"
         ),
-        "neofetch": "neofetch\n",
+        "neofetch": "fastfetch\n",
+        "fastfetch": "fastfetch\n",
         "run_pywal": f"wal -n -e -i {wallpaper_path} > /dev/null \n",
         "git_onefetch": dedent(
             """

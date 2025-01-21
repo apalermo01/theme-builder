@@ -41,6 +41,10 @@ def parse_colors(config: Dict, theme_path: str, **kwargs) -> Dict:
         if "/" not in wallpaper_path:
             wallpaper_path = os.path.join(".", "wallpapers", wallpaper_path)
         pallet = _configure_pywal_colors(wallpaper_path)
+
+        # add some additional default colors 
+        if 'red' not in pallet:
+            pallet['red'] = '#ff0000'
         _write_pallet_to_colorscheme(pallet, colorscheme_path)
 
     with open(os.path.join(colorscheme_path, "colorscheme.json"), "r") as f:
