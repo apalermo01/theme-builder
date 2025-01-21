@@ -4,6 +4,7 @@ nvim:
   nvchad_separator: arrow 
 
 scripts:
+  paths_dir: ./tests/test_theme_dir/paths.yaml
   paths:
     - from: ./tests/test_new_script/scripts/test.sh 
       to: test_dir/test.sh

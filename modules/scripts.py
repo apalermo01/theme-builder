@@ -8,12 +8,19 @@ def parse_scripts(
 ):
     print("configuring scripts...")
     default_scripts = set()
-    with open("./default_configs/scripts/paths.yaml", "r") as f:    
+    
+    if 'scripts' in config and config['scripts'].get('paths_dir'):
+        path_dir = config['scripts']['paths_dir']
+    else:
+        path_dir = "./default_configs/scripts/paths.yaml"
+
+    with open(path_dir, "r") as f:    
         f_read = yaml.safe_load(f) 
         for e in f_read['scripts']:
             default_scripts.add(json.dumps(e))
-    if 'scripts' in config and config['scripts'] is not None and len(config['scripts']) > 0:
-        for entry in config['scripts']:
+    
+    if 'scripts' in config and config['scripts'].get('paths'):
+        for entry in config['scripts']['paths']:
             print("custom entry = ", entry)
             default_scripts.add(json.dumps(entry))
     
