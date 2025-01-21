@@ -6,25 +6,22 @@ import json
 def parse_scripts(
     config: dict, root_path: str
 ):
+    print("configuring scripts...")
     default_scripts = set()
     with open("./default_configs/scripts/paths.yaml", "r") as f:    
         f_read = yaml.safe_load(f) 
         for e in f_read['scripts']:
             default_scripts.add(json.dumps(e))
-
     if 'scripts' in config and config['scripts'] is not None and len(config['scripts']) > 0:
         for entry in config['scripts']:
-            print(entry)
-            default_scripts.append(json.dumps(entry))
+            print("custom entry = ", entry)
+            default_scripts.add(json.dumps(entry))
     
-    print(default_scripts)
     default_scripts_dict = []
     for e in default_scripts:
         default_scripts_dict.append(json.loads(e))
     
     for entry in default_scripts_dict:
-        print("processing: ")
-        print(entry)
         src_path = entry['from']
         to_path = entry['to']
         to_folder = '/'.join(to_path.split('/')[:-1])
