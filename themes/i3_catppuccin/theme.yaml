@@ -43,6 +43,11 @@
     "overwrite": [{
     "from": "config.jsonc",
     "to": "fastfetch/config.jsonc"
-  }]}
+  }]},
+  
+  # for kde services like ocular
+  "kde": {
+    "script": "catppuccin"
+  }
 
 }

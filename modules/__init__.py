@@ -12,6 +12,7 @@ from . import rofi
 from . import picom 
 from . import kitty 
 from . import alacritty
+from . import kde
 
 modules = {
     "colors": colors.parse_colors,
@@ -27,5 +28,6 @@ modules = {
     "rofi":  rofi.parse_rofi,
     "picom": picom.parse_picom,
     "kitty": kitty.parse_kitty,
-    "alacritty": alacritty.parse_alacritty
+    "alacritty": alacritty.parse_alacritty,
+    "kde": kde.parse_kde,
 }

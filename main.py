@@ -94,6 +94,7 @@ def build_theme(theme_name: str, test: bool, orient: str):
         "bash",
         "kitty",
         "alacritty",
+        "kde"
     ]
     for key in order:
         if key in config:
@@ -175,7 +176,7 @@ def copy_theme(
         print("+++++++++++++++++++++++++++++++++++++++++++++++")
         print("tool = ", t)
         # TODO: abstract out list of roles / tools to skip
-        if t in ["colors", "wallpaper"]:
+        if t in ["colors", "wallpaper", "kde"]:
             continue
 
         # check how we're structuring the destination path
