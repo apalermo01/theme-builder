@@ -88,6 +88,8 @@ live in `./themes/theme_name/trees/i3/config`.
 - [ ] write up comprehensive documentation
 - [ ] add more screenshots / workflow demonstrations
 
+
+
 # Credits
 Big thanks to Stavros Grigoriou (stav121) for providing the initial inspriation
 for this project: https://github.com/stav121/i3wm-themer.
