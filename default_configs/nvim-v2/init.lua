@@ -288,3 +288,7 @@ require("bufferline").setup {
         diagnostics = "nvim_lsp",
     },
 }
+
+require('lualine').setup {
+
+}
