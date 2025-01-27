@@ -8,6 +8,7 @@ local map = vim.keymap.set
 map("i", "jk", "<ESC>")
 map("n", "oo", "o<ESC>k")
 map("n", "OO", "O<ESC>j")
+
 -- map("n", "<C-t>", ":NvimTreeToggle<cr>")
 map("n", "<C-h>", "<cmd> TmuxNavigateLeft<CR>")
 map("n", "<C-l>", "<cmd> TmuxNavigateRight<CR>")
