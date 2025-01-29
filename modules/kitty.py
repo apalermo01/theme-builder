@@ -22,7 +22,7 @@ def parse_kitty(
     if "font_family" in config:
         append_text(
             os.path.join(destination_dir, "kitty.conf"),
-            f"font_family {config['font_family']}\n",
+            f"font_family   family=\"{config['font_family']}\"\n",
         )
 
     return config

@@ -1,48 +1,48 @@
-{
-  "wallpaper": {
-    "method": "feh",
-    "file": "darker_unicat.png"
-  },
-  "colors": {
-    "method": "manual"
-  },
-  "font_family": "font family JetBrainsMonoNL NFM medium",
-  "i3": {"append": [{
-    "from": "config",
-    "to": "i3/config"
-  }]},
-  "polybar": {
-    "bars": ["left", "center", "right", "tray"]
-  },
-  "nvim": {
-    "overwrite": [{
-      "from": "lua/chadrc.lua",
-      "to": "nvim/lua/chadrc.lua"
-    }],
-    "template_dir": "default_configs/nvchad",
-    "nvchad_colorscheme": "catppuccin"
-  },
-  "tmux": {"append": [{
-    "from": "tmux.conf",
-    "to": "tmux/.tmux.conf"
-  }]},
-  "rofi": {
-    "template_dir": "./themes/i3_catppuccin/rofi/"
-  },
-  "fish": {
-    "feats": ["fastfetch"]
-  },
-  "kitty": {},
-  "picom": {
-    "template_dir": "./themes/i3_catppuccin/picom/"
-  },
-  "theme_scripts": {
-    "path": "./themes/i3_catppuccin/scripts/"
-  },
-  "fastfetch": {
-    "overwrite": [{
-    "from": "config.jsonc",
-    "to": "fastfetch/config.jsonc"
-  }]}
 
-}
+wallpaper: 
+  method: feh
+  file: darker_unicat.png
+
+colors:
+  method: manual
+
+font_family: JetBrainsMono Nerd Font Mono
+
+i3: 
+  append: 
+    - from: config
+      to: i3/config
+   
+polybar: 
+  bars: [left, center, right, tray]
+  
+nvim: 
+  template_dir: default_configs/nvim-v2
+
+tmux: 
+  append: 
+    - from: tmux.conf
+      to: tmux/.tmux.conf
+
+rofi: 
+  template_dir: ./themes/i3_catppuccin/rofi/
+
+fish: 
+  feats: 
+    - fastfetch
+
+kitty: {}
+
+picom: 
+  template_dir: ./themes/i3_catppuccin/picom/
+
+theme_scripts: 
+  path: ./themes/i3_catppuccin/scripts/
+
+fastfetch: 
+  overwrite: 
+  from: config.jsonc
+  to: fastfetch/config.jsonc
+
+
+
