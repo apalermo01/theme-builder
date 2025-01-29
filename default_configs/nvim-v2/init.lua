@@ -357,7 +357,13 @@ end, { desc = "whichkey query lookup" })
 -----------
 require("mason").setup()
 require("mason-lspconfig").setup()
--- require("lspconfig").setup()
+
+local servers = {"html", "cssls", "clangd", "pylsp", "ts_ls"}
+for _, lsp in ipairs(servers) do
+    require('lspconfig')[lsp].setup({
+
+    })
+end
 
 -- Goto preview
 map("n", "<leader>gpD", "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>")
