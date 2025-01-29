@@ -6,7 +6,7 @@ wallpaper:
 colors:
   method: manual
 
-font_family: font family JetBrainsMonoNL NFM medium
+font_family: JetBrainsMono Nerd Font Mono
 
 i3: 
   append: 
@@ -17,12 +17,6 @@ polybar:
   bars: [left, center, right, tray]
   
 nvim: 
-# overwrite: 
-# - from: lua/chadrc.lua,
-#      to: nvim/lua/chadrc.lua
-  
-#  template_dir: default_configs/nvchad,
-#  nvchad_colorscheme: catppuccin
   template_dir: default_configs/nvim-v2
 
 tmux: 

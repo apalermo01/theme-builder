@@ -170,6 +170,12 @@ require("lazy").setup({
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
+    {
+        "numToStr/FTerm.nvim"
+    },
+    {
+        "windwp/nvim-projectconfig"
+    },
 })
 
 -----------------------------
@@ -196,6 +202,7 @@ vim.cmd([[set path+=**]])
 vim.cmd([[set complete+=k]])
 vim.cmd([[filetype plugin on]])
 vim.cmd([[setlocal spell spelllang=en_us]])
+vim.cmd([[set guifont=JetBrainsMono\ Nerd\ Font\ Mono]])
 
 -- UI
 set.so = 7
@@ -282,6 +289,11 @@ map("n", "<leader>fm", function()
 	require("conform").format({ lsp_fallback = true })
 end, { desc = "general format file" })
 
+-- FTerm
+map("n", "<leader>ft", "<cmd>lua require('FTerm').toggle()<cr>")
+map("t", "<leader>ft", "<C-\\><C-n><cmd>lua require('FTerm').toggle()<cr>")
+map("t", "<Esc>", "<C-\\><C-n><cmd>lua require('FTerm').exit()<cr>")
+
 -- lualine
 require("lualine").setup({})
 
@@ -303,6 +315,7 @@ require("render-markdown").setup({
 -- nvimtree
 map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
 map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })
+
 
 -- startup screen
 require("startup").setup({ theme = "dashboard" })
@@ -371,3 +384,8 @@ map("n", "<leader>gP", "<cmd>lua require('goto-preview').close_all_win()<CR>")
 --     end
 --   end,
 -- })
+--
+-- project config
+require('nvim-projectconfig').setup({
+    project_dir = "~/.config/projects-config"
+})
