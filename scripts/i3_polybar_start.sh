@@ -12,7 +12,7 @@ if [ -z "$(pgrep -x polybar)" ]; then
   for b in "${bar_names[@]}"; do
     for m in $(polybar --list-monitors | cut -d":" -f1); do
         MONITOR=$m polybar --reload "$b" --config=~/.config/polybar/config.ini &
-        sleep 1
+        sleep 0.1
     done
   done
 else

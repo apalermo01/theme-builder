@@ -16,7 +16,6 @@ from modules.utils import configure_colors, validate_config
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
-
 def get_theme_config(theme_path: str) -> dict:
     all_files = os.listdir(theme_path)
     for f in all_files:
@@ -288,3 +287,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    

@@ -25,9 +25,9 @@ modules = {
     "waybar": waybar.parse_waybar,
     "nvim": nvim.parse_nvim,
     "tmux": tmux.parse_tmux,
-    "rofi":  rofi.parse_rofi,
+    "rofi": rofi.parse_rofi,
     "picom": picom.parse_picom,
     "kitty": kitty.parse_kitty,
     "alacritty": alacritty.parse_alacritty,
-    "fastfetch": fastfetch.parse_fastfetch
+    "fastfetch": fastfetch.parse_fastfetch,
 }

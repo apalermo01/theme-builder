@@ -86,30 +86,37 @@ require("lazy").setup({
 	{
 		"stevearc/conform.nvim",
 		opts = {
-			formatters_by_ft = { 
-                lua = { "stylua" },
-                python = function(bufnr)
-                  if require("conform").get_formatter_info("ruff_format", bufnr).available then
-                    return { "ruff_format" }
-                  else
-                    return { "isort", "black" }
-                  end
-                end,
-
-
-            },
+			formatters_by_ft = {
+				lua = { "stylua" },
+				python = function(bufnr)
+					if require("conform").get_formatter_info("ruff_format", bufnr).available then
+						return { "ruff_format" }
+					else
+						return { "isort", "black" }
+					end
+				end,
+			},
 		},
 	},
 	{ "lewis6991/gitsigns.nvim" },
-    { "ludovicchabant/vim-gutentags" },
+	{ "ludovicchabant/vim-gutentags" },
+	{
+		"dcampos/nvim-snippy",
+	},
+	{
+		"dcampos/cmp-snippy",
+	},
+	{
+		"honza/vim-snippets",
+	},
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
 		dependencies = {
 			{
 				-- snippet plugin
-				"L3MON4D3/LuaSnip",
-				dependencies = "rafamadriz/friendly-snippets",
+				"dcampos/nvim-snippy",
+				dependencies = "honza/vim-snippets",
 				opts = { history = true, updateevents = "TextChanged,TextChangedI" },
 			},
 
@@ -131,7 +138,7 @@ require("lazy").setup({
 
 			-- cmp sources plugins
 			{
-				"saadparwaiz1/cmp_luasnip",
+				"dcampos/cmp-snippy",
 				"hrsh7th/cmp-nvim-lua",
 				"hrsh7th/cmp-nvim-lsp",
 				"hrsh7th/cmp-buffer",
@@ -170,17 +177,39 @@ require("lazy").setup({
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
-    {
-        "numToStr/FTerm.nvim"
-    },
-    {
-        "windwp/nvim-projectconfig"
-    },
-    {
-        "neoclide/coc.nvim",
-        build = "npm ci"
-    },
+	{
+		"numToStr/FTerm.nvim",
+	},
+	{
+		"windwp/nvim-projectconfig",
+	},
+	{
+		"nvimtools/none-ls.nvim",
+	},
+	{
+		"chentoast/marks.nvim",
+	},
+	{
+		"onsails/lspkind.nvim",
+	},
+	{
+		"folke/trouble.nvim",
+	},
+	{
+		"corcalli/nvim-colorizer.lua",
+	},
 })
+-----------------------------
+-- AutoCmds -----------------
+-----------------------------
+
+vim.cmd([[
+augroup FileTypeSettings
+    autocmd!
+    autocmd BufEnter * lua if vim.bo.filetype == 'python' then PythonSettings() end
+    autocmd BufEnter * lua if vim.bo.filetype == 'markdown' then MarkdownSettings() end
+augroup end
+]])
 
 -----------------------------
 -- Settings -----------------
@@ -205,7 +234,7 @@ set.termguicolors = true
 vim.cmd([[set path+=**]])
 vim.cmd([[set complete+=k]])
 vim.cmd([[filetype plugin on]])
-vim.cmd([[setlocal spell spelllang=en_us]])
+vim.cmd([[set spell spelllang=en_us]])
 vim.cmd([[set guifont=JetBrainsMono\ Nerd\ Font\ Mono]])
 
 -- UI
@@ -214,12 +243,33 @@ vim.o.cursorlineopt = "both"
 vim.o.termguicolors = true
 vim.cmd.colorscheme("catppuccin")
 
+local border = {
+	{ "🭽", "FloatBorder" },
+	{ "▔", "FloatBorder" },
+	{ "🭾", "FloatBorder" },
+	{ "▕", "FloatBorder" },
+	{ "🭿", "FloatBorder" },
+	{ "▁", "FloatBorder" },
+	{ "🭼", "FloatBorder" },
+	{ "▏", "FloatBorder" },
+}
+
 -- add binaries installed by mason.nvim to path
 local is_windows = vim.fn.has("win32") ~= 0
 local sep = is_windows and "\\" or "/"
 local delim = is_windows and ";" or ":"
 vim.env.PATH = table.concat({ vim.fn.stdpath("data"), "mason", "bin" }, sep) .. delim .. vim.env.PATH
 
+-- filetype specific settings
+function PythonSettings()
+	vim.bo.tabstop = 4
+	vim.bo.shiftwidth = 4
+	vim.cmd([[set tw=120]])
+end
+
+function MarkdownSettings()
+	vim.cmd([[set tw=80]])
+end
 -----------------------------
 -- Key Mappings -------------
 -----------------------------
@@ -230,9 +280,6 @@ local default_opts = { noremap = true, silent = true }
 -- Newlines above and below
 vim.cmd([[ nnoremap oo o<Esc>k ]])
 vim.cmd([[ nnoremap OO O<Esc>j ]])
-
--- Clear search highlights with Esc
-vim.cmd([[ nnoremap <esc> :noh<return><esc> ]])
 
 -- tabs
 vim.cmd([[ nnoremap <leader>tn :tabnew<cr> ]])
@@ -245,6 +292,23 @@ vim.cmd([[ nnoremap <leader>to :tabonly ]])
 map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
 map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 
+-- use escape to clear highlights or close open windows
+function CloseFloatingOrClearHighlight()
+	local floating_wins = 0
+	for _, win in ipairs(vim.api.nvim_list_wins()) do
+		if vim.api.nvim_win_get_config(win).relative ~= "" then
+			floating_wins = floating_wins + 1
+			vim.api.nvim_win_close(win, false)
+		end
+	end
+
+	if floating_wins == 0 then
+		vim.cmd("noh")
+	end
+end
+
+map("n", "<Esc>", CloseFloatingOrClearHighlight, { noremap = true, silent = true })
+
 --------------------------------------
 -- Plugin configurations -------------
 --------------------------------------
@@ -252,7 +316,7 @@ map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 -- bufferline
 require("bufferline").setup({
 	options = {
-		numbers = "ordinal", -- or "buffer_id" for buffer numbers
+		numbers = "buffer_id", -- or "buffer_id" for buffer numbers
 		close_command = "bdelete! %d",
 		right_mouse_command = "bdelete! %d",
 		offsets = {
@@ -288,8 +352,59 @@ require("cheatsheet").setup({
 
 map("n", "<leader>?", "<cmd>Cheatsheet<cr>")
 
--- coc
-vim.cmd([[let g:coc_node_path = '/usr/bin/node']])
+-- cmp
+
+local cmp_status, cmp = pcall(require, "cmp")
+local snippy_status, snippy = pcall(require, "snippy")
+local lspkind = require("lspkind")
+
+if not snippy_status then
+	print("ERROR: could not load snippy")
+end
+if cmp_status then
+	cmp.setup({
+		snippet = {
+			expand = function(args)
+				snippy.lsp_expand(args.body)
+			end,
+		},
+		mapping = cmp.mapping.preset.insert({
+			["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
+			["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
+			["<C-b>"] = cmp.mapping.scroll_docs(-4),
+			["<C-f>"] = cmp.mapping.scroll_docs(4),
+			["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
+			["<C-e>"] = cmp.mapping.abort(), -- close completion window
+			["<CR>"] = cmp.mapping.confirm({ select = false }),
+		}),
+		sources = cmp.config.sources({
+			{ name = "nvim_lsp" }, -- LSP
+			{ name = "snippy" }, -- snippets
+			{ name = "buffer" }, -- text within the current buffer
+			{ name = "path" }, -- file system paths
+		}),
+		formatting = {
+			format = lspkind.cmp_format({
+				mode = "symbol_text",
+			}),
+		},
+	})
+else
+	print("ERROR: could not load cmp")
+end
+
+-- colorizer
+require("colorizer").setup({
+	filetypes = { "*" },
+	DEFAULT_OPTIONS = {
+		RGB = true,
+		RRGGBB = true,
+		names = false,
+		RRGGBBAA = true,
+		css = true,
+		css_fn = true,
+	},
+})
 -- conform
 map("n", "<leader>fm", function()
 	require("conform").format({ lsp_fallback = true })
@@ -299,6 +414,16 @@ end, { desc = "general format file" })
 map("n", "<leader>ft", "<cmd>lua require('FTerm').toggle()<cr>")
 map("t", "<leader>ft", "<C-\\><C-n><cmd>lua require('FTerm').toggle()<cr>")
 map("t", "<Esc>", "<C-\\><C-n><cmd>lua require('FTerm').exit()<cr>")
+
+-- Goto preview
+map("n", "gpd", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>")
+map("n", "gpt", "<cmd>lua require('goto-preview').goto_preview_type_declaration()<CR>")
+map("n", "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>")
+map("n", "gpD", "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>")
+map("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>")
+map("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>")
+
+--lspkind
 
 -- lualine
 require("lualine").setup({})
@@ -318,10 +443,13 @@ require("render-markdown").setup({
 	},
 })
 
+-- marks
+require("marks").setup({
+	default_mappings = true,
+})
 -- nvimtree
 map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
 map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })
-
 
 -- startup screen
 require("startup").setup({ theme = "dashboard" })
@@ -371,33 +499,37 @@ for _, lsp in ipairs(servers) do
     })
 end
 
--- Goto preview
-map("n", "<leader>gpD", "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>")
-map("n", "<leader>gP", "<cmd>lua require('goto-preview').close_all_win()<CR>")
+local handlers = {
+	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+}
+local servers = { "html", "cssls", "clangd", "pyright", "ts_ls" }
+for _, lsp in ipairs(servers) do
+	require("lspconfig")[lsp].setup({ handlers = handlers })
+end
+
+----------------------------------
+--- Plugins that depend on lsp ---
+----------------------------------
+-- trouble (diagnostics)
+require("trouble").setup({
+	cmd = "Trouble",
+})
+
+map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>")
 
 --------------------------------
 --- Other events / functions ---
 --------------------------------
--- https://github.com/creativenull/dotfiles/blob/9ae60de4f926436d5682406a5b801a3768bbc765/config/nvim/init.lua#L70-L86
--- From vim defaults.vim
--- ---
--- When editing a file, always jump to the last known cursor position.
--- Don't do it when the position is invalid, when inside an event handler
--- (happens when dropping a file on gvim) and for a commit message (it's
--- likely a different one than last time).
--- vim.api.nvim_create_autocmd('BufReadPost', {
---   group = vim.g.user.event,
---   callback = function(args)
---     local valid_line = vim.fn.line([['"]]) >= 1 and vim.fn.line([['"]]) < vim.fn.line('$')
---     local not_commit = vim.b[args.buf].filetype ~= 'commit'
---
---     if valid_line and not_commit then
---       vim.cmd([[normal! g`"]])
---     end
---   end,
--- })
---
+-- https://stackoverflow.com/questions/774560/in-vim-how-do-i-get-a-file-to-open-at-the-same-line-number-i-closed-it-at-last
+vim.cmd([[
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
+]])
+
 -- project config
-require('nvim-projectconfig').setup({
-    project_dir = "~/.config/projects-config"
+require("nvim-projectconfig").setup({
+	project_dir = "~/.config/projects-config",
 })

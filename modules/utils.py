@@ -99,7 +99,7 @@ def copy_files_from_filelist(
             shutil.copy2(from_path, to_path)
 
 
-def configure_destination(dest: str, *subfolders: List):
+def configure_destination(dest: str, *subfolders: List) -> str:
     dest = os.path.join(dest, *subfolders[:-1])
     if not os.path.exists(dest):
         logger.info(f"creating path {dest}")
@@ -107,7 +107,7 @@ def configure_destination(dest: str, *subfolders: List):
     return os.path.join(dest, *subfolders)
 
 
-def validate_config(config: Dict, theme_path: str) -> bool:
+def validate_config(config: Dict, theme_path: str) -> Tuple[bool, Dict]:
     for key in allowed_elements:
 
         num_elements_of_category = sum(
