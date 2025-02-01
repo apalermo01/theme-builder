@@ -86,22 +86,23 @@ require("lazy").setup({
 	{
 		"stevearc/conform.nvim",
 		opts = {
-			formatters_by_ft = { 
-                lua = { "stylua" },
-                python = function(bufnr)
-                  if require("conform").get_formatter_info("ruff_format", bufnr).available then
-                    return { "ruff_format" }
-                  else
-                    return { "isort", "black" }
-                  end
-                end,
-
-
-            },
+			formatters_by_ft = {
+				lua = { "stylua" },
+				python = function(bufnr)
+					if require("conform").get_formatter_info("ruff_format", bufnr).available then
+						return { "ruff_format" }
+					else
+						return { "isort", "black" }
+					end
+				end,
+			},
 		},
 	},
 	{ "lewis6991/gitsigns.nvim" },
-    { "ludovicchabant/vim-gutentags" },
+	{ "ludovicchabant/vim-gutentags" },
+	{
+		"hrsh7th/cmp-buffer",
+	},
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
@@ -170,16 +171,24 @@ require("lazy").setup({
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
-    {
-        "numToStr/FTerm.nvim"
-    },
-    {
-        "windwp/nvim-projectconfig"
-    },
-    {
-        "neoclide/coc.nvim",
-        build = "npm ci"
-    },
+	{
+		"numToStr/FTerm.nvim",
+	},
+	{
+		"windwp/nvim-projectconfig",
+	},
+	{
+		"nvimtools/none-ls.nvim",
+	},
+	{
+		"chentoast/marks.nvim",
+	},
+	{
+		"onsails/lspkind.nvim",
+	},
+	{
+		"folke/trouble.nvim",
+	},
 })
 
 -----------------------------
@@ -205,7 +214,7 @@ set.termguicolors = true
 vim.cmd([[set path+=**]])
 vim.cmd([[set complete+=k]])
 vim.cmd([[filetype plugin on]])
-vim.cmd([[setlocal spell spelllang=en_us]])
+vim.cmd([[set spell spelllang=en_us]])
 vim.cmd([[set guifont=JetBrainsMono\ Nerd\ Font\ Mono]])
 
 -- UI
@@ -252,7 +261,7 @@ map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
 -- bufferline
 require("bufferline").setup({
 	options = {
-		numbers = "ordinal", -- or "buffer_id" for buffer numbers
+		numbers = "buffer_id", -- or "buffer_id" for buffer numbers
 		close_command = "bdelete! %d",
 		right_mouse_command = "bdelete! %d",
 		offsets = {
@@ -288,8 +297,12 @@ require("cheatsheet").setup({
 
 map("n", "<leader>?", "<cmd>Cheatsheet<cr>")
 
--- coc
-vim.cmd([[let g:coc_node_path = '/usr/bin/node']])
+-- cmp
+require("cmp").setup({
+	mapping = require("cmp").mapping.preset.insert({
+		["<C-Space>"] = require("cmp").mapping.complete(),
+	}),
+})
 -- conform
 map("n", "<leader>fm", function()
 	require("conform").format({ lsp_fallback = true })
@@ -321,7 +334,6 @@ require("render-markdown").setup({
 -- nvimtree
 map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
 map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })
-
 
 -- startup screen
 require("startup").setup({ theme = "dashboard" })
@@ -364,16 +376,18 @@ end, { desc = "whichkey query lookup" })
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-local servers = {"html", "cssls", "clangd", "pylsp", "ts_ls"}
+local servers = { "html", "cssls", "clangd", "pyright", "ts_ls" }
 for _, lsp in ipairs(servers) do
-    require('lspconfig')[lsp].setup({
-
-    })
+	require("lspconfig")[lsp].setup({})
 end
 
 -- Goto preview
-map("n", "<leader>gpD", "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>")
-map("n", "<leader>gP", "<cmd>lua require('goto-preview').close_all_win()<CR>")
+map("n", "gpd", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>")
+map("n", "gpt", "<cmd>lua require('goto-preview').goto_preview_type_declaration()<CR>")
+map("n", "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>")
+map("n", "gpD", "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>")
+map("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>")
+map("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>")
 
 --------------------------------
 --- Other events / functions ---
@@ -398,6 +412,6 @@ map("n", "<leader>gP", "<cmd>lua require('goto-preview').close_all_win()<CR>")
 -- })
 --
 -- project config
-require('nvim-projectconfig').setup({
-    project_dir = "~/.config/projects-config"
+require("nvim-projectconfig").setup({
+	project_dir = "~/.config/projects-config",
 })
