@@ -195,6 +195,9 @@ require("lazy").setup({
 	{
 		"folke/trouble.nvim",
 	},
+	{
+		"corcalli/nvim-colorizer.lua",
+	},
 })
 -----------------------------
 -- AutoCmds -----------------
@@ -390,6 +393,18 @@ else
 	print("ERROR: could not load cmp")
 end
 
+-- colorizer
+require("colorizer").setup({
+	filetypes = { "*" },
+	DEFAULT_OPTIONS = {
+		RGB = true,
+		RRGGBB = true,
+		names = false,
+		RRGGBBAA = true,
+		css = true,
+		css_fn = true,
+	},
+})
 -- conform
 map("n", "<leader>fm", function()
 	require("conform").format({ lsp_fallback = true })
@@ -495,7 +510,6 @@ require("trouble").setup({
 })
 
 map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>")
-
 
 --------------------------------
 --- Other events / functions ---
