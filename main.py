@@ -91,6 +91,7 @@ def build_theme(theme_name: str, test: bool, orient: str):
         "bash",
         "kitty",
         "alacritty",
+        "fastfetch"
     ]
     for key in order:
         if key in config:

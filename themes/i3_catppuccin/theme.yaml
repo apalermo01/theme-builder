@@ -6,7 +6,8 @@ wallpaper:
 colors:
   method: manual
 
-font_family: JetBrainsMono Nerd Font Mono
+  # font_family: JetBrainsMono Nerd Font Mono
+font_family: FiraCode Nerd Font
 
 i3: 
   append: 
@@ -41,8 +42,8 @@ theme_scripts:
 
 fastfetch: 
   overwrite: 
-  from: config.jsonc
-  to: fastfetch/config.jsonc
+    - from: config.jsonc
+      to: fastfetch/config.jsonc
 
 
 

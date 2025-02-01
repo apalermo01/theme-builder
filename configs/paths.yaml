@@ -66,3 +66,7 @@ alacritty:
   destination_path: 'alacritty/'
   config_path: '.config/alacritty/'
 
+fastfetch:
+  template_path: 'default_configs/fastfetch/'
+  destination_path: 'fastfetch/'
+  config_path: '.config/fastfetch/'

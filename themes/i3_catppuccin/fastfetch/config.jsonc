@@ -71,6 +71,13 @@
             "format": "{ipv4} ({ifname})"
         },
         {
+            "key": "{$2}{#35} archive  ",
+            "type": "command",
+            "shell": "bash",
+            "text": "systemctl is-active vboxvmservice@archiveteam-warrior-3.2.service",
+            "format": "{1}"
+        },
+        {
             "format": "{#1}{#keys}├{$1}┤",
             "type": "custom"
         },

@@ -66,5 +66,8 @@ return {
   },
   {
     'hrsh7th/nvim-cmp'
+  },
+  {
+	'norcalli/nvim-colorizer.lua'
   }
 }

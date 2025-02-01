@@ -176,6 +176,10 @@ require("lazy").setup({
     {
         "windwp/nvim-projectconfig"
     },
+    {
+        "neoclide/coc.nvim",
+        build = "npm ci"
+    },
 })
 
 -----------------------------
@@ -284,6 +288,8 @@ require("cheatsheet").setup({
 
 map("n", "<leader>?", "<cmd>Cheatsheet<cr>")
 
+-- coc
+vim.cmd([[let g:coc_node_path = '/usr/bin/node']])
 -- conform
 map("n", "<leader>fm", function()
 	require("conform").format({ lsp_fallback = true })
@@ -357,7 +363,13 @@ end, { desc = "whichkey query lookup" })
 -----------
 require("mason").setup()
 require("mason-lspconfig").setup()
--- require("lspconfig").setup()
+
+local servers = {"html", "cssls", "clangd", "pylsp", "ts_ls"}
+for _, lsp in ipairs(servers) do
+    require('lspconfig')[lsp].setup({
+
+    })
+end
 
 -- Goto preview
 map("n", "<leader>gpD", "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>")
