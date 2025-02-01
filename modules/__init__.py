@@ -1,20 +1,18 @@
-from . import (
-    alacritty,
-    bash,
-    colors,
-    fastfetch,
-    fish,
-    hyprland,
-    i3,
-    kitty,
-    nvim,
-    picom,
-    polybar,
-    rofi,
-    tmux,
-    wallpaper,
-    waybar,
-)
+from . import colors
+from . import i3
+from . import wallpaper
+from . import bash
+from . import fish
+from . import hyprland
+from . import polybar 
+from . import waybar 
+from . import nvim 
+from . import tmux 
+from . import rofi 
+from . import picom 
+from . import kitty 
+from . import alacritty
+from . import fastfetch
 
 modules = {
     "colors": colors.parse_colors,
