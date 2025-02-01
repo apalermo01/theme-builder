@@ -42,8 +42,8 @@ theme_scripts:
 
 fastfetch: 
   overwrite: 
-  from: config.jsonc
-  to: fastfetch/config.jsonc
+    - from: config.jsonc
+      to: fastfetch/config.jsonc
 
 
 

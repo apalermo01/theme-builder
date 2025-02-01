@@ -242,17 +242,15 @@ def configure_colors(theme_path: str):
     build_path = os.path.join(theme_path, "build")
 
     for root, dirs, files in os.walk(build_path):
-        print("=======")
         subfolder = root.replace(build_path, "")
-        print("build path = ", build_path)
-        print("subfolder = ", subfolder)
 
         # subfolder[1:] ensures that it's not mistakenly taken for
         # an absolute path
         folder = os.path.join(build_path, subfolder[1:])
-        print("folder = ", folder)
 
         for file in files:
+            if "json" in file or "jsonc" in file:
+                continue
             full_path = os.path.join(folder, file)
 
             with open(full_path, "r") as f:

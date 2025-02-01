@@ -176,6 +176,10 @@ require("lazy").setup({
     {
         "windwp/nvim-projectconfig"
     },
+    {
+        "neoclide/coc.nvim",
+        build = "npm ci"
+    },
 })
 
 -----------------------------
@@ -284,6 +288,8 @@ require("cheatsheet").setup({
 
 map("n", "<leader>?", "<cmd>Cheatsheet<cr>")
 
+-- coc
+vim.cmd([[let g:coc_node_path = '/usr/bin/node']])
 -- conform
 map("n", "<leader>fm", function()
 	require("conform").format({ lsp_fallback = true })
