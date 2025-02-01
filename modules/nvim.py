@@ -51,6 +51,9 @@ def parse_nvim(template_dir: str, destination_dir: str, config: Dict, theme_path
     if "nvchad_separator" in nvim_config:
         _configure_nvchad_separator(nvim_config, theme_path)
 
+    if "font_family" in config:
+        _configure_font(config['font_family'], theme_path)
+
     return config
 
 
@@ -58,13 +61,13 @@ def _configure_colorscheme(nvim_config: Dict, theme_path: str):
     if isinstance(nvim_config["colorscheme"], str):
         colorscheme: str = nvim_config["colorscheme"]
         colorscheme_path: str = os.path.join(
-            theme_path, "dots", ".config", "nvim", "init.lua"
+            theme_path, "build", "nvim", "init.lua"
         )
     # TODO: need to test this
     else:
         colorscheme: str = nvim_config["colorscheme"]["colorscheme"]
         colorscheme_path: str = os.path.join(
-            theme_path, "dots", ".config", "nvim", nvim_config["colorscheme"]["file"]
+            theme_path, "build", "nvim", nvim_config["colorscheme"]["file"]
         )
         if not os.path.exists(os.path.split(colorscheme_path)[0]):
             os.makedirs(os.path.split(colorscheme_path)[0])
@@ -77,6 +80,20 @@ def _configure_colorscheme(nvim_config: Dict, theme_path: str):
 
     overwrite_or_append_line(
         pattern="vim.cmd[[colorscheme", replace_text=cmd, dest=colorscheme_path
+    )
+
+def _configure_font(font: str, theme_path: str):
+    logger.info("Configuring font")
+    path = os.path.join(
+        theme_path, "build", "nvim", "init.lua"
+    )
+
+    if not os.path.exists(path):
+        logger.error(f"Cannot parse font - expected to find {path}")
+        return
+    cmd = f"vim.cmd([[set guifont={font.replace(' ', '\ ')}]])"
+    overwrite_or_append_line(
+        pattern = "vim.cmd([[set guifont", replace_text=cmd, dest=path
     )
 
 
