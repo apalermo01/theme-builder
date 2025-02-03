@@ -382,6 +382,7 @@ if cmp_status then
 			{ name = "snippy" }, -- snippets
 			{ name = "buffer" }, -- text within the current buffer
 			{ name = "path" }, -- file system paths
+            { name = 'redner-markdown' },
 		}),
 		formatting = {
 			format = lspkind.cmp_format({
@@ -423,8 +424,6 @@ map("n", "gpD", "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>
 map("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>")
 map("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>")
 
---lspkind
-
 -- lualine
 require("lualine").setup({})
 
@@ -433,6 +432,8 @@ require("render-markdown").setup({
 	preset = "obsidian",
 	heading = {
 		enabled = true,
+        width = 'block',
+        borer = true
 	},
 
 	checkbox = {
