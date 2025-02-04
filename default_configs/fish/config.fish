@@ -9,3 +9,4 @@ set -x MANPAGER "nvim +Man!"
 
 abbr --add personal bash ~/personal_docs.sh
 abbr --add reading bash ~/reading_session.sh
+abbr --add docs cd ~/Documents/git/docs/

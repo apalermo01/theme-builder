@@ -24,5 +24,17 @@ def parse_kitty(
             os.path.join(destination_dir, "kitty.conf"),
             f"font_family   family=\"{config['font_family']}\"\n",
         )
+        append_text(
+            os.path.join(destination_dir, "kitty.conf"),
+            f"bold_font     auto\n",
+        )
+        append_text(
+            os.path.join(destination_dir, "kitty.conf"),
+            f"italic_font     auto\n",
+        )
+        append_text(
+            os.path.join(destination_dir, "kitty.conf"),
+            f"bold_italic_font     auto\n",
+        )
 
     return config

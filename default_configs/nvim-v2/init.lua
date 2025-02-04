@@ -198,6 +198,15 @@ require("lazy").setup({
 	{
 		"corcalli/nvim-colorizer.lua",
 	},
+	{
+		"epwalsh/obsidian.nvim",
+		ft = "markdown",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"hrsh7th/nvim-cmp",
+			"nvim-telescope/telescope.nvim",
+		},
+	},
 })
 -----------------------------
 -- AutoCmds -----------------
@@ -237,13 +246,14 @@ vim.cmd([[filetype plugin on]])
 vim.cmd([[set spell spelllang=en_us]])
 vim.cmd([[set spellfile=~/.config/en.utf-8.add]])
 vim.cmd([[set guifont=JetBrainsMono\ Nerd\ Font\ Mono]])
+vim.cmd([[set completeopt=menu,preview,menuone,noselect]])
 
 -- UI
 set.so = 7
 vim.o.cursorlineopt = "both"
 vim.o.termguicolors = true
 vim.cmd.colorscheme("catppuccin")
-
+vim.cmd([[set conceallevel=2]])
 local border = {
 	{ "🭽", "FloatBorder" },
 	{ "▔", "FloatBorder" },
@@ -362,6 +372,7 @@ local lspkind = require("lspkind")
 if not snippy_status then
 	print("ERROR: could not load snippy")
 end
+
 if cmp_status then
 	cmp.setup({
 		snippet = {
@@ -382,8 +393,9 @@ if cmp_status then
 			{ name = "nvim_lsp" }, -- LSP
 			{ name = "snippy" }, -- snippets
 			{ name = "buffer" }, -- text within the current buffer
-			-- { name = "path" }, -- file system paths
-            { name = 'render-markdown' },
+			{ name = "path" }, -- file system paths
+			{ name = "obsidian.nvim" },
+			{ name = 'render-markdown' },
 		}),
 		formatting = {
 			format = lspkind.cmp_format({
@@ -453,6 +465,18 @@ require("marks").setup({
 map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
 map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })
 
+-- obsidian
+require("obsidian").setup({
+    ui = {
+        enable = false
+    },
+	workspaces = {
+		{
+			name = "notes",
+			path = "~/Documents/git/notes",
+		},
+	},
+})
 -- startup screen
 require("startup").setup({ theme = "dashboard" })
 
@@ -494,11 +518,9 @@ end, { desc = "whichkey query lookup" })
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-local servers = {"html", "cssls", "clangd", "pylsp", "ts_ls"}
+local servers = { "html", "cssls", "clangd", "pylsp", "ts_ls" }
 for _, lsp in ipairs(servers) do
-    require('lspconfig')[lsp].setup({
-
-    })
+	require("lspconfig")[lsp].setup({})
 end
 
 local handlers = {
