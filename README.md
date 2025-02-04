@@ -91,6 +91,7 @@ live in `./themes/theme_name/trees/i3/config`.
 
 
 # Credits
-Big thanks to Stavros Grigoriou (stav121) for providing the initial inspriation
+Big thanks to Stavros Grigoriou (stav121) for providing the initial inspiration
 for this project: https://github.com/stav121/i3wm-themer.
+
 

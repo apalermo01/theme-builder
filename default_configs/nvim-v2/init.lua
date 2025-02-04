@@ -235,6 +235,7 @@ vim.cmd([[set path+=**]])
 vim.cmd([[set complete+=k]])
 vim.cmd([[filetype plugin on]])
 vim.cmd([[set spell spelllang=en_us]])
+vim.cmd([[set spellfile=~/.config/en.utf-8.add]])
 vim.cmd([[set guifont=JetBrainsMono\ Nerd\ Font\ Mono]])
 
 -- UI
@@ -381,8 +382,8 @@ if cmp_status then
 			{ name = "nvim_lsp" }, -- LSP
 			{ name = "snippy" }, -- snippets
 			{ name = "buffer" }, -- text within the current buffer
-			{ name = "path" }, -- file system paths
-            { name = 'redner-markdown' },
+			-- { name = "path" }, -- file system paths
+            { name = 'render-markdown' },
 		}),
 		formatting = {
 			format = lspkind.cmp_format({
