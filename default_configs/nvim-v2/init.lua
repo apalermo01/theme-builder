@@ -207,6 +207,10 @@ require("lazy").setup({
 			"nvim-telescope/telescope.nvim",
 		},
 	},
+	{
+		"nvim-telescope/telescope-file-browser.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+	},
 })
 -----------------------------
 -- AutoCmds -----------------
@@ -395,7 +399,7 @@ if cmp_status then
 			{ name = "buffer" }, -- text within the current buffer
 			{ name = "path" }, -- file system paths
 			{ name = "obsidian.nvim" },
-			{ name = 'render-markdown' },
+			{ name = "render-markdown" },
 		}),
 		formatting = {
 			format = lspkind.cmp_format({
@@ -445,8 +449,8 @@ require("render-markdown").setup({
 	preset = "obsidian",
 	heading = {
 		enabled = true,
-        width = 'block',
-        borer = true
+		width = "block",
+		borer = true,
 	},
 
 	checkbox = {
@@ -454,6 +458,10 @@ require("render-markdown").setup({
 			todo = { raw = "[-]", rendered = "󰥔", highlight = "RenderMarkdownTodo" },
 			not_done = { raw = "[d]", rendered = "", highlight = "RednerMarkdownWarn" },
 		},
+	},
+
+	dash = {
+		enabled = true,
 	},
 })
 
@@ -466,17 +474,46 @@ map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" }
 map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })
 
 -- obsidian
+-- https://www.youtube.com/watch?v=1Lmyh0YRH-w
+-- https://github.com/zazencodes/dotfiles/blob/main/nvim/lua/workflows.lua
 require("obsidian").setup({
-    ui = {
-        enable = false
-    },
+	ui = {
+		enable = false,
+	},
 	workspaces = {
 		{
 			name = "notes",
 			path = "~/Documents/git/notes",
+			overrides = {
+				notes_subdir = "inbox",
+			},
 		},
 	},
+	disable_frontmatter = true,
+	templates = {
+		folder = "templates",
+		date_format = "%Y-%m-%d",
+		time_format = "%H:%M",
+	},
+	--
+	-- callbacks = {
+	--
+	-- 	-- update date modified
+	-- 	pre_write_note = function(client, note)
+	--            local path = tostring(note.path)
+	--            if not string.find(path, "templates/note.md")  then 
+	--                local date_modified = os.date("%Y-%m-%d::%H:%M")
+	--                local frontmatter = note:frontmatter()
+	--                frontmatter["date_modified"] = date_modified
+	--                note:save_to_buffer({frontmatter = frontmatter})
+	--            end 
+	-- 	end,
+	-- },
 })
+
+map("n", "<leader>oo", ":cd /home/alex/Documents/git/notes/<cr>")
+map("n", "<leader>on", ":ObsidianTemplate note<cr>")
+
 -- startup screen
 require("startup").setup({ theme = "dashboard" })
 
@@ -498,6 +535,9 @@ map(
 	"<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
 	{ desc = "telescope find all files" }
 )
+
+-- telescope filebrowser 
+map("n", "<leader>fb", ":Telescope file_browser<cr>")
 
 -- Tmux navigation
 map("n", "<C-h>", "<cmd> TmuxNavigateLeft<CR>")
@@ -557,3 +597,10 @@ endif
 require("nvim-projectconfig").setup({
 	project_dir = "~/.config/projects-config",
 })
+
+
+-- move note to zettlekasten
+map("n", "<leader>ok", ":!mv '%:p' " .. NOTES_DIR .. "/zettelkasten<cr>:bd<cr>")
+
+-- delete note 
+map("n", "<leader>odd", ":!rm '%:p'<cr>:bd<cr>")
