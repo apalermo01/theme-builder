@@ -1,3 +1,6 @@
+-- Variables 
+local NOTES_DIR = "/home/alex/Documents/git/notes"
+
 -- Lazy installation
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -55,7 +58,14 @@ require("lazy").setup({
 		lazy = false,
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
-			require("nvim-tree").setup({})
+			require("nvim-tree").setup({
+                view = {
+                    width = {
+                        min = 0,
+                        max = -1
+                    }
+                }
+            })
 		end,
 	},
 	{ "nvim-tree/nvim-web-devicons", opts = {} },
@@ -501,18 +511,26 @@ require("obsidian").setup({
 	-- 	-- update date modified
 	-- 	pre_write_note = function(client, note)
 	--            local path = tostring(note.path)
-	--            if not string.find(path, "templates/note.md")  then 
+	--            if not string.find(path, "templates/note.md")  then
 	--                local date_modified = os.date("%Y-%m-%d::%H:%M")
 	--                local frontmatter = note:frontmatter()
 	--                frontmatter["date_modified"] = date_modified
 	--                note:save_to_buffer({frontmatter = frontmatter})
-	--            end 
+	--            end
 	-- 	end,
 	-- },
 })
 
-map("n", "<leader>oo", ":cd /home/alex/Documents/git/notes/<cr>")
-map("n", "<leader>on", ":ObsidianTemplate note<cr>")
+map("n", "<leader>oo", ":cd " .. NOTES_DIR .. "<cr>")
+map("n", "<leader>on", function()
+	local current_file = vim.fn.expand("%:p")
+	if string.find(current_file, NOTES_DIR, 1, true) then
+		vim.cmd("ObsidianTemplate note")
+	else
+		print("Cannot format file- not in notes directory")
+	end
+end)
+map("n", "<leader>obl", ":ObsidianBacklinks<cr>")
 
 -- startup screen
 require("startup").setup({ theme = "dashboard" })
@@ -536,7 +554,7 @@ map(
 	{ desc = "telescope find all files" }
 )
 
--- telescope filebrowser 
+-- telescope filebrowser
 map("n", "<leader>fb", ":Telescope file_browser<cr>")
 
 -- Tmux navigation
@@ -598,9 +616,17 @@ require("nvim-projectconfig").setup({
 	project_dir = "~/.config/projects-config",
 })
 
-
 -- move note to zettlekasten
-map("n", "<leader>ok", ":!mv '%:p' " .. NOTES_DIR .. "/zettelkasten<cr>:bd<cr>")
+map("n", "<leader>okc", ":!mv '%:p' " .. NOTES_DIR .. "/notes/craft/zettelkasten<cr>:bd<cr>")
 
--- delete note 
+-- move note to zettlekasten (sensitive)
+map("n", "<leader>okp", ":!mv '%:p' " .. NOTES_DIR .. "/notes/personal/zettelkasten<cr>:bd<cr>")
+
+-- -- move note to meetings
+-- map("n", "<leader>om", ":!mv '%:p' " .. NOTES_DIR .. "/meetings<cr>:bd<cr>")
+
+-- move note to journal
+map("n", "<leader>oj", ":!mv '%:p' " .. NOTES_DIR .. "/journal<cr>:bd<cr>")
+
+-- delete note
 map("n", "<leader>odd", ":!rm '%:p'<cr>:bd<cr>")
