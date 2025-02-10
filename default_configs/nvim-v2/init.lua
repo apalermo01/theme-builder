@@ -505,6 +505,19 @@ require("obsidian").setup({
 		date_format = "%Y-%m-%d",
 		time_format = "%H:%M",
 	},
+    new_notes_location = 'notes_subdir',
+    notes_subdir = 'inbox',
+
+    note_id_func = function(title) 
+        local suffix = ""
+        if title ~= nil then 
+            suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower() 
+        else
+            print("Invalid new note name - must have a title")
+        end
+
+        return tostring(os.date("%Y-%m-%d")) .. "_" .. suffix
+    end
 	--
 	-- callbacks = {
 	--
