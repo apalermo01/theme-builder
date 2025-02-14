@@ -624,6 +624,32 @@ if has("autocmd")
 endif
 ]])
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.md",
+    callback = function() 
+        local path = vim.api.nvim_buf_get_name(0)
+	    if not string.find(path, "templates/note.md")  then 
+            local current_date = os.date("%Y-%m-%d")
+            local file = vim.fn.expand("%:p")
+            local content = vim.fn.readfile(file)
+            local in_frontmatter = false
+            for i, line in ipairs(content) do 
+                if line:match('^---') then 
+                    in_frontmatter = true
+                elseif line:match('^---') and in_frontmatter then
+                    break
+                end
+                if line:match("^date_modified:*") and in_frontmatter then 
+                    content[i] = "date_modified: " .. current_date 
+                    break 
+                end
+            end
+            vim.fn.writefile(content, file)
+            vim.cmd("edit!")
+        end
+    end
+
+})
 -- project config
 require("nvim-projectconfig").setup({
 	project_dir = "~/.config/projects-config",
