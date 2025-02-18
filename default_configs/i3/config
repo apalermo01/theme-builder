@@ -223,6 +223,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id sudo brightnessctl set 5%-
 
 # font xft:URWGothic-Book 11
 bindsym $mod+f exec firefox
+bindsym $mod+z exec /usr/local/bin/zen/zen
 
 # pretty sure this is for ubuntu
 # bindsym $mod+b exec brave-browser
