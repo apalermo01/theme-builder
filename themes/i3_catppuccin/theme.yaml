@@ -17,7 +17,7 @@ polybar:
   bars: [left, center, right, tray]
   
 nvim: 
-  template_dir: default_configs/nvim-v2
+  template_dir: default_configs/nvim
 
 tmux: 
   append: 
