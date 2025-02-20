@@ -1,14 +1,10 @@
 colors: 
   method: manual 
 
-font_family: "font family JetBrainsMonoNL NFM medium"
+font_family: JetBrainsMono NFM medium
 
 nvim:
-  copy:
-    - from: lua/chadrc.lua 
-      to: nvim/lua/chadrc.lua 
-  template_dir: default_configs/nvchad
-  nvchad_colorscheme: catppuccin
+  template_dir: default_configs/nvim
 
 tmux:
   append:
