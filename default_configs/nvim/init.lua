@@ -3,6 +3,7 @@ local OBSIDIAN_NOTES_DIR = "/home/alex/Documents/git/notes"
 local OBSIDIAN_NOTES_SUBDIR = "0-inbox"
 local OBSIDIAN_TEMPLATE_FOLDER = '5-templates'
 
+-- TODO: mess with the surround plugin
 -- Lazy installation
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -155,6 +156,7 @@ require("lazy").setup({
 				"hrsh7th/cmp-nvim-lsp",
 				"hrsh7th/cmp-buffer",
 				"hrsh7th/cmp-path",
+                "hrsh7th/cmp-cmdline",
 			},
 		},
 	},
@@ -223,6 +225,9 @@ require("lazy").setup({
 		"nvim-telescope/telescope-file-browser.nvim",
 		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
 	},
+    {
+        'famiu/bufdelete.nvim'
+    },
 })
 -----------------------------
 -- AutoCmds -----------------
@@ -270,6 +275,7 @@ vim.o.cursorlineopt = "both"
 vim.o.termguicolors = true
 vim.cmd.colorscheme("catppuccin")
 vim.cmd([[set conceallevel=2]])
+vim.cmd([[set foldcolumn=1]])
 local border = {
 	{ "🭽", "FloatBorder" },
 	{ "▔", "FloatBorder" },
@@ -280,6 +286,17 @@ local border = {
 	{ "🭼", "FloatBorder" },
 	{ "▏", "FloatBorder" },
 }
+
+-- folding behavior
+vim.cmd([[let g:markdown_folding=1]])
+vim.cmd([[set nofoldenable]])
+
+-- With the above settings, hitting " " after the markdown file opens toggles ALL folds,
+-- so run this to automatically open all folds so that " " (za) has the desired behavior
+vim.api.nvim_create_autocmd("BufReadPost", {
+    pattern = "*.md",
+    command = "normal! zR"
+})
 
 -- add binaries installed by mason.nvim to path
 local is_windows = vim.fn.has("win32") ~= 0
@@ -292,10 +309,12 @@ function PythonSettings()
 	vim.bo.tabstop = 4
 	vim.bo.shiftwidth = 4
 	vim.cmd([[set tw=120]])
+    vim.cmd([[set foldmethod=indent]])
 end
 
 function MarkdownSettings()
 	vim.cmd([[set tw=80]])
+    -- vim.cmd([[set foldmethod=manual]])
 end
 -----------------------------
 -- Key Mappings -------------
@@ -336,6 +355,12 @@ end
 
 map("n", "<Esc>", CloseFloatingOrClearHighlight, { noremap = true, silent = true })
 
+map("n", "<C-d>", "<C-d>zz")
+map("n", "<C-u>", "<C-u>zz")
+map("n", "<C-f>", "<C-f>zz")
+map("n", "<C-b>", "<C-b>zz")
+
+map("n", " ", "za")
 --------------------------------------
 -- Plugin configurations -------------
 --------------------------------------
@@ -359,7 +384,8 @@ require("bufferline").setup({
 map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
 map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<return>", { silent = true })
 map("n", "<Tab>", "<cmd>BufferLineCycleNext<return>", { silent = true })
-map("n", "<leader>x", "<cmd>BufferLinePickClose<CR>")
+-- map("n", "<leader>x", "<cmd>BufferLinePickClose<CR>")
+map("n", "<leader>x", function() require('bufdelete').bufdelete(0, true) end)
 
 -- catppuccin
 require("nvim-treesitter.configs").setup({
@@ -419,6 +445,30 @@ if cmp_status then
 			}),
 		},
 	})
+
+    -- `/` cmdline setup.
+    cmp.setup.cmdline('/', {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = {
+        { name = 'buffer' }
+      }
+    })
+
+
+    -- `:` cmdline setup.
+    cmp.setup.cmdline(':', {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = cmp.config.sources({
+        { name = 'path' }
+      }, {
+        {
+          name = 'cmdline',
+          option = {
+            ignore_cmds = { 'Man', '!' }
+          }
+        }
+      })
+    })
 else
 	print("ERROR: could not load cmp")
 end
@@ -481,6 +531,7 @@ require("render-markdown").setup({
 require("marks").setup({
 	default_mappings = true,
 })
+
 -- nvimtree
 map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
 map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })
@@ -553,7 +604,7 @@ require("startup").setup({ theme = "dashboard" })
 
 -- Telescope
 map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "telescope live grep" })
-map("n", "<leader>fb", "<cmd>Telescope buffers<CR>", { desc = "telescope find buffers" })
+map("n", "<leader>fbu", "<cmd>Telescope buffers<CR>", { desc = "telescope find buffers" })
 map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "telescope help page" })
 map("n", "<leader>ma", "<cmd>Telescope marks<CR>", { desc = "telescope find marks" })
 map("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "telescope find oldfiles" })
@@ -561,7 +612,6 @@ map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = 
 map("n", "<leader>cm", "<cmd>Telescope git_commits<CR>", { desc = "telescope git commits" })
 map("n", "<leader>gt", "<cmd>Telescope git_status<CR>", { desc = "telescope git status" })
 map("n", "<leader>pt", "<cmd>Telescope terms<CR>", { desc = "telescope pick hidden term" })
-
 map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "telescope find files" })
 map(
 	"n",
@@ -569,9 +619,8 @@ map(
 	"<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
 	{ desc = "telescope find all files" }
 )
-
--- telescope filebrowser
-map("n", "<leader>fb", ":Telescope file_browser<cr>")
+map("n", "<leader>fbr", "<cmd>Telescope file_browser<cr>")
+map("n", "<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>")
 
 -- Tmux navigation
 map("n", "<C-h>", "<cmd> TmuxNavigateLeft<CR>")
@@ -592,16 +641,11 @@ end, { desc = "whichkey query lookup" })
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-local servers = { "html", "cssls", "clangd", "pylsp", "ts_ls" }
-for _, lsp in ipairs(servers) do
-	require("lspconfig")[lsp].setup({})
-end
-
 local handlers = {
 	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
 	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
 }
-local servers = { "html", "cssls", "clangd", "pyright", "ts_ls" }
+local servers = { "html", "cssls", "clangd", "pylsp", "ts_ls", "lua_ls" }
 for _, lsp in ipairs(servers) do
 	require("lspconfig")[lsp].setup({ handlers = handlers })
 end
@@ -615,6 +659,7 @@ require("trouble").setup({
 })
 
 map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>")
+
 
 --------------------------------
 --- Other events / functions ---
