@@ -1,7 +1,11 @@
 -- Variables 
-local OBSIDIAN_NOTES_DIR = "/home/alex/Documents/git/notes"
-local OBSIDIAN_NOTES_SUBDIR = "0-inbox"
-local OBSIDIAN_TEMPLATE_FOLDER = '5-templates'
+-- local OBSIDIAN_NOTES_DIR = "/home/alex/Documents/git/notes"
+-- local OBSIDIAN_NOTES_SUBDIR = "0-inbox"
+-- local OBSIDIAN_TEMPLATE_FOLDER = '5-templates'
+
+local OBSIDIAN_NOTES_DIR = os.getenv("OBSIDIAN_NOTES_DIR") or "/home/alex/Documents/git/notes"
+local OBSIDIAN_NOTES_SUBDIR = os.getenv("OBSIDIAN_NOTES_SUBDIR") or "0-inbox"
+local OBSIDIAN_TEMPLATE_FOLDER = os.getenv("OBSIDIAN_TEMPLATE_FOLDER") or "5-templates"
 
 -- TODO: mess with the surround plugin
 -- Lazy installation

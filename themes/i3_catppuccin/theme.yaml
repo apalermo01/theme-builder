@@ -30,6 +30,9 @@ rofi:
 fish: 
   feats: 
     - fastfetch
+  append:
+    - from: config.fish
+      to: fish/config.fish
 
 kitty: {}
 
