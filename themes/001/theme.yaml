@@ -1,21 +1,22 @@
 font_family: JetBrainsMono NFM medium
+
 colors: 
   method: manual
 
 i3: 
   append:
-    - from: config
-      to: i3/config
+      - from: config
+        to: i3/config
 
 polybar: {}
 
 wallpaper: 
   method: feh
-  file: 000.png
+  file: 001.png
 
 nvim: 
   template_path: default_configs/nvchad/
-  nvchad_colorscheme: nord
+  nvchad_colorscheme: melange
 
 tmux: {}
 
@@ -27,4 +28,3 @@ fish:
 kitty: {}
 
 picom: {}
-
