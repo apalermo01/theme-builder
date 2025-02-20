@@ -91,7 +91,8 @@ def _configure_font(font: str, theme_path: str):
     if not os.path.exists(path):
         logger.error(f"Cannot parse font - expected to find {path}")
         return
-    cmd = f"vim.cmd([[set guifont={font.replace(' ', '\ ')}]])"
+    c = font.replace(' ', '\ ')
+    cmd = f"vim.cmd([[set guifont={c}]])"
     overwrite_or_append_line(
         pattern = "vim.cmd([[set guifont", replace_text=cmd, dest=path
     )
