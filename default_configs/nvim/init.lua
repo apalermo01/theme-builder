@@ -1,11 +1,9 @@
--- Variables 
--- local OBSIDIAN_NOTES_DIR = "/home/alex/Documents/git/notes"
--- local OBSIDIAN_NOTES_SUBDIR = "0-inbox"
--- local OBSIDIAN_TEMPLATE_FOLDER = '5-templates'
+-- Variables
+OBSIDIAN_NOTES_DIR = os.getenv("OBSIDIAN_NOTES_DIR") or "/home/alex/Documents/git/notes"
+OBSIDIAN_NOTES_SUBDIR = os.getenv("OBSIDIAN_NOTES_SUBDIR") or "0-inbox"
+OBSIDIAN_TEMPLATE_FOLDER = os.getenv("OBSIDIAN_TEMPLATE_FOLDER") or "5-templates"
 
-local OBSIDIAN_NOTES_DIR = os.getenv("OBSIDIAN_NOTES_DIR") or "/home/alex/Documents/git/notes"
-local OBSIDIAN_NOTES_SUBDIR = os.getenv("OBSIDIAN_NOTES_SUBDIR") or "0-inbox"
-local OBSIDIAN_TEMPLATE_FOLDER = os.getenv("OBSIDIAN_TEMPLATE_FOLDER") or "5-templates"
+map = vim.keymap.set
 
 -- TODO: mess with the surround plugin
 -- Lazy installation
@@ -26,345 +24,23 @@ vim.opt.rtp:prepend(lazypath)
 -- Leader key
 vim.g.mapleader = ","
 
------------------------------
--- Plugins ------------------
------------------------------
-require("lazy").setup({
-	{ "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-	{ "christoomey/vim-tmux-navigator", lazy = false },
-	{
-		"MeanderingProgrammer/render-markdown.nvim",
-		opts = { file_types = { "markdown", "md" } },
-		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
-	},
-	{
-		"nvim-treesitter/nvim-treesitter",
-		opts = {
-			ensure_installed = {
-				"vim",
-				"lua",
-				"vimdoc",
-				"html",
-				"css",
-				"markdown",
-				"markdown_inline",
-				"javascript",
-				"typescript",
-				"tsx",
-				"svelte",
-				"python",
-				"c",
-			},
-		},
-		highlight = { enable = true },
-		auto_install = true,
-	},
-	{
-		"nvim-tree/nvim-tree.lua",
-		version = "*",
-		lazy = false,
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = function()
-			require("nvim-tree").setup({
-                view = {
-                    width = {
-                        min = 0,
-                        max = -1
-                    }
-                }
-            })
-		end,
-	},
-	{ "nvim-tree/nvim-web-devicons", opts = {} },
-	{
-		"sudormrfbin/cheatsheet.nvim",
-		requires = {
-			{ "nvim-telescope/telescope.nvim" },
-			{ "nvim-lua.popup.nvim" },
-			{ "nvim-lua/plenary.nvim" },
-		},
-	},
-	{
-		"rmagatti/goto-preview",
-		event = "BufEnter",
-		config = true,
-		default_mappings = true,
-	},
-	{
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
-		"neovim/nvim-lspconfig",
-	},
-	{
-		"folke/which-key.nvim",
-		keys = { "<leader>", "<c-w>", '"', "'", "`", "c", "v", "g" },
-		cmd = "WhichKey",
-	},
-	{
-		"stevearc/conform.nvim",
-		opts = {
-			formatters_by_ft = {
-				lua = { "stylua" },
-				python = function(bufnr)
-					if require("conform").get_formatter_info("ruff_format", bufnr).available then
-						return { "ruff_format" }
-					else
-						return { "isort", "black" }
-					end
-				end,
-			},
-		},
-	},
-	{ "lewis6991/gitsigns.nvim" },
-	{ "ludovicchabant/vim-gutentags" },
-	{
-		"dcampos/nvim-snippy",
-	},
-	{
-		"dcampos/cmp-snippy",
-	},
-	{
-		"honza/vim-snippets",
-	},
-	{
-		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
-		dependencies = {
-			{
-				-- snippet plugin
-				"dcampos/nvim-snippy",
-				dependencies = "honza/vim-snippets",
-				opts = { history = true, updateevents = "TextChanged,TextChangedI" },
-			},
+require("plugins")
+require("ftype_settings")
+require("opts")
+require("keymaps")
+require('config.lualine')
+require('config.obsidian')
+require('config.startup')
 
-			-- autopairing of (){}[] etc
-			{
-				"windwp/nvim-autopairs",
-				opts = {
-					fast_wrap = {},
-					disable_filetype = { "TelescopePrompt", "vim" },
-				},
-				config = function(_, opts)
-					require("nvim-autopairs").setup(opts)
-
-					-- setup cmp for autopairs
-					local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-					require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-				end,
-			},
-
-			-- cmp sources plugins
-			{
-				"dcampos/cmp-snippy",
-				"hrsh7th/cmp-nvim-lua",
-				"hrsh7th/cmp-nvim-lsp",
-				"hrsh7th/cmp-buffer",
-				"hrsh7th/cmp-path",
-                "hrsh7th/cmp-cmdline",
-			},
-		},
-	},
-	{
-		"windwp/nvim-autopairs",
-		opts = {
-			fast_wrap = {},
-			disable_filetype = { "TelescopePrompt", "vim" },
-		},
-		config = function(_, opts)
-			require("nvim-autopairs").setup(opts)
-
-			-- setup cmp for autopairs
-			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-			require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-		end,
-	},
-	{
-		"startup-nvim/startup.nvim",
-		dependencies = {
-			"nvim-telescope/telescope.nvim",
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope-file-browser.nvim",
-		},
-		config = function()
-			require("startup").setup()
-		end,
-	},
-
-	{ "akinsho/bufferline.nvim", version = "*", dependencies = "nvim-tree/nvim-web-devicons" },
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-	},
-	{
-		"numToStr/FTerm.nvim",
-	},
-	{
-		"windwp/nvim-projectconfig",
-	},
-	{
-		"nvimtools/none-ls.nvim",
-	},
-	{
-		"chentoast/marks.nvim",
-	},
-	{
-		"onsails/lspkind.nvim",
-	},
-	{
-		"folke/trouble.nvim",
-	},
-	{
-		"corcalli/nvim-colorizer.lua",
-	},
-	{
-		"epwalsh/obsidian.nvim",
-		ft = "markdown",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"hrsh7th/nvim-cmp",
-			"nvim-telescope/telescope.nvim",
-		},
-	},
-	{
-		"nvim-telescope/telescope-file-browser.nvim",
-		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-	},
-    {
-        'famiu/bufdelete.nvim'
-    },
-})
------------------------------
--- AutoCmds -----------------
------------------------------
-
-vim.cmd([[
-augroup FileTypeSettings
-    autocmd!
-    autocmd BufEnter * lua if vim.bo.filetype == 'python' then PythonSettings() end
-    autocmd BufEnter * lua if vim.bo.filetype == 'markdown' then MarkdownSettings() end
-augroup end
-]])
-
------------------------------
--- Settings -----------------
------------------------------
-
--- General
-local set = vim.opt
-set.tabstop = 4
-set.shiftwidth = 4
-set.softtabstop = 4
-set.expandtab = true
-set.number = true
-set.rnu = true
-set.wrap = false
-set.showcmd = true
-set.showmode = true
-set.compatible = false
-set.syntax = "on"
-set.wildmenu = true
-set.termguicolors = true
-
-vim.cmd([[set path+=**]])
-vim.cmd([[set complete+=k]])
-vim.cmd([[filetype plugin on]])
-vim.cmd([[set spell spelllang=en_us]])
-vim.cmd([[set spellfile=~/.config/en.utf-8.add]])
-vim.cmd([[set guifont=JetBrainsMono\ Nerd\ Font\ Mono]])
-vim.cmd([[set completeopt=menu,preview,menuone,noselect]])
-
--- UI
-set.so = 7
-vim.o.cursorlineopt = "both"
-vim.o.termguicolors = true
 vim.cmd.colorscheme("catppuccin")
-vim.cmd([[set conceallevel=2]])
-vim.cmd([[set foldcolumn=1]])
-local border = {
-	{ "🭽", "FloatBorder" },
-	{ "▔", "FloatBorder" },
-	{ "🭾", "FloatBorder" },
-	{ "▕", "FloatBorder" },
-	{ "🭿", "FloatBorder" },
-	{ "▁", "FloatBorder" },
-	{ "🭼", "FloatBorder" },
-	{ "▏", "FloatBorder" },
-}
-
--- folding behavior
-vim.cmd([[let g:markdown_folding=1]])
-vim.cmd([[set nofoldenable]])
 
 -- With the above settings, hitting " " after the markdown file opens toggles ALL folds,
 -- so run this to automatically open all folds so that " " (za) has the desired behavior
 vim.api.nvim_create_autocmd("BufReadPost", {
-    pattern = "*.md",
-    command = "normal! zR"
+	pattern = "*.md",
+	command = "normal! zR",
 })
 
--- add binaries installed by mason.nvim to path
-local is_windows = vim.fn.has("win32") ~= 0
-local sep = is_windows and "\\" or "/"
-local delim = is_windows and ";" or ":"
-vim.env.PATH = table.concat({ vim.fn.stdpath("data"), "mason", "bin" }, sep) .. delim .. vim.env.PATH
-
--- filetype specific settings
-function PythonSettings()
-	vim.bo.tabstop = 4
-	vim.bo.shiftwidth = 4
-	vim.cmd([[set tw=120]])
-    vim.cmd([[set foldmethod=indent]])
-end
-
-function MarkdownSettings()
-	vim.cmd([[set tw=80]])
-    -- vim.cmd([[set foldmethod=manual]])
-end
------------------------------
--- Key Mappings -------------
------------------------------
-
-local map = vim.keymap.set
-local default_opts = { noremap = true, silent = true }
-
--- Newlines above and below
-vim.cmd([[ nnoremap oo o<Esc>k ]])
-vim.cmd([[ nnoremap OO O<Esc>j ]])
-
--- tabs
-vim.cmd([[ nnoremap <leader>tn :tabnew<cr> ]])
-vim.cmd([[ nnoremap <leader>t<leader> :tabnext ]])
-vim.cmd([[ nnoremap <leader>tm :tabmove ]])
-vim.cmd([[ nnoremap <leader>tc :tabclose ]])
-vim.cmd([[ nnoremap <leader>to :tabonly ]])
-
--- Comment
-map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
-map("v", "<leader>/", "gc", { desc = "toggle comment", remap = true })
-
--- use escape to clear highlights or close open windows
-function CloseFloatingOrClearHighlight()
-	local floating_wins = 0
-	for _, win in ipairs(vim.api.nvim_list_wins()) do
-		if vim.api.nvim_win_get_config(win).relative ~= "" then
-			floating_wins = floating_wins + 1
-			vim.api.nvim_win_close(win, false)
-		end
-	end
-
-	if floating_wins == 0 then
-		vim.cmd("noh")
-	end
-end
-
-map("n", "<Esc>", CloseFloatingOrClearHighlight, { noremap = true, silent = true })
-
-map("n", "<C-d>", "<C-d>zz")
-map("n", "<C-u>", "<C-u>zz")
-map("n", "<C-f>", "<C-f>zz")
-map("n", "<C-b>", "<C-b>zz")
-
-map("n", " ", "za")
 --------------------------------------
 -- Plugin configurations -------------
 --------------------------------------
@@ -389,7 +65,9 @@ map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
 map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<return>", { silent = true })
 map("n", "<Tab>", "<cmd>BufferLineCycleNext<return>", { silent = true })
 -- map("n", "<leader>x", "<cmd>BufferLinePickClose<CR>")
-map("n", "<leader>x", function() require('bufdelete').bufdelete(0, true) end)
+map("n", "<leader>x", function()
+	require("bufdelete").bufdelete(0, true)
+end)
 
 -- catppuccin
 require("nvim-treesitter.configs").setup({
@@ -450,29 +128,28 @@ if cmp_status then
 		},
 	})
 
-    -- `/` cmdline setup.
-    cmp.setup.cmdline('/', {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = {
-        { name = 'buffer' }
-      }
-    })
+	-- `/` cmdline setup.
+	cmp.setup.cmdline("/", {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = {
+			{ name = "buffer" },
+		},
+	})
 
-
-    -- `:` cmdline setup.
-    cmp.setup.cmdline(':', {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = cmp.config.sources({
-        { name = 'path' }
-      }, {
-        {
-          name = 'cmdline',
-          option = {
-            ignore_cmds = { 'Man', '!' }
-          }
-        }
-      })
-    })
+	-- `:` cmdline setup.
+	cmp.setup.cmdline(":", {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = cmp.config.sources({
+			{ name = "path" },
+		}, {
+			{
+				name = "cmdline",
+				option = {
+					ignore_cmds = { "Man", "!" },
+				},
+			},
+		}),
+	})
 else
 	print("ERROR: could not load cmp")
 end
@@ -507,9 +184,6 @@ map("n", "gpD", "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>
 map("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>")
 map("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>")
 
--- lualine
-require("lualine").setup({})
-
 -- markdown rendering
 require("render-markdown").setup({
 	preset = "obsidian",
@@ -539,72 +213,6 @@ require("marks").setup({
 -- nvimtree
 map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
 map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })
-
--- obsidian
--- https://www.youtube.com/watch?v=1Lmyh0YRH-w
--- https://github.com/zazencodes/dotfiles/blob/main/nvim/lua/workflows.lua
-require("obsidian").setup({
-	ui = {
-		enable = false,
-	},
-	workspaces = {
-		{
-			name = "notes",
-            path = OBSIDIAN_NOTES_DIR,
-			overrides = {
-                notes_subdir = OBSIDIAN_NOTES_SUBDIR,
-			},
-		},
-	},
-	disable_frontmatter = true,
-	templates = {
-        folder = OBSIDIAN_TEMPLATE_FOLDER,
-		date_format = "%Y-%m-%d",
-		time_format = "%H:%M",
-	},
-    new_notes_location = 'notes_subdir',
-    notes_subdir = OBSIDIAN_NOTES_SUBDIR,
-
-    note_id_func = function(title) 
-        local suffix = ""
-        if title ~= nil then 
-            suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower() 
-        else
-            print("Invalid new note name - must have a title")
-        end
-
-        -- return tostring(os.date("%Y-%m-%d")) .. "_" .. suffix
-        return suffix
-    end
-	--
-	-- callbacks = {
-	--
-	-- 	-- update date modified
-	-- 	pre_write_note = function(client, note)
-	--            local path = tostring(note.path)
-	--            if not string.find(path, "templates/note.md")  then
-	--                local date_modified = os.date("%Y-%m-%d::%H:%M")
-	--                local frontmatter = note:frontmatter()
-	--                frontmatter["date_modified"] = date_modified
-	--                note:save_to_buffer({frontmatter = frontmatter})
-	--            end
-	-- 	end,
-	-- },
-})
-
-map("n", "<leader>oo", ":cd " .. OBSIDIAN_NOTES_DIR .. "<cr>")
-map("n", "<leader>on", function()
-	local current_file = vim.fn.expand("%:p")
-	if string.find(current_file, OBSIDIAN_NOTES_DIR, 1, true) then
-		vim.cmd("ObsidianTemplate note")
-	else
-		print("Cannot format file- not in notes directory")
-	end
-end)
-map("n", "<leader>obl", ":ObsidianBacklinks<cr>")
-
--- startup screen
-require("startup").setup({ theme = "dashboard" })
 
 -- Telescope
 map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "telescope live grep" })
@@ -639,21 +247,7 @@ map("n", "<leader>wk", function()
 	vim.cmd("WhichKey " .. vim.fn.input("WhichKey: "))
 end, { desc = "whichkey query lookup" })
 
------------
---- LSP ---
------------
-require("mason").setup()
-require("mason-lspconfig").setup()
-
-local handlers = {
-	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-	["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-}
-local servers = { "html", "cssls", "clangd", "pylsp", "ts_ls", "lua_ls" }
-for _, lsp in ipairs(servers) do
-	require("lspconfig")[lsp].setup({ handlers = handlers })
-end
-
+require("lsp")
 ----------------------------------
 --- Plugins that depend on lsp ---
 ----------------------------------
@@ -663,7 +257,6 @@ require("trouble").setup({
 })
 
 map("n", "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>")
-
 
 --------------------------------
 --- Other events / functions ---
@@ -677,50 +270,31 @@ endif
 ]])
 
 vim.api.nvim_create_autocmd("BufWritePost", {
-    pattern = "*.md",
-    callback = function() 
-        local path = vim.api.nvim_buf_get_name(0)
-	    if not string.find(path, "templates/note.md")  then 
-            local current_date = os.date("%Y-%m-%d")
-            local file = vim.fn.expand("%:p")
-            local content = vim.fn.readfile(file)
-            local in_frontmatter = false
-            for i, line in ipairs(content) do 
-                if line:match('^---') then 
-                    in_frontmatter = true
-                elseif line:match('^---') and in_frontmatter then
-                    break
-                end
-                if line:match("^date_modified:*") and in_frontmatter then 
-                    content[i] = "date_modified: " .. current_date 
-                    break 
-                end
-            end
-            vim.fn.writefile(content, file)
-            vim.cmd("edit!")
-        end
-    end
-
+	pattern = "*.md",
+	callback = function()
+		local path = vim.api.nvim_buf_get_name(0)
+		if not string.find(path, "templates/note.md") then
+			local current_date = os.date("%Y-%m-%d")
+			local file = vim.fn.expand("%:p")
+			local content = vim.fn.readfile(file)
+			local in_frontmatter = false
+			for i, line in ipairs(content) do
+				if line:match("^---") then
+					in_frontmatter = true
+				elseif line:match("^---") and in_frontmatter then
+					break
+				end
+				if line:match("^date_modified:*") and in_frontmatter then
+					content[i] = "date_modified: " .. current_date
+					break
+				end
+			end
+			vim.fn.writefile(content, file)
+			vim.cmd("edit!")
+		end
+	end,
 })
 -- project config
 require("nvim-projectconfig").setup({
 	project_dir = "~/.config/projects-config",
 })
-
--- move note to zettlekasten
-map("n", "<leader>okc", ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/2-notes/6-full-notes<cr>:bd<cr>")
-
--- move note to source material
-map("n", "<leader>osc", ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/2-notes/2-source-material<cr>:bd<cr>")
-
--- move note to zettlekasten (sensitive)
-map("n", "<leader>okp", ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/2-notes/7-full-notes-personal<cr>:bd<cr>")
-
--- move note to source material (personal)
-map("n", "<leader>osp", ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/2-notes/3-source-material-personal<cr>:bd<cr>")
-
--- move note to journal
-map("n", "<leader>oj", ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/journal<cr>:bd<cr>")
-
--- delete note 
-map("n", "<leader>odd", ":!rm '%:p'<cr>:bd<cr>")

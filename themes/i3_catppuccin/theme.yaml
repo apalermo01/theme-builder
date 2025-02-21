@@ -18,7 +18,7 @@ polybar:
   bars: [left, center, right, tray]
   
 nvim: 
-  template_dir: default_configs/nvim
+  template_path: default_configs/nvim
 
 tmux: 
   append: 
@@ -26,7 +26,7 @@ tmux:
       to: tmux/.tmux.conf
 
 rofi: 
-  template_dir: ./themes/i3_catppuccin/rofi/
+  template_path: ./themes/i3_catppuccin/rofi/
 
 fish: 
   feats: 
@@ -38,7 +38,7 @@ fish:
 kitty: {}
 
 picom: 
-  template_dir: ./themes/i3_catppuccin/picom/
+  template_path: ./themes/i3_catppuccin/picom/
 
 theme_scripts: 
   path: ./themes/i3_catppuccin/scripts/

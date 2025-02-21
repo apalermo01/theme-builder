@@ -15,13 +15,11 @@ wallpaper:
   file: trees.jpg
 
 nvim:
-  template_path: default_configs/nvchad
-
+  template_path: default_configs/nvim
+  colorscheme: everforest
   overwrite:
-      - from: lua/chadrc.lua
-        to: nvim/lua/chadrc.lua
-
-  nvchad_colorscheme: everforest
+    - from: lualine.lua
+      to: nvim/lua/config/lualine.lua
 
 tmux:
   append:
