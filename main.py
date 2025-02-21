@@ -97,6 +97,9 @@ def build_theme(theme_name: str, test: bool, orient: str):
             destination_path = os.path.join(
                 destination_base, path_config[key]["destination_path"]
             )
+
+            if "template_dir" in config[key]:
+                logger.warning("WRONG KEY NAME. Use template_path instead of template_dir")
             if "template_path" in config[key]:
                 template_path = config[key]["template_path"]
             else:

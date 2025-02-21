@@ -1,5 +1,5 @@
 nvim:
-  template_dir: default_configs/nvchad/
+  template_path: default_configs/nvchad/
   nvchad_colorscheme: gruvbox 
   nvchad_separator: arrow 
 

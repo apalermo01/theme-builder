@@ -29,8 +29,8 @@ def module_wrapper(tool):
 
             print(f"template dir = {template_dir}")
             print(f"destination dir = {destination_dir}")
-            if "template_dir" in config[tool]:
-                template_dir = config[tool]["template_dir"]
+            if "template_path" in config[tool]:
+                template_dir = config[tool]["template_path"]
                 if template_dir[-1] != "/":
                     template_dir = template_dir + "/"
 

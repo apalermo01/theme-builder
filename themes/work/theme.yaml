@@ -1,6 +1,6 @@
 
 nvim:
-  template_dir: default_configs/nvim
+  template_path: default_configs/nvim
 
 tmux:
   append:

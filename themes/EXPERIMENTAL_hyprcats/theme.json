@@ -19,7 +19,7 @@
   }]},
 
   "nvim": {
-    "template_dir": "default_configs/nvchad/",
+    "template_path": "default_configs/nvchad/",
     "copy": [{
       "from": "lua/chadrc.lua",
       "to": ".config/nvim/lua/chadrc.lua",
