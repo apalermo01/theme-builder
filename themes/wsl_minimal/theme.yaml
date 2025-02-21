@@ -1,0 +1,8 @@
+nvim:
+  template_path: default_configs/nvim
+  colorscheme: default
+
+tmux: {}
+
+bash: {}
+
