@@ -31,8 +31,7 @@ def parse_polybar(
                 with open(config_subfile, "w") as f:
                     polybar.write(f)
                 logger.info(
-                    f"wrote polybar config with colors to {
-                            config_subfile}"
+                    f"wrote polybar config with colors to {config_subfile}"
                 )
 
     # # launch script
@@ -46,8 +45,7 @@ def parse_polybar(
 
     shutil.copy2(src_script, destination_dir)
     logger.info(
-        f"copied polybar startup script from {
-                src_script} to {destination_dir}"
+        f"copied polybar startup script from {src_script} to {destination_dir}"
     )
 
     bar_names = config["polybar"].get("bars", ["main"])

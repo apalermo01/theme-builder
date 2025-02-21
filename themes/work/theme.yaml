@@ -1,7 +1,3 @@
-colors: 
-  method: manual 
-
-font_family: JetBrainsMono NFM medium
 
 nvim:
   template_dir: default_configs/nvim
@@ -13,8 +9,8 @@ tmux:
 
 fastfetch:
   overwrite:
-    from: config.jsonrc 
-    to: fastfetch/config.jsonc
+    - from: config.jsonc 
+      to: fastfetch/config.jsonc
 
-bash:
+bash: {}
 

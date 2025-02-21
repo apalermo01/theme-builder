@@ -21,6 +21,8 @@ def parse_bash(
     if "wallpaper" in config:
         wallpaper_file = config["wallpaper"]["file"]
         wallpaper_path = os.path.expanduser(f"~/Pictures/wallpapers/{wallpaper_file}")
+    else:
+        wallpaper_path = ''
 
     prompts_dict = {
 

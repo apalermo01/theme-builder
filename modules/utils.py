@@ -115,8 +115,7 @@ def validate_config(config: Dict, theme_path: str) -> Tuple[bool, Dict]:
         )
         if num_elements_of_category > 1:
             print(
-                f"\x1b[31mMultiple elements found for {
-                  key}. Config must have one or none of {allowed_elements[key]}"
+                f"Multiple elements found for {key}. Config must have one or none of {allowed_elements[key]}"
             )
 
             return False, {}
