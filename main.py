@@ -70,9 +70,7 @@ def build_theme(theme_name: str, test: bool, orient: str):
     with open("./configs/paths.yaml", "r") as f:
         path_config = yaml.safe_load(f)
 
-    logger.info("======================================")
     logger.info("=========== BUILDING THEME ===========")
-    logger.info("======================================")
 
     tools_updated = {}
     order = [
@@ -167,10 +165,8 @@ def copy_theme(
         backup_root = None
 
     for t in tools:
-        print("+++++++++++++++++++++++++++++++++++++++++++++++")
-        print("+++++++++++++++++++++++++++++++++++++++++++++++")
-        print("+++++++++++++++++++++++++++++++++++++++++++++++")
-        print("tool = ", t)
+        print("processing", t)
+
         # TODO: abstract out list of roles / tools to skip
         if t in ["colors", "wallpaper"]:
             continue

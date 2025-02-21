@@ -25,14 +25,15 @@ def parse_i3(template_dir: str, destination_dir: str, config: Dict, theme_path: 
 def _configure_terminal(config: Dict, dest: str, theme_path: str):
 
     terminal: str = "gnome-terminal"
-    for i in available_terminals:
-        if i in config:
-            terminal = i
-            logger.info(
-                f"Found {i} in theme's config. "
-                + "Assigning this terminal to $mod+Return"
-            )
-
+    # for i in available_terminals:
+    #     if i in config:
+    #         terminal = i
+    #         logger.info(
+    #             f"Found {i} in theme's config. "
+    #             + "Assigning this terminal to $mod+Return"
+    #         )
+    
+    # TODO: why am I handling terminal path like this?
     if "terminal" not in config["i3"]:
         terminal_path = "i3/config"
     else:
@@ -60,5 +61,5 @@ def _configure_picom(config: Dict, dest: str, theme_path: str):
     logger.info("picom found in this theme's config")
     append_if_not_present("\nexec killall picom\n", dest_path)
     append_if_not_present(
-        "\nexec_always picom --backend glx --config ~/.config/picom.conf\n", dest_path
+        "\nexec_always picom --backend glx --config ~/.config/picom/picom.conf\n", dest_path
     )

@@ -1,0 +1,37 @@
+font: JetBrainsMono NFM medium
+
+colors:
+    method: manual
+
+i3: 
+  append:
+    - from: config
+      to: i3/config
+
+polybar: {}
+
+wallpaper:
+  method: feh
+  file: 002.png
+
+nvim:
+  template_path: default_configs/nvchad/
+  overwrite:
+    - from: lua/chadrc.lua
+      to: nvim/lua/chadrc.lua
+
+tmux: {}
+
+rofi: {}
+
+fish: 
+  feats:
+    - run_pywal
+    - fastfetch
+
+kitty: {}
+
+picom: {}
+
+
+

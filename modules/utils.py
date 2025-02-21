@@ -166,7 +166,7 @@ def copy_files_from_template(src_folder: str, dest_folder: str):
 
         if not os.path.exists(folder):
             os.makedirs(folder)
-
+        logger.warning(f"files = {files}")
         for file in files:
             src_file = os.path.join(root, file)
             dest_file = os.path.join(dest_folder, subfolder, file)
