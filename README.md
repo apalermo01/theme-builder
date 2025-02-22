@@ -10,11 +10,11 @@ way, you define what you want to be common among all themes (e.g. keybindings)
 in `default_configs` and define the theme-specific differences in the
 theme-specific folder.
 
-![[themes/i3_catppuccin/i3_catppuccin screenshot.png]]
+![Screenshot for i3 catppuccin theme](themes/i3_catppuccin/i3_catppuccin_screenshot.png)
 
-![[themes/trees/trees_screenshot.png]]
+![Screenshot for trees theme](themes/trees/trees_screenshot.png)
 
-![[themes/i3_minimal/i3_minimal_screenshot.png]]
+![Screenshot for minimal theme](themes/i3_minimal/i3_minimal_screenshot.png)
 
 # Disclaimer
 

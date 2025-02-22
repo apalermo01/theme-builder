@@ -4,4 +4,4 @@ wallpaper: https://github.com/zhichaoh/catppuccin-wallpapers/blob/main/minimalis
 
 
 
-![[i3_catppuccin screenshot.png]]
+![Theme screenshot](i3_catppuccin_screenshot.png)
