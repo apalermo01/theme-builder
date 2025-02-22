@@ -36,11 +36,12 @@ def _configure_terminal(config: Dict, dest: str, theme_path: str):
                 + "Assigning this terminal to $mod+Return"
             )
     
-    # TODO: why am I handling terminal path like this?
-    if "terminal" not in config["i3"]:
-        terminal_path = "i3/config"
-    else:
-        terminal_path = config["i3"]["terminal"].get("terminal_path", "i3/config")
+    # TODO: experiment more with this pattern. I don't know
+    # if this is actually necessary
+    # if "terminal" not in config["i3"]:
+    terminal_path = "i3/config"
+    # else:
+    #     terminal_path = config["i3"]["terminal"].get("terminal_path", "i3/config")
 
     terminal_path = os.path.join(theme_path, "build", terminal_path)
 
