@@ -93,7 +93,7 @@ def _configure_animations(config: Dict, destination_dir: str, theme_path: str):
 
 
 def _configure_colors(config: Dict, destination_dir: str, theme_path: str):
-    #TODO: need to convert this to use jinja
+    # TODO: need to convert this to use jinja
     colorscheme_path: str = os.path.join(theme_path, "colors", "colorscheme.json")
     if not os.path.exists(colorscheme_path):
         raise FileNotFoundError(f"could not find {colorscheme_path}")

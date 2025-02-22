@@ -18,7 +18,7 @@ def parse_waybar(
     """
 
     css_path = config["waybar"].get("css_path", "style.css")
-    css_path = os.path.join(theme_path, "dots", ".config", "waybar", css_path)
+    css_path = os.path.join(theme_path, "build", "waybar", css_path)
     with open(css_path, "r") as f:
         css: list = f.readlines()
 

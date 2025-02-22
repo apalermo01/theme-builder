@@ -18,6 +18,9 @@ wallpaper:
 nvim:
   template_path: default_configs/nvim
   colorscheme: default
+  overwrite:
+    - from: startup.lua
+      to: nvim/lua/config/startup.lua
 
 tmux: {}
 
