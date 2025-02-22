@@ -20,7 +20,9 @@ theme-specific folder.
 
 This project is primarily for personal use and I take no responsibility for
 what happens to your system if you use this. Make sure you back up critical
-files before running this. 
+files before running this. Please note that I'm currently in a phase where I'm
+incapable of leaving my neovim config alone, so if you want to use this project,
+I suggest you fork it and make your own default neovim config.
 
 # Quickstart
 
