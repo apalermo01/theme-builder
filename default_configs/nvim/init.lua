@@ -31,6 +31,7 @@ require("keymaps")
 require('config.lualine')
 require('config.obsidian')
 require('config.startup')
+require('config.bufferline')
 
 vim.cmd.colorscheme("catppuccin")
 

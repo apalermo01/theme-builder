@@ -241,7 +241,7 @@ def copy_theme(
 
     if "theme_scripts" in config:
         path = config["theme_scripts"]["path"]
-        for file in os.listdir(path):
+        for file in sorted(os.listdir(path)):
             subprocess.call(os.path.join(path, file))
 
 
