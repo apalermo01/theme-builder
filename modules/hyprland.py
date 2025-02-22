@@ -93,6 +93,7 @@ def _configure_animations(config: Dict, destination_dir: str, theme_path: str):
 
 
 def _configure_colors(config: Dict, destination_dir: str, theme_path: str):
+    # TODO: need to convert this to use jinja
     colorscheme_path: str = os.path.join(theme_path, "colors", "colorscheme.json")
     if not os.path.exists(colorscheme_path):
         raise FileNotFoundError(f"could not find {colorscheme_path}")
@@ -107,11 +108,9 @@ def _configure_colors(config: Dict, destination_dir: str, theme_path: str):
 
     new_lines: List[str] = []
     for line in config:
-        # print(f"line = {line}")
         for colorname in colorscheme:
             color: str = colorscheme[colorname].replace("#", "")
             line = line.replace(f"<{colorname}>", f"rgb({color})")
-        # print("new line = ", line)
         new_lines.append(line)
 
     with open(config_path, "w") as f:

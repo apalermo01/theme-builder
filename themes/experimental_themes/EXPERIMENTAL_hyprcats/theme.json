@@ -1,0 +1,35 @@
+{
+  "colors": {
+    "method": "pywal"
+  },
+
+  "hyprland": {},
+
+  "wallpaper": {
+    "method": "hyprpaper",
+    "file": "cat1.jpg"
+  },
+
+  "waybar": {"copy": [{
+    "from": "config",
+    "to": ".config/waybar/config"
+  },{
+    "from": "style.css",
+    "to": ".config/waybar/style.css"
+  }]},
+
+  "nvim": {
+    "template_path": "default_configs/nvchad/",
+    "copy": [{
+      "from": "lua/chadrc.lua",
+      "to": ".config/nvim/lua/chadrc.lua",
+      "overwrite": true
+    }]
+  },
+
+  "fish": {
+    "feats": ["neofetch", "run_pywal"]
+  },
+  "kitty": {},
+  "tmux": {}
+}

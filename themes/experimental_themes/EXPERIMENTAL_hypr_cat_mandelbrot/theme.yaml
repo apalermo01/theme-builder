@@ -1,0 +1,26 @@
+colors:
+  method: manual
+
+wallpaper:
+  method: hyprpaper
+  file: mandelbrot_full_flamingo.png
+
+hyprland: {}
+
+waybar:
+  overwrite:
+    - from: config
+      to: waybar/config
+    - from: style.css
+      to: waybar/style.css
+
+nvim:
+  template_path: default_configs/nvim
+  colorscheme: catppuccin
+
+tmux: {}
+
+fish:
+  feats: 
+    - fastfetch
+

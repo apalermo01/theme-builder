@@ -25,6 +25,9 @@ def parse_i3(template_dir: str, destination_dir: str, config: Dict, theme_path: 
 def _configure_terminal(config: Dict, dest: str, theme_path: str):
 
     terminal: str = "gnome-terminal"
+
+    # check the theme config for a terminal. If it is specified, then 
+    # start that using $mod+Return in i3
     for i in available_terminals:
         if i in config:
             terminal = i
@@ -32,11 +35,13 @@ def _configure_terminal(config: Dict, dest: str, theme_path: str):
                 f"Found {i} in theme's config. "
                 + "Assigning this terminal to $mod+Return"
             )
-
-    if "terminal" not in config["i3"]:
-        terminal_path = "i3/config"
-    else:
-        terminal_path = config["i3"]["terminal"].get("terminal_path", "i3/config")
+    
+    # TODO: experiment more with this pattern. I don't know
+    # if this is actually necessary
+    # if "terminal" not in config["i3"]:
+    terminal_path = "i3/config"
+    # else:
+    #     terminal_path = config["i3"]["terminal"].get("terminal_path", "i3/config")
 
     terminal_path = os.path.join(theme_path, "build", terminal_path)
 
@@ -60,5 +65,5 @@ def _configure_picom(config: Dict, dest: str, theme_path: str):
     logger.info("picom found in this theme's config")
     append_if_not_present("\nexec killall picom\n", dest_path)
     append_if_not_present(
-        "\nexec_always picom --backend glx --config ~/.config/picom.conf\n", dest_path
+        "\nexec_always picom --backend glx --config ~/.config/picom/picom.conf\n", dest_path
     )

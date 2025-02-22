@@ -9,8 +9,8 @@ return {
   opts = {
     workspaces = {
       {
-        name = "knowledge-base",
-        path = "/home/alex/Documents/git/knowledge-base",
+        name = "notes",
+        path = "/home/alex/Documents/git/notes/",
       },
     },
     ui = { enable = true },

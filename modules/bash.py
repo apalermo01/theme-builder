@@ -21,6 +21,8 @@ def parse_bash(
     if "wallpaper" in config:
         wallpaper_file = config["wallpaper"]["file"]
         wallpaper_path = os.path.expanduser(f"~/Pictures/wallpapers/{wallpaper_file}")
+    else:
+        wallpaper_path = ''
 
     prompts_dict = {
 
@@ -28,6 +30,7 @@ def parse_bash(
             "fortune | cowsay -f $(ls /usr/share/cowsay/cows/ " "| shuf -n1)\n"
         ),
         "neofetch": "neofetch\n",
+        "fastfetch": "fastfetch\n",
         "run_pywal": f"wal -n -e -i {wallpaper_path} > /dev/null \n",
         "git_onefetch": dedent(
             """

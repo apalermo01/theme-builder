@@ -1,0 +1,16 @@
+
+nvim:
+  template_path: default_configs/nvim
+
+tmux:
+  append:
+    - from: tmux.conf 
+      to: tmux/.tmux.conf 
+
+fastfetch:
+  overwrite:
+    - from: config.jsonc 
+      to: fastfetch/config.jsonc
+
+bash: {}
+

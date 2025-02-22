@@ -70,9 +70,7 @@ def build_theme(theme_name: str, test: bool, orient: str):
     with open("./configs/paths.yaml", "r") as f:
         path_config = yaml.safe_load(f)
 
-    logger.info("======================================")
     logger.info("=========== BUILDING THEME ===========")
-    logger.info("======================================")
 
     tools_updated = {}
     order = [
@@ -99,6 +97,9 @@ def build_theme(theme_name: str, test: bool, orient: str):
             destination_path = os.path.join(
                 destination_base, path_config[key]["destination_path"]
             )
+
+            if "template_dir" in config[key]:
+                logger.warning("WRONG KEY NAME. Use template_path instead of template_dir")
             if "template_path" in config[key]:
                 template_path = config[key]["template_path"]
             else:
@@ -163,12 +164,12 @@ def copy_theme(
     if make_backup:
         backup_id = datetime.now().strftime("%Y-%m-%d::%X")
         backup_root = os.path.join(destination_root, "dotfiles_backups", backup_id)
+    else:
+        backup_root = None
 
     for t in tools:
-        print("+++++++++++++++++++++++++++++++++++++++++++++++")
-        print("+++++++++++++++++++++++++++++++++++++++++++++++")
-        print("+++++++++++++++++++++++++++++++++++++++++++++++")
-        print("tool = ", t)
+        print("processing", t)
+
         # TODO: abstract out list of roles / tools to skip
         if t in ["colors", "wallpaper"]:
             continue
@@ -183,21 +184,20 @@ def copy_theme(
                 destination_root, path_config[t].get("config_path", "")
             )
             sub_path = path_config[t]["config_path"]
-            print("DESTINATION PATH = ", destination_path)
-            print("path config = ", path_config[t])
 
         # get the source path
         source_path = tools[t]["destination_dir"]
-        print("source path = ", source_path)
-        print("sub path = ", sub_path)
 
         # make backup
         if len(sub_path) > 0:
             print("sub path is not empty")
             if make_backup and os.path.exists(destination_path) and len(sub_path) > 0:
+                if not backup_root:
+                    raise ValueError("Expected backup_root to be non-null")
                 if not os.path.exists(backup_root):
                     os.makedirs(backup_root)
                 backup_path = os.path.join(backup_root, sub_path)
+
                 print(f"backing up {destination_path} to {backup_path}")
                 shutil.copytree(destination_path, backup_path)
 
@@ -212,6 +212,8 @@ def copy_theme(
             print("looping through files in ", source_path)
             for file in os.listdir(source_path):
                 if make_backup and os.path.exists(os.path.join(destination_path, file)):
+                    if not backup_root:
+                        raise ValueError("Expected backup_root to be non-null")
                     if not os.path.exists(backup_root):
                         os.makedirs(backup_root)
 
@@ -239,7 +241,7 @@ def copy_theme(
 
     if "theme_scripts" in config:
         path = config["theme_scripts"]["path"]
-        for file in os.listdir(path):
+        for file in sorted(os.listdir(path)):
             subprocess.call(os.path.join(path, file))
 
 

@@ -29,8 +29,8 @@ def module_wrapper(tool):
 
             print(f"template dir = {template_dir}")
             print(f"destination dir = {destination_dir}")
-            if "template_dir" in config[tool]:
-                template_dir = config[tool]["template_dir"]
+            if "template_path" in config[tool]:
+                template_dir = config[tool]["template_path"]
                 if template_dir[-1] != "/":
                     template_dir = template_dir + "/"
 
@@ -115,8 +115,7 @@ def validate_config(config: Dict, theme_path: str) -> Tuple[bool, Dict]:
         )
         if num_elements_of_category > 1:
             print(
-                f"\x1b[31mMultiple elements found for {
-                  key}. Config must have one or none of {allowed_elements[key]}"
+                f"Multiple elements found for {key}. Config must have one or none of {allowed_elements[key]}"
             )
 
             return False, {}
@@ -166,7 +165,7 @@ def copy_files_from_template(src_folder: str, dest_folder: str):
 
         if not os.path.exists(folder):
             os.makedirs(folder)
-
+        logger.warning(f"files = {files}")
         for file in files:
             src_file = os.path.join(root, file)
             dest_file = os.path.join(dest_folder, subfolder, file)

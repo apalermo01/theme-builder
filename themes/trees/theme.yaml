@@ -1,41 +1,41 @@
-{
-  "font_family": "font_family JetBrainsMonoNL NFM medium",
-  "colors": {
-    "method": "pywal"
-  },
-  "i3": {"append": [{
-    "from": "config",
-    "to": "i3/config"
-  }]},
-  "polybar": {"bars": ["main"]},
-  "wallpaper": {
-    "method": "feh",
-    "file": "trees.jpg"
-  },
-  "nvim": {
-    "template_dir": "default_configs/nvchad",
-    "overwrite": [{
-      "from": "lua/chadrc.lua",
-      "to": "nvim/lua/chadrc.lua",
-    }],
-    "nvchad_colorscheme": "everforest"
-  },
-  "tmux": {"append": [{
-    "from": "tmux.conf",
-    "to": "tmux/.tmux.conf"
-  }]},
-  "rofi": {
-    "template_dir": "./themes/trees/rofi/"
-  },
-  "fish": {
-    "feats": ["run_pywal"],
-    "append": [{
-      "from": "config.fish",
-      "to": "fish/config.fish"
-    }]
-  },
-  "kitty": {},
-  "picom": {
-    "template_dir": "./themes/trees/picom/"
-  }
-}
+font_family: JetBrainsMono NFM medium
+
+colors:
+  method: pywal
+
+i3:
+  append:
+    - from: config
+      to: i3/config
+
+polybar: {}
+
+wallpaper:
+  method: feh
+  file: trees.jpg
+
+nvim:
+  template_path: default_configs/nvim
+  colorscheme: everforest
+  overwrite:
+    - from: lualine.lua
+      to: nvim/lua/config/lualine.lua
+
+tmux:
+  append:
+    - from: tmux.conf
+      to: tmux/.tmux.conf
+
+rofi:
+  template_path: themes/trees/rofi
+
+fish:
+  feats: [run_pywal]
+  append:
+    - from: config.fish
+      to: fish/config.fish
+
+kitty: {}
+
+picom:
+  template_path: themes/trees/picom/

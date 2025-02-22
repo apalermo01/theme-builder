@@ -1,4 +1,3 @@
-
 wallpaper: 
   method: feh
   file: darker_unicat.png
@@ -6,8 +5,7 @@ wallpaper:
 colors:
   method: manual
 
-  # font_family: JetBrainsMono Nerd Font Mono
-font_family: FiraCode Nerd Font
+font_family: Maple Mono
 
 i3: 
   append: 
@@ -18,7 +16,7 @@ polybar:
   bars: [left, center, right, tray]
   
 nvim: 
-  template_dir: default_configs/nvim-v2
+  template_path: default_configs/nvim
 
 tmux: 
   append: 
@@ -26,16 +24,19 @@ tmux:
       to: tmux/.tmux.conf
 
 rofi: 
-  template_dir: ./themes/i3_catppuccin/rofi/
+  template_path: ./themes/i3_catppuccin/rofi/
 
 fish: 
   feats: 
     - fastfetch
+  append:
+    - from: config.fish
+      to: fish/config.fish
 
 kitty: {}
 
 picom: 
-  template_dir: ./themes/i3_catppuccin/picom/
+  template_path: ./themes/i3_catppuccin/picom/
 
 theme_scripts: 
   path: ./themes/i3_catppuccin/scripts/

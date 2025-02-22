@@ -102,7 +102,7 @@ def hyprpaper_theme(config: Dict, theme_path: str):
 
     wallpaper_path: str = config["wallpaper"]["file"]
 
-    hyprpaper_path: str = os.path.join(theme_path, "dots", ".config", "hypr")
+    hyprpaper_path: str = os.path.join(theme_path, "build", "hypr")
     if not os.path.exists(hyprpaper_path):
         os.makedirs(hyprpaper_path)
     hyprpaper_path = os.path.join(hyprpaper_path, "hyprpaper.conf")

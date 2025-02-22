@@ -4,23 +4,25 @@ This is a theme / rice builder for linux systems. It's a way to quickly switch
 your dotfiles between different desktop environments / themes. 
 
 Each program or tool has a base configuration defined in `default_configs`. Each
-theme is configured in the themes folder by a `themes.json` file along with
+theme is configured in the themes folder by a `themes.yaml` file along with
 configuration files that append or overwrite the default configurations. This
-way, you define what you want to be common among all themes in `default_configs`
-and define the theme-specific differences in the theme-specific folder.
+way, you define what you want to be common among all themes (e.g. keybindings)
+in `default_configs` and define the theme-specific differences in the
+theme-specific folder.
 
-When the theme is built, a `build` folder is created in the theme's folder. This
-folder has the same structure as your home directory with the configuration for
-each program in the correct place. You can then load the configuration from the
-dots folder by using the internal overwrite tool that creates a backup in
-`~/.config/` and overwrite all existing configs, or use another method of your
-choice such a symlinks, gnu stow, or another automation tool.
+![Screenshot for i3 catppuccin theme](themes/i3_catppuccin/i3_catppuccin_screenshot.png)
+
+![Screenshot for trees theme](themes/trees/trees_screenshot.png)
+
+![Screenshot for minimal theme](themes/i3_minimal/i3_minimal_screenshot.png)
 
 # Disclaimer
 
 This project is primarily for personal use and I take no responsibility for
 what happens to your system if you use this. Make sure you back up critical
-files before running this. 
+files before running this. Please note that I'm currently in a phase where I'm
+incapable of leaving my neovim config alone, so if you want to use this project,
+I suggest you fork it and make your own default neovim config.
 
 # Quickstart
 
@@ -34,49 +36,43 @@ cd theme-builder
 python -m venv env 
 source ./env/bin/activate 
 pip install -r requirements.txt
+chmod +x ./switch_theme.sh
 ```
 
 ## Changing Themes
 
-To switch between themes, run this: 
+To switch between theme, run the switch_theme script:
+
+```bash
+./switch_theme.sh <theme name>
+```
+
+This script is a wrapper on main.py that has some more options:
+
 ```bash 
-python main.py --theme theme_name --no-test
+python main.py --theme i3_catppuccin \        # theme names found in the themes folder
+               --no-test \                    # turns off test cases
+               --migration-method copy \      # set this to None to overwrite nothing and inspect the build folder
+               --destination-root $HOME \     # where the theme should get moved to
+               --destination-structure config # config if you want to move directly to home directory
+                                              # roles if you want to use some other automation tool to install the dotfiles
+               
+
 ```
-
-This will build the theme in the `./themes/theme_name/` folder. For example, to
-build hyprcats:
-
-```bash
-python main.py --theme hyprcats --no-test
-```
-
-If you want to overwrite your existing configuration files, then pass the
-`--migration-method` argument:
-
-```bash
-python main.py --theme hyprcats --no-test --migration-method overwrite
-```
-
-This will create a backup folder inside `~/.config/dotfiles_backups` with the
-current timestamp and overwrite the configs for each of the programs you specify
-in `theme.json` with the configs inside `./themes/theme_name/dots/`.
-
 
 # Configuration 
 
-## Format 
-
-The best way to investigate the available options are by inspecting the test
-themes inside the `./tests` folder.
-
+See the wiki for a full list of configuration options. Additionally you can see
+some example configurations by inspecting `theme.yaml` in any folder under
+`themes` or `tests`
 
 Each of the folders inside `./themes/` represents a specific theme / rice. The
 options for each theme are specific inside the `theme.json` file, where the key
 is the program name and the theme-specific settings are in the nested json.
 
-Any files that are appended / copied are in the `./themes/theme_name/rule_name`
+Any files that are appended / copied are in the `./themes/theme_name/tool`
 folder. For example, custom options for i3 configuration for the trees theme
-live in `./themes/theme_name/trees/i3/config`. 
+live in `./themes/theme_name/i3/config`. 
 
 # Roadmap
 - [x] restructure temporary dots repo 
@@ -85,12 +81,20 @@ live in `./themes/theme_name/trees/i3/config`.
 - [ ] make dedicated dotfiles repo 
 - [ ] make new option for builder to move dots into repo instead of directly to the final destination
 - [x] convert all theme configs to yaml
+- [ ] set up hyprland / waybar
 - [ ] write up comprehensive documentation
-- [ ] add more screenshots / workflow demonstrations
+- [ ] add better screenshots + workflow documentation
+
+**other programs to add**
+- [ ] sioyek
+- [ ] zathura
+- [ ] firefox (if possible)
+- [ ] zen (if possible)
 
 
 
 # Credits
-Big thanks to Stavros Grigoriou (stav121) for providing the initial inspriation
+Big thanks to Stavros Grigoriou (stav121) for providing the initial inspiration
 for this project: https://github.com/stav121/i3wm-themer.
+
 
