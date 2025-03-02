@@ -61,3 +61,4 @@ abbr --add reading bash ~/reading_session.sh
 abbr --add notes cd ~/Documents/git/notes/
 abbr --add zen /usr/local/bin/zen/zen
 abbr --add a . env/bin/activate.fish
+abbr --add o ~/appimages/Obsidian-1.7.7.AppImage
