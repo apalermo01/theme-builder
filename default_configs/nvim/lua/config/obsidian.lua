@@ -62,19 +62,19 @@ end)
 map("n", "<leader>obl", ":ObsidianBacklinks<cr>")
 
 -- move note to zettlekasten
-map("n", "<leader>okc", ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/2-notes/6-full-notes<cr>:bd<cr>")
+map("n", "<leader>okc", ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-notes/5-full-notes<cr>:bd<cr>")
 
 -- move note to source material
-map("n", "<leader>osc", ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/2-notes/2-source-material<cr>:bd<cr>")
+map("n", "<leader>osc", ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-notes/2-source-material<cr>:bd<cr>")
 
--- move note to zettlekasten (sensitive)
-map("n", "<leader>okp", ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/2-notes/7-full-notes-personal<cr>:bd<cr>")
+-- move note to zettlekasten (personal)
+map("n", "<leader>okp", ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/1-notes-personal/5-full-notes<cr>:bd<cr>")
 
 -- move note to source material (personal)
-map("n", "<leader>osp", ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/2-notes/3-source-material-personal<cr>:bd<cr>")
+map("n", "<leader>osp", ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/1-notes-personal/2-source-material<cr>:bd<cr>")
 
 -- move note to journal
-map("n", "<leader>oj", ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/journal<cr>:bd<cr>")
+map("n", "<leader>oj", ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/3-journal<cr>:bd<cr>")
 
 -- delete note 
 map("n", "<leader>odd", ":!rm '%:p'<cr>:bd<cr>")
