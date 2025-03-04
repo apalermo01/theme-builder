@@ -2,8 +2,12 @@
 
 # TODO: check distro before running these
 
-echo "installing fish shell..."
-sudo pacman -S fish
+read -p "Install fish shell (y/n)?" choice
+case "$choice" in 
+    y|Y) echo "installing fish shell..." && sudo pacman -S fish;;
+esac
 
-echo "installing maple mono font..."
-yay -S ttf-maple
+read -p "Install maple font? (y/n)?" choice
+case "$choice" in 
+    y|Y) echo "installing maple mono font..." && yay -S ttf-maple;;
+esac
