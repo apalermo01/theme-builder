@@ -76,10 +76,17 @@ def _configure_colorscheme(nvim_config: Dict, theme_path: str):
         raise ValueError(
             f"could not find neovim config file {colorscheme_path} when parsing colorscheme"
         )
+
     cmd: str = f"vim.cmd[[colorscheme {colorscheme}]]"
 
     overwrite_or_append_line(
         pattern="vim.cmd[[colorscheme", replace_text=cmd, dest=colorscheme_path
+    )
+
+    cmd: str = f"vim.cmd.colorscheme({colorscheme})"
+
+    overwrite_or_append_line(
+        pattern="vim.cmd.colorscheme(", replace_text=cmd, dest=colorscheme_path
     )
 
 def _configure_font(font: str, theme_path: str):

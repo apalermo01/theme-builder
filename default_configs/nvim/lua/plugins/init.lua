@@ -9,28 +9,6 @@ return {
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
 	},
 	{
-		"nvim-treesitter/nvim-treesitter",
-		opts = {
-			ensure_installed = {
-				"vim",
-				"lua",
-				"vimdoc",
-				"html",
-				"css",
-				"markdown",
-				"markdown_inline",
-				"javascript",
-				"typescript",
-				"tsx",
-				"svelte",
-				"python",
-				"c",
-			},
-		},
-		highlight = { enable = true },
-		auto_install = true,
-	},
-	{
 		"nvim-tree/nvim-tree.lua",
 		version = "*",
 		lazy = false,
@@ -73,21 +51,6 @@ return {
 		"folke/which-key.nvim",
 		keys = { "<leader>", "<c-w>", '"', "'", "`", "c", "v", "g" },
 		cmd = "WhichKey",
-	},
-	{
-		"stevearc/conform.nvim",
-		opts = {
-			formatters_by_ft = {
-				lua = { "stylua" },
-				python = function(bufnr)
-					if require("conform").get_formatter_info("ruff_format", bufnr).available then
-						return { "ruff_format" }
-					else
-						return { "isort", "black" }
-					end
-				end,
-			},
-		},
 	},
 	{
 		"lewis6991/gitsigns.nvim",
@@ -156,24 +119,7 @@ return {
 			require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
 		end,
 	},
-	{
-		"startup-nvim/startup.nvim",
-		dependencies = {
-			"nvim-telescope/telescope.nvim",
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope-file-browser.nvim",
-		},
-	},
 
-	{
-		"akinsho/bufferline.nvim",
-		version = "*",
-		dependencies = "nvim-tree/nvim-web-devicons",
-	},
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-	},
 	{
 		"numToStr/FTerm.nvim",
 	},
@@ -194,15 +140,6 @@ return {
 	},
 	{
 		"corcalli/nvim-colorizer.lua",
-	},
-	{
-		"epwalsh/obsidian.nvim",
-		ft = "markdown",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"hrsh7th/nvim-cmp",
-			"nvim-telescope/telescope.nvim",
-		},
 	},
 	{
 		"nvim-telescope/telescope-file-browser.nvim",

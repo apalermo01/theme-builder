@@ -29,6 +29,7 @@ require('ftype_settings')
 require('keymaps')
 require('lsp')
 require('opts')
+require('config.obsidian')
 vim.cmd.colorscheme("catppuccin")
 
 -- With the above settings, hitting " " after the markdown file opens toggles ALL folds,

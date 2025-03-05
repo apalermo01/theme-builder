@@ -17,6 +17,10 @@ polybar:
   
 nvim: 
   template_path: default_configs/nvim
+  colorscheme: dracula
+  overwrite:
+    - from: catppuccin.lua
+      to: nvim/lua/plugins/catppuccin.lua
 
 tmux: 
   append: 
