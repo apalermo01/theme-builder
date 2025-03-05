@@ -13,10 +13,3 @@ require("bufferline").setup({
 	},
 })
 
-map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
-map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<return>", { silent = true })
-map("n", "<Tab>", "<cmd>BufferLineCycleNext<return>", { silent = true })
--- map("n", "<leader>x", "<cmd>BufferLinePickClose<CR>")
-map("n", "<leader>x", function()
-	require("bufdelete").bufdelete(0, true)
-end)

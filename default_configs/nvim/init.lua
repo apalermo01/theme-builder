@@ -24,15 +24,11 @@ vim.opt.rtp:prepend(lazypath)
 -- Leader key
 vim.g.mapleader = ","
 
-require("plugins")
-require("ftype_settings")
-require("opts")
-require("keymaps")
-require('config.lualine')
-require('config.obsidian')
-require('config.startup')
-require('config.bufferline')
-
+require('lazy').setup("plugins")
+require('ftype_settings')
+require('keymaps')
+require('lsp')
+require('opts')
 vim.cmd.colorscheme("catppuccin")
 
 -- With the above settings, hitting " " after the markdown file opens toggles ALL folds,
@@ -45,6 +41,14 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 --------------------------------------
 -- Plugin configurations -------------
 --------------------------------------
+
+map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
+map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<return>", { silent = true })
+map("n", "<Tab>", "<cmd>BufferLineCycleNext<return>", { silent = true })
+-- map("n", "<leader>x", "<cmd>BufferLinePickClose<CR>")
+map("n", "<leader>x", function()
+	require("bufdelete").bufdelete(0, true)
+end)
 
 -- treesitter
 require("nvim-treesitter.configs").setup({
