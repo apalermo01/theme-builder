@@ -137,18 +137,6 @@ else
 	print("ERROR: could not load cmp")
 end
 
--- colorizer
-require("colorizer").setup({
-	filetypes = { "*" },
-	DEFAULT_OPTIONS = {
-		RGB = true,
-		RRGGBB = true,
-		names = false,
-		RRGGBBAA = true,
-		css = true,
-		css_fn = true,
-	},
-})
 -- conform
 map("n", "<leader>fm", function()
 	require("conform").format({ lsp_fallback = true })

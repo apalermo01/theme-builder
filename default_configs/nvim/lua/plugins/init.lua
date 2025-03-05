@@ -139,9 +139,6 @@ return {
 		"folke/trouble.nvim",
 	},
 	{
-		"corcalli/nvim-colorizer.lua",
-	},
-	{
 		"nvim-telescope/telescope-file-browser.nvim",
 		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
 	},

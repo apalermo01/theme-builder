@@ -29,7 +29,7 @@ tmux:
       to: tmux/.tmux.conf
 
 rofi:
-  template_path: themes/trees/rofi
+  template_path: themes/i3_trees/rofi
 
 fish:
   feats: [run_pywal]
@@ -40,4 +40,4 @@ fish:
 kitty: {}
 
 picom:
-  template_path: themes/trees/picom/
+  template_path: themes/i3_trees/picom/

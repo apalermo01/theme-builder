@@ -103,7 +103,7 @@ element-text {
 
 * {
     bg0:    #212121F2;
-    bg1:    #2A2A2A;
+    bg1:    #427655;
     bg2:    #3D3D3D80;
     bg3:    #4CAF50F2;
     fg0:    #E6E6E6;
