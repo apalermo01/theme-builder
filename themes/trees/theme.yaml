@@ -19,7 +19,9 @@ nvim:
   colorscheme: everforest
   overwrite:
     - from: lualine.lua
-      to: nvim/lua/config/lualine.lua
+      to: nvim/lua/plugins/lualine.lua
+    - from: everforest.lua
+      to: nvim/lua/plugins/everforest.lua
 
 tmux:
   append:
