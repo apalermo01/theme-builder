@@ -15,10 +15,11 @@ wallpaper:
   file: 002.png
 
 nvim:
-  template_path: default_configs/nvchad/
+  template_path: default_configs/nvim
+  colorscheme: melange
   overwrite:
-    - from: lua/chadrc.lua
-      to: nvim/lua/chadrc.lua
+    - from: melange.lua
+      to: nvim/lua/plugins/melange.lua
 
 tmux: {}
 
