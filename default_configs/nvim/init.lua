@@ -163,7 +163,6 @@ require("render-markdown").setup({
 		width = "block",
 		borer = true,
 	},
-
 	checkbox = {
 		custom = {
 			todo = { raw = "[-]", rendered = "󰥔", highlight = "RenderMarkdownTodo" },

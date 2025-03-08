@@ -44,7 +44,6 @@ function onp -d "Create a new note for obsidian (personal section)"
 end
 
 function og -d "Move notes based on tags" 
-    #set VAULTS 6-full-notes 7-full-notes-personal
     set VAULTS 0-notes 1-notes-personal 
     for VAULT_NAME in $VAULTS
         find "$NOTES_PATH/$VAULT_NAME/5-full-notes/" -type f -name '*.md' -not -path "*tags*"| while read -l file;
