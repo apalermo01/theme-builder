@@ -1,0 +1,35 @@
+font_family: JetBrainsMono NFM medium
+colors: 
+  method: manual
+
+i3: 
+  append:
+    - from: config
+      to: i3/config
+
+polybar: {}
+
+wallpaper: 
+  method: feh
+  file: 000.png
+
+nvim: 
+  template_path: default_configs/nvim/
+  colorscheme: nord
+  overwrite:
+    - from: nord.lua
+      to: nvim/lua/plugins/nord.lua
+    - from: lualine.lua
+      to: nvim/lua/plugins/lualine.lua
+
+tmux: {}
+
+rofi: {}
+
+fish: 
+  feats: ["run_pywal", "neofetch"]
+
+kitty: {}
+
+picom: {}
+

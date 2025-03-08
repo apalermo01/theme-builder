@@ -1,0 +1,38 @@
+font: JetBrainsMono NFM medium
+
+colors:
+    method: manual
+
+i3: 
+  append:
+    - from: config
+      to: i3/config
+
+polybar: {}
+
+wallpaper:
+  method: feh
+  file: 002.png
+
+nvim:
+  template_path: default_configs/nvim
+  colorscheme: melange
+  overwrite:
+    - from: melange.lua
+      to: nvim/lua/plugins/melange.lua
+
+tmux: {}
+
+rofi: {}
+
+fish: 
+  feats:
+    - run_pywal
+    - fastfetch
+
+kitty: {}
+
+picom: {}
+
+
+

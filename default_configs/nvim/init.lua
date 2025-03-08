@@ -24,14 +24,12 @@ vim.opt.rtp:prepend(lazypath)
 -- Leader key
 vim.g.mapleader = ","
 
-require("plugins")
-require("ftype_settings")
-require("opts")
-require("keymaps")
-require('config.lualine')
+require('opts')
+require('lazy').setup("plugins")
+require('ftype_settings')
+require('keymaps')
+require('lsp')
 require('config.obsidian')
-require('config.startup')
-require('config.bufferline')
 
 vim.cmd.colorscheme("catppuccin")
 
@@ -45,6 +43,14 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 --------------------------------------
 -- Plugin configurations -------------
 --------------------------------------
+
+map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
+map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<return>", { silent = true })
+map("n", "<Tab>", "<cmd>BufferLineCycleNext<return>", { silent = true })
+-- map("n", "<leader>x", "<cmd>BufferLinePickClose<CR>")
+map("n", "<leader>x", function()
+	require("bufdelete").bufdelete(0, true)
+end)
 
 -- treesitter
 require("nvim-treesitter.configs").setup({
@@ -131,18 +137,6 @@ else
 	print("ERROR: could not load cmp")
 end
 
--- colorizer
-require("colorizer").setup({
-	filetypes = { "*" },
-	DEFAULT_OPTIONS = {
-		RGB = true,
-		RRGGBB = true,
-		names = false,
-		RRGGBBAA = true,
-		css = true,
-		css_fn = true,
-	},
-})
 -- conform
 map("n", "<leader>fm", function()
 	require("conform").format({ lsp_fallback = true })
@@ -169,7 +163,6 @@ require("render-markdown").setup({
 		width = "block",
 		borer = true,
 	},
-
 	checkbox = {
 		custom = {
 			todo = { raw = "[-]", rendered = "󰥔", highlight = "RenderMarkdownTodo" },
