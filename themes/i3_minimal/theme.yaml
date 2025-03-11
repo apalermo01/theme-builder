@@ -16,7 +16,7 @@ wallpaper:
   file: black_background.jpg
 
 nvim:
-  template_path: default_configs/nvim
+  template_path: default_configs/nvim-minimal
   colorscheme: default
   overwrite:
     - from: startup.lua
