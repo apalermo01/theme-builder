@@ -1,6 +1,9 @@
 
 nvim:
   template_path: default_configs/nvim
+  overwrite:
+    - from: catppuccin.lua
+      to: nvim/lua/plugins/catppuccin.lua
 
 tmux:
   append:

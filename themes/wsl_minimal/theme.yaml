@@ -1,5 +1,5 @@
 nvim:
-  template_path: default_configs/nvim
+  template_path: default_configs/nvim-minimal
   colorscheme: default
 
 tmux: {}
