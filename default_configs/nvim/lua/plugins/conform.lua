@@ -10,6 +10,21 @@ return {
 					return { "isort", "black" }
 				end
 			end,
+            go = { 'gofmt' },
+            json = { 'yq' },
+            md = { 'mdformat' },
+            sql = { 'pg_format' },
+            yaml = { 'yq' }
+
 		},
+	},
+
+	keys = {
+		"<leader>fm",
+		function()
+			require("conform").format({ lsp_fallback = true })
+		end,
+		"n",
+		desc = "general format file",
 	},
 }

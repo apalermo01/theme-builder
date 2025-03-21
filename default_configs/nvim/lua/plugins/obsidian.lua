@@ -62,7 +62,6 @@ return {
 		},
 
 		{ "<leader>obl", "<cmd>ObsidianBacklinks<CR>", "n", desc = "show backlinks in telescope" },
-	},
 
 	{
 		"<leader>okc",
@@ -94,4 +93,5 @@ return {
 		"n",
 		desc = "delete note",
 	},
+},
 }

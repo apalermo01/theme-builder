@@ -29,7 +29,6 @@ require('lazy').setup("plugins")
 require('ftype_settings')
 require('keymaps')
 require('lsp')
-require('config.obsidian')
 
 vim.cmd.colorscheme("catppuccin")
 
@@ -40,95 +39,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	command = "normal! zR",
 })
 
---------------------------------------
--- Plugin configurations -------------
---------------------------------------
-
--- map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
--- map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<return>", { silent = true })
--- map("n", "<Tab>", "<cmd>BufferLineCycleNext<return>", { silent = true })
--- map("n", "<leader>x", function()
--- 	require("bufdelete").bufdelete(0, true)
--- end)
-
--- treesitter
-require("nvim-treesitter.configs").setup({
-	highlight = {
-		enable = true,
-		additional_vim_regex_highlighting = false,
-	},
-})
-
--- cheatsheet
-require("cheatsheet").setup({
-	bundled_cheatsheets = {
-		enabled = { "default" },
-		disabled = { "nerd-fonts" },
-	},
-})
-
-map("n", "<leader>?", "<cmd>Cheatsheet<cr>")
-
--- conform
-map("n", "<leader>fm", function()
-	require("conform").format({ lsp_fallback = true })
-end, { desc = "general format file" })
-
--- FTerm
-map("n", "<leader>ft", "<cmd>lua require('FTerm').toggle()<cr>")
-map("t", "<leader>ft", "<C-\\><C-n><cmd>lua require('FTerm').toggle()<cr>")
-map("t", "<Esc>", "<C-\\><C-n><cmd>lua require('FTerm').exit()<cr>")
-
--- Goto preview
-map("n", "gpd", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>")
-map("n", "gpt", "<cmd>lua require('goto-preview').goto_preview_type_declaration()<CR>")
-map("n", "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>")
-map("n", "gpD", "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>")
-map("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>")
-map("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>")
-
-
--- marks
-require("marks").setup({
-	default_mappings = true,
-})
-
--- nvimtree
-map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "nvimtree toggle window" })
-map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "nvimtree focus window" })
-
--- Telescope
-map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "telescope live grep" })
-map("n", "<leader>fbu", "<cmd>Telescope buffers<CR>", { desc = "telescope find buffers" })
-map("n", "<leader>fh", "<cmd>Telescope help_tags<CR>", { desc = "telescope help page" })
-map("n", "<leader>ma", "<cmd>Telescope marks<CR>", { desc = "telescope find marks" })
-map("n", "<leader>fo", "<cmd>Telescope oldfiles<CR>", { desc = "telescope find oldfiles" })
-map("n", "<leader>fz", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "telescope find in current buffer" })
-map("n", "<leader>cm", "<cmd>Telescope git_commits<CR>", { desc = "telescope git commits" })
-map("n", "<leader>gt", "<cmd>Telescope git_status<CR>", { desc = "telescope git status" })
-map("n", "<leader>pt", "<cmd>Telescope terms<CR>", { desc = "telescope pick hidden term" })
-map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "telescope find files" })
-map(
-	"n",
-	"<leader>fa",
-	"<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>",
-	{ desc = "telescope find all files" }
-)
-map("n", "<leader>fbr", "<cmd>Telescope file_browser<cr>")
-map("n", "<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>")
-
--- Tmux navigation
-map("n", "<C-h>", "<cmd> TmuxNavigateLeft<CR>")
-map("n", "<C-l>", "<cmd> TmuxNavigateRight<CR>")
-map("n", "<C-j>", "<cmd> TmuxNavigateDown<CR>")
-map("n", "<C-k>", "<cmd> TmuxNavigateUp<CR>")
-
--- whichkey
-map("n", "<leader>wK", "<cmd>WhichKey <CR>", { desc = "whichkey all keymaps" })
-
-map("n", "<leader>wk", function()
-	vim.cmd("WhichKey " .. vim.fn.input("WhichKey: "))
-end, { desc = "whichkey query lookup" })
 
 require("lsp")
 ----------------------------------
