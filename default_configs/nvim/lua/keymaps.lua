@@ -38,3 +38,6 @@ map("n", "<C-f>", "<C-f>zz")
 map("n", "<C-b>", "<C-b>zz")
 
 map("n", " ", "za")
+
+-- quality of life stuff
+vim.cmd([[ nnoremap <leader>/ /\\<\\><Left><Left> ]])

@@ -39,7 +39,10 @@ fish:
     - from: config.fish
       to: fish/config.fish
 
-kitty: {}
+kitty:
+  append:
+    - from: kitty.conf
+      to: kitty/kitty.conf
 
 picom: 
   template_path: ./themes/i3_catppuccin/picom/

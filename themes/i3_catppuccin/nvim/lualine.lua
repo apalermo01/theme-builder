@@ -4,7 +4,7 @@ return {
 	lazy = false,
 	opts = {
 		options = {
-			theme = "powerline-dark",
+			theme = "powerline_dark",
 			globalstatus = true,
 		},
 	},

@@ -40,4 +40,7 @@ map("n", "<C-b>", "<C-b>zz")
 map("n", " ", "za")
 
 -- netrw
-map("n", "<C-n>", ":Ex<CR>")
+map("n", "<C-n>", ":Vexplore<CR>")
+
+-- quality of life stuff
+vim.cmd([[ nnoremap <leader>/ /\\<\\><Left><Left> ]])
