@@ -1,3 +1,7 @@
+-- Ideas for this config taken from
+-- https://www.youtube.com/watch?v=1Lmyh0YRH-w
+-- https://github.com/zazencodes/dotfiles/blob/main/nvim/lua/workflows.lua
+--
 return {
 	"epwalsh/obsidian.nvim",
 	ft = "markdown",
@@ -39,5 +43,55 @@ return {
 
 			return suffix
 		end,
+	},
+
+	keys = {
+		{ "<leader>oo", ":cd " .. OBSIDIAN_NOTES_DIR .. "<CR>", "n", desc = "jump to notes directory" },
+		{
+			"<leader>on",
+			function()
+				local current_file = vim.fn.expand("%:p")
+				if string.find(current_file, OBSIDIAN_NOTES_DIR, 1, true) then
+					vim.cmd("ObsidianTemplate note")
+				else
+					print("Cannot format file- not in notes directory")
+				end
+			end,
+			"n",
+			desc = "format current file as a note",
+		},
+
+		{ "<leader>obl", "<cmd>ObsidianBacklinks<CR>", "n", desc = "show backlinks in telescope" },
+	},
+
+	{
+		"<leader>okc",
+		":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-notes/5-full-notes<cr>:bd<CR>",
+		"n",
+		desc = "move to craft notes",
+	},
+	{
+		"<leader>okp",
+		":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/1-notes-personal/5-full-notes<cr>:bd<CR>",
+		"n",
+		desc = "move to personal notes",
+	},
+	{
+		"<leader>osc",
+		":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-notes/2-source-material<cr>:bd<CR>",
+		"n",
+		desc = "move to source material",
+	},
+	{
+		"<leader>osp",
+		":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/1-notes-personal/2-source-material<cr>:bd<CR>",
+		"n",
+		desc = "move to source material (personal)",
+	},
+	{
+		"<leader>odd",
+		":!rm '%:p'<CR>:bd<CR>",
+		"n",
+		desc = "delete note",
 	},
 }

@@ -44,13 +44,12 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 -- Plugin configurations -------------
 --------------------------------------
 
-map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
-map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<return>", { silent = true })
-map("n", "<Tab>", "<cmd>BufferLineCycleNext<return>", { silent = true })
--- map("n", "<leader>x", "<cmd>BufferLinePickClose<CR>")
-map("n", "<leader>x", function()
-	require("bufdelete").bufdelete(0, true)
-end)
+-- map("n", "<leader>b", "<cmd>enew<CR>", { desc = "buffer new" })
+-- map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<return>", { silent = true })
+-- map("n", "<Tab>", "<cmd>BufferLineCycleNext<return>", { silent = true })
+-- map("n", "<leader>x", function()
+-- 	require("bufdelete").bufdelete(0, true)
+-- end)
 
 -- treesitter
 require("nvim-treesitter.configs").setup({
@@ -70,73 +69,6 @@ require("cheatsheet").setup({
 
 map("n", "<leader>?", "<cmd>Cheatsheet<cr>")
 
--- cmp
-
--- local cmp_status, cmp = pcall(require, "cmp")
--- local snippy_status, snippy = pcall(require, "snippy")
--- local lspkind = require("lspkind")
---
--- if not snippy_status then
--- 	print("ERROR: could not load snippy")
--- end
---
--- if cmp_status then
--- 	cmp.setup({
--- 		snippet = {
--- 			expand = function(args)
--- 				snippy.lsp_expand(args.body)
--- 			end,
--- 		},
--- 		mapping = cmp.mapping.preset.insert({
--- 			["<C-k>"] = cmp.mapping.select_prev_item(), -- previous suggestion
--- 			["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
--- 			["<C-b>"] = cmp.mapping.scroll_docs(-4),
--- 			["<C-f>"] = cmp.mapping.scroll_docs(4),
--- 			["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
--- 			["<C-e>"] = cmp.mapping.abort(), -- close completion window
--- 			["<CR>"] = cmp.mapping.confirm({ select = false }),
--- 		}),
--- 		sources = cmp.config.sources({
--- 			{ name = "nvim_lsp" }, -- LSP
--- 			{ name = "snippy" }, -- snippets
--- 			{ name = "buffer" }, -- text within the current buffer
--- 			{ name = "path" }, -- file system paths
--- 			{ name = "obsidian.nvim" },
--- 			{ name = "render-markdown" },
--- 		}),
--- 		formatting = {
--- 			format = lspkind.cmp_format({
--- 				mode = "symbol_text",
--- 			}),
--- 		},
--- 	})
---
--- 	-- `/` cmdline setup.
--- 	cmp.setup.cmdline("/", {
--- 		mapping = cmp.mapping.preset.cmdline(),
--- 		sources = {
--- 			{ name = "buffer" },
--- 		},
--- 	})
---
--- 	-- `:` cmdline setup.
--- 	cmp.setup.cmdline(":", {
--- 		mapping = cmp.mapping.preset.cmdline(),
--- 		sources = cmp.config.sources({
--- 			{ name = "path" },
--- 		}, {
--- 			{
--- 				name = "cmdline",
--- 				option = {
--- 					ignore_cmds = { "Man", "!" },
--- 				},
--- 			},
--- 		}),
--- 	})
--- else
--- 	print("ERROR: could not load cmp")
--- end
-
 -- conform
 map("n", "<leader>fm", function()
 	require("conform").format({ lsp_fallback = true })
@@ -155,25 +87,6 @@ map("n", "gpD", "<cmd>lua require('goto-preview').goto_preview_declaration()<CR>
 map("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>")
 map("n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references()<CR>")
 
--- markdown rendering
--- require("render-markdown").setup({
--- 	preset = "obsidian",
--- 	heading = {
--- 		enabled = true,
--- 		width = "block",
--- 		borer = true,
--- 	},
--- 	checkbox = {
--- 		custom = {
--- 			todo = { raw = "[-]", rendered = "󰥔", highlight = "RenderMarkdownTodo" },
--- 			not_done = { raw = "[d]", rendered = "", highlight = "RednerMarkdownWarn" },
--- 		},
--- 	},
---
--- 	dash = {
--- 		enabled = true,
--- 	},
--- })
 
 -- marks
 require("marks").setup({
