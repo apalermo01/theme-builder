@@ -18,10 +18,8 @@ nvim:
   template_path: default_configs/nvim
   colorscheme: everforest
   overwrite:
-    - from: lualine.lua
-      to: nvim/lua/plugins/lualine.lua
-    - from: everforest.lua
-      to: nvim/lua/plugins/everforest.lua
+    - from: theme.lua
+      to: nvim/lua/theme.lua
 
 tmux:
   append:
