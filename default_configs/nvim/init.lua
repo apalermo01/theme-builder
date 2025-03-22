@@ -25,10 +25,17 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = ","
 
 require('opts')
-require('lazy').setup("plugins")
-require('ftype_settings')
+require('lazy').setup({
+    spec = {
+        {import = "plugins" },
+        {import = "theme" }
+
+    }
+})
 require('keymaps')
+require('ftype_settings')
 require('lsp')
+require('theme')
 
 vim.cmd.colorscheme("catppuccin")
 

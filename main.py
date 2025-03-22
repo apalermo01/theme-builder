@@ -44,7 +44,7 @@ def get_theme_config(theme_path: str) -> dict:
     raise ValueError("theme file not found!")
 
 
-def build_theme(theme_name: str, test: bool, orient: str):
+def build_theme(theme_name: str, test: bool, orient: str, nvim_only: bool = False):
 
     if test:
         theme_path: str = os.path.join("tests", theme_name)
@@ -90,6 +90,10 @@ def build_theme(theme_name: str, test: bool, orient: str):
         "alacritty",
         "fastfetch"
     ]
+
+    if nvim_only:
+        order = ["nvim"]
+
     for key in order:
         if key in config:
             logger.info(f"processing {key}")
@@ -126,6 +130,7 @@ def copy_theme(
     destination_root: str,
     orient: Literal["roles", "config"],
     config: dict,
+    nvim_only: bool = False
 ):
     """
     tools: dictionary of tools that have been updated
@@ -168,6 +173,10 @@ def copy_theme(
         backup_root = None
 
     for t in tools:
+
+        if nvim_only and t != 'nvim': 
+            continue 
+
         print("processing", t)
 
         # TODO: abstract out list of roles / tools to skip
@@ -233,13 +242,13 @@ def copy_theme(
                     os.path.join(destination_path, file),
                 )
 
-    if "scripts" in config:
+    if "scripts" in config and not nvim_only:
         root = destination_root
         if orient == "roles":
             root = os.path.join(root, "scripts")
         parse_scripts(config, root)
 
-    if "theme_scripts" in config:
+    if "theme_scripts" in config and not nvim_only:
         path = config["theme_scripts"]["path"]
         for file in sorted(os.listdir(path)):
             subprocess.call(os.path.join(path, file))
@@ -262,6 +271,10 @@ def parse_args():
         "--destination-structure", default="roles", choices=["roles", "config"]
     )
 
+    parser.add_argument(
+            "--nvim-only", default=False, action=argparse.BooleanOptionalAction
+    )
+
     args = parser.parse_args()
     return args
 
@@ -270,7 +283,7 @@ def main():
     args = parse_args()
     theme_name = args.theme
     tools_updated, theme_path, config = build_theme(
-        theme_name, args.test, args.destination_structure
+        theme_name, args.test, args.destination_structure, args.nvim_only
     )
 
     if args.migration_method == "none":
@@ -284,6 +297,7 @@ def main():
             args.destination_root,
             args.destination_structure,
             config,
+            args.nvim_only
         )
 
 

@@ -19,10 +19,8 @@ nvim:
   template_path: default_configs/nvim
   colorscheme: catppuccin
   overwrite:
-    - from: catppuccin.lua
-      to: nvim/lua/plugins/catppuccin.lua
-    - from: lualine.lua
-      to: nvim/lua/plugins/lualine.lua
+    - from: theme.lua
+      to: nvim/lua/theme.lua
 
 tmux: 
   append: 
