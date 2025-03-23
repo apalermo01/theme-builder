@@ -34,7 +34,7 @@ return {
 				highlights = require("catppuccin.groups.integrations.bufferline").get({
 					custom = {
 						all = {
-							background = { bg = palette.crust },
+							fill = { bg = palette.crust },
 						},
 					},
 				}),
