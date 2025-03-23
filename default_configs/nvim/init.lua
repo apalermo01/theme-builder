@@ -24,18 +24,18 @@ vim.opt.rtp:prepend(lazypath)
 -- Leader key
 vim.g.mapleader = ","
 
-require('opts')
-require('lazy').setup({
-    spec = {
-        {import = "plugins" },
-        {import = "theme" }
-
-    }
+require("opts")
+require("lazy").setup({
+	spec = {
+		{ import = "plugins" },
+		{ import = "plugins.debug" },
+		{ import = "theme" },
+	},
 })
-require('keymaps')
-require('ftype_settings')
-require('lsp')
-require('theme')
+require("keymaps")
+require("ftype_settings")
+require("lsp")
+require("theme")
 
 vim.cmd.colorscheme("catppuccin")
 
@@ -45,7 +45,6 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 	pattern = "*.md",
 	command = "normal! zR",
 })
-
 
 require("lsp")
 ----------------------------------
