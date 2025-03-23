@@ -104,3 +104,11 @@ map("n", "<leader>?", "<cmd>Cheatsheet<CR>", { desc = "open cheatsheet"})
 -- nvim tree
 map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "toggle nvimtree"})
 map("n", "<leader>e", "<cmd>NvimTreeFocus<CR>", { desc = "focus nvimtree"})
+
+-- bufferline
+map("n", "<leader>b", "<cmd>enew<CR>", {desc = "new buffer"})
+map("n", "<leader>x", function()
+    require("bufdelete").bufdelete(0, true)
+end, {desc = "close current buffer"})
+map("n", "<Tab>", "<cmd>BufferLineCycleNext<CR>", { desc = "next buffer", silent = true})
+map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", { desc = "previous buffer", silent = true})

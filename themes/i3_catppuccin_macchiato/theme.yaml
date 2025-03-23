@@ -17,7 +17,7 @@ polybar:
   
 nvim: 
   template_path: default_configs/nvim
-  colorscheme: catppuccin
+  colorscheme: catppuccin-macchiato
   overwrite:
     - from: theme.lua
       to: nvim/lua/theme.lua
@@ -28,7 +28,7 @@ tmux:
       to: tmux/.tmux.conf
 
 rofi: 
-  template_path: ./themes/i3_catppuccin/rofi/
+  template_path: ./themes/i3_catppuccin_macchiato/rofi/
 
 fish: 
   feats: 
@@ -43,10 +43,10 @@ kitty:
       to: kitty/kitty.conf
 
 picom: 
-  template_path: ./themes/i3_catppuccin/picom/
+  template_path: ./themes/i3_catppuccin_macchiato/picom/
 
 theme_scripts: 
-  path: ./themes/i3_catppuccin/scripts/
+  path: ./themes/i3_catppuccin_macchiato/scripts/
 
 fastfetch: 
   overwrite: 
