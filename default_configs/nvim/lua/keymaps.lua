@@ -112,3 +112,19 @@ map("n", "<leader>x", function()
 end, {desc = "close current buffer"})
 map("n", "<Tab>", "<cmd>BufferLineCycleNext<CR>", { desc = "next buffer", silent = true})
 map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", { desc = "previous buffer", silent = true})
+
+-- -- debugging
+-- map("n", "<leader>dB", function()
+--     require("dap").set_breakpoint()
+-- end, { desc = "debug method", ft = "python" })
+
+-- debugging (python)
+map("n", "<leader>dPt", function()
+    require("dap-python").test_method()
+end, { desc = "debug method",  })
+
+map("n", "<leader>dPc", function()
+    require("dap-python").test_class()
+end, { desc = "debug class", })
+
+
