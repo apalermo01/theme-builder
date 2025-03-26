@@ -17,7 +17,8 @@ require("lazy").setup({
 	spec = {
 		{ import = "config.editor" },
 		{ import = "config.ui" },
-		{ import = "config.dev" }
+		{ import = "config.dev" },
+		{ import = "config.lsp" },
 	},
 	change_detection = { notify = false }
 })

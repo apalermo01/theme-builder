@@ -29,7 +29,7 @@ return {
 				"diff",
 				"dockerfile",
 				"fish",
-				"jinja",
+				-- "jinja",
 				"json",
 				"jsonc",
 				"rasi",

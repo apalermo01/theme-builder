@@ -27,6 +27,7 @@ return {
 		-- 	toggle_telescope(harpoon:list())
 		-- end, { desc = "Open harpoon window" })
 		map("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+		map("n", "<leader>e", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 		map("n", "<leader>a", function() harpoon:list():add() end)
 		map("n", "<leader>h", function() harpoon:list():select(1) end)
 		map("n", "<leader>j", function() harpoon:list():select(2) end)
