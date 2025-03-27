@@ -2,6 +2,12 @@ return {
     {
         "nvim-telescope/telescope.nvim",
 	    dependencies = { 'nvim-lua/plenary.nvim' },
+        opts = {
+            defaults = {
+                initial_mode = 'normal',
+                dynamic_preview_title = true,
+            }
+        },
 	    config = function(_, opts)
 	    	require('telescope').setup(opts)
 	    	local builtin = require('telescope.builtin')

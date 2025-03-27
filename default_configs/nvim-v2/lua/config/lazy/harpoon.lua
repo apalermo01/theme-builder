@@ -5,7 +5,7 @@ return {
 	config = function()
 		local harpoon = require('harpoon')
 		harpoon:setup()
-		
+
 		-- basic telescope configuration
 		-- local conf = require("telescope.config").values
 		-- local function toggle_telescope(harpoon_files)
