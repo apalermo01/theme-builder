@@ -16,14 +16,14 @@ polybar:
   bars: [left, center, right, tray]
   
 nvim: 
-  template_path: default_configs/nvim
-  colorscheme: catppuccin-macchiato
-  overwrite:
-    - from: theme.lua
-      to: nvim/lua/theme.lua
-  append:
-    - from: edulsp.lua
-      to: nvim/init.lua
+  template_path: default_configs/nvim-v2
+  # colorscheme: catppuccin-macchiato
+  # overwrite:
+  #   - from: theme.lua
+  #     to: nvim/lua/theme.lua
+  # append:
+  #   - from: edulsp.lua
+  #     to: nvim/init.lua
 
 tmux: 
   append: 
