@@ -1,0 +1,22 @@
+colors:
+  method: pywal
+
+wallpaper:
+  method: feh
+  file: synth.jpg
+
+nvim:
+  template_path: default_configs/nvim
+  # colorscheme: dracula
+  # overwrite:
+  #   - from: theme.lua
+  #     to: nvim/lua/theme_overwrite.lua
+ 
+tmux: {}
+
+kitty: {}
+
+fish:
+  feats:
+    - cowsay_fortune,
+    - run_pywal
