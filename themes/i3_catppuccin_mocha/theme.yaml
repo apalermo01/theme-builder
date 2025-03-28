@@ -20,9 +20,9 @@ nvim:
   colorscheme: catppuccin
   overwrite:
     - from: theme.lua
-      to: nvim/lua/theme.lua
-    - from: edulsp.lua
-      to: nvim/lua/edulsp.lua
+      to: nvim/lua/theme_overwrite.lua
+    # - from: edulsp.lua
+    #   to: nvim/lua/edulsp.lua
 
 tmux: 
   append: 
@@ -30,7 +30,7 @@ tmux:
       to: tmux/.tmux.conf
 
 rofi: 
-  template_path: ./themes/i3_catppuccin/rofi/
+  template_path: ./themes/i3_catppuccin_mocha/rofi/
 
 fish: 
   feats: 
@@ -45,10 +45,10 @@ kitty:
       to: kitty/kitty.conf
 
 picom: 
-  template_path: ./themes/i3_catppuccin/picom/
+  template_path: ./themes/i3_catppuccin_mocha/picom/
 
 theme_scripts: 
-  path: ./themes/i3_catppuccin/scripts/
+  path: ./themes/i3_catppuccin_mocha/scripts/
 
 fastfetch: 
   overwrite: 

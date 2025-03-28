@@ -16,8 +16,8 @@ map("n", "<leader>to", "<cmd>tabonly<cr>")
 -- buffers
 map("n", "<leader>bN", "<cmd>enew<CR>", { desc = "new buffer" })
 map("n", "<leader>x", function() require("bufdelete").bufdelete(0, true) end, { desc = "delete this buffer" })
-map("n", "<leader>bn", "<cmd>BufferLineCycleNext<CR>", { desc = "next buffer", silent = true })
-map("n", "<leader>bp", "<cmd>BufferLineCyclePrev<CR>", { desc = "previous buffer", silent = true })
+map("n", "<Tab>", "<cmd>BufferLineCycleNext<CR>", { desc = "next buffer", silent = true })
+map("n", "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", { desc = "previous buffer", silent = true })
 
 -- Comment
 map("n", "<leader>/", "gcc", { desc = "toggle comment", remap = true })
@@ -80,6 +80,16 @@ map("i", "<C-c>", "<Esc>")
 map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 map("n", "<C-k>", "<cmd>cnext<CR>zz")
 map("n", "<C-j>", "<cmd>cprev<CR>zz")
+
+-- obsidian stuff
+-- map("n", "<leader>oo", ":cd" .. OBSIDIAN_NOTES_DIR .. "<CR>", { desc = "jump to notes directory" })
+-- map("n", "<leader>on", function()
+--     local current_file = vim.fn.expand("%:p")
+-- if string.find(current_file, OBSIDIAN_NOTES_DIR, 1, true) then
+--     vim.cmd(
+-- end
+
+
 -- these overwrite harpoon keybindings. Need to figure out where to remap these
 -- map("n", "<leader>k", "<cmd>lnext<CR>zz")
 -- map("n", "<leader>j", "<cmd>lprev<CR>zz")

@@ -1,11 +1,11 @@
-#                        border             background          text                indicator       child bdr
-client.focused	         {{ green }}        {{ background }}    {{ current_line }}  {{ orange }}	{{ green }}
-client.focused_inactive	 {{ surface0 }}     {{ peach }}         {{ mantle }}	    {{ surface0 }}	    {{ surface0 }}
-client.unfocused	     {{ surface0 }}     {{ peach }}           {{ mantle }}	    {{ surface0 }}	    {{ surface0 }}
-client.urgent	         {{ red }}          {{ red }}         {{ mantle }}	    {{ red }}       {{ red }}
-client.placeholder	     {{ surface0 }}     {{ peach }}         {{ mantle }}	    {{ mauve }}	    {{ mauve }}
+#                        border             background          text            indicator       child bdr
+client.focused	         {{ green }}        {{ background }}    {{ comment }}  {{ green }}	    {{ green }}
+client.focused_inactive	 {{ purple }}       {{ background }}    {{ comment }}  {{ purple }}	    {{ purple }}
+client.unfocused	     {{ purple }}       {{ background }}    {{ comment }}  {{ purple }}	    {{ purple }}
+client.urgent	         {{ red }}          {{ background }}    {{ comment }}  {{ red }}        {{ red }}
+client.placeholder	     {{ purple }}       {{ background }}    {{ comment }}  {{ purple }}	    {{ purple }}
 
-client.background	{{ crust }}
+client.background	{{ background }}
 
 # Gaps
 gaps inner 10

@@ -12,6 +12,8 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
+        "f3fora/cmp-spell",
+        "Dynge/gitmoji.nvim",
     },
 
     config = function()
@@ -64,41 +66,43 @@ return {
             mapping = cmp.mapping.preset.insert({
                 ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
                 ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+                ['<C-j>'] = cmp.mapping.select_prev_item(cmp_select),
+                ['<C-k>'] = cmp.mapping.select_next_item(cmp_select),
                 ['<C-y>'] = cmp.mapping.confirm({ select = true }),
                 ['<C-space>'] = cmp.mapping.complete(),
-                ['<CR>'] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        if luasnip.expandable() then
-                            luasnip.expand()
-                        else
-                            cmp.confirm({
-                                select = true,
-                            })
-                        end
-                    else
-                        fallback()
-                    end
-                end),
+                -- ['<CR>'] = cmp.mapping(function(fallback)
+                --     if cmp.visible() then
+                --         if luasnip.expandable() then
+                --             luasnip.expand()
+                --         else
+                --             cmp.confirm({
+                --                 select = true,
+                --             })
+                --         end
+                --     else
+                --         fallback()
+                --     end
+                -- end),
 
-                ["<Tab>"] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_next_item()
-                    elseif luasnip.locally_jumpable(1) then
-                        luasnip.jump(1)
-                    else
-                        fallback()
-                    end
-                end, { "i", "s" }),
-
-                ["<S-Tab>"] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_prev_item()
-                    elseif luasnip.locally_jumpable(-1) then
-                        luasnip.jump(-1)
-                    else
-                        fallback()
-                    end
-                end, { "i", "s" }),
+                -- ["<Tab>"] = cmp.mapping(function(fallback)
+                --     if cmp.visible() then
+                --         cmp.select_next_item()
+                --     elseif luasnip.locally_jumpable(1) then
+                --         luasnip.jump(1)
+                --     else
+                --         fallback()
+                --     end
+                -- end, { "i", "s" }),
+                --
+                -- ["<S-Tab>"] = cmp.mapping(function(fallback)
+                --     if cmp.visible() then
+                --         cmp.select_prev_item()
+                --     elseif luasnip.locally_jumpable(-1) then
+                --         luasnip.jump(-1)
+                --     else
+                --         fallback()
+                --     end
+                -- end, { "i", "s" }),
             }),
 
             sources = cmp.config.sources({
@@ -106,6 +110,9 @@ return {
                 { name = 'luasnip' },
                 { name = 'buffer' },
                 { name = 'render-markdown' },
+                { name = 'obsidian' },
+                { name = 'spell' },
+                { name = 'gitmoji' },
             })
         })
 
@@ -120,6 +127,28 @@ return {
             }
         })
 
+        -- `/` cmdline setup.
+        cmp.setup.cmdline("/", {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = {
+                { name = "buffer" },
+            },
+        })
+
+        -- `:` cmdline setup.
+        cmp.setup.cmdline(":", {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources({
+                { name = "path" },
+            }, {
+                {
+                    name = "cmdline",
+                    option = {
+                        ignore_cmds = { "Man", "!" },
+                    },
+                },
+            }),
+        })
 
         map("n", "<leader>fm", function()
             require("conform").format({ lsp_fallback = true })

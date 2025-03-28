@@ -18,8 +18,8 @@ nvim:
   template_path: default_configs/nvim
   colorscheme: melange
   overwrite:
-    - from: melange.lua
-      to: nvim/lua/plugins/melange.lua
+    - from: theme.lua
+      to: nvim/lua/theme_overwrite.lua
 
 tmux: {}
 
