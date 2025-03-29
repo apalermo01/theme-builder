@@ -113,6 +113,7 @@ return {
                 { name = 'obsidian' },
                 { name = 'spell' },
                 { name = 'gitmoji' },
+                { name = 'path' }
             })
         })
 
