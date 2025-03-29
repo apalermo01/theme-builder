@@ -20,7 +20,7 @@ nvim:
   colorscheme: catppuccin
   overwrite:
     - from: theme.lua
-      to: nvim/lua/theme_overwrite.lua
+      to: nvim/lua/config/theme.lua
     # - from: edulsp.lua
     #   to: nvim/lua/edulsp.lua
 

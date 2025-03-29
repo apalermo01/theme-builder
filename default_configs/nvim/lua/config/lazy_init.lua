@@ -16,7 +16,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	spec = {
 		{ import = "config.lazy" },
-        { import = "theme_overwrite" }
+        { import = "config.theme" }
 	},
 	change_detection = { notify = false }
 })

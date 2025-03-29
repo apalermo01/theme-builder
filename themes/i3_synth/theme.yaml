@@ -5,18 +5,40 @@ wallpaper:
   method: feh
   file: synth.jpg
 
+font_family: JetBrains NF Mono
+
+i3: 
+  append: 
+    - from: config
+      to: i3/config
+
+polybar: 
+  bars: [left, center, right, tray]
+
 nvim:
   template_path: default_configs/nvim
-  # colorscheme: dracula
-  # overwrite:
-  #   - from: theme.lua
-  #     to: nvim/lua/theme_overwrite.lua
+  overwrite:
+    - from: theme.lua
+      to: nvim/lua/config/theme.lua
  
-tmux: {}
+tmux: 
+  append: 
+    - from: tmux.conf
+      to: tmux/.tmux.conf
 
-kitty: {}
+rofi: 
+  template_path: ./themes/i3_synth/rofi/
 
 fish:
   feats:
-    - cowsay_fortune,
+    - cowsay_fortune
     - run_pywal
+
+kitty: {}
+
+picom: 
+  template_path: ./themes/i3_synth/picom/
+
+theme_scripts: 
+  path: ./themes/i3_synth/scripts/
+
