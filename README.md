@@ -16,6 +16,10 @@ theme-specific folder.
 
 ![Screenshot for minimal theme](themes/i3_minimal/i3_minimal_screenshot.png)
 
+
+https://github.com/user-attachments/assets/4556e1a2-8e1f-4903-9539-e09ff9867280
+
+
 # Disclaimer
 
 This project is primarily for personal use and I take no responsibility for
