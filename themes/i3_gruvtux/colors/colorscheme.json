@@ -1,0 +1,17 @@
+{
+    "bg": "#282828",
+    "red": "#CC241D",
+    "green": "#98971A",
+    "yellow": "#D79921",
+    "blue": "#458488",
+    "purple": "#B16286",
+    "aqua": "#689D6A",
+    "orange": "#D65D0E",
+    "foreground": "#1D2021",
+    "backgroundHard": "#1D2021",
+    "backgroundSoft": "#32302F",
+    "background1": "#3C3836",
+    "background2": "#504945",
+    "background3": "#665C54",
+    "background4": "#7C6F64"
+}
