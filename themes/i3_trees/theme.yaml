@@ -19,7 +19,7 @@ nvim:
   colorscheme: everforest
   overwrite:
     - from: theme.lua
-      to: nvim/lua/theme.lua
+      to: nvim/lua/config/theme.lua
 
 tmux:
   append:
