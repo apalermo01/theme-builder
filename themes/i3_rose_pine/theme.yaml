@@ -1,0 +1,54 @@
+colors:
+  method: manual
+
+font_family: JetBrains NF Mono
+
+wallpaper:
+  method: feh
+  file: leafy.png
+
+font_family: JetBrains NF Mono
+
+i3: 
+  append: 
+    - from: config
+      to: i3/config
+
+polybar: 
+  bars: [left, center, right, tray]
+
+nvim:
+  template_path: default_configs/nvim
+  colorscheme: rose-pine
+  overwrite:
+    - from: theme.lua
+      to: nvim/lua/config/theme.lua
+ 
+tmux: 
+  append: 
+    - from: tmux.conf
+      to: tmux/.tmux.conf
+
+rofi: 
+  template_path: ./themes/i3_rose_pine/rofi/
+
+fish:
+  feats:
+    - fastfetch
+  append:
+    - from: config.fish
+      to: fish/config.fish
+
+fastfetch: 
+  overwrite: 
+    - from: config.jsonc
+      to: fastfetch/config.jsonc
+
+kitty: {}
+
+picom: 
+  template_path: ./themes/i3_rose_pine/picom/
+
+theme_scripts: 
+  path: ./themes/i3_rose_pine/scripts/
+
