@@ -5,9 +5,7 @@ font_family: JetBrains NF Mono
 
 wallpaper:
   method: feh
-  file: spookyjs_upscayl_realesrgan-x4plus_x2.png
-
-font_family: JetBrains NF Mono
+  file: wallhaven-zy3l5o.jpg
 
 i3: 
   append: 
@@ -19,7 +17,7 @@ polybar:
 
 nvim:
   template_path: default_configs/nvim
-  colorscheme: tokyonight
+  colorscheme: cyberdream
   overwrite:
     - from: theme.lua
       to: nvim/lua/config/theme.lua
@@ -28,9 +26,12 @@ tmux:
   append: 
     - from: tmux.conf
       to: tmux/.tmux.conf
+  overwrite:
+    - from: cyberdream.conf
+      to: tmux/cyberdream.conf
 
 rofi: 
-  template_path: ./themes/i3_tokyonight/rofi/
+  template_path: ./themes/i3_cyberdream/rofi/
 
 fish:
   feats:
@@ -38,6 +39,10 @@ fish:
   append:
     - from: config.fish
       to: fish/config.fish
+  overwrite:
+    - from: cyberdream.theme
+      to: fish/cyberdream.theme
+
 
 fastfetch: 
   overwrite: 
@@ -46,15 +51,15 @@ fastfetch:
 
 kitty:
   overwrite:
-    - from: tokyonight.conf
-      to: kitty/tokyonight.conf
+    - from: cyberdream.conf
+      to: kitty/themes/cyberdream.conf
   append:
     - from: kitty.conf
       to: kitty/kitty.conf
 
 picom: 
-  template_path: ./themes/i3_tokyonight/picom/
+  template_path: ./themes/i3_cyberdream/picom/
 
 theme_scripts: 
-  path: ./themes/i3_tokyonight/scripts/
+  path: ./themes/i3_cyberdream/scripts/
 
