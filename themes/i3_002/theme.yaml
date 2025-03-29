@@ -19,7 +19,7 @@ nvim:
   colorscheme: melange
   overwrite:
     - from: theme.lua
-      to: nvim/lua/theme_overwrite.lua
+      to: nvim/lua/config/theme.lua
 
 tmux: {}
 

@@ -263,7 +263,10 @@ def copy_theme(
         path = config["theme_scripts"]["path"]
         for file in sorted(os.listdir(path)):
             subprocess.call(os.path.join(path, file))
-
+    print("Theme migration complete!")
+    print("If using i3 and / or tmux, you'll have to refresh each of those " + \
+          "to see the changes take effect ($mod+shift+r, <leader>I, " + \
+          "respectively.)")
 
 def parse_args():
     parser = argparse.ArgumentParser()

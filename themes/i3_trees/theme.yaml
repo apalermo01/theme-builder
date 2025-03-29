@@ -8,7 +8,8 @@ i3:
     - from: config
       to: i3/config
 
-polybar: {}
+polybar: 
+  bars: [main]
 
 wallpaper:
   method: feh

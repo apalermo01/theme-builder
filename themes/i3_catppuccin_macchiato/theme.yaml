@@ -19,7 +19,7 @@ nvim:
   template_path: default_configs/nvim
   colorscheme: catppuccin-macchiato
   overwrite:
-    - from: theme_overwrite.lua
+    - from: theme.lua
       to: nvim/lua/config/theme.lua
   # append:
   #   - from: edulsp.lua
