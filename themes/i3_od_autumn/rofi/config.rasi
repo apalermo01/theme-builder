@@ -41,12 +41,13 @@ window {
 }
 
 mainbox {
-  childern: [inputbar, message, listview];
+  children: [inputbar, message, listview];
 }
 
 inputbar {
   padding: 10px 10px;
   children: [entry, case-indicator];
+  text-color: @green;
 }
 
 prompt {

@@ -7,7 +7,7 @@ wallpaper:
   method: feh
   file: od_autumn.jpg
 
-font_family: JetBrains NF Mono
+font_family: Maple Mono
 
 i3: 
   append: 
@@ -19,6 +19,7 @@ polybar:
 
 nvim:
   template_path: default_configs/nvim
+  colorscheme: onedark_vivid
   overwrite:
     - from: theme.lua
       to: nvim/lua/config/theme.lua

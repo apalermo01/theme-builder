@@ -31,11 +31,6 @@
             "keyColor": "yellow"
         },
         {
-            "type": "packages",
-            "key": "├󰏖",
-            "keyColor": "yellow"
-        },
-        {
             "type": "shell",
             "key": "└",
             "keyColor": "yellow"
@@ -45,21 +40,6 @@
         {
             "type": "wm",
             "key": " DE/WM",
-            "keyColor": "blue"
-        },
-        {
-            "type": "lm",
-            "key": "├󰧨",
-            "keyColor": "blue"
-        },
-        {
-            "type": "wmtheme",
-            "key": "├󰉼",
-            "keyColor": "blue"
-        },
-        {
-            "type": "icons",
-            "key": "├󰀻",
             "keyColor": "blue"
         },
         {
@@ -102,16 +82,6 @@
         {
             "type": "swap",
             "key": "├󰓡",
-            "keyColor": "green"
-        },
-        {
-            "type": "display",
-            "key": "├󰍹",
-            "keyColor": "green"
-        },
-        {
-            "type": "uptime",
-            "key": "└󰅐",
             "keyColor": "green"
         },
 
