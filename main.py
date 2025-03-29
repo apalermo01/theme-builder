@@ -44,7 +44,11 @@ def get_theme_config(theme_path: str) -> dict:
     raise ValueError("theme file not found!")
 
 
-def build_theme(theme_name: str, test: bool, orient: str):
+def build_theme(theme_name: str,
+                test: bool,
+                orient: str,
+                nvim_only: bool = False,
+                wsl_compat: bool = False):
 
     if test:
         theme_path: str = os.path.join("tests", theme_name)
@@ -90,6 +94,13 @@ def build_theme(theme_name: str, test: bool, orient: str):
         "alacritty",
         "fastfetch"
     ]
+
+    if nvim_only:
+        order = ['colors', "nvim"]
+    
+    if wsl_compat:
+        order = ['colors', "nvim", "tmux", "bash", "fastfetch"]
+
     for key in order:
         if key in config:
             logger.info(f"processing {key}")
@@ -126,6 +137,8 @@ def copy_theme(
     destination_root: str,
     orient: Literal["roles", "config"],
     config: dict,
+    nvim_only: bool = False,
+    wsl_compat: bool = False,
 ):
     """
     tools: dictionary of tools that have been updated
@@ -168,6 +181,13 @@ def copy_theme(
         backup_root = None
 
     for t in tools:
+
+        if nvim_only and t not in ['colors', 'nvim']: 
+            continue 
+        
+        if wsl_compat and t not in ['colors', 'nvim', 'fastfetch', 'tmux', 'bash']:
+            continue
+
         print("processing", t)
 
         # TODO: abstract out list of roles / tools to skip
@@ -233,17 +253,20 @@ def copy_theme(
                     os.path.join(destination_path, file),
                 )
 
-    if "scripts" in config:
+    if "scripts" in config and not nvim_only and not wsl_compat:
         root = destination_root
         if orient == "roles":
             root = os.path.join(root, "scripts")
         parse_scripts(config, root)
 
-    if "theme_scripts" in config:
+    if "theme_scripts" in config and not nvim_only and not wsl_compat:
         path = config["theme_scripts"]["path"]
         for file in sorted(os.listdir(path)):
             subprocess.call(os.path.join(path, file))
-
+    print("Theme migration complete!")
+    print("If using i3 and / or tmux, you'll have to refresh each of those " + \
+          "to see the changes take effect ($mod+shift+r, <leader>I, " + \
+          "respectively.)")
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -262,6 +285,14 @@ def parse_args():
         "--destination-structure", default="roles", choices=["roles", "config"]
     )
 
+    parser.add_argument(
+            "--nvim-only", default=False, action=argparse.BooleanOptionalAction
+    )
+
+    parser.add_argument(
+            "--wsl-compat", default=False, action=argparse.BooleanOptionalAction
+    )
+
     args = parser.parse_args()
     return args
 
@@ -270,7 +301,7 @@ def main():
     args = parse_args()
     theme_name = args.theme
     tools_updated, theme_path, config = build_theme(
-        theme_name, args.test, args.destination_structure
+        theme_name, args.test, args.destination_structure, args.nvim_only, args.wsl_compat
     )
 
     if args.migration_method == "none":
@@ -284,6 +315,8 @@ def main():
             args.destination_root,
             args.destination_structure,
             config,
+            args.nvim_only,
+            args.wsl_compat
         )
 
 

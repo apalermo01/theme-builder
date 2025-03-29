@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/Documents/git/theme-builder/env/bin/activate 
+source $(pwd)/env/bin/activate 
 
 python main.py --theme $1 \
                --no-test \

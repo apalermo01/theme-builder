@@ -1,0 +1,22 @@
+
+#                        border             background          text            indicator       child bdr
+client.focused	         {{ mauve }}        {{ peach }}         {{ mantle }}      {{ mauve }}	    {{ mauve }}
+client.focused_inactive	 {{ surface0 }}     {{ peach }}         {{ mantle }}	    {{ surface0 }}	    {{ surface0 }}
+client.unfocused	     {{ surface0 }}     {{ peach }}           {{ mantle }}	    {{ surface0 }}	    {{ surface0 }}
+client.urgent	         {{ red }}          {{ red }}         {{ mantle }}	    {{ red }}       {{ red }}
+client.placeholder	     {{ surface0 }}     {{ peach }}         {{ mantle }}	    {{ mauve }}	    {{ mauve }}
+
+client.background	{{ crust }}
+
+# Gaps
+gaps inner 10
+gaps top 35
+new_window pixel 5
+new_float normal
+
+floating_modifier $mod
+
+# set power-manager and volume control
+exec --no-startup-id mate-power-manager
+
+focus_follows_mouse no

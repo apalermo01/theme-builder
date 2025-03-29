@@ -16,6 +16,10 @@ theme-specific folder.
 
 ![Screenshot for minimal theme](themes/i3_minimal/i3_minimal_screenshot.png)
 
+
+https://github.com/user-attachments/assets/4556e1a2-8e1f-4903-9539-e09ff9867280
+
+
 # Disclaimer
 
 This project is primarily for personal use and I take no responsibility for
@@ -37,11 +41,15 @@ python -m venv env
 source ./env/bin/activate 
 pip install -r requirements.txt
 chmod +x ./switch_theme.sh
+chmod +x ./switch_theme_nvim_only.sh
+chmod +x ./switch_theme_wsl_compat.sh
+chmod +x ./random_theme.sh
+
 ```
 
 ## Changing Themes
 
-To switch between theme, run the switch_theme script:
+**Switch between any two themes**
 
 ```bash
 ./switch_theme.sh <theme name>
@@ -59,6 +67,22 @@ python main.py --theme i3_catppuccin \        # theme names found in the themes 
                
 
 ```
+
+**Only update neovim configuration**
+```bash
+./switch_theme_nvim_only.sh <theme_name>
+```
+
+**Switch a theme in wsl (only updates neovim, fastfetch, bash, and tmux)**
+```bash
+./switch_theme_wsl_compat.sh <theme_name>
+```
+
+**Select a random theme (does not create a backup)**
+```bash
+./random_theme.sh
+```
+
 
 # Configuration 
 
@@ -90,8 +114,6 @@ live in `./themes/theme_name/i3/config`.
 - [ ] zathura
 - [ ] firefox (if possible)
 - [ ] zen (if possible)
-
-
 
 # Credits
 Big thanks to Stavros Grigoriou (stav121) for providing the initial inspiration

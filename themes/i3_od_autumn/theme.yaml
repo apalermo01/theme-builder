@@ -1,0 +1,52 @@
+colors:
+  method: manual
+
+font_family: JetBrains NF Mono
+
+wallpaper:
+  method: feh
+  file: od_autumn.jpg
+
+font_family: Maple Mono
+
+i3: 
+  append: 
+    - from: config
+      to: i3/config
+
+polybar: 
+  bars: [left, center, right, tray]
+
+nvim:
+  template_path: default_configs/nvim
+  colorscheme: onedark_vivid
+  overwrite:
+    - from: theme.lua
+      to: nvim/lua/config/theme.lua
+ 
+tmux: 
+  append: 
+    - from: tmux.conf
+      to: tmux/.tmux.conf
+
+rofi: 
+  template_path: ./themes/i3_od_autumn/rofi/
+
+fish:
+  feats:
+    - fastfetch
+
+kitty:
+  overwrite:
+    - from: onedark.conf
+      to: kitty/onedark.conf
+  append:
+    - from: kitty.conf
+      to: kitty/kitty.conf
+
+picom: 
+  template_path: ./themes/i3_od_autumn/picom/
+
+theme_scripts: 
+  path: ./themes/i3_od_autumn/scripts/
+

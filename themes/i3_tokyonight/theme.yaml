@@ -1,0 +1,60 @@
+colors:
+  method: manual
+
+font_family: JetBrains NF Mono
+
+wallpaper:
+  method: feh
+  file: spookyjs_upscayl_realesrgan-x4plus_x2.png
+
+font_family: JetBrains NF Mono
+
+i3: 
+  append: 
+    - from: config
+      to: i3/config
+
+polybar: 
+  bars: [left, center, right, tray]
+
+nvim:
+  template_path: default_configs/nvim
+  colorscheme: tokyonight
+  overwrite:
+    - from: theme.lua
+      to: nvim/lua/config/theme.lua
+ 
+tmux: 
+  append: 
+    - from: tmux.conf
+      to: tmux/.tmux.conf
+
+rofi: 
+  template_path: ./themes/i3_tokyonight/rofi/
+
+fish:
+  feats:
+    - fastfetch
+  append:
+    - from: config.fish
+      to: fish/config.fish
+
+fastfetch: 
+  overwrite: 
+    - from: config.jsonc
+      to: fastfetch/config.jsonc
+
+kitty:
+  overwrite:
+    - from: tokyonight.conf
+      to: kitty/tokyonight.conf
+  append:
+    - from: kitty.conf
+      to: kitty/kitty.conf
+
+picom: 
+  template_path: ./themes/i3_tokyonight/picom/
+
+theme_scripts: 
+  path: ./themes/i3_tokyonight/scripts/
+

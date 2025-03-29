@@ -17,10 +17,8 @@ nvim:
   template_path: default_configs/nvim/
   colorscheme: nord
   overwrite:
-    - from: nord.lua
-      to: nvim/lua/plugins/nord.lua
-    - from: lualine.lua
-      to: nvim/lua/plugins/lualine.lua
+    - from: theme.lua
+      to: nvim/lua/config/theme.lua
 
 tmux: {}
 

@@ -1,0 +1,20 @@
+
+nvim:
+  template_path: default_configs/nvim
+  colorscheme: dracula
+  overwrite:
+    - from: theme.lua
+      to: nvim/lua/theme_overwrite.lua
+
+tmux:
+  append:
+    - from: tmux.conf 
+      to: tmux/.tmux.conf 
+
+fastfetch:
+  overwrite:
+    - from: config.jsonc 
+      to: fastfetch/config.jsonc
+
+bash: {}
+

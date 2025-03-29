@@ -16,6 +16,7 @@ def parse_fish(
     logger.info("Loading fish...")
 
     feats = config["fish"].get("feats", [])
+    logger.warning(f"feats = {feats}") 
 
     if "wallpaper" in config:
         wallpaper_file = config["wallpaper"]["file"]

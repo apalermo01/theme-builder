@@ -1,0 +1,19 @@
+
+nvim:
+  template_path: default_configs/nvim-v2
+  # overwrite:
+  #   - from: theme.lua
+  #     to: nvim/lua/theme.lua
+
+tmux:
+  append:
+    - from: tmux.conf 
+      to: tmux/.tmux.conf 
+
+fastfetch:
+  overwrite:
+    - from: config.jsonc 
+      to: fastfetch/config.jsonc
+
+bash: {}
+
