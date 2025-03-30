@@ -54,33 +54,31 @@ autocmd('LspAttach', {
     end
 })
 
-vim.api.nvim_create_autocmd("BufWritePost", {
-    pattern = "*.md",
-    callback = function()
-        local path = vim.api.nvim_buf_get_name(0)
-        if not string.find(path, "templates/note.md") then
-            local current_date = os.date("%Y-%m-%d")
-            local file = vim.fn.expand("%:p")
-            local content = vim.fn.readfile(file)
-            local in_frontmatter = false
-            for i, line in ipairs(content) do
-                if line:match("^---") then
-                    in_frontmatter = true
-                elseif line:match("^---") and in_frontmatter then
-                    break
-                end
-                if line:match("^date_modified:*") and in_frontmatter then
-                    content[i] = "date_modified: " .. current_date
-                    break
-                end
-            end
-            vim.fn.writefile(content, file)
-            vim.cmd("edit!")
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.md",
+  callback = function()
+    local path = vim.api.nvim_buf_get_name(0)
+    if not string.find(path, "templates/note.md") then
+      local current_date = os.date("%Y-%m-%d")
+      local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+
+      local in_frontmatter = false
+      for i, line in ipairs(lines) do
+        if line:match("^---") then
+          if in_frontmatter then
+            break
+          else
+            in_frontmatter = true
+          end
+        elseif in_frontmatter and line:match("^date_modified:") then
+          lines[i] = "date_modified: " .. current_date
+          vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+          break
         end
-    end,
+      end
+    end
+  end,
 })
-
-
 
 vim.g.netrw_browse_split = 0
 vim.g.netrw_winsize = 25

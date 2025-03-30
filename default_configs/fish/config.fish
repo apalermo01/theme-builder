@@ -13,7 +13,7 @@ export PATH="/opt/Discord:$PATH"
 # https://www.youtube.com/watch?v=1Lmyh0YRH-w
 set NOTES_PATH "/home/alex/Documents/git/notes/"
 
-function onc -d "Create a new note for obsidian"
+function ont -d "Create a new note for PKM system in technncial folder"
     if test (count $argv) -gt 1
         echo "Too many arguments. Wrap file name in quotes"
         return
@@ -21,8 +21,8 @@ function onc -d "Create a new note for obsidian"
         set file_name $(echo $argv[1] | tr ' ' '-')
         set formatted_file_name $(date "+%Y-%m-%d")_$file_name.md
         cd $NOTES_PATH
-        touch "0-notes/0-inbox/$formatted_file_name"
-        nvim "0-notes/0-inbox/$formatted_file_name"
+        touch "0-technical-notes/0-inbox/$formatted_file_name"
+        nvim "0-technical-notes/0-inbox/$formatted_file_name"
         echo "file name: " $file_name
     else
         echo "Expected an argument!"
@@ -30,7 +30,7 @@ function onc -d "Create a new note for obsidian"
     end
 end
 
-function onp -d "Create a new note for obsidian (personal section)"
+function onp -d "Create a new note for PKM system in non-technical folder"
     if test (count $argv) -gt 1
         echo "Too many arguments. Wrap file name in quotes"
         return
@@ -38,8 +38,8 @@ function onp -d "Create a new note for obsidian (personal section)"
         set file_name $(echo $argv[1] | tr ' ' '-')
         set formatted_file_name $(date "+%Y-%m-%d")_$file_name.md
         cd $NOTES_PATH
-        touch "1-notes-personal/0-inbox/$formatted_file_name"
-        nvim "1-notes-personal/0-inbox/$formatted_file_name"
+        touch "1-notes/0-inbox/$formatted_file_name"
+        nvim "1-notes/0-inbox/$formatted_file_name"
         echo "file name: " $file_name
     else
         echo "Expected an argument!"
@@ -48,7 +48,8 @@ function onp -d "Create a new note for obsidian (personal section)"
 end
 
 function og -d "Move notes based on tags" 
-    set VAULTS 0-notes 1-notes-personal 
+    set VAULTS 0-technical-notes 1-notes
+
     for VAULT_NAME in $VAULTS
         find "$NOTES_PATH/$VAULT_NAME/5-full-notes/" -type f -name '*.md' -not -path "*tags*"| while read -l file;
             set tag $(awk -F': ' '/^type:/{print $2; exit}' "$file" | sed -e 's/^ *//;s/ *$//')

@@ -6,12 +6,14 @@ return {
 	},
 	opts = {
 		file_types = { "markdown", "md" },
+        log_level = 'info',
+        -- log_runtime = true,
 		preset = "obsidian",
         enabled = true,
 		heading = {
 			enabled = true,
 			width = "block",
-			borer = true,
+			border = true,
 		},
 		checkbox = {
 			custom = {
