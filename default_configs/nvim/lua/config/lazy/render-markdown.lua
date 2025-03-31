@@ -6,12 +6,14 @@ return {
 	},
 	opts = {
 		file_types = { "markdown", "md" },
+        log_level = 'info',
+        -- log_runtime = true,
 		preset = "obsidian",
         enabled = true,
 		heading = {
 			enabled = true,
 			width = "block",
-			borer = true,
+			border = true,
 		},
 		checkbox = {
 			custom = {
@@ -22,8 +24,8 @@ return {
 		dash = {
 			enabled = true,
 		},
-        completions = { lsp = { enabled = true } },
-        render_modes = { 'n', 'c', 't' },
+        completions = { lsp = { enabled = false } },
+        render_modes = { 'n' },
 
 	},
 }

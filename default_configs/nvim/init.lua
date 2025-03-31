@@ -6,3 +6,5 @@ OBSIDIAN_TEMPLATE_FOLDER = os.getenv("OBSIDIAN_TEMPLATE_FOLDER") or "5-templates
 map = vim.keymap.set
 
 require("config")
+-- local log = require('cmp.utils.debug').log
+-- log.enable('DEBUG')  

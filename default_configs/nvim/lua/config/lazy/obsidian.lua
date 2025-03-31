@@ -17,20 +17,27 @@ return {
 		},
 		workspaces = {
 			{
-				name = "notes",
-				path = OBSIDIAN_NOTES_DIR,
+				name = "technical notes",
+				path = OBSIDIAN_NOTES_DIR .. "/0-technical-notes",
 				overrides = {
-					notes_subdir = OBSIDIAN_NOTES_SUBDIR,
+					notes_subdir = "0-inbox"
+				},
+			},
+			{
+				name = "notes",
+				path = OBSIDIAN_NOTES_DIR .. "/1-notes",
+				overrides = {
+					notes_subdir = "0-inbox"
 				},
 			},
 		},
-		disable_frontmatter = true,
+		disable_frontmatter = false,
 		templates = {
 			folder = OBSIDIAN_TEMPLATE_FOLDER,
 			date_format = "%Y-%m-%d",
 			time_format = "%H:%M",
 		},
-		new_notes_location = "notes_subdir",
+		new_notes_location = "current_dir",
 		notes_subdir = OBSIDIAN_NOTES_SUBDIR,
 
 		note_id_func = function(title)
@@ -65,25 +72,25 @@ return {
 
 	{
 		"<leader>okc",
-		":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-notes/5-full-notes<cr>:bd<CR>",
+		":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-technical-notes/5-full-notes<cr>:bd<CR>",
 		"n",
 		desc = "move to craft notes",
 	},
 	{
 		"<leader>okp",
-		":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/1-notes-personal/5-full-notes<cr>:bd<CR>",
+		":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/1-notes/5-full-notes<cr>:bd<CR>",
 		"n",
 		desc = "move to personal notes",
 	},
 	{
 		"<leader>osc",
-		":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-notes/2-source-material<cr>:bd<CR>",
+		":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-technical-notes/2-source-material<cr>:bd<CR>",
 		"n",
 		desc = "move to source material",
 	},
 	{
 		"<leader>osp",
-		":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/1-notes-personal/2-source-material<cr>:bd<CR>",
+		":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/1-notes/2-source-material<cr>:bd<CR>",
 		"n",
 		desc = "move to source material (personal)",
 	},

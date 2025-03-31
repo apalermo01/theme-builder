@@ -46,6 +46,14 @@ autocmd('LspAttach', {
         map("n", "]d", function() vim.lsp.buf.goto_prev() end, opts)
 
         if client.name == 'markdown_oxide' then
+            map("n", "<leader>lrn", function()
+                local file = vim.api.nvim_buf_get_name(0)
+                if not file:find(OBSIDIAN_NOTES_DIR, 1, true) then
+                    vim.notify("Not in an Obsidian vault. Rename aborted.", vim.log.levels.WARN)
+                    return
+                end
+                vim.lsp.buf.rename()
+            end, { desc = "safe rename" })
             map("n", "gf", function() vim.lsp.buf.definition() end,
                 { buffer = buf, desc = "lsp: go to definition" })
             -- backlinks
@@ -54,33 +62,52 @@ autocmd('LspAttach', {
     end
 })
 
-vim.api.nvim_create_autocmd("BufWritePost", {
+vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = "*.md",
     callback = function()
         local path = vim.api.nvim_buf_get_name(0)
         if not string.find(path, "templates/note.md") then
             local current_date = os.date("%Y-%m-%d")
-            local file = vim.fn.expand("%:p")
-            local content = vim.fn.readfile(file)
+            local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+
             local in_frontmatter = false
-            for i, line in ipairs(content) do
+            for i, line in ipairs(lines) do
                 if line:match("^---") then
-                    in_frontmatter = true
-                elseif line:match("^---") and in_frontmatter then
-                    break
-                end
-                if line:match("^date_modified:*") and in_frontmatter then
-                    content[i] = "date_modified: " .. current_date
+                    if in_frontmatter then
+                        break
+                    else
+                        in_frontmatter = true
+                    end
+                elseif in_frontmatter and line:match("^date_modified:") then
+                    lines[i] = "date_modified: " .. current_date
+                    vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
                     break
                 end
             end
-            vim.fn.writefile(content, file)
-            vim.cmd("edit!")
         end
     end,
 })
 
-
-
 vim.g.netrw_browse_split = 0
 vim.g.netrw_winsize = 25
+
+
+-- Automatic file / heading renaming
+local function get_vault_root(fname)
+    local paths = {
+        "0-technical-notes",
+        "1-notes",
+    }
+    for _, sub in ipairs(paths) do
+        local full = OBSIDIAN_NOTES_DIR .. "/" .. sub
+        if fname:find(full, 1, true) then return full end
+    end
+    return vim.fn.getcwd()
+end
+
+require("lspconfig").markdown_oxide.setup({
+    capabilities = capabilities,
+    root_dir = function(fname)
+        return get_vault_root(fname)
+    end,
+})
