@@ -5,7 +5,7 @@ import os
 import shutil
 import subprocess
 from datetime import datetime
-from typing import Literal
+from typing import Literal, Optional
 
 import yaml
 
@@ -268,12 +268,85 @@ def copy_theme(
           "to see the changes take effect ($mod+shift+r, <leader>I, " + \
           "respectively.)")
 
+def move_to_dotfiles(tools,
+                     orient,
+                     theme_name,
+                     dotfiles_path,
+                     ):
+    with open("./configs/paths.yaml", "r") as f:
+        path_config = yaml.safe_load(f)
+    original_dir = os.getcwd()
+    os.chdir(dotfiles_path)
+    subprocess.run(["git", "checkout", "-B", theme_name])
+    os.chdir(original_dir)
+
+    # return
+    for t in tools:
+        print("processing", t)
+
+        # TODO: abstract out list of roles / tools to skip
+        if t in ["colors", "wallpaper"]:
+            continue
+
+        # check how we're structuring the destination path
+        if orient == "roles":
+            destination_path = os.path.join(dotfiles_path, t)
+            sub_path = t
+
+        else:
+            destination_path = os.path.join(
+                dotfiles_path, path_config[t].get("config_path", "")
+            )
+            sub_path = path_config[t]["config_path"]
+
+        # get the source path
+        source_path = tools[t]["destination_dir"]
+
+        # make backup
+        if len(sub_path) > 0:
+            print("sub path is not empty")
+            print(f"moving {source_path} to {destination_path}")
+            shutil.copytree(source_path, destination_path, dirs_exist_ok=True)
+
+        else:
+            print("looping through files in ", source_path)
+            for file in os.listdir(source_path):
+
+                logger.info(
+                    f"copying {os.path.join(source_path, file)} to {os.path.join(destination_path, file)}"
+                )
+                shutil.copy2(
+                    os.path.join(source_path, file),
+                    os.path.join(destination_path, file),
+                )
+
+    # if "scripts" in config and not nvim_only and not wsl_compat:
+    #     root = destination_root
+    #     if orient == "roles":
+    #         root = os.path.join(root, "scripts")
+    #     parse_scripts(config, root)
+    #
+    # if "theme_scripts" in config and not nvim_only and not wsl_compat:
+    #     path = config["theme_scripts"]["path"]
+    #     for file in sorted(os.listdir(path)):
+    #         subprocess.call(os.path.join(path, file))
+    # print("Theme migration complete!")
+    # print("If using i3 and / or tmux, you'll have to refresh each of those " + \
+    #       "to see the changes take effect ($mod+shift+r, <leader>I, " + \
+    #       "respectively.)")
+    os.chdir(dotfiles_path)
+    date = datetime.now().strftime("%Y-%m-%d")
+    subprocess.run(["git", "add", ".", ])
+    subprocess.run(["git", "commit", "-m", f"{date} - {theme_name}" ])
+
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--theme")
     parser.add_argument("--test", default=True, action=argparse.BooleanOptionalAction)
 
-    parser.add_argument("--migration-method", default="none", choices=["none", "copy"])
+    parser.add_argument("--migration-method", default="none", choices=["none", "copy", "dotfiles"])
+
+    parser.add_argument("--dotfiles-path", default='/home/alex/Documents/git/dotfiles/')
 
     parser.add_argument("--destination-root", default="")
 
@@ -316,7 +389,14 @@ def main():
             args.destination_structure,
             config,
             args.nvim_only,
-            args.wsl_compat
+            args.wsl_compat,
+        )
+    if args.migration_method == "dotfiles":
+        move_to_dotfiles(
+            tools_updated,
+            args.destination_structure,
+            theme_name,
+            args.dotfiles_path,
         )
 
 

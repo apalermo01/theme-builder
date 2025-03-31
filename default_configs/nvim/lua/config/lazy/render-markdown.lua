@@ -24,8 +24,8 @@ return {
 		dash = {
 			enabled = true,
 		},
-        completions = { lsp = { enabled = true } },
-        render_modes = { 'n', 'c', 't' },
+        completions = { lsp = { enabled = false } },
+        render_modes = { 'n' },
 
 	},
 }

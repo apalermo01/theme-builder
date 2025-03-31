@@ -78,8 +78,8 @@ return {
                 { name = 'buffer' },
                 { name = 'render-markdown' },
                 { name = 'obsidian' },
-                { name = 'spell' },
-                { name = 'gitmoji' },
+                -- { name = 'spell' },
+                -- { name = 'gitmoji' },
                 { name = 'path' }
             })
         })

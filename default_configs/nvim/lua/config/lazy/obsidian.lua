@@ -31,7 +31,7 @@ return {
 				},
 			},
 		},
-		disable_frontmatter = true,
+		disable_frontmatter = false,
 		templates = {
 			folder = OBSIDIAN_TEMPLATE_FOLDER,
 			date_format = "%Y-%m-%d",
