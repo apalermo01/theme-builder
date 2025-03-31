@@ -98,8 +98,8 @@ live in `./themes/theme_name/i3/config`.
 - [x] restructure temporary dots repo 
 - [x] configure custom scripts that get moved to home directory 
 - [x] configure custom scripts that run when the theme is switched
-- [ ] make dedicated dotfiles repo 
-- [ ] make new option for builder to move dots into repo instead of directly to the final destination
+- [x] make dedicated dotfiles repo 
+- [x] make new option for builder to move dots into repo instead of directly to the final destination
 - [x] convert all theme configs to yaml
 - [ ] set up hyprland / waybar
 - [ ] write up comprehensive documentation
