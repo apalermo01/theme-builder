@@ -99,7 +99,7 @@ def build_theme(theme_name: str,
         order = ['colors', "nvim"]
     
     if wsl_compat:
-        order = ['colors', "nvim", "tmux", "bash", "fastfetch"]
+        order = ['colors', "nvim", "tmux", "bash", "fish", "fastfetch"]
 
     for key in order:
         if key in config:
@@ -259,10 +259,11 @@ def copy_theme(
             root = os.path.join(root, "scripts")
         parse_scripts(config, root)
 
-    if "theme_scripts" in config and not nvim_only and not wsl_compat:
+    if "theme_scripts" in config and not nvim_only:
         path = config["theme_scripts"]["path"]
         for file in sorted(os.listdir(path)):
             subprocess.call(os.path.join(path, file))
+
     print("Theme migration complete!")
     print("If using i3 and / or tmux, you'll have to refresh each of those " + \
           "to see the changes take effect ($mod+shift+r, <leader>I, " + \

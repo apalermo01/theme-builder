@@ -5,6 +5,7 @@ fisher install catppuccin/fish
 fish_config theme save "Catppuccin Macchiato"
 fish_config prompt save terlar
 
-bash ~/.config/polybar/i3_polybar_start.sh
-
+if test -e ~/.config/polybar/i3_polybar_start.sh
+    bash ~/.config/polybar/i3_polybar_start.sh
+end
 

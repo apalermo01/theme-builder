@@ -15,6 +15,10 @@ else if string match -iq "eterm*" $TERM
 end
 
 set_onedark $onedark_options
-bash ~/.config/polybar/i3_polybar_start.sh
+
+
+if test -e ~/.config/polybar/i3_polybar_start.sh
+    bash ~/.config/polybar/i3_polybar_start.sh
+end
 
 

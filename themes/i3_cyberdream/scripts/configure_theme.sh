@@ -12,6 +12,8 @@ if test -e ~/cyberdream.conf
 
 end
 kitten themes --reload-in=all cyberdream
-bash ~/.config/polybar/i3_polybar_start.sh
 
+if test -e ~/.config/polybar/i3_polybar_start.sh
+    bash ~/.config/polybar/i3_polybar_start.sh
+end
 
