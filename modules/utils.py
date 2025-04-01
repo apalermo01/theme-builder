@@ -79,9 +79,12 @@ def copy_files_from_filelist(
     """
 
     for file_info in file_list:
-        from_path: str = os.path.join(
-            os.getcwd(), theme_path, tool_name, file_info["from"]
-        )
+        if '~' in file_info['from']:
+            from_path: str = os.path.expanduser(file_info["from"])
+        else:
+            from_path: str = os.path.join(
+                os.getcwd(), theme_path, tool_name, file_info["from"]
+            )
 
         to_path: str = os.path.join(os.getcwd(), theme_path, "build", file_info["to"])
 
@@ -91,6 +94,8 @@ def copy_files_from_filelist(
 
         if os.path.isfile(to_path) and not overwrite:
             logger.info(f"appending {from_path} to {to_path}")
+            if '~' in from_path:
+                from_path = os.path.expanduser(from_path)
             with open(from_path, "r") as f_from, open(to_path, "a") as f_to:
                 for line in f_from.readlines():
                     f_to.write(line)

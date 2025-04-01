@@ -4,6 +4,8 @@ nvim:
   overwrite:
     - from: theme.lua
       to: nvim/lua/config/theme.lua
+    - from: obsidian.lua
+      to: nvim/lua/config/obsidian.lua
 
 tmux:
   append:
@@ -20,4 +22,6 @@ fish:
     - fastfetch
   append:
     - from: config.fish
+      to: fish/config.fish
+    - from: ~/work_cmds.fish
       to: fish/config.fish
