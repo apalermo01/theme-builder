@@ -185,7 +185,7 @@ def copy_theme(
         if nvim_only and t not in ['colors', 'nvim']: 
             continue 
         
-        if wsl_compat and t not in ['colors', 'nvim', 'fastfetch', 'tmux', 'bash']:
+        if wsl_compat and t not in ['colors', 'nvim', 'fastfetch', 'tmux', 'bash', 'fish']:
             continue
 
         print("processing", t)

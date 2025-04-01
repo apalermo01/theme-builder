@@ -18,8 +18,8 @@ function ont -d "Create a new note for PKM system in technncial folder"
         echo "Too many arguments. Wrap file name in quotes"
         return
     else if test $argv[1]
-        set file_name $(echo $argv[1] | tr ' ' '-')
-        set formatted_file_name $(date "+%Y-%m-%d")_$file_name.md
+        set file_name (echo $argv[1] | tr ' ' '-')
+        set formatted_file_name (date "+%Y-%m-%d")_$file_name.md
         cd $NOTES_PATH
         touch "0-technical-notes/0-inbox/$formatted_file_name"
         nvim "0-technical-notes/0-inbox/$formatted_file_name"
@@ -35,8 +35,8 @@ function onp -d "Create a new note for PKM system in non-technical folder"
         echo "Too many arguments. Wrap file name in quotes"
         return
     else if test $argv[1]
-        set file_name $(echo $argv[1] | tr ' ' '-')
-        set formatted_file_name $(date "+%Y-%m-%d")_$file_name.md
+        set file_name (echo $argv[1] | tr ' ' '-')
+        set formatted_file_name (date "+%Y-%m-%d")_$file_name.md
         cd $NOTES_PATH
         touch "1-notes/0-inbox/$formatted_file_name"
         nvim "1-notes/0-inbox/$formatted_file_name"
@@ -52,20 +52,20 @@ function og -d "Move notes based on tags"
 
     for VAULT_NAME in $VAULTS
         find "$NOTES_PATH/$VAULT_NAME/5-full-notes/" -type f -name '*.md' -not -path "*tags*"| while read -l file;
-            set tag $(awk -F': ' '/^type:/{print $2; exit}' "$file" | sed -e 's/^ *//;s/ *$//')
+            set tag (awk -F': ' '/^type:/{print $2; exit}' "$file" | sed -e 's/^ *//;s/ *$//')
             if [ ! -z "$tag" ]
                 #set TARGET_DIR "$NOTES_PATH/2-notes/$VAULT_NAME/$tag" 
                 set TARGET_DIR "$NOTES_PATH/$VAULT_NAME/5-full-notes/$tag"
                 
-                if [ $file != "$TARGET_DIR/$(path basename $file)" ]
-                    echo "Processing $(path basename $file)"
+                if [ $file != "$TARGET_DIR/(path basename $file)" ]
+                    echo "Processing (path basename $file)"
                     echo "Found tag $tag"
                     mkdir -p $TARGET_DIR
                     mv $file "$TARGET_DIR/" 
                     echo "Moved $file to $TARGET_DIR"
                 end
             else 
-                echo "No type tag found for $(path basename $file)"
+                echo "No type tag found for (path basename $file)"
             end
         end
     end

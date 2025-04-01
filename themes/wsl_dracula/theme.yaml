@@ -22,3 +22,7 @@ fish:
   append:
     - from: config.fish
       to: fish/config.fish
+
+theme_scripts: 
+  path: ./themes/i3_dracula/scripts/
+
