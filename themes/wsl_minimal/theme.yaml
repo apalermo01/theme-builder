@@ -4,5 +4,7 @@ nvim:
 
 tmux: {}
 
-bash: {}
-
+fish: 
+  append:
+    - from: config.fish
+      to: fish/config.fish

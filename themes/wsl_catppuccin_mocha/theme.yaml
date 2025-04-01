@@ -3,7 +3,7 @@ nvim:
   template_path: default_configs/nvim
   overwrite:
     - from: theme.lua
-      to: nvim/lua/theme.lua
+      to: nvim/lua/config/theme.lua
 
 tmux:
   append:
@@ -15,5 +15,9 @@ fastfetch:
     - from: config.jsonc 
       to: fastfetch/config.jsonc
 
-bash: {}
-
+fish: 
+  feats: 
+    - fastfetch
+  append:
+    - from: config.fish
+      to: fish/config.fish
