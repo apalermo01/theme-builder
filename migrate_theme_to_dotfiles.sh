@@ -2,10 +2,21 @@
 
 source $(pwd)/env/bin/activate 
 
-python main.py --theme $1 \
-               --no-test \
-               --migration-method dotfiles \
-               --dotfiles-path $HOME/Documents/git/dotfiles \
-               --destination-structure config
+if [[ $1 == "all" ]] then
+    for theme in $(ls ./themes/ | grep "^[i3|wsl].*"); do
+        echo "building and migrating $theme"
+        python main.py --theme $theme \
+                       --no-test \
+                       --migration-method dotfiles \
+                       --dotfiles-path $HOME/Documents/git/dotfiles \
+                       --destination-structure config
+    done
+else
 
+    python main.py --theme $1 \
+                   --no-test \
+                   --migration-method dotfiles \
+                   --dotfiles-path $HOME/Documents/git/dotfiles \
+                   --destination-structure config
+fi
 deactivate
