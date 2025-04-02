@@ -88,6 +88,17 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
+-- vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+--     pattern = "*.md",
+--     callback = function()
+--         local line = vim.api.nvim_get_current_line()
+--         if line:match("^#+%s") then
+--             vim.lsp.buf.rename()
+--         end
+--     end,
+--     desc = "Call lsp rename when renaming a header in a markdown file"
+-- })
+
 vim.g.netrw_browse_split = 0
 vim.g.netrw_winsize = 25
 
