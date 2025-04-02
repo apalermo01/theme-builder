@@ -82,14 +82,37 @@ map("n", "<C-k>", "<cmd>cnext<CR>zz")
 map("n", "<C-j>", "<cmd>cprev<CR>zz")
 
 -- obsidian stuff
--- map("n", "<leader>oo", ":cd" .. OBSIDIAN_NOTES_DIR .. "<CR>", { desc = "jump to notes directory" })
--- map("n", "<leader>on", function()
---     local current_file = vim.fn.expand("%:p")
--- if string.find(current_file, OBSIDIAN_NOTES_DIR, 1, true) then
---     vim.cmd(
--- end
+map("n", "<leader>ont",
+    function()
+        local input = vim.fn.input("new note name (technical): ")
+        if input == "" then
+            print("Expected an argument!")
+            return
+        end
 
+        local formatted_name = os.date("%Y-%m-%d") .. "_" .. input:gsub(" ", "-") .. ".md"
+        local notes_path = os.getenv("NOTES_PATH") or "~/notes"
+        local full_path = notes_path .. "/0-technical-notes/0-inbox/" .. formatted_name
+        vim.cmd("edit " .. full_path)
+    end,
+    { desc = "create a new technical note" }
+)
 
+map("n", "<leader>onp",
+    function()
+        local input = vim.fn.input("new note name: ")
+        if input == "" then
+            print("Expected an argument!")
+            return
+        end
+
+        local formatted_name = os.date("%Y-%m-%d") .. "_" .. input:gsub(" ", "-") .. ".md"
+        local notes_path = os.getenv("NOTES_PATH") or "~/notes"
+        local full_path = notes_path .. "/1-notes/0-inbox/" .. formatted_name
+        vim.cmd("edit " .. full_path)
+    end,
+    { desc = "create a new personal note" }
+)
 -- these overwrite harpoon keybindings. Need to figure out where to remap these
 -- map("n", "<leader>k", "<cmd>lnext<CR>zz")
 -- map("n", "<leader>j", "<cmd>lprev<CR>zz")

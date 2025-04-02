@@ -11,7 +11,7 @@ export PATH="/opt/Discord:$PATH"
 # Obsidian #
 ###########
 # https://www.youtube.com/watch?v=1Lmyh0YRH-w
-set NOTES_PATH "/home/alex/Documents/git/notes/"
+set -gx NOTES_PATH "/home/alex/Documents/git/notes/"
 
 function ont -d "Create a new note for PKM system in technncial folder"
     if test (count $argv) -gt 1
@@ -79,7 +79,7 @@ function gcm
 end
 
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH /home/alex/.ghcup/bin # ghcup-env
-set -x MANPAGER "nvim +Man!"
+set -gx MANPAGER "nvim +Man!"
 
 abbr --add personal bash ~/personal_docs.sh
 abbr --add reading bash ~/reading_session.sh
