@@ -277,8 +277,21 @@ def move_to_dotfiles(tools,
     with open("./configs/paths.yaml", "r") as f:
         path_config = yaml.safe_load(f)
     original_dir = os.getcwd()
+    dotfiles_theme_path = os.path.join(dotfiles_path, theme_name)
+    if 'git' not in dotfiles_theme_path or len(dotfiles_theme_path) < 8:
+        raise ValueError(f"'git' is not in the dotfiles path OR the path is " +\
+                          "less than 8 characters. While not a bug, this is " +\
+                          "suspicious, so I'm crashing. To fix this, just " +\
+                          "put the dotfiles retool in a folder called 'git'")
+
+    if os.path.exists(dotfiles_theme_path):
+        logger.info(f"removing {dotfiles_theme_path}")
+        shutil.rmtree(dotfiles_theme_path) 
+
+    os.makedirs(dotfiles_theme_path)
+
     os.chdir(dotfiles_path)
-    subprocess.run(["git", "checkout", "-B", theme_name])
+    subprocess.run(["git", "checkout", "-B", "dev"])
     os.chdir(original_dir)
 
     # return
@@ -291,12 +304,12 @@ def move_to_dotfiles(tools,
 
         # check how we're structuring the destination path
         if orient == "roles":
-            destination_path = os.path.join(dotfiles_path, t)
+            destination_path = os.path.join(dotfiles_theme_path, t)
             sub_path = t
 
         else:
             destination_path = os.path.join(
-                dotfiles_path, path_config[t].get("config_path", "")
+                dotfiles_theme_path, path_config[t].get("config_path", "")
             )
             sub_path = path_config[t]["config_path"]
 
@@ -321,24 +334,10 @@ def move_to_dotfiles(tools,
                     os.path.join(destination_path, file),
                 )
 
-    # if "scripts" in config and not nvim_only and not wsl_compat:
-    #     root = destination_root
-    #     if orient == "roles":
-    #         root = os.path.join(root, "scripts")
-    #     parse_scripts(config, root)
-    #
-    # if "theme_scripts" in config and not nvim_only and not wsl_compat:
-    #     path = config["theme_scripts"]["path"]
-    #     for file in sorted(os.listdir(path)):
-    #         subprocess.call(os.path.join(path, file))
-    # print("Theme migration complete!")
-    # print("If using i3 and / or tmux, you'll have to refresh each of those " + \
-    #       "to see the changes take effect ($mod+shift+r, <leader>I, " + \
-    #       "respectively.)")
     os.chdir(dotfiles_path)
     date = datetime.now().strftime("%Y-%m-%d")
     subprocess.run(["git", "add", ".", ])
-    subprocess.run(["git", "commit", "-m", f"{date} - {theme_name}" ])
+    subprocess.run(["git", "commit", "-m", f"theme builder - {date} - {theme_name}" ])
 
 def parse_args():
     parser = argparse.ArgumentParser()

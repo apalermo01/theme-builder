@@ -1,11 +1,12 @@
 
 nvim:
   template_path: default_configs/nvim
+  colorscheme: catppuccin
   overwrite:
     - from: theme.lua
       to: nvim/lua/config/theme.lua
     - from: obsidian.lua
-      to: nvim/lua/config/obsidian.lua
+      to: nvim/lua/config/lazy/obsidian.lua
 
 tmux:
   append:
@@ -26,3 +27,5 @@ fish:
     - from: ~/work_cmds.fish
       to: fish/config.fish
 
+theme_scripts: 
+  path: ./themes/wsl_catppuccin_macchiato/scripts/

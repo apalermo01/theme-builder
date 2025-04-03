@@ -1,22 +1,21 @@
+colors:
+  method: manual
+
+font_family: JetBrains NF Mono
+
+font_family: Maple Mono
 
 nvim:
   template_path: default_configs/nvim
-  colorscheme: dracula
+  colorscheme: onedark_vivid
   overwrite:
     - from: theme.lua
       to: nvim/lua/config/theme.lua
-    - from: obsidian.lua
-      to: nvim/lua/config/lazy/obsidian.lua
-
-tmux:
-  append:
-    - from: tmux.conf 
-      to: tmux/.tmux.conf 
-
-fastfetch:
-  overwrite:
-    - from: config.jsonc 
-      to: fastfetch/config.jsonc
+ 
+tmux: 
+  append: 
+    - from: tmux.conf
+      to: tmux/.tmux.conf
 
 fish: 
   feats: 
@@ -28,5 +27,5 @@ fish:
       to: fish/config.fish
 
 theme_scripts: 
-  path: ./themes/wsl_dracula/scripts/
+  path: ./themes/wsl_onedark/scripts/
 
