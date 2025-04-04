@@ -2,7 +2,7 @@
 
 source $(pwd)/env/bin/activate 
 
-if [[ $1 == "all" ]] then
+if [[ $1 == "all" ]]; then
     for theme in $(ls ./themes/ | grep "^[i3|wsl].*"); do
         echo "building and migrating $theme"
         python main.py --theme $theme \
