@@ -16,7 +16,7 @@ return {
         },
         workspaces = {
             {
-                name = "notes",
+                name = "technical notes",
                 path = OBSIDIAN_NOTES_DIR,
                 overrides = {
                     notes_subdir = "0-notes/unsorted"
@@ -66,23 +66,11 @@ return {
             "<leader>okt",
             ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-notes/0-notes/1-zettelkasten<cr>:bd<CR>",
             "n",
-            desc = "move to technical notes",
-        },
-        {
-            "<leader>okp",
-            ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-notes/1-private/1-zettelkasten<cr>:bd<CR>",
-            "n",
-            desc = "move to personal notes",
+            desc = "move to craft notes",
         },
         {
             "<leader>ost",
             ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-notes/0-notes/2-source-material<cr>:bd<CR>",
-            "n",
-            desc = "move to source material (technical notes)",
-        },
-        {
-            "<leader>osp",
-            ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-notes/1-private/2-source-material<cr>:bd<CR>",
             "n",
             desc = "move to source material",
         },
@@ -109,23 +97,6 @@ return {
             -- ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/1-notes/2-source-material<cr>:bd<CR>",
             "n",
             desc = "New technical note",
-        },
-        {
-            "<leader>onp",
-            function()
-                local input = vim.fn.input("new note name: ")
-                if input == "" then
-                    print("Expected an argument!")
-                    return
-                end
-
-                local formatted_name = os.date("%Y-%m-%d") .. "_" .. input:gsub(" ", "-") .. ".md"
-                local notes_path = os.getenv("NOTES_PATH") or "~/notes"
-                local full_path = notes_path .. "/0-notes/1-private/0-inbox/" .. formatted_name
-                vim.cmd("edit " .. full_path)
-            end,
-            "n",
-            desc = "New note",
         },
     },
 }

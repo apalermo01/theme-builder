@@ -81,6 +81,8 @@ def copy_files_from_filelist(
     for file_info in file_list:
         if '~' in file_info['from']:
             from_path: str = os.path.expanduser(file_info["from"])
+        elif file_info['from'].startswith('./'):
+            from_path: str = file_info["from"]
         else:
             from_path: str = os.path.join(
                 os.getcwd(), theme_path, tool_name, file_info["from"]
@@ -104,7 +106,7 @@ def copy_files_from_filelist(
             shutil.copy2(from_path, to_path)
 
 
-def configure_destination(dest: str, *subfolders: List) -> str:
+def configure_destination(dest: str, *subfolders: List[str]) -> str:
     dest = os.path.join(dest, *subfolders[:-1])
     if not os.path.exists(dest):
         logger.info(f"creating path {dest}")

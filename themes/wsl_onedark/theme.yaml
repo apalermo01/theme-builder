@@ -9,6 +9,8 @@ nvim:
   template_path: default_configs/nvim
   colorscheme: onedark_vivid
   overwrite:
+    - from: ./snippets/wsl_obsidian.lua
+      to: nvim/lua/config/lazy/obsidian.lua
     - from: theme.lua
       to: nvim/lua/config/theme.lua
  
