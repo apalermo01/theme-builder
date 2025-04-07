@@ -47,8 +47,7 @@ def get_theme_config(theme_path: str) -> dict:
 def build_theme(theme_name: str,
                 test: bool,
                 orient: str,
-                nvim_only: bool = False,
-                wsl_compat: bool = False):
+                nvim_only: bool = False):
 
     if test:
         theme_path: str = os.path.join("tests", theme_name)
@@ -98,9 +97,6 @@ def build_theme(theme_name: str,
     if nvim_only:
         order = ['colors', "nvim"]
     
-    if wsl_compat:
-        order = ['colors', "nvim", "tmux", "bash", "fish", "fastfetch"]
-
     for key in order:
         if key in config:
             logger.info(f"processing {key}")
@@ -115,6 +111,9 @@ def build_theme(theme_name: str,
                 template_path = config[key]["template_path"]
             else:
                 template_path = path_config[key]["template_path"]
+            
+            if orient == 'stow' and key == 'theme_scripts':
+                continue
 
             config = modules[key](
                 template_dir=template_path,
@@ -138,7 +137,6 @@ def copy_theme(
     orient: Literal["roles", "config"],
     config: dict,
     nvim_only: bool = False,
-    wsl_compat: bool = False,
 ):
     """
     tools: dictionary of tools that have been updated
@@ -171,7 +169,7 @@ def copy_theme(
     with open("./configs/paths.yaml", "r") as f:
         path_config = yaml.safe_load(f)
 
-    if orient not in ["roles", "config"]:
+    if orient not in ["roles", "config", "stow"]:
         raise ValueError()
 
     if make_backup:
@@ -198,7 +196,6 @@ def copy_theme(
         if orient == "roles":
             destination_path = os.path.join(destination_root, t)
             sub_path = t
-
         else:
             destination_path = os.path.join(
                 destination_root, path_config[t].get("config_path", "")
@@ -306,6 +303,14 @@ def move_to_dotfiles(tools,
         if orient == "roles":
             destination_path = os.path.join(dotfiles_theme_path, t)
             sub_path = t
+    
+        elif orient == 'stow':
+            destination_path = os.path.join(
+                dotfiles_theme_path, t, path_config[t].get("config_path", "")
+            )
+            sub_path = os.path.join(t, path_config[t]["config_path"])
+            print("destination path = ", destination_path)
+            print("sub path = ", sub_path)
 
         else:
             destination_path = os.path.join(
@@ -336,8 +341,8 @@ def move_to_dotfiles(tools,
 
     os.chdir(dotfiles_path)
     date = datetime.now().strftime("%Y-%m-%d")
-    subprocess.run(["git", "add", ".", ])
-    subprocess.run(["git", "commit", "-m", f"theme builder - {date} - {theme_name}" ])
+    # subprocess.run(["git", "add", ".", ])
+    # subprocess.run(["git", "commit", "-m", f"theme builder - {date} - {theme_name}" ])
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -355,15 +360,11 @@ def parse_args():
     )
 
     parser.add_argument(
-        "--destination-structure", default="roles", choices=["roles", "config"]
+        "--destination-structure", default="roles", choices=["roles", "config", "stow"]
     )
 
     parser.add_argument(
             "--nvim-only", default=False, action=argparse.BooleanOptionalAction
-    )
-
-    parser.add_argument(
-            "--wsl-compat", default=False, action=argparse.BooleanOptionalAction
     )
 
     args = parser.parse_args()
@@ -374,7 +375,7 @@ def main():
     args = parse_args()
     theme_name = args.theme
     tools_updated, theme_path, config = build_theme(
-        theme_name, args.test, args.destination_structure, args.nvim_only, args.wsl_compat
+        theme_name, args.test, args.destination_structure, args.nvim_only,
     )
 
     if args.migration_method == "none":
@@ -388,8 +389,7 @@ def main():
             args.destination_root,
             args.destination_structure,
             config,
-            args.nvim_only,
-            args.wsl_compat,
+            args.nvim_only
         )
     if args.migration_method == "dotfiles":
         move_to_dotfiles(
