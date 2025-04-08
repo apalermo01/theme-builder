@@ -17,13 +17,13 @@ return {
 		workspaces = {
 			{
 				name = "technical notes",
-				path = OBSIDIAN_NOTES_DIR,
+				path = OBSIDIAN_NOTES_DIR .. "/0-technical-notes",
 				overrides = {
-					notes_subdir = "0-notes/unsorted"
+					notes_subdir = "0-inbox"
 				},
 			},
 		},
-		disable_frontmatter = true,
+		disable_frontmatter = false,
 		templates = {
 			folder = OBSIDIAN_TEMPLATE_FOLDER,
 			date_format = "%Y-%m-%d",
@@ -37,7 +37,7 @@ return {
 			if title ~= nil then
 				suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
 			else
-				print("Invalid new note name - must have a title"
+				print("Invalid new note name - must have a title")
 			end
 
 			return suffix
@@ -47,7 +47,7 @@ return {
 	keys = {
 		{ "<leader>oo", ":cd " .. OBSIDIAN_NOTES_DIR .. "<CR>", "n", desc = "jump to notes directory" },
 		{
-			"<leader>onf",
+			"<leader>on",
 			function()
 				local current_file = vim.fn.expand("%:p")
 				if string.find(current_file, OBSIDIAN_NOTES_DIR, 1, true) then
@@ -63,16 +63,28 @@ return {
 		{ "<leader>obl", "<cmd>ObsidianBacklinks<CR>", "n", desc = "show backlinks in telescope" },
 
 	{
-		"<leader>okt",
-		":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-notes/0-notes/1-zettelkasten<cr>:bd<CR>",
+		"<leader>okc",
+		":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-technical-notes/5-full-notes<cr>:bd<CR>",
 		"n",
 		desc = "move to craft notes",
 	},
 	{
-		"<leader>ost",
-		":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-notes/0-notes/2-source-material<cr>:bd<CR>",
+		"<leader>okp",
+		":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/1-notes/5-full-notes<cr>:bd<CR>",
+		"n",
+		desc = "move to personal notes",
+	},
+	{
+		"<leader>osc",
+		":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-technical-notes/2-source-material<cr>:bd<CR>",
 		"n",
 		desc = "move to source material",
+	},
+	{
+		"<leader>osp",
+		":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/1-notes/2-source-material<cr>:bd<CR>",
+		"n",
+		desc = "move to source material (personal)",
 	},
 	{
 		"<leader>odd",

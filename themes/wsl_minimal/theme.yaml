@@ -1,10 +1,16 @@
 nvim:
   template_path: default_configs/nvim
   colorscheme: default
+  overwrite:
+    - from: ./snippets/wsl_obsidian.lua
+      to: nvim/lua/config/lazy/obsidian.lua
+
 
 tmux: {}
 
 fish: 
   append:
     - from: config.fish
+      to: fish/config.fish
+    - from: ~/work_cmds.fish
       to: fish/config.fish

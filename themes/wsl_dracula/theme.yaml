@@ -6,7 +6,7 @@ nvim:
     - from: theme.lua
       to: nvim/lua/config/theme.lua
     - from: obsidian.lua
-      to: nvim/lua/config/obsidian.lua
+      to: nvim/lua/config/lazy/obsidian.lua
 
 tmux:
   append:
@@ -28,5 +28,5 @@ fish:
       to: fish/config.fish
 
 theme_scripts: 
-  path: ./themes/i3_dracula/scripts/
+  path: ./themes/wsl_dracula/scripts/
 

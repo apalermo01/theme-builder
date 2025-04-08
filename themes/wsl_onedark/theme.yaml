@@ -1,0 +1,33 @@
+colors:
+  method: manual
+
+font_family: JetBrains NF Mono
+
+font_family: Maple Mono
+
+nvim:
+  template_path: default_configs/nvim
+  colorscheme: onedark_vivid
+  overwrite:
+    - from: ./snippets/wsl_obsidian.lua
+      to: nvim/lua/config/lazy/obsidian.lua
+    - from: theme.lua
+      to: nvim/lua/config/theme.lua
+ 
+tmux: 
+  append: 
+    - from: tmux.conf
+      to: tmux/.tmux.conf
+
+fish: 
+  feats: 
+    - fastfetch
+  append:
+    - from: config.fish
+      to: fish/config.fish
+    - from: ~/work_cmds.fish
+      to: fish/config.fish
+
+theme_scripts: 
+  path: ./themes/wsl_onedark/scripts/
+
