@@ -29,6 +29,4 @@ fish:
     - from: rose_pine.theme
       to: fish/themes/Rosé Pine.theme
 
-theme_scripts: 
-  path: ./themes/wsl_rose_pine/scripts/
 
