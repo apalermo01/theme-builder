@@ -169,7 +169,7 @@ def copy_theme(
     with open("./configs/paths.yaml", "r") as f:
         path_config = yaml.safe_load(f)
 
-    if orient not in ["roles", "config", "stow"]:
+    if orient not in ["roles", "config"]:
         raise ValueError()
 
     if make_backup:
@@ -182,9 +182,6 @@ def copy_theme(
 
         if nvim_only and t not in ['colors', 'nvim']: 
             continue 
-        
-        if wsl_compat and t not in ['colors', 'nvim', 'fastfetch', 'tmux', 'bash', 'fish']:
-            continue
 
         print("processing", t)
 
@@ -249,13 +246,15 @@ def copy_theme(
                     os.path.join(source_path, file),
                     os.path.join(destination_path, file),
                 )
-
-    if "scripts" in config and not nvim_only and not wsl_compat:
+    
+    # utility scripts
+    if "scripts" in config and not nvim_only:
         root = destination_root
         if orient == "roles":
             root = os.path.join(root, "scripts")
         parse_scripts(config, root)
-
+    
+    # additional scripts that need to run to install the theme
     if "theme_scripts" in config and not nvim_only:
         path = config["theme_scripts"]["path"]
         for file in sorted(os.listdir(path)):
@@ -267,12 +266,14 @@ def copy_theme(
           "respectively.)")
 
 def move_to_dotfiles(tools,
+                     config,
                      orient,
                      theme_name,
                      dotfiles_path,
                      ):
     with open("./configs/paths.yaml", "r") as f:
         path_config = yaml.safe_load(f)
+
     original_dir = os.getcwd()
     dotfiles_theme_path = os.path.join(dotfiles_path, theme_name)
     if 'git' not in dotfiles_theme_path or len(dotfiles_theme_path) < 8:
@@ -290,12 +291,10 @@ def move_to_dotfiles(tools,
     os.chdir(dotfiles_path)
     subprocess.run(["git", "checkout", "-B", "dev"])
     os.chdir(original_dir)
-
-    # return
+    
     for t in tools:
         print("processing", t)
 
-        # TODO: abstract out list of roles / tools to skip
         if t in ["colors", "wallpaper"]:
             continue
 
@@ -304,14 +303,6 @@ def move_to_dotfiles(tools,
             destination_path = os.path.join(dotfiles_theme_path, t)
             sub_path = t
     
-        elif orient == 'stow':
-            destination_path = os.path.join(
-                dotfiles_theme_path, t, path_config[t].get("config_path", "")
-            )
-            sub_path = os.path.join(t, path_config[t]["config_path"])
-            print("destination path = ", destination_path)
-            print("sub path = ", sub_path)
-
         else:
             destination_path = os.path.join(
                 dotfiles_theme_path, path_config[t].get("config_path", "")
@@ -338,11 +329,31 @@ def move_to_dotfiles(tools,
                     os.path.join(source_path, file),
                     os.path.join(destination_path, file),
                 )
+    
+    # handle scripts
+    if 'theme_scripts' in config:
+        destination_path = os.path.join(
+            dotfiles_theme_path, ".config", "theme_scripts"
+        )
+        source_path = config['theme_scripts'].get('path', f'./themes/{theme_name}/scripts/')
+        for file in os.listdir(source_path):
+            logger.info(
+                f"copying {os.path.join(source_path, file)} to {os.path.join(destination_path, file)}"
+            )
+            
+            if not os.path.exists(destination_path):
+                os.mkdir(destination_path)
 
+            shutil.copy2(
+                os.path.join(source_path, file),
+                os.path.join(destination_path, file)
+            )
+             
+    # TODO: handle wallpaper
     os.chdir(dotfiles_path)
     date = datetime.now().strftime("%Y-%m-%d")
-    # subprocess.run(["git", "add", ".", ])
-    # subprocess.run(["git", "commit", "-m", f"theme builder - {date} - {theme_name}" ])
+    subprocess.run(["git", "add", ".", ])
+    subprocess.run(["git", "commit", "-m", f"theme builder - {date} - {theme_name}" ])
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -394,6 +405,7 @@ def main():
     if args.migration_method == "dotfiles":
         move_to_dotfiles(
             tools_updated,
+            config,
             args.destination_structure,
             theme_name,
             args.dotfiles_path,

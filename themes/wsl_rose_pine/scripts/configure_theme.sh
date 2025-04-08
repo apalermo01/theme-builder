@@ -1,4 +1,6 @@
 #!/bin/fish
+
+echo "RUNNING ROSE PINE SCRIPT"
 # fisher install rkbk60/onedark-fish
 # fish_config prompt save acidhub
 #
