@@ -12,5 +12,3 @@ fish:
   append:
     - from: config.fish
       to: fish/config.fish
-    - from: ~/work_cmds.fish
-      to: fish/config.fish
