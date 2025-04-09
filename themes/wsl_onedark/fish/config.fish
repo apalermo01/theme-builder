@@ -2,6 +2,7 @@
 set -U OBSIDIAN_NOTES_DIR /mnt/c/Users/apalermo/github/notes/
 set -U NOTES_DIR /mnt/c/Users/apalermo/github/notes/
 
+source ~/work_cmds.fish
 if status is-interactive
     set -l onedark_options '-b'
 
