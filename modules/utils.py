@@ -257,6 +257,7 @@ def configure_colors(theme_path: str):
         for file in files:
             if "json" in file or "jsonc" in file:
                 continue
+
             full_path = os.path.join(folder, file)
 
             with open(full_path, "r") as f:
@@ -264,6 +265,6 @@ def configure_colors(theme_path: str):
 
             template = Template(template_content)
             rendered = template.render(colorscheme)
-
+            
             with open(full_path, "w") as f:
                 f.write(rendered)

@@ -3,6 +3,7 @@ import json
 import logging
 import os
 import shutil
+import stat
 import subprocess
 from datetime import datetime
 from typing import Literal, Optional
@@ -61,6 +62,7 @@ def build_theme(theme_name: str,
         raise ValueError("Invalid configuration!")
 
     destination_base = os.path.join(theme_path, "build")
+
     if os.path.exists(destination_base):
         shutil.rmtree(destination_base)
         logger.info(f"removed directory {destination_base}")
@@ -112,9 +114,6 @@ def build_theme(theme_name: str,
             else:
                 template_path = path_config[key]["template_path"]
             
-            if orient == 'stow' and key == 'theme_scripts':
-                continue
-
             config = modules[key](
                 template_dir=template_path,
                 destination_dir=destination_path,
@@ -348,8 +347,49 @@ def move_to_dotfiles(tools,
                 os.path.join(source_path, file),
                 os.path.join(destination_path, file)
             )
-             
-    # TODO: handle wallpaper
+    
+    # handle scripts directory (this also handles wallpapers)
+    # TODO: there's a bunch of redundant logic happening here with the 
+    # other script handling sections. Need to clean this up a bit.
+    scripts_path = os.path.join("themes", theme_name, "build", "theme_scripts")
+    scripts_dest = os.path.join(dotfiles_theme_path, ".config", "theme_scripts")
+    if os.path.exists(scripts_path):
+        logger.info("moving scripts")
+        for file in os.listdir(scripts_path):
+            logger.info(
+                f"TEST: copying {os.path.join(scripts_path, file)} to " +\
+                f"{os.path.join(scripts_dest, file)}"
+            )
+
+            if not os.path.exists(scripts_dest):
+                os.mkdir(scripts_dest)
+
+            shutil.copy2(
+                os.path.join(scripts_path, file),
+                os.path.join(scripts_dest, file)
+            )
+
+            # make the script executable
+            if file[-3:] == '.sh':
+                os.chmod(os.path.join(scripts_dest, file), 
+                         os.stat(os.path.join(scripts_dest, file)).st_mode | stat.S_IEXEC)
+
+    # handle wallpaper
+    # if 'wallpaper' in config:
+        
+    #     wallpaper_path: str = config["wallpaper"]["file"]
+    #
+    #     # if just the filename was given, look in the project's wallpaper folder:
+    #     if "/" not in wallpaper_path:
+    #         wallpaper_path = os.path.join(".", "wallpapers", wallpaper_path)
+    #
+    #     wallpaper_dest: str = os.path.expanduser(
+    #         f"~/Pictures/wallpapers/{wallpaper_path.split('/')[-1]}"
+    #     )
+    #
+    #     if not os.path.exists(os.path.expanduser("~/Pictures/wallpapers/")):
+    #         os.makedirs(os.path.expanduser("~/Pictures/wallpapers/"))
+
     os.chdir(dotfiles_path)
     date = datetime.now().strftime("%Y-%m-%d")
     subprocess.run(["git", "add", ".", ])
