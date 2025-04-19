@@ -274,6 +274,7 @@ for_window [urgent=latest] focus
 exec --no-startup-id nm-applet
 exec_always --no-startup-id $HOME/.config/polybar/i3_polybar_start.sh
 exec_always $HOME/shift_monitor.sh
+exec --no-startup-id dunst
 
 # i3 lock
 bindsym $mod+Ctrl+l exec "i3lock"
