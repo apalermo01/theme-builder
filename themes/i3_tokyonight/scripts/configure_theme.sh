@@ -1,4 +1,4 @@
-#!/bin/fish
+#!/usr/bin/env fish
 feh --bg-fill $HOME/Pictures/wallappers/spookyjs_upscayl_realesrgan-x4plus_x2.png
                
 fish_config prompt save acidhub

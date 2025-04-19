@@ -1,4 +1,4 @@
-#!/bin/fish
+#!/usr/bin/env fish
 fish_config prompt save acidhub
 fish_config theme save cyberdream
 

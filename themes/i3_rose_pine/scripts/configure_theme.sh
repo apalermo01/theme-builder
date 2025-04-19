@@ -1,4 +1,4 @@
-#!/bin/fish
+#!/usr/bin/env fish
 fisher install rose-pine/fish
 fish_config prompt save acidhub
 fish_config theme choose "Rosé Pine"
