@@ -1,4 +1,4 @@
-#!/bin/fish
+#!/usr/bin/env fish
 kitty +kitten themes --reload-in=all catppuccin-macchiato
 fisher install catppuccin/fish
 fish_config theme save "Catppuccin Mocha"

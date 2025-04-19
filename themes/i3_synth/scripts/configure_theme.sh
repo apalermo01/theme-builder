@@ -1,4 +1,4 @@
-#!/bin/fish
+#!/usr/bin/env fish
 # kitty +kitten themes --reload-in=all catppuccin-macchiato
 # fisher install dracula/fish
 # fish_config theme choose "Dracula Official"
