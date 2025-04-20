@@ -136,6 +136,8 @@ def copy_theme(
     orient: Literal["roles", "config"],
     config: dict,
     nvim_only: bool = False,
+    wsl_compat: bool = False,
+    no_script_exec: bool = False,
 ):
     """
     tools: dictionary of tools that have been updated
@@ -245,8 +247,6 @@ def copy_theme(
                     os.path.join(source_path, file),
                     os.path.join(destination_path, file),
                 )
-    
-    # utility scripts
     if "scripts" in config and not nvim_only:
         root = destination_root
         if orient == "roles":
