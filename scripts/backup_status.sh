@@ -1,7 +1,7 @@
-
 #!/usr/bin/env bash
 
 function get_status {
+    REPO_NAME=$(cat "$HOME/.config/restic-setup/remote-name.txt")
     echo "📦 Restic backup status:"
     systemctl --user status restic-backup.service --no-pager | head -n 10
 
@@ -26,7 +26,7 @@ function get_status {
     fi
 
     echo "restic snapshots: "
-    bash /home/alex/.config/restic-setup/decrypt-password.sh restic -r rclone:laptop-backups:laptop-backups snapshots
+    bash ~/.config/restic-setup/decrypt-password.sh restic -r rclone:${REPO_NAME}:${REPO_NAME} snapshots
 }
 
 # Main
