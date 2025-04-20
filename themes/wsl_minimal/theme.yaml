@@ -1,6 +1,10 @@
 nvim:
   template_path: default_configs/nvim
   colorscheme: default
+  overwrite:
+    - from: ./snippets/wsl_obsidian.lua
+      to: nvim/lua/config/lazy/obsidian.lua
+
 
 tmux: {}
 

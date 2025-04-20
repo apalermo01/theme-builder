@@ -47,8 +47,7 @@ def get_theme_config(theme_path: str) -> dict:
 def build_theme(theme_name: str,
                 test: bool,
                 orient: str,
-                nvim_only: bool = False,
-                wsl_compat: bool = False):
+                nvim_only: bool = False):
 
     if test:
         theme_path: str = os.path.join("tests", theme_name)
@@ -98,9 +97,6 @@ def build_theme(theme_name: str,
     if nvim_only:
         order = ['colors', "nvim"]
     
-    if wsl_compat:
-        order = ['colors', "nvim", "tmux", "bash", "fish", "fastfetch"]
-
     for key in order:
         if key in config:
             logger.info(f"processing {key}")
@@ -115,6 +111,9 @@ def build_theme(theme_name: str,
                 template_path = config[key]["template_path"]
             else:
                 template_path = path_config[key]["template_path"]
+            
+            if orient == 'stow' and key == 'theme_scripts':
+                continue
 
             config = modules[key](
                 template_dir=template_path,
@@ -185,9 +184,6 @@ def copy_theme(
 
         if nvim_only and t not in ['colors', 'nvim']: 
             continue 
-        
-        if wsl_compat and t not in ['colors', 'nvim', 'fastfetch', 'tmux', 'bash', 'fish']:
-            continue
 
         print("processing", t)
 
@@ -199,7 +195,6 @@ def copy_theme(
         if orient == "roles":
             destination_path = os.path.join(destination_root, t)
             sub_path = t
-
         else:
             destination_path = os.path.join(
                 destination_root, path_config[t].get("config_path", "")
@@ -253,14 +248,14 @@ def copy_theme(
                     os.path.join(source_path, file),
                     os.path.join(destination_path, file),
                 )
-
     if "scripts" in config and not nvim_only:
         root = destination_root
         if orient == "roles":
             root = os.path.join(root, "scripts")
         parse_scripts(config, root)
-
-    if "theme_scripts" in config and not nvim_only and not no_script_exec:
+    
+    # additional scripts that need to run to install the theme
+    if "theme_scripts" in config and not nvim_only:
         path = config["theme_scripts"]["path"]
         for file in sorted(os.listdir(path)):
             subprocess.call(os.path.join(path, file))
@@ -271,12 +266,14 @@ def copy_theme(
           "respectively.)")
 
 def move_to_dotfiles(tools,
+                     config,
                      orient,
                      theme_name,
                      dotfiles_path,
                      ):
     with open("./configs/paths.yaml", "r") as f:
         path_config = yaml.safe_load(f)
+
     original_dir = os.getcwd()
     dotfiles_theme_path = os.path.join(dotfiles_path, theme_name)
     if 'git' not in dotfiles_theme_path or len(dotfiles_theme_path) < 8:
@@ -294,12 +291,10 @@ def move_to_dotfiles(tools,
     os.chdir(dotfiles_path)
     subprocess.run(["git", "checkout", "-B", "dev"])
     os.chdir(original_dir)
-
-    # return
+    
     for t in tools:
         print("processing", t)
 
-        # TODO: abstract out list of roles / tools to skip
         if t in ["colors", "wallpaper"]:
             continue
 
@@ -307,7 +302,7 @@ def move_to_dotfiles(tools,
         if orient == "roles":
             destination_path = os.path.join(dotfiles_theme_path, t)
             sub_path = t
-
+    
         else:
             destination_path = os.path.join(
                 dotfiles_theme_path, path_config[t].get("config_path", "")
@@ -334,7 +329,27 @@ def move_to_dotfiles(tools,
                     os.path.join(source_path, file),
                     os.path.join(destination_path, file),
                 )
+    
+    # handle scripts
+    if 'theme_scripts' in config:
+        destination_path = os.path.join(
+            dotfiles_theme_path, ".config", "theme_scripts"
+        )
+        source_path = config['theme_scripts'].get('path', f'./themes/{theme_name}/scripts/')
+        for file in os.listdir(source_path):
+            logger.info(
+                f"copying {os.path.join(source_path, file)} to {os.path.join(destination_path, file)}"
+            )
+            
+            if not os.path.exists(destination_path):
+                os.mkdir(destination_path)
 
+            shutil.copy2(
+                os.path.join(source_path, file),
+                os.path.join(destination_path, file)
+            )
+             
+    # TODO: handle wallpaper
     os.chdir(dotfiles_path)
     date = datetime.now().strftime("%Y-%m-%d")
     subprocess.run(["git", "add", ".", ])
@@ -356,15 +371,11 @@ def parse_args():
     )
 
     parser.add_argument(
-        "--destination-structure", default="roles", choices=["roles", "config"]
+        "--destination-structure", default="roles", choices=["roles", "config", "stow"]
     )
 
     parser.add_argument(
             "--nvim-only", default=False, action=argparse.BooleanOptionalAction
-    )
-
-    parser.add_argument(
-            "--wsl-compat", default=False, action=argparse.BooleanOptionalAction
     )
 
     args = parser.parse_args()
@@ -375,7 +386,7 @@ def main():
     args = parse_args()
     theme_name = args.theme
     tools_updated, theme_path, config = build_theme(
-        theme_name, args.test, args.destination_structure, args.nvim_only, args.wsl_compat,
+        theme_name, args.test, args.destination_structure, args.nvim_only,
     )
 
     if args.migration_method == "none":
@@ -389,12 +400,12 @@ def main():
             args.destination_root,
             args.destination_structure,
             config,
-            args.nvim_only,
-            args.wsl_compat,
+            args.nvim_only
         )
     if args.migration_method == "dotfiles":
         move_to_dotfiles(
             tools_updated,
+            config,
             args.destination_structure,
             theme_name,
             args.dotfiles_path,

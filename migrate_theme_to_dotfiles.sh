@@ -8,7 +8,7 @@ if [[ $1 == "all" ]]; then
         python main.py --theme $theme \
                        --no-test \
                        --migration-method dotfiles \
-                       --dotfiles-path $HOME/Documents/git/dotfiles \
+                       --dotfiles-path $HOME/Documents/git/dotfiles/themes \
                        --destination-structure config
     done
 else
@@ -16,7 +16,7 @@ else
     python main.py --theme $1 \
                    --no-test \
                    --migration-method dotfiles \
-                   --dotfiles-path $HOME/Documents/git/dotfiles \
+                   --dotfiles-path $HOME/Documents/git/dotfiles/themes \
                    --destination-structure config
 fi
 deactivate

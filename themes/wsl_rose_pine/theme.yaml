@@ -1,13 +1,11 @@
 colors:
   method: manual
 
-font_family: JetBrains NF Mono
-
 font_family: Maple Mono
 
 nvim:
   template_path: default_configs/nvim
-  colorscheme: onedark_vivid
+  colorscheme: rose-pine
   overwrite:
     - from: ./snippets/wsl_obsidian.lua
       to: nvim/lua/config/lazy/obsidian.lua
@@ -25,7 +23,8 @@ fish:
   append:
     - from: config.fish
       to: fish/config.fish
+  overwrite:
+    - from: rose_pine.theme
+      to: fish/themes/Rosé Pine.theme
 
-theme_scripts: 
-  path: ./themes/wsl_onedark/scripts/
 

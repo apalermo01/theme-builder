@@ -24,8 +24,6 @@ fish:
   append:
     - from: config.fish
       to: fish/config.fish
-    - from: ~/work_cmds.fish
-      to: fish/config.fish
 
 theme_scripts: 
   path: ./themes/wsl_catppuccin_macchiato/scripts/
