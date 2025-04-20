@@ -139,6 +139,7 @@ def copy_theme(
     config: dict,
     nvim_only: bool = False,
     wsl_compat: bool = False,
+    no_script_exec: bool = False,
 ):
     """
     tools: dictionary of tools that have been updated
@@ -253,13 +254,13 @@ def copy_theme(
                     os.path.join(destination_path, file),
                 )
 
-    if "scripts" in config and not nvim_only and not wsl_compat:
+    if "scripts" in config and not nvim_only:
         root = destination_root
         if orient == "roles":
             root = os.path.join(root, "scripts")
         parse_scripts(config, root)
 
-    if "theme_scripts" in config and not nvim_only:
+    if "theme_scripts" in config and not nvim_only and not no_script_exec:
         path = config["theme_scripts"]["path"]
         for file in sorted(os.listdir(path)):
             subprocess.call(os.path.join(path, file))
@@ -374,7 +375,7 @@ def main():
     args = parse_args()
     theme_name = args.theme
     tools_updated, theme_path, config = build_theme(
-        theme_name, args.test, args.destination_structure, args.nvim_only, args.wsl_compat
+        theme_name, args.test, args.destination_structure, args.nvim_only, args.wsl_compat,
     )
 
     if args.migration_method == "none":
