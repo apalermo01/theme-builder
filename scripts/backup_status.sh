@@ -24,6 +24,9 @@ function get_status {
     else
         echo "🔴 Backup is not currently running."
     fi
+
+    echo "restic snapshots: "
+    bash /home/alex/.config/restic-setup/decrypt-password.sh restic -r rclone:laptop-backups:laptop-backups snapshots
 }
 
 # Main
