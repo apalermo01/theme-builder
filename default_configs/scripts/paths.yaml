@@ -11,3 +11,5 @@ scripts:
     to: reading_session.sh 
   - from: ./scripts/shift_monitor.sh 
     to: shift_monitor.sh
+  - from: ./scripts/backup_status.sh
+    to: backup_status.sh

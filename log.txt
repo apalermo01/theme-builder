@@ -1,0 +1,105 @@
+M	theme-builder
+D	themes/i3_cyberdream/.config/fastfetch/config.jsonc
+D	themes/i3_cyberdream/.config/fish/config.fish
+D	themes/i3_cyberdream/.config/fish/cyberdream.theme
+D	themes/i3_cyberdream/.config/i3/config
+D	themes/i3_cyberdream/.config/kitty/kitty.conf
+D	themes/i3_cyberdream/.config/kitty/themes/cyberdream.conf
+D	themes/i3_cyberdream/.config/nvim/init.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/init.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/FTerm.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/autopairs.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/bufferline.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/colorizer.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/dap.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/fugitive.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/harpoon.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/lazydev.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/lsp.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/nvim-tree.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/obsidian.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/oil.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/outline.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/projectconfig.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/render-markdown.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/snippets.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/telescope.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/treesitter.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/trouble.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/undotree.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/vim-be-good.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/vim-tmux-navigator.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy/whichkey.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/lazy_init.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/opts.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/remap.lua
+D	themes/i3_cyberdream/.config/nvim/lua/config/theme.lua
+D	themes/i3_cyberdream/.config/picom/picom.conf
+D	themes/i3_cyberdream/.config/polybar/config.ini
+D	themes/i3_cyberdream/.config/polybar/i3_polybar_start.sh
+D	themes/i3_cyberdream/.config/rofi/config.rasi
+D	themes/i3_cyberdream/.config/rofi/tokyonight.rasi
+D	themes/i3_cyberdream/.config/theme_scripts/configure_theme.sh
+D	themes/i3_cyberdream/.config/theme_scripts/wp.sh
+D	themes/i3_cyberdream/.tmux.conf
+D	themes/i3_cyberdream/cyberdream.conf
+Your branch is ahead of 'origin/dev' by 151 commits.
+  (use "git push" to publish your local commits)
+On branch dev
+Your branch is ahead of 'origin/dev' by 151 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+  (commit or discard the untracked or modified content in submodules)
+	modified:   ../theme-builder (modified content, untracked content)
+
+no changes added to commit (use "git add" and/or "git commit -a")
+template dir = default_configs/i3
+destination dir = themes/i3_cyberdream/build/i3/
+template dir = default_configs/polybar
+destination dir = themes/i3_cyberdream/build/polybar/
+reading config subfile:  themes/i3_cyberdream/build/polybar/config.ini
+template dir = default_configs/nvim
+destination dir = themes/i3_cyberdream/build/nvim/
+template dir = default_configs/tmux
+destination dir = themes/i3_cyberdream/build/tmux/
+template dir = ./themes/i3_cyberdream/rofi/
+destination dir = themes/i3_cyberdream/build/rofi/
+template dir = ./themes/i3_cyberdream/picom/
+destination dir = themes/i3_cyberdream/build/picom/
+template dir = default_configs/fish
+destination dir = themes/i3_cyberdream/build/fish/
+template dir = default_configs/kitty
+destination dir = themes/i3_cyberdream/build/kitty/
+template dir = default_configs/fastfetch/
+destination dir = themes/i3_cyberdream/build/fastfetch/
+processing colors
+processing i3
+sub path is not empty
+moving themes/i3_cyberdream/build/i3/ to /home/alex/Documents/git/dotfiles/themes/i3_cyberdream/.config/i3/
+processing polybar
+sub path is not empty
+moving themes/i3_cyberdream/build/polybar/ to /home/alex/Documents/git/dotfiles/themes/i3_cyberdream/.config/polybar
+processing wallpaper
+processing nvim
+sub path is not empty
+moving themes/i3_cyberdream/build/nvim/ to /home/alex/Documents/git/dotfiles/themes/i3_cyberdream/.config/nvim
+processing tmux
+looping through files in  themes/i3_cyberdream/build/tmux/
+processing rofi
+sub path is not empty
+moving themes/i3_cyberdream/build/rofi/ to /home/alex/Documents/git/dotfiles/themes/i3_cyberdream/.config/rofi
+processing picom
+sub path is not empty
+moving themes/i3_cyberdream/build/picom/ to /home/alex/Documents/git/dotfiles/themes/i3_cyberdream/.config/picom
+processing fish
+sub path is not empty
+moving themes/i3_cyberdream/build/fish/ to /home/alex/Documents/git/dotfiles/themes/i3_cyberdream/.config/fish/
+processing kitty
+sub path is not empty
+moving themes/i3_cyberdream/build/kitty/ to /home/alex/Documents/git/dotfiles/themes/i3_cyberdream/.config/kitty/
+processing fastfetch
+sub path is not empty
+moving themes/i3_cyberdream/build/fastfetch/ to /home/alex/Documents/git/dotfiles/themes/i3_cyberdream/.config/fastfetch/
