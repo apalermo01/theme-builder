@@ -36,6 +36,7 @@ return {
 				"regex",
 				"requirements",
 				"sql",
+                "nix"
 
 
 			},

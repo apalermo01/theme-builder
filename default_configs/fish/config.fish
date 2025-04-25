@@ -2,6 +2,23 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+if test (grep ^ID= /etc/os-release | sed -E 's/ID=(.*)/\1/') = 'nixos'
+    any-nix-shell fish --info-right | source
+end
+
+set fisher_path ~/.config/fish/functions/fisher.fish
+
+if ! test -e $fisher_path
+    echo "Installing fisher"
+    mkdir -p (dirname $fisher_path)
+    curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish -o $fisher_path
+end
+
+if not functions -q fisher 
+    source $fisher_path
+    fisher install forgebucaran/fisher
+end
+
 # Path stuff
 export PATH="$HOME/.local/share/gem/ruby/3.0.0/gems/jekyll-4.3.3/exe:$PATH"
 export PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"

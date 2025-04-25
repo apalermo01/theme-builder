@@ -43,7 +43,8 @@ return {
                 -- "gopls",
                 "jsonls",
                 -- "sqls",
-                "markdown_oxide"
+                "markdown_oxide",
+                "nil_ls",
             },
             handlers = {
                 function(server_name)
