@@ -271,6 +271,13 @@ for_window [class="zoom"] floating enable
 for_window [urgent=latest] focus
 
 # Autostart applications
+# exec_always --no-startup-id sh -c '
+#   if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
+#     eval $(dbus-launch --sh-syntax --exit-with-session)
+#   fi
+#   eval $(/run/wrappers/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
+#   export SSH_AUTH_SOCK
+# '
 exec --no-startup-id nm-applet
 exec_always --no-startup-id $HOME/.config/polybar/i3_polybar_start.sh
 exec_always $HOME/shift_monitor.sh

@@ -3,12 +3,15 @@ return {
         "folke/trouble.nvim",
         config = function()
             require("trouble").setup({
-                icons = false,
+                auto_close = true,
+                modes = {
+                    diagnostics = {
+                        auto_open = true,
+                    }
+                }
             })
 
-            vim.keymap.set("n", "<leader>tt", function()
-                require("trouble").toggle()
-            end)
+            vim.keymap.set("n", "<leader>tt", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>")
 
             vim.keymap.set("n", "[t", function()
                 require("trouble").next({skip_groups = true, jump = true});
