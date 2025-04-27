@@ -23,8 +23,5 @@ zsh:
   append:
     - from: .zshrc
       to: zsh/.zshrc
-  overwrite:
-    - from: rose_pine.theme
-      to: fish/themes/Rosé Pine.theme
 
 
