@@ -70,3 +70,8 @@ fastfetch:
   template_path: 'default_configs/fastfetch/'
   destination_path: 'fastfetch/'
   config_path: '.config/fastfetch/'
+
+zsh:
+  template_path: 'default_configs/zsh/'
+  destination_path: 'zsh/'
+  config_path: ''

@@ -18,12 +18,12 @@ fastfetch:
     - from: config.jsonc 
       to: fastfetch/config.jsonc
 
-fish: 
+zsh: 
   feats: 
     - fastfetch
   append:
-    - from: config.fish
-      to: fish/config.fish
+    - from: .zshrc
+      to: zsh/.zshrc
 
 theme_scripts: 
   path: ./themes/wsl_catppuccin_mocha/scripts/

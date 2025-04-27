@@ -17,12 +17,12 @@ tmux:
     - from: tmux.conf
       to: tmux/.tmux.conf
 
-fish: 
+zsh: 
   feats: 
     - fastfetch
   append:
-    - from: config.fish
-      to: fish/config.fish
+    - from: .zshrc
+      to: zsh/.zshrc
   overwrite:
     - from: rose_pine.theme
       to: fish/themes/Rosé Pine.theme

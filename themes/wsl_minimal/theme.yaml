@@ -8,7 +8,7 @@ nvim:
 
 tmux: {}
 
-fish: 
+zsh: 
   append:
-    - from: config.fish
-      to: fish/config.fish
+    - from: .zshrc
+      to: zsh/.zshrc

@@ -30,11 +30,11 @@ tmux:
 rofi:
   template_path: themes/i3_trees/rofi
 
-fish:
+zsh:
   feats: [run_pywal]
   append:
-    - from: config.fish
-      to: fish/config.fish
+    - from: .zshrc
+      to: zsh/.zshrc
 
 kitty: {}
 
