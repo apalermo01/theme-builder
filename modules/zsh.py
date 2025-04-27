@@ -9,14 +9,14 @@ from .utils import append_text, module_wrapper
 logger = logging.getLogger(__name__)
 
 
-@module_wrapper(tool="fish")
-def parse_fish(
+@module_wrapper(tool="zsh")
+def parse_zsh(
     config: Dict, template_dir: str, destination_dir: str, theme_path: str
 ) -> Dict:
 
     logger.info("Loading fish...")
 
-    feats = config["fish"].get("feats", [])
+    feats = config["zsh"].get("feats", [])
     logger.warning(f"feats = {feats}") 
 
     if "wallpaper" in config:
@@ -27,7 +27,7 @@ def parse_fish(
     
     prompts_dict = {
         "cowsay_fortune": (
-            "fortune | cowsay -rC \n"
+            "fortune | cowsay -fr\n"
         ),
         "neofetch": "fastfetch\n",
         "fastfetch": "fastfetch\n",
@@ -48,7 +48,7 @@ def parse_fish(
             """
         ),
     }
-    dest = os.path.join(destination_dir, "config.fish")
+    dest = os.path.join(destination_dir, ".zshrc")
     for d in prompts_dict:
         if d in feats:
             if d == "run_pywal" and wallpaper_path is None:

@@ -19,12 +19,12 @@ tmux:
     - from: tmux.conf
       to: tmux/.tmux.conf
 
-fish: 
+zsh: 
   feats: 
     - fastfetch
   append:
-    - from: config.fish
-      to: fish/config.fish
+    - from: .zshrc
+      to: zsh/.zshrc
 
 theme_scripts: 
   path: ./themes/wsl_onedark/scripts/

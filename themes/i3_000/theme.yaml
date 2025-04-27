@@ -24,7 +24,7 @@ tmux: {}
 
 rofi: {}
 
-fish: 
+zsh: 
   feats: ["run_pywal", "neofetch"]
 
 kitty: {}

@@ -33,12 +33,12 @@ tmux:
 rofi: 
   template_path: ./themes/i3_catppuccin_macchiato/rofi/
 
-fish: 
+zsh: 
   feats: 
     - fastfetch
   append:
-    - from: config.fish
-      to: fish/config.fish
+    - from: .zshrc
+      to: zsh/.zshrc
 
 kitty:
   append:

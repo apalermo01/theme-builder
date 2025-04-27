@@ -29,7 +29,7 @@ tmux:
 rofi: 
   template_path: ./themes/i3_synth/rofi/
 
-fish:
+zsh:
   feats:
     - cowsay_fortune
     - run_pywal

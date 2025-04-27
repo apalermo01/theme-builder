@@ -32,7 +32,7 @@ tmux:
 rofi: 
   template_path: ./themes/i3_od_autumn/rofi/
 
-fish:
+zsh:
   feats:
     - fastfetch
 
