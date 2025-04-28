@@ -141,6 +141,11 @@ alias vim='nvim'
 alias vi='nvim'
 alias nivm='nvim'
 
+# git aliases 
+alias g='git'
+alias ga='git add -p'
+alias gc='git commit -p'
+alias gb='git branch'
 
 #######################
 # Additional settings #
