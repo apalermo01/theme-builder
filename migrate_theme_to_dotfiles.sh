@@ -2,6 +2,7 @@
 set -eou pipefail
 
 in_nix_env=false
+IN_NIX_SHELL=${IN_NIX_SHELL:-false}
 
 if [ -n "$IN_NIX_SHELL" ] || [ -n "$DIRENV_DIR" ]; then
     in_nix_env=true

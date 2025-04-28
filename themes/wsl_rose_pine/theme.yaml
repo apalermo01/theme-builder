@@ -20,8 +20,10 @@ tmux:
 zsh: 
   feats: 
     - fastfetch
-  # append:
-  #   - from: .zshrc
-  #     to: zsh/.zshrc
-
+  append:
+    - from: additions.zsh
+      to: zsh/.zshrc
+  overwrite:
+    - from: p10k.zsh
+      to: zsh/.p10k.zsh
 
