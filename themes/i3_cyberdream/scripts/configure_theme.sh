@@ -1,6 +1,7 @@
-#!/usr/bin/env fish
-fish_config prompt save acidhub
-fish_config theme save cyberdream
+#!/usr/bin/env sh
+###!/usr/bin/env fish
+# fish_config prompt save acidhub
+# fish_config theme save cyberdream
 
 if test  ! -d ~/.config/tmux/plugins/catppuccin
     mkdir -p ~/.config/tmux/plugins/catppuccin

@@ -1,2 +1,2 @@
-#!/usr/bin/env bash
-feh --bg-fill $HOME/Pictures/wallappers/001.png
+#!/usr/bin/env sh
+feh --bg-fill $HOME/Pictures/wallappers/002.png
