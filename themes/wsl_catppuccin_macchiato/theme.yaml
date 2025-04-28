@@ -2,11 +2,11 @@
 nvim:
   template_path: default_configs/nvim
   colorscheme: catppuccin
-  overwrite:
-    - from: theme.lua
-      to: nvim/lua/config/theme.lua
-    - from: ../../snippets/wsl_obsidian.lua
-      to: nvim/lua/config/lazy/obsidian.lua
+  # overwrite:
+  #   - from: theme.lua
+  #     to: nvim/lua/config/theme.lua
+  #   - from: ../../snippets/wsl_obsidian.lua
+  #     to: nvim/lua/config/lazy/obsidian.lua
 
 tmux:
   append:

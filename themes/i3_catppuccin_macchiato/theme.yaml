@@ -21,9 +21,6 @@ nvim:
   overwrite:
     - from: theme.lua
       to: nvim/lua/config/theme.lua
-  # append:
-  #   - from: edulsp.lua
-  #     to: nvim/lua/config/init.lua
 
 tmux: 
   append: 

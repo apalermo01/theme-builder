@@ -18,7 +18,7 @@ if [ "$in_nix_env" = false ] && [ -f "./env/bin/activate" ]; then
         echo "Activating local virtual environment (bash/zsh)..."
         . ./env/bin/activate
         activated_env=true
-
+    fi
 else
     echo "Skipping virtual environment activation."
     activated_env=false
