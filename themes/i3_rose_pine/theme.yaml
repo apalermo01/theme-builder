@@ -38,9 +38,9 @@ zsh:
   append:
     - from: additions.zsh
       to: zsh/.zshrc
-  # copy:
-  #   - from: .p10k.zsh
-  #     to: zsh/.p10k.zsh
+  overwrite:
+    - from: p10k.zsh
+      to: zsh/.p10k.zsh
 
 fastfetch: 
   overwrite: 
