@@ -32,9 +32,9 @@ rofi:
 
 zsh:
   feats: [run_pywal]
-  append:
-    - from: .zshrc
-      to: zsh/.zshrc
+  # append:
+  #   - from: .zshrc
+  #     to: zsh/.zshrc
 
 kitty: {}
 

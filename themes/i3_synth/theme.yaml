@@ -33,6 +33,12 @@ zsh:
   feats:
     - cowsay_fortune
     - run_pywal
+  append:
+    - from: additions.zsh
+      to: zsh/.zshrc
+  copy:
+    - from: .p10k.zsh
+      to: zsh/.p10k.zsh
 
 kitty: {}
 

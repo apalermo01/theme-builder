@@ -54,6 +54,7 @@ return {
                 "ts_ls",
                 "jsonls",
                 "nil_ls",
+                "bashls",
             } or {
                 "lua_ls",
                 "html",
@@ -65,6 +66,7 @@ return {
                 "nil_ls",
                 "lua_ls",
                 "markdown_oxide",
+                "bashls",
             },
 
             handlers = {
@@ -87,6 +89,20 @@ return {
                     capabilities = capabilities
                     })
                 end,
+
+                ["nil_ls"] = function()
+                    require("lspconfig").nil_ls.setup({
+                        autostart = true,
+                        settings = {
+                            ['nil'] = {
+                                testSetting = 42,
+                                formatting = {
+                                    command = { "nixfmt" };
+                                }
+                            }
+                        }
+                    })
+                end
             }
         })
 

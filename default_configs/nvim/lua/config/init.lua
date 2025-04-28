@@ -19,6 +19,7 @@ function _G.get_oil_winbar()
     end
 end
 
+-- LSP maps
 autocmd('LspAttach', {
     group = group,
     callback = function(e)
@@ -62,6 +63,7 @@ autocmd('LspAttach', {
     end
 })
 
+-- obsidian: update date updated when saving a note
 vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = "*.md",
     callback = function()
@@ -88,21 +90,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
     end,
 })
 
--- vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
---     pattern = "*.md",
---     callback = function()
---         local line = vim.api.nvim_get_current_line()
---         if line:match("^#+%s") then
---             vim.lsp.buf.rename()
---         end
---     end,
---     desc = "Call lsp rename when renaming a header in a markdown file"
--- })
-
-vim.g.netrw_browse_split = 0
-vim.g.netrw_winsize = 25
-
-
 -- Automatic file / heading renaming
 local function get_vault_root(fname)
     local paths = {
@@ -116,9 +103,39 @@ local function get_vault_root(fname)
     return vim.fn.getcwd()
 end
 
+
 require("lspconfig").markdown_oxide.setup({
     capabilities = capabilities,
     root_dir = function(fname)
         return get_vault_root(fname)
     end,
 })
+
+-- trouble: only open when there's something that will crash the program
+vim.api.nvim_create_autocmd("DiagnosticChanged", {
+    callback = function(args)
+        local bufnr = args.buf
+        local error = vim.diagnostic.get(bufnr, {severity = vim.diagnostic.severity.ERROR})
+        if errors ~= nil and #errors > 0 then
+            require("trouble").open({
+                mode = "diagnostics",
+                filter = { buf = 0 },
+                focus = false,
+                pinned = true 
+            })
+        end
+    end,
+})
+
+-- trouble: close when closing buffer
+vim.api.nvim_create_autocmd("BufWipeout", {
+        callback = function(args)
+            local trouble = require("trouble")
+            if trouble.is_open() then
+                local view = trouble.get_view()
+                if view and view.source.buf == args.buf then
+                    trouble.close()
+                end
+            end
+        end,
+    })

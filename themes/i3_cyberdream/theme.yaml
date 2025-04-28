@@ -36,12 +36,12 @@ rofi:
 zsh:
   feats:
     - fastfetch
-  append:
-    - from: .zshrc
-      to: zsh/.zshrc
-  overwrite:
-    - from: cyberdream.theme
-      to: fish/cyberdream.theme
+  # append:
+  #   - from: .zshrc
+  #     to: zsh/.zshrc
+  # overwrite:
+  #   - from: cyberdream.theme
+  #     to: fish/cyberdream.theme
 
 
 fastfetch: 

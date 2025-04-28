@@ -14,10 +14,10 @@ def parse_zsh(
     config: Dict, template_dir: str, destination_dir: str, theme_path: str
 ) -> Dict:
 
-    logger.info("Loading fish...")
+    logger.info("Loading zsh...")
 
     feats = config["zsh"].get("feats", [])
-    logger.warning(f"feats = {feats}") 
+    logger.debug(f"feats = {feats}") 
 
     if "wallpaper" in config:
         wallpaper_file = config["wallpaper"]["file"]
@@ -27,7 +27,7 @@ def parse_zsh(
     
     prompts_dict = {
         "cowsay_fortune": (
-            "fortune | cowsay -fr\n"
+            "fortune | cowsay -r\n"
         ),
         "neofetch": "fastfetch\n",
         "fastfetch": "fastfetch\n",
@@ -57,4 +57,7 @@ def parse_zsh(
             if d == 'neofetch':
                 logger.warning("using fastfetch instead of neofetch")
             append_text(dest, prompts_dict[d])
+    append_text(dest, '\neval "$(direnv hook zsh)"')
+    append_text(dest, '\neval "$(fzf --zsh)"')
+    append_text(dest, '\neval "$(zoxide init --cmd cd zsh)"')
     return config

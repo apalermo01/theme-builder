@@ -22,9 +22,9 @@ tmux:
 zsh: 
   feats: 
     - fastfetch
-  append:
-    - from: .zshrc
-      to: zsh/.zshrc
+  # append:
+  #   - from: .zshrc
+  #     to: zsh/.zshrc
 
 theme_scripts: 
   path: ./themes/wsl_onedark/scripts/

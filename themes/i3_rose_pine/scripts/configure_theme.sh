@@ -1,7 +1,7 @@
-#!/usr/bin/env fish
-fisher install rose-pine/fish
-fish_config prompt save acidhub
-fish_config theme choose "Rosé Pine"
+#!/usr/bin/env sh
+# fisher install rose-pine/fish
+# fish_config prompt save acidhub
+# fish_config theme choose "Rosé Pine"
 
 kitty +kitten themes --reload-in=all Rosé Pine
 

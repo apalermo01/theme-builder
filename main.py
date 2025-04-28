@@ -65,10 +65,10 @@ def build_theme(theme_name: str,
 
     if os.path.exists(destination_base):
         shutil.rmtree(destination_base)
-        logger.info(f"removed directory {destination_base}")
+        logger.debug(f"removed directory {destination_base}")
 
     os.makedirs(destination_base)
-    logger.info(f"created directory {destination_base}")
+    logger.debug(f"created directory {destination_base}")
 
     ### get path config
     ### TODO: make this configurable
@@ -91,6 +91,7 @@ def build_theme(theme_name: str,
         "picom",
         "fish",
         "bash",
+        "zsh",
         "kitty",
         "alacritty",
         "fastfetch"
@@ -101,7 +102,7 @@ def build_theme(theme_name: str,
     
     for key in order:
         if key in config:
-            logger.info(f"processing {key}")
+            logger.debug(f"processing {key}")
 
             destination_path = os.path.join(
                 destination_base, path_config[key]["destination_path"]
@@ -109,6 +110,7 @@ def build_theme(theme_name: str,
 
             if "template_dir" in config[key]:
                 logger.warning("WRONG KEY NAME. Use template_path instead of template_dir")
+                break
             if "template_path" in config[key]:
                 template_path = config[key]["template_path"]
             else:
@@ -184,7 +186,7 @@ def copy_theme(
         if nvim_only and t not in ['colors', 'nvim']: 
             continue 
 
-        print("processing", t)
+        logger.info(f"copying {t}...")
 
         # TODO: abstract out list of roles / tools to skip
         if t in ["colors", "wallpaper"]:
@@ -205,26 +207,24 @@ def copy_theme(
 
         # make backup
         if len(sub_path) > 0:
-            print("sub path is not empty")
+            logger.debug("sub path is not empty")
             if make_backup and os.path.exists(destination_path) and len(sub_path) > 0:
                 if not backup_root:
                     raise ValueError("Expected backup_root to be non-null")
                 if not os.path.exists(backup_root):
                     os.makedirs(backup_root)
                 backup_path = os.path.join(backup_root, sub_path)
-
-                print(f"backing up {destination_path} to {backup_path}")
+                logger.debug(f"{destination_path} -> {backup_path}")
                 shutil.copytree(destination_path, backup_path)
 
             # move the files
             if os.path.exists(destination_path):
                 shutil.rmtree(destination_path)
-
-            print(f"moving {source_path} to {destination_path}")
+            logger.debug(f"{source_path} -> {destination_path}")
             shutil.copytree(source_path, destination_path)
 
         else:
-            print("looping through files in ", source_path)
+            logger.debug("looping through files in ", source_path)
             for file in os.listdir(source_path):
                 if make_backup and os.path.exists(os.path.join(destination_path, file)):
                     if not backup_root:
@@ -240,7 +240,7 @@ def copy_theme(
                         os.path.join(backup_root, file),
                     )
 
-                logger.info(
+                logger.debug(
                     f"copying {os.path.join(source_path, file)} to {os.path.join(destination_path, file)}"
                 )
                 shutil.copy2(
@@ -259,8 +259,8 @@ def copy_theme(
         for file in sorted(os.listdir(path)):
             subprocess.call(os.path.join(path, file))
 
-    print("Theme migration complete!")
-    print("If using i3 and / or tmux, you'll have to refresh each of those " + \
+    logger.info("Theme migration complete!")
+    logger.info("If using i3 and / or tmux, you'll have to refresh each of those " + \
           "to see the changes take effect ($mod+shift+r, <leader>I, " + \
           "respectively.)")
 
@@ -282,17 +282,17 @@ def move_to_dotfiles(tools,
                           "put the dotfiles retool in a folder called 'git'")
 
     if os.path.exists(dotfiles_theme_path):
-        logger.info(f"removing {dotfiles_theme_path}")
+        logger.debug(f"removing {dotfiles_theme_path}")
         shutil.rmtree(dotfiles_theme_path) 
 
     os.makedirs(dotfiles_theme_path)
 
-    os.chdir(dotfiles_path)
-    subprocess.run(["git", "checkout", "-B", "dev"])
-    os.chdir(original_dir)
+    # os.chdir(dotfiles_path)
+    # subprocess.run(["git", "checkout", "-B", "dev"])
+    # os.chdir(original_dir)
     
     for t in tools:
-        print("processing", t)
+        logger.info(f"processing {t}...")
 
         if t in ["colors", "wallpaper"]:
             continue
@@ -313,21 +313,17 @@ def move_to_dotfiles(tools,
 
         # make backup
         if len(sub_path) > 0:
-            print("sub path is not empty")
-            print(f"moving {source_path} to {destination_path}")
+            logger.debug("sub path is not empty")
+            logger.debug(f"{source_path} -> {destination_path}")
             shutil.copytree(source_path, destination_path, dirs_exist_ok=True)
 
         else:
-            print("looping through files in ", source_path)
+            logger.debug("looping through files in ", source_path)
             for file in os.listdir(source_path):
-
-                logger.info(
-                    f"copying {os.path.join(source_path, file)} to {os.path.join(destination_path, file)}"
-                )
-                shutil.copy2(
-                    os.path.join(source_path, file),
-                    os.path.join(destination_path, file),
-                )
+                src = os.path.join(source_path, file)
+                dest = os.path.join(destination_path, file)
+                logger.debug(f"{src} -> {dest}")
+                shutil.copy2(src, dest)
     
     # handle scripts
     if 'theme_scripts' in config:
@@ -336,7 +332,7 @@ def move_to_dotfiles(tools,
         )
         source_path = config['theme_scripts'].get('path', f'./themes/{theme_name}/scripts/')
         for file in os.listdir(source_path):
-            logger.info(
+            logger.debug(
                 f"copying {os.path.join(source_path, file)} to {os.path.join(destination_path, file)}"
             )
             
@@ -354,20 +350,15 @@ def move_to_dotfiles(tools,
     scripts_path = os.path.join("themes", theme_name, "build", "theme_scripts")
     scripts_dest = os.path.join(dotfiles_theme_path, ".config", "theme_scripts")
     if os.path.exists(scripts_path):
-        logger.info("moving scripts")
+        logger.info("moving scripts...")
         for file in os.listdir(scripts_path):
-            logger.info(
-                f"TEST: copying {os.path.join(scripts_path, file)} to " +\
-                f"{os.path.join(scripts_dest, file)}"
-            )
 
             if not os.path.exists(scripts_dest):
                 os.mkdir(scripts_dest)
-
-            shutil.copy2(
-                os.path.join(scripts_path, file),
-                os.path.join(scripts_dest, file)
-            )
+            src = os.path.join(scripts_path, file)
+            dest = os.path.join(scripts_dest, file)
+            shutil.copy2(src, dest)
+            logger.info(f"{src} -> {dest}")
 
             # make the script executable
             if file[-3:] == '.sh':
