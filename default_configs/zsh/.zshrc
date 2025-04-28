@@ -142,11 +142,16 @@ alias vi='nvim'
 alias nivm='nvim'
 
 # git aliases 
+# https://www.youtube.com/watch?v=G3NJzFX6XhY
 alias g='git'
 alias ga='git add -p'
-alias gc='git commit -p'
+alias gc='git commit'
 alias gb='git branch'
+alias gd="git diff --output-indicator-new=' ' --output-indicator-old=' '"
+alias gl="git log --all --graph --pretty=\
+    format:'%C(magenta)%h %C(white) %an %ar%C(auto) %D%n%s%n'"
 alias gp='git push'
+alias gpu='git pull'
 
 #######################
 # Additional settings #
