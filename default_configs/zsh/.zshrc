@@ -153,7 +153,7 @@ alias gl="git log --all --graph --pretty=\
 alias gp='git push'
 alias gpu='git pull'
 
-if [[ -f "~/work_cmds.sh" ]]; then
+if [[ -f "${HOME}/work_cmds.sh" ]]; then
     source ~/work_cmds.sh
 fi
 #######################
