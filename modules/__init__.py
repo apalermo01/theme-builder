@@ -3,6 +3,7 @@ from . import i3
 from . import wallpaper
 from . import bash
 from . import fish
+from . import zsh
 from . import hyprland
 from . import polybar 
 from . import waybar 
@@ -30,4 +31,5 @@ modules = {
     "kitty": kitty.parse_kitty,
     "alacritty": alacritty.parse_alacritty,
     "fastfetch": fastfetch.parse_fastfetch,
+    "zsh": zsh.parse_zsh,
 }

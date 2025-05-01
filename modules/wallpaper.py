@@ -1,5 +1,6 @@
 import logging
 import os
+import stat
 import shutil
 from typing import Dict, List
 
@@ -92,8 +93,18 @@ def feh_theme(config: Dict, theme_path: str):
             f.write(text)
 
     logger.info(f"added {text} to i3 config")
-    shutil.copy2(src=wallpaper_path, dst=wallpaper_dest)
-    logger.info(f"copied {wallpaper_path} to {wallpaper_dest}")
+    
+    # write wallpaper cmd to a script
+    cmd_text: str = f"feh --bg-fill {wallpaper_dest}"
+    wp_script_path = os.path.join(theme_path, "build", "theme_scripts")
+    if not os.path.exists(wp_script_path):
+        os.makedirs(wp_script_path)
+    with open(os.path.join(wp_script_path, "wp.sh"), "w") as f:
+        f.write("#!/bin/sh\n")
+        f.write(cmd_text)
+
+    # os.chmod(os.path.join(wp_script_path, "wp.sh"), stat.S_IRWXO)
+    logger.info(f"wrote {cmd_text} to wp script")
 
     return config
 

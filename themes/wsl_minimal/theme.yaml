@@ -8,7 +8,7 @@ nvim:
 
 tmux: {}
 
-zsh: 
-  append:
-    - from: .zshrc
-      to: zsh/.zshrc
+zsh: {}
+  # append:
+  #   - from: .zshrc
+  #     to: zsh/.zshrc

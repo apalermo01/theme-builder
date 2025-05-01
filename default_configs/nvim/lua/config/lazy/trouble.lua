@@ -3,11 +3,16 @@ return {
         "folke/trouble.nvim",
         config = function()
             require("trouble").setup({
-                icons = false,
+                auto_close = true,
             })
 
             vim.keymap.set("n", "<leader>tt", function()
-                require("trouble").toggle()
+                require("trouble").toggle({
+                    mode = "diagnostics",
+                    filter = { buf = 0 },
+                    pinned = true,
+                    focus = false
+                })
             end)
 
             vim.keymap.set("n", "[t", function()

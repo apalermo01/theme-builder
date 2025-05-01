@@ -1,11 +1,27 @@
--- General
 local set = vim.opt
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
+local group = augroup('config', {})
+
+-- functions
+function NixSettings()
+    vim.bo.tabstop = 2
+    vim.bo.shiftwidth = 2
+    vim.bo.softtabstop = 2
+end
+
+-- General
 set.guicursor = "n-v-c-sm:block,i-ci-ve:ver25-Cursor,r-cr-o:hor20"
 
 set.tabstop = 4
 set.shiftwidth = 4
 set.softtabstop = 4
 set.expandtab = true
+autocmd('FileType', {
+    group = group,
+    pattern = { "nix" },
+    callback = NixSettings
+})
 
 set.number = true
 set.rnu = true

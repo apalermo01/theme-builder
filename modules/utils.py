@@ -22,13 +22,8 @@ def module_wrapper(tool):
             with open("./configs/paths.yaml", "r") as f:
                 path_configs = yaml.safe_load(f)
 
-            # if orient == 'role':
-            #     destination_dir = os.path.join(path_configs[tool]['destination_path'], destination_dir)
-            # else:
-            #     destination_dir = os.path.join(path_configs[tool]['config_path'], destination_dir)
-
-            print(f"template dir = {template_dir}")
-            print(f"destination dir = {destination_dir}")
+            logger.debug(f"template dir = {template_dir}")
+            logger.debug(f"destination dir = {destination_dir}")
             if "template_path" in config[tool]:
                 template_dir = config[tool]["template_path"]
                 if template_dir[-1] != "/":
@@ -102,14 +97,14 @@ def copy_files_from_filelist(
                 for line in f_from.readlines():
                     f_to.write(line)
         else:
-            logger.info(f"copying {from_path} to {to_path}")
+            logger.debug(f"copying {from_path} to {to_path}")
             shutil.copy2(from_path, to_path)
 
 
 def configure_destination(dest: str, *subfolders: List[str]) -> str:
     dest = os.path.join(dest, *subfolders[:-1])
     if not os.path.exists(dest):
-        logger.info(f"creating path {dest}")
+        logger.debug(f"creating path {dest}")
         os.makedirs(dest)
     return os.path.join(dest, *subfolders)
 
@@ -162,7 +157,7 @@ def append_text(src: str, text: str):
 def copy_files_from_template(src_folder: str, dest_folder: str):
 
     if not os.path.exists(dest_folder):
-        logger.info(f"making dest subfolder: {dest_folder}")
+        logger.debug(f"making dest subfolder: {dest_folder}")
         os.makedirs(dest_folder)
 
     for root, dirs, files in os.walk(src_folder):
@@ -172,12 +167,12 @@ def copy_files_from_template(src_folder: str, dest_folder: str):
 
         if not os.path.exists(folder):
             os.makedirs(folder)
-        logger.warning(f"files = {files}")
+        logger.debug(f"files = {files}")
         for file in files:
             src_file = os.path.join(root, file)
             dest_file = os.path.join(dest_folder, subfolder, file)
 
-            logger.info(f"copied {src_file} to {dest_file}")
+            logger.debug(f"copied {src_file} to {dest_file}")
             shutil.copy2(src_file, dest_file)
 
 
@@ -255,8 +250,11 @@ def configure_colors(theme_path: str):
         folder = os.path.join(build_path, subfolder[1:])
 
         for file in files:
-            if "json" in file or "jsonc" in file:
+            if "json" in file \
+                or "jsonc" in file \
+                or ".zsh" in file:
                 continue
+
             full_path = os.path.join(folder, file)
 
             with open(full_path, "r") as f:
@@ -264,6 +262,6 @@ def configure_colors(theme_path: str):
 
             template = Template(template_content)
             rendered = template.render(colorscheme)
-
+            
             with open(full_path, "w") as f:
                 f.write(rendered)

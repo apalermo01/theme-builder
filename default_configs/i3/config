@@ -207,14 +207,17 @@ bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="rofi -dmenu -i -p 
 bindsym $mod+Return exec gnome-terminal
 
 
-# bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -c 0 -q set Master 2dB+ unmute
-# bindsym XF86AudioLowerVolume exec --no-startup-id amixer -c 0 -q set Master 2db- unmute
+# bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2%
+# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%
+# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset Master 2%+ unmute
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -D pulse sset Master 2%- unmute
+bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 0.02+
+bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume        @DEFAULT_AUDIO_SINK@ 0.02-
+bindsym XF86AudioMute        exec --no-startup-id wpctl set-mute          @DEFAULT_AUDIO_SINK@ toggle
 
-# bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
-bindsym XF86AudioMute exec --no-startup-id amixer -D pulse set Master toggle
+# bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 2
+# bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 2
+# bindsym XF86AudioMute        exec --no-startup-id pamixer -t
 
 # touchpad on and off controller on laptop with Fn+<touchpad control functional key>
 bindsym XF86TouchpadOn exec --no-startup-id synclient Touchpadoff=0
@@ -226,7 +229,7 @@ bindsym XF86MonBrightnessDown exec --no-startup-id sudo brightnessctl set 5%-
 
 # font xft:URWGothic-Book 11
 bindsym $mod+f exec firefox
-bindsym $mod+z exec /usr/local/bin/zen/zen
+bindsym $mod+z exec zen
 
 # pretty sure this is for ubuntu
 # bindsym $mod+b exec brave-browser
@@ -271,9 +274,17 @@ for_window [class="zoom"] floating enable
 for_window [urgent=latest] focus
 
 # Autostart applications
+# exec_always --no-startup-id sh -c '
+#   if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
+#     eval $(dbus-launch --sh-syntax --exit-with-session)
+#   fi
+#   eval $(/run/wrappers/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
+#   export SSH_AUTH_SOCK
+# '
 exec --no-startup-id nm-applet
 exec_always --no-startup-id $HOME/.config/polybar/i3_polybar_start.sh
-exec_always $HOME/shift_monitor.sh
+exec_always --no-startup-id $HOME/shift_monitor.sh
+exec --no-startup-id dunst
 
 # i3 lock
 bindsym $mod+Ctrl+l exec "i3lock"

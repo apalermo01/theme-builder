@@ -1,7 +1,8 @@
-#!/bin/fish
+#!/usr/bin/env sh
+###!/usr/bin/env fish
 # kitty +kitten themes --reload-in=all catppuccin-macchiato
-fisher install jomik/fish-gruvbox
-fish_config prompt save acidhub
+# fisher install jomik/fish-gruvbox
+# fish_config prompt save acidhub
 bash ~/.config/polybar/i3_polybar_start.sh
 
 if test -e ~/.config/polybar/i3_polybar_start.sh

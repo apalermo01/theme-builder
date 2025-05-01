@@ -33,9 +33,9 @@ rofi:
 zsh: 
   feats: 
     - fastfetch
-  append:
-    - from: .zshrc
-      to: zsh/.zshrc
+  # append:
+  #   - from: .zshrc
+  #     to: zsh/.zshrc
 
 kitty:
   append:

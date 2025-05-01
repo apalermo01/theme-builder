@@ -102,7 +102,7 @@ def _configure_colors(config: Dict, destination_dir: str, theme_path: str):
         colorscheme: Dict = json.load(f)
 
     config_path = os.path.join(destination_dir, "hyprland.conf")
-    print(f"opening tmp file from {config_path}")
+    logger.debug(f"opening tmp file from {config_path}")
     with open(config_path, "r") as f:
         config: List = f.readlines()
 

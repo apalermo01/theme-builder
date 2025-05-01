@@ -27,7 +27,7 @@ def parse_fish(
     
     prompts_dict = {
         "cowsay_fortune": (
-            "fortune | cowsay -f $(ls /usr/share/cowsay/cows/ " "| shuf -n1)\n"
+            "fortune | cowsay -rC \n"
         ),
         "neofetch": "fastfetch\n",
         "fastfetch": "fastfetch\n",

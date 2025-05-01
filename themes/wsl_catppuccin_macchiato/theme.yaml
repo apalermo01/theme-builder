@@ -5,7 +5,7 @@ nvim:
   overwrite:
     - from: theme.lua
       to: nvim/lua/config/theme.lua
-    - from: ../../snippets/wsl_obsidian.lua
+    - from: obsidian.lua
       to: nvim/lua/config/lazy/obsidian.lua
 
 tmux:
@@ -22,8 +22,11 @@ zsh:
   feats: 
     - fastfetch
   append:
-    - from: .zshrc
+    - from: additions.zsh
       to: zsh/.zshrc
+  overwrite:
+    - from: p10k.zsh
+      to: zsh/.p10k.zsh
 
 theme_scripts: 
   path: ./themes/wsl_catppuccin_macchiato/scripts/
