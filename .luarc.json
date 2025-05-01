@@ -1,0 +1,7 @@
+{
+    "diagnostics.globals": [
+        "nixos",
+        "is_nixos",
+        "map"
+    ]
+}
