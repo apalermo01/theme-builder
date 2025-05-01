@@ -3,6 +3,7 @@ require("config.opts")
 require("config.lazy_init")
 
 local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
 local group = augroup("config", {})
 
 -- Declare a global function to retrieve the current directory
