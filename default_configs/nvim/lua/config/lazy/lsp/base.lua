@@ -81,7 +81,7 @@ return {
         if vim.fn.filereadable(proj_file) ~= 0 then
             local project_id = vim.fn.trim(vim.fn.readfile(proj_file)[1] or "")
             if project_id ~= "" then
-                require("default_configs.nvim.lua.config.lazy.lsp.lsp-base").bqls.setup {
+                require("lspconfig").bqls.setup {
                     settings = {
                         project_id = project_id,
                     },
