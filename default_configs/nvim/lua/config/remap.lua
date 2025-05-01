@@ -66,12 +66,12 @@ map("n", "N", "Nzzzv")
 map("x", "<leader>p", "\"_dP")
 
 -- yank to system clipboard without any gymnastics
-map("n", "<leader>y", "\"+y")
-map("n", "<leader>y", "\"+y")
-map("n", "<leader>Y", "\"+y")
-map("n", "<leader>p", "\"+p")
-map("n", "<leader>p", "\"+p")
-map("n", "<leader>P", "\"+p")
+map({"v", "n"}, "<leader>y", "\"+y")
+map({"v", "n"}, "<leader>y", "\"+y")
+map({"v", "n"}, "<leader>Y", "\"+y")
+map({"v", "n"}, "<leader>p", "\"+p")
+map({"v", "n"}, "<leader>p", "\"+p")
+map({"v", "n"}, "<leader>P", "\"+p")
 
 map("i", "<C-c>", "<Esc>")
 
