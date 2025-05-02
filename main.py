@@ -6,16 +6,16 @@ import shutil
 import stat
 import subprocess
 from datetime import datetime
-from typing import Literal, Optional
+from typing import Literal
 
 import yaml
-
 from modules import modules
 from modules.scripts import parse_scripts
 from modules.utils import configure_colors, validate_config
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
+
 
 def get_theme_config(theme_path: str) -> dict:
     all_files = os.listdir(theme_path)
@@ -45,10 +45,7 @@ def get_theme_config(theme_path: str) -> dict:
     raise ValueError("theme file not found!")
 
 
-def build_theme(theme_name: str,
-                test: bool,
-                orient: str,
-                nvim_only: bool = False):
+def build_theme(theme_name: str, test: bool, orient: str, nvim_only: bool = False):
 
     if test:
         theme_path: str = os.path.join("tests", theme_name)
@@ -94,12 +91,12 @@ def build_theme(theme_name: str,
         "zsh",
         "kitty",
         "alacritty",
-        "fastfetch"
+        "fastfetch",
     ]
 
     if nvim_only:
-        order = ['colors', "nvim"]
-    
+        order = ["colors", "nvim"]
+
     for key in order:
         if key in config:
             logger.debug(f"processing {key}")
@@ -109,13 +106,15 @@ def build_theme(theme_name: str,
             )
 
             if "template_dir" in config[key]:
-                logger.warning("WRONG KEY NAME. Use template_path instead of template_dir")
+                logger.warning(
+                    "WRONG KEY NAME. Use template_path instead of template_dir"
+                )
                 break
             if "template_path" in config[key]:
                 template_path = config[key]["template_path"]
             else:
                 template_path = path_config[key]["template_path"]
-            
+
             config = modules[key](
                 template_dir=template_path,
                 destination_dir=destination_path,
@@ -183,8 +182,8 @@ def copy_theme(
 
     for t in tools:
 
-        if nvim_only and t not in ['colors', 'nvim']: 
-            continue 
+        if nvim_only and t not in ["colors", "nvim"]:
+            continue
 
         logger.info(f"copying {t}...")
 
@@ -252,7 +251,7 @@ def copy_theme(
         if orient == "roles":
             root = os.path.join(root, "scripts")
         parse_scripts(config, root)
-    
+
     # additional scripts that need to run to install the theme
     if "theme_scripts" in config and not nvim_only:
         path = config["theme_scripts"]["path"]
@@ -260,37 +259,43 @@ def copy_theme(
             subprocess.call(os.path.join(path, file))
 
     logger.info("Theme migration complete!")
-    logger.info("If using i3 and / or tmux, you'll have to refresh each of those " + \
-          "to see the changes take effect ($mod+shift+r, <leader>I, " + \
-          "respectively.)")
+    logger.info(
+        "If using i3 and / or tmux, you'll have to refresh each of those "
+        + "to see the changes take effect ($mod+shift+r, <leader>I, "
+        + "respectively.)"
+    )
 
-def move_to_dotfiles(tools,
-                     config,
-                     orient,
-                     theme_name,
-                     dotfiles_path,
-                     ):
+
+def move_to_dotfiles(
+    tools,
+    config,
+    orient,
+    theme_name,
+    dotfiles_path,
+):
     with open("./configs/paths.yaml", "r") as f:
         path_config = yaml.safe_load(f)
 
     original_dir = os.getcwd()
     dotfiles_theme_path = os.path.join(dotfiles_path, theme_name)
-    if 'git' not in dotfiles_theme_path or len(dotfiles_theme_path) < 8:
-        raise ValueError(f"'git' is not in the dotfiles path OR the path is " +\
-                          "less than 8 characters. While not a bug, this is " +\
-                          "suspicious, so I'm crashing. To fix this, just " +\
-                          "put the dotfiles retool in a folder called 'git'")
+    if "git" not in dotfiles_theme_path or len(dotfiles_theme_path) < 8:
+        raise ValueError(
+            f"'git' is not in the dotfiles path OR the path is "
+            + "less than 8 characters. While not a bug, this is "
+            + "suspicious, so I'm crashing. To fix this, just "
+            + "put the dotfiles retool in a folder called 'git'"
+        )
 
     if os.path.exists(dotfiles_theme_path):
         logger.debug(f"removing {dotfiles_theme_path}")
-        shutil.rmtree(dotfiles_theme_path) 
+        shutil.rmtree(dotfiles_theme_path)
 
     os.makedirs(dotfiles_theme_path)
 
     # os.chdir(dotfiles_path)
     # subprocess.run(["git", "checkout", "-B", "dev"])
     # os.chdir(original_dir)
-    
+
     for t in tools:
         logger.info(f"processing {t}...")
 
@@ -301,7 +306,7 @@ def move_to_dotfiles(tools,
         if orient == "roles":
             destination_path = os.path.join(dotfiles_theme_path, t)
             sub_path = t
-    
+
         else:
             destination_path = os.path.join(
                 dotfiles_theme_path, path_config[t].get("config_path", "")
@@ -324,28 +329,27 @@ def move_to_dotfiles(tools,
                 dest = os.path.join(destination_path, file)
                 logger.debug(f"{src} -> {dest}")
                 shutil.copy2(src, dest)
-    
+
     # handle scripts
-    if 'theme_scripts' in config:
-        destination_path = os.path.join(
-            dotfiles_theme_path, ".config", "theme_scripts"
+    if "theme_scripts" in config:
+        destination_path = os.path.join(dotfiles_theme_path, ".config", "theme_scripts")
+        source_path = config["theme_scripts"].get(
+            "path", f"./themes/{theme_name}/scripts/"
         )
-        source_path = config['theme_scripts'].get('path', f'./themes/{theme_name}/scripts/')
         for file in os.listdir(source_path):
             logger.debug(
                 f"copying {os.path.join(source_path, file)} to {os.path.join(destination_path, file)}"
             )
-            
+
             if not os.path.exists(destination_path):
                 os.mkdir(destination_path)
 
             shutil.copy2(
-                os.path.join(source_path, file),
-                os.path.join(destination_path, file)
+                os.path.join(source_path, file), os.path.join(destination_path, file)
             )
-    
+
     # handle scripts directory (this also handles wallpapers)
-    # TODO: there's a bunch of redundant logic happening here with the 
+    # TODO: there's a bunch of redundant logic happening here with the
     # other script handling sections. Need to clean this up a bit.
     scripts_path = os.path.join("themes", theme_name, "build", "theme_scripts")
     scripts_dest = os.path.join(dotfiles_theme_path, ".config", "theme_scripts")
@@ -361,13 +365,15 @@ def move_to_dotfiles(tools,
             logger.info(f"{src} -> {dest}")
 
             # make the script executable
-            if file[-3:] == '.sh':
-                os.chmod(os.path.join(scripts_dest, file), 
-                         os.stat(os.path.join(scripts_dest, file)).st_mode | stat.S_IEXEC)
+            if file[-3:] == ".sh":
+                os.chmod(
+                    os.path.join(scripts_dest, file),
+                    os.stat(os.path.join(scripts_dest, file)).st_mode | stat.S_IEXEC,
+                )
 
     # handle wallpaper
     # if 'wallpaper' in config:
-        
+
     #     wallpaper_path: str = config["wallpaper"]["file"]
     #
     #     # if just the filename was given, look in the project's wallpaper folder:
@@ -383,17 +389,26 @@ def move_to_dotfiles(tools,
 
     os.chdir(dotfiles_path)
     date = datetime.now().strftime("%Y-%m-%d")
-    subprocess.run(["git", "add", ".", ])
-    subprocess.run(["git", "commit", "-m", f"theme builder - {date} - {theme_name}" ])
+    subprocess.run(
+        [
+            "git",
+            "add",
+            ".",
+        ]
+    )
+    subprocess.run(["git", "commit", "-m", f"theme builder - {date} - {theme_name}"])
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--theme")
     parser.add_argument("--test", default=True, action=argparse.BooleanOptionalAction)
 
-    parser.add_argument("--migration-method", default="none", choices=["none", "copy", "dotfiles"])
+    parser.add_argument(
+        "--migration-method", default="none", choices=["none", "copy", "dotfiles"]
+    )
 
-    parser.add_argument("--dotfiles-path", default='/home/alex/Documents/git/dotfiles/')
+    parser.add_argument("--dotfiles-path", default="/home/alex/Documents/git/dotfiles/")
 
     parser.add_argument("--destination-root", default="")
 
@@ -406,7 +421,7 @@ def parse_args():
     )
 
     parser.add_argument(
-            "--nvim-only", default=False, action=argparse.BooleanOptionalAction
+        "--nvim-only", default=False, action=argparse.BooleanOptionalAction
     )
 
     args = parser.parse_args()
@@ -417,7 +432,10 @@ def main():
     args = parse_args()
     theme_name = args.theme
     tools_updated, theme_path, config = build_theme(
-        theme_name, args.test, args.destination_structure, args.nvim_only,
+        theme_name,
+        args.test,
+        args.destination_structure,
+        args.nvim_only,
     )
 
     if args.migration_method == "none":
@@ -431,7 +449,7 @@ def main():
             args.destination_root,
             args.destination_structure,
             config,
-            args.nvim_only
+            args.nvim_only,
         )
     if args.migration_method == "dotfiles":
         move_to_dotfiles(
@@ -445,4 +463,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    

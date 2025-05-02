@@ -5,9 +5,9 @@ local group = augroup('config', {})
 
 -- functions
 function NixSettings()
-    vim.bo.tabstop = 2
-    vim.bo.shiftwidth = 2
-    vim.bo.softtabstop = 2
+    set.tabstop = 2
+    set.shiftwidth = 2
+    set.softtabstop = 2
 end
 
 -- General

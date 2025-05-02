@@ -134,12 +134,14 @@ alias og='move_note_on_type'
 alias personal='bash ~/personal_docs.sh'
 alias reading='bash ~/reading_session.sh'
 alias notes='cd ~/Documents/git/notes'
+alias n='cd ~/Documents/git/notes'
 alias o='obsidian'
 alias ls='ls --color'
 
 alias vim='nvim'
 alias vi='nvim'
 alias nivm='nvim'
+alias v='nvim'
 
 # git aliases 
 # https://www.youtube.com/watch?v=G3NJzFX6XhY
