@@ -6,9 +6,8 @@ return {
 	"williamboman/mason-lspconfig.nvim",
 	opts = {
 
-		automatic_installation = not nixos,
-		ensure_installed = nixos and {
-			"lua_ls",
+		automatic_installation = not IS_NIXOS,
+		ensure_installed = IS_NIXOS and {
 			"html",
 			"cssls",
 			"clangd",
@@ -18,7 +17,7 @@ return {
 			"nil_ls",
 			"bashls",
 		} or {
-			"lua_ls",
+            "lua_ls",
 			"html",
 			"cssls",
 			"clangd",

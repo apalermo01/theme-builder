@@ -87,6 +87,18 @@ return {
             desc = "move to source material",
         },
         {
+            "<leader>ott",
+            ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-notes/0-notes/3-tags<cr>:bd<CR>",
+            "n",
+            desc = "move to tags (normal)",
+        },
+        {
+            "<leader>otp",
+            ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-notes/1-private/3-tags<cr>:bd<CR>",
+            "n",
+            desc = "move to tags (private)",
+        },
+        {
             "<leader>odd",
             ":!rm '%:p'<CR>:bd<CR>",
             "n",
