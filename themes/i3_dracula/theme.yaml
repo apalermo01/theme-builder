@@ -55,3 +55,6 @@ fastfetch:
   overwrite: 
     - from: config.jsonc
       to: fastfetch/config.jsonc
+
+gtk-4:
+  template_path: default_configs/gtk-4/breeze
