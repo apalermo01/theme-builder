@@ -1,42 +1,36 @@
+---
 font_family: JetBrainsMono NFM medium
-
 colors:
   method: pywal
-
 i3:
   append:
     - from: config
       to: i3/config
-
-polybar: 
+polybar:
   bars: [main]
-
 wallpaper:
   method: feh
   file: trees.jpg
-
 nvim:
   template_path: default_configs/nvim
   colorscheme: everforest
   overwrite:
     - from: theme.lua
       to: nvim/lua/config/theme.lua
-
 tmux:
   append:
     - from: tmux.conf
       to: tmux/.tmux.conf
-
 rofi:
   template_path: themes/i3_trees/rofi
-
 zsh:
   feats: [run_pywal]
-  # append:
-  #   - from: .zshrc
-  #     to: zsh/.zshrc
-
+  append:
+    - from: additions.zsh
+      to: zsh/.zshrc
+  overwrite:
+    - from: p10k.zsh
+      to: zsh/.p10k.zsh
 kitty: {}
-
 picom:
   template_path: themes/i3_trees/picom/
