@@ -75,3 +75,8 @@ zsh:
   template_path: 'default_configs/zsh/'
   destination_path: 'zsh/'
   config_path: ''
+
+gtk:
+  template_path: 'default_configs/gtk-4/breeze'
+  destination_path: 'gtk-4.0/'
+  config_path: '.config/gtk-4.0/'

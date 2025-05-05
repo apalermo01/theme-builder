@@ -92,6 +92,8 @@ def build_theme(theme_name: str, test: bool, orient: str, nvim_only: bool = Fals
         "kitty",
         "alacritty",
         "fastfetch",
+        "gtk_4",
+        "gtk_3",
     ]
 
     if nvim_only:

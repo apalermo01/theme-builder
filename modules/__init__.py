@@ -1,19 +1,23 @@
-from . import colors
-from . import i3
-from . import wallpaper
-from . import bash
-from . import fish
-from . import zsh
-from . import hyprland
-from . import polybar 
-from . import waybar 
-from . import nvim 
-from . import tmux 
-from . import rofi 
-from . import picom 
-from . import kitty 
-from . import alacritty
-from . import fastfetch
+from . import (
+    alacritty,
+    bash,
+    colors,
+    fastfetch,
+    fish,
+    gtk_3,
+    gtk_4,
+    hyprland,
+    i3,
+    kitty,
+    nvim,
+    picom,
+    polybar,
+    rofi,
+    tmux,
+    wallpaper,
+    waybar,
+    zsh,
+)
 
 modules = {
     "colors": colors.parse_colors,
@@ -32,4 +36,6 @@ modules = {
     "alacritty": alacritty.parse_alacritty,
     "fastfetch": fastfetch.parse_fastfetch,
     "zsh": zsh.parse_zsh,
+    "gtk_4": gtk_4.parse_gtk_4,
+    "gtk_3": gtk_3.parse_gtk_3,
 }
