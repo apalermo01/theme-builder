@@ -24,6 +24,21 @@ autoload -U compinit && compinit
 
 zinit cdreplay -q
 
+####################
+# Helper Functions #
+####################
+
+function start_tutoring() {
+    if [[ ! -d "${HOME}/Documents/git/tutoring" ]]; then
+        echo "tutoring folder not found"
+        return
+    fi
+
+    cd "${HOME}/Documents/git/tutoring/"
+    ./scripts/tutoring.sh
+}
+
+
 ###########
 # General #
 ###########
@@ -143,6 +158,7 @@ alias vim='nvim'
 alias vi='nvim'
 alias nivm='nvim'
 alias v='nvim'
+alias tutoring="start_tutoring"
 
 # git aliases 
 # https://www.youtube.com/watch?v=G3NJzFX6XhY
