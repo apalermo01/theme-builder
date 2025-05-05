@@ -159,6 +159,8 @@ alias vi='nvim'
 alias nivm='nvim'
 alias v='nvim'
 alias tutoring="start_tutoring"
+alias chi3="cd ${HOME}/Documents/git/dotfiles && bash scripts/random_i3_theme.sh"
+alias chwsl="cd ${HOME}/Documents/git/dotfiles && bash scripts/random_wsl_theme.sh"
 
 # git aliases 
 # https://www.youtube.com/watch?v=G3NJzFX6XhY
