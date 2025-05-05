@@ -17,18 +17,16 @@ def parse_fish(
     logger.info("Loading fish...")
 
     feats = config["fish"].get("feats", [])
-    logger.warning(f"feats = {feats}") 
+    logger.warning(f"feats = {feats}")
 
     if "wallpaper" in config:
         wallpaper_file = config["wallpaper"]["file"]
         wallpaper_path = os.path.expanduser(f"~/Pictures/wallpapers/{wallpaper_file}")
     else:
         wallpaper_path = None
-    
+
     prompts_dict = {
-        "cowsay_fortune": (
-            "fortune | cowsay -rC \n"
-        ),
+        "cowsay_fortune": ("fortune | cowsay -rC \n"),
         "neofetch": "fastfetch\n",
         "fastfetch": "fastfetch\n",
         "run_pywal": f"wal -n -e -i {wallpaper_path} > /dev/null \n",
@@ -54,7 +52,7 @@ def parse_fish(
             if d == "run_pywal" and wallpaper_path is None:
                 logger.error("Cannot add pywal to fish config, no wallpaper")
                 continue
-            if d == 'neofetch':
+            if d == "neofetch":
                 logger.warning("using fastfetch instead of neofetch")
             append_text(dest, prompts_dict[d])
     return config
