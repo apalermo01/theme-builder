@@ -16,6 +16,7 @@ from . import alacritty
 from . import fastfetch
 from . import apps
 from . import okular
+from . import global_settings
 
 modules = {
     "colors": colors.parse_colors,
@@ -35,5 +36,6 @@ modules = {
     "fastfetch": fastfetch.parse_fastfetch,
     "apps": apps.parse_apps,
     "zsh": zsh.parse_zsh,
-    "okular": okular.parse_okular
+    "okular": okular.parse_okular,
+    "global": global_settings.parse_global,
 }
