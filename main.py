@@ -232,54 +232,30 @@ def move_to_dotfiles(
                 logger.debug(f"{src} -> {dest}")
                 shutil.copy2(src, dest)
 
-    # handle scripts
-    # if "theme_scripts" in config:
-    #     destination_path = os.path.join(dotfiles_theme_path, ".config", "theme_scripts")
-    #     source_path = config["theme_scripts"].get(
-    #         "path", f"./themes/{theme_name}/scripts/"
-    #     )
-    #     for file in os.listdir(source_path):
-    #         logger.debug(
-    #             f"copying {os.path.join(source_path, file)} to {os.path.join(destination_path, file)}"
-    #         )
-    #
-    #         if not os.path.exists(destination_path):
-    #             os.mkdir(destination_path)
-    #
-    #         shutil.copy2(
-    #             os.path.join(source_path, file), os.path.join(destination_path, file)
-    #         )
-
-    # handle scripts directory (this also handles wallpapers)
-    # TODO: there's a bunch of redundant logic happening here with the
-    # other script handling sections. Need to clean this up a bit.
+    # copy the install script to the cache
     scripts_src  = os.path.join("themes", theme_name, "build", "install_theme.sh")
     scripts_dest = os.path.join(dotfiles_theme_path, ".config", "install_theme.sh")
     logger.info(f"{scripts_src} -> {scripts_dest}")
     shutil.copy2(scripts_src, scripts_dest)
     logger.info(f"{scripts_src} -> {scripts_dest}")
 
+    # append any additional theme scripts
+    if "theme_scripts" in config:
+        source_path: str = config['theme_scripts'].get(
+            "path", f"./themes/{theme_name}/scripts/"
+        )
+        for file in os.listdir(source_path):
+            source_file: str = os.path.join(source_path, file)
+            with open(source_file, "r") as src, open(scripts_dest, "a") as dst:
+                for line in src.readlines():
+                    if line.startswith("#!/"):
+                        continue
+                    dst.write(line)
+
     os.chmod(
         scripts_dest,
         os.stat(scripts_dest).st_mode | stat.S_IEXEC,
     )
-    # if os.path.exists(scripts_path):
-    #     logger.info("moving scripts...")
-    #     for file in os.listdir(scripts_path):
-    #
-    #         if not os.path.exists(scripts_dest):
-    #             os.mkdir(scripts_dest)
-    #         src = os.path.join(scripts_path, file)
-    #         dest = os.path.join(scripts_dest, file)
-    #         shutil.copy2(src, dest)
-    #         logger.info(f"{src} -> {dest}")
-    #
-    #         # make the script executable
-    #         if file[-3:] == ".sh":
-    #             os.chmod(
-    #                 os.path.join(scripts_dest, file),
-    #                 os.stat(os.path.join(scripts_dest, file)).st_mode | stat.S_IEXEC,
-    #             )
 
     os.chdir(dotfiles_path)
     date = datetime.now().strftime("%Y-%m-%d")
