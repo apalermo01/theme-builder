@@ -75,3 +75,8 @@ zsh:
   template_path: 'default_configs/zsh/'
   destination_path: 'zsh/'
   config_path: ''
+
+apps:
+  template_path: 'default_configs/apps/'
+  destination_path: 'apps/'
+  config_path: '.config/'

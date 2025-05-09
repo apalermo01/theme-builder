@@ -6,8 +6,7 @@ import shutil
 import stat
 import subprocess
 from datetime import datetime
-from textwrap import dedent
-from typing import Dict, List, Literal
+from typing import Dict, List
 
 import yaml
 
@@ -19,6 +18,7 @@ logging.basicConfig(level=logging.INFO)
 
 ORDER: List = [
     "colors",
+    "apps",
     "i3",
     "hyprland",
     "polybar",
@@ -152,6 +152,8 @@ def build_theme(theme_name: str, test: bool, orient: str):
             )
 
             tools_updated[key] = {"destination_dir": destination_path}
+            logger.info("theme apply script = ")
+            logger.info(theme_apply_script)
 
     # configure templated colors
     configure_colors(theme_path)
