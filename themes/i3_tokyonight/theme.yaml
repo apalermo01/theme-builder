@@ -46,3 +46,4 @@ picom:
   template_path: ./themes/i3_tokyonight/picom/
 theme_scripts:
   path: ./themes/i3_tokyonight/scripts/
+okular: {}

@@ -80,3 +80,8 @@ apps:
   template_path: 'default_configs/apps/'
   destination_path: 'apps/'
   config_path: '.config/'
+
+okular:
+  template_path: 'default_configs/okular/'
+  destination_path: 'okular/'
+  config_path: '.config/'

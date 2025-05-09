@@ -43,3 +43,5 @@ apps:
 
   requires:
     qt.colorscheme: plasma-apply-colorscheme 
+
+okular: {}
