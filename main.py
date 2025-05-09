@@ -41,7 +41,7 @@ ORDER: List = [
 def init_script() -> str:
     return dedent(
         """
-    #!/usr/bin/env bash
+    #!/usr/bin/env bash\n\n
     """
     )
 
