@@ -5,9 +5,10 @@ import os
 import shutil
 import stat
 import subprocess
-from datetime import datetime
+from datetime import datetimer
 from textwrap import dedent
 from typing import Dict, List, Literal
+
 
 import yaml
 
@@ -17,6 +18,10 @@ from modules.utils import configure_colors, validate_config
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
+def init_script() -> str:
+    return dedent("""
+    #!/usr/bin/env bash
+    """)
 
 ORDER: List = [
     "colors",
