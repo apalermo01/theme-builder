@@ -41,8 +41,6 @@ python -m venv env
 source ./env/bin/activate 
 pip install -r requirements.txt
 chmod +x ./switch_theme.sh
-chmod +x ./switch_theme_nvim_only.sh
-chmod +x ./switch_theme_wsl_compat.sh
 chmod +x ./random_theme.sh
 
 ```
