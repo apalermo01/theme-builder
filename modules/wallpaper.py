@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 def parse_wallpaper(
-    config: Dict, theme_path: str, destination_dir: str, **kwargs
+    config: Dict, theme_path: str,  theme_apply_script: str, **kwargs
 ) -> Tuple[Dict, str]:
     """Parse wallpaper info
 
@@ -25,20 +25,19 @@ def parse_wallpaper(
     allowed_methods: List[str] = ["feh", "hyprpaper", "None"]
     method: str = config["wallpaper"].get("method", "feh")
 
-    if method not in allowed_methods:
+    if method == "feh":
+        return feh_theme(config, theme_path, theme_apply_script)
+    elif method == "hyprpaper":
+        return hyprpaper_theme(config, theme_path, theme_apply_script)
+    elif method == "None":
+        return move_wp_only(config, theme_path, theme_apply_script)
+    else:
         raise ValueError(
-            "Invalid method. Expected one of " + allowed_methods + f" but got {method}"
+            "Invalid method. Expected one of {allowed_methods} but got {method}"
         )
 
-    if method == "feh":
-        return feh_theme(config, theme_path), kwargs["theme_apply_script"]
-    if method == "hyprpaper":
-        return hyprpaper_theme(config, theme_path), kwargs["theme_apply_script"]
-    if method == "None":
-        return move_wp_only(config, theme_path), kwargs["theme_apply_script"]
 
-
-def move_wp_only(config: Dict, theme_path: str):
+def move_wp_only(config: Dict, theme_path: str, theme_apply_script: str) -> Tuple[Dict, str]:
 
     wallpaper_path: str = config["wallpaper"]["file"]
     # if just the filename was given, look in the project's wallpaper folder:
@@ -55,10 +54,10 @@ def move_wp_only(config: Dict, theme_path: str):
     shutil.copy2(src=wallpaper_path, dst=wallpaper_dest)
     logger.info(f"copied {wallpaper_path} to {wallpaper_dest}")
 
-    return config
+    return config, theme_apply_script
 
 
-def feh_theme(config: Dict, theme_path: str):
+def feh_theme(config: Dict, theme_path: str, theme_apply_script: str) -> Tuple[Dict, str]:
 
     wallpaper_path: str = config["wallpaper"]["file"]
 
@@ -96,20 +95,22 @@ def feh_theme(config: Dict, theme_path: str):
 
     # write wallpaper cmd to a script
     cmd_text: str = f"feh --bg-fill {wallpaper_dest}"
-    wp_script_path = os.path.join(theme_path, "build", "theme_scripts")
-    if not os.path.exists(wp_script_path):
-        os.makedirs(wp_script_path)
-    with open(os.path.join(wp_script_path, "wp.sh"), "w") as f:
-        f.write("#!/bin/sh\n")
-        f.write(cmd_text)
+    theme_apply_script += f"{cmd_text}\n"
+    # wp_script_path = os.path.join(theme_path, "build", "theme_scripts")
+    # if not os.path.exists(wp_script_path):
+    #     os.makedirs(wp_script_path)
+    # with open(os.path.join(wp_script_path, "wp.sh"), "w") as f:
+    #     f.write("#!/bin/sh\n")
+    #     f.write(cmd_text)
+    #
+    # # os.chmod(os.path.join(wp_script_path, "wp.sh"), stat.S_IRWXO)
+    # logger.info(f"wrote {cmd_text} to wp script")
+    logger.info(f"theme apply script = ")
+    logger.info(theme_apply_script)
+    return config, theme_apply_script
 
-    # os.chmod(os.path.join(wp_script_path, "wp.sh"), stat.S_IRWXO)
-    logger.info(f"wrote {cmd_text} to wp script")
 
-    return config
-
-
-def hyprpaper_theme(config: Dict, theme_path: str):
+def hyprpaper_theme(config: Dict, theme_path: str, theme_apply_script: str) -> Tuple[Dict, str]:
 
     wallpaper_path: str = config["wallpaper"]["file"]
 
@@ -150,4 +151,4 @@ def hyprpaper_theme(config: Dict, theme_path: str):
 
     logger.info(f"copied {wallpaper_path} to {wallpaper_dest}")
 
-    return config
+    return config, theme_apply_script
