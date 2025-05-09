@@ -7,7 +7,6 @@ wallpaper:
   method: feh
   file: leafy.png
 
-font_family: JetBrains NF Mono
 
 i3: 
   append: 
@@ -55,3 +54,13 @@ picom:
 theme_scripts: 
   path: ./themes/i3_rose_pine/scripts/
 
+apps:
+  name: RosePineMoon
+  provides:
+    qt: 
+      - colorscheme
+
+  requires:
+    qt.colorscheme: plasma-apply-colorscheme 
+
+okular: {}

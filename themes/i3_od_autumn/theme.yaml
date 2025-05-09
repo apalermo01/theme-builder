@@ -7,8 +7,6 @@ wallpaper:
   method: feh
   file: od_autumn.jpg
 
-font_family: Maple Mono
-
 i3: 
   append: 
     - from: config
@@ -56,3 +54,13 @@ picom:
 theme_scripts: 
   path: ./themes/i3_od_autumn/scripts/
 
+apps:
+  name: OneDarkRed
+  provides:
+    qt: 
+      - colorscheme
+
+  requires:
+    qt.colorscheme: plasma-apply-colorscheme 
+
+okular: {}

@@ -55,3 +55,13 @@ fastfetch:
   overwrite: 
     - from: config.jsonc
       to: fastfetch/config.jsonc
+apps:
+  name: Gruvbox
+  provides:
+    qt: 
+      - colorscheme
+
+  requires:
+    qt.colorscheme: plasma-apply-colorscheme 
+
+okular: {}
