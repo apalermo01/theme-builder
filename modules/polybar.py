@@ -23,7 +23,6 @@ def parse_polybar(
     for root, dirs, files in polybar_files:
         for file in files:
             config_subfile = os.path.join(root, file)
-            print("reading config subfile: ", config_subfile)
             polybar = configparser.ConfigParser()
             polybar.read(config_subfile)
             if "colors" in polybar:
@@ -34,7 +33,8 @@ def parse_polybar(
                     f"wrote polybar config with colors to {config_subfile}"
                 )
 
-    # # launch script
+    # launch script 
+    # TODO: add this to theme install script
     src_script = "./scripts/i3_polybar_start.sh"
     destination_dir = os.path.join(*destination_dir.split("/")[:-1])
     destination_dir_script = os.path.join(destination_dir, "i3_polybar_start.sh")

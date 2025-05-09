@@ -34,6 +34,7 @@ ORDER: List = [
     "kitty",
     "alacritty",
     "fastfetch",
+    "okular"
 ]
 
 
