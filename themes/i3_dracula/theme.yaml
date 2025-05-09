@@ -56,5 +56,12 @@ fastfetch:
     - from: config.jsonc
       to: fastfetch/config.jsonc
 
-gtk-4:
-  template_path: default_configs/gtk-4/breeze
+apps:
+  name: dracula
+  provides:
+    qt: 
+      - colorscheme
+
+  requires:
+    qt.colorscheme: plasma-apply-colorscheme 
+

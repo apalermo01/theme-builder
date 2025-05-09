@@ -7,6 +7,7 @@ import stat
 import subprocess
 from datetime import datetime
 from typing import Literal
+from textwrap import dedent
 
 import yaml
 from modules import modules
@@ -16,6 +17,10 @@ from modules.utils import configure_colors, validate_config
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
+def init_script() -> str:
+    return dedent("""
+    #!/usr/bin/env bash
+    """)
 
 def get_theme_config(theme_path: str) -> dict:
     all_files = os.listdir(theme_path)
@@ -96,6 +101,8 @@ def build_theme(theme_name: str, test: bool, orient: str, nvim_only: bool = Fals
 
     if nvim_only:
         order = ["colors", "nvim"]
+    
+    theme_apply_script = init_script()
 
     for key in order:
         if key in config:
@@ -115,17 +122,24 @@ def build_theme(theme_name: str, test: bool, orient: str, nvim_only: bool = Fals
             else:
                 template_path = path_config[key]["template_path"]
 
-            config = modules[key](
+            config, theme_apply_script = modules[key](
                 template_dir=template_path,
                 destination_dir=destination_path,
                 config=config,
                 theme_path=theme_path,
                 orient=orient,
+                theme_apply_script=theme_apply_script
             )
+
+            logger.info("theme apply script = ")
+            logger.info(theme_apply_script)
 
             tools_updated[key] = {"destination_dir": destination_path}
 
     configure_colors(theme_path)
+    # logger.warning(f"writing {theme_apply_script}\n\nto {destination_base}")
+    with open(os.path.join(destination_base, "install_theme.sh"), "w") as f:
+        f.write(theme_apply_script)
     return tools_updated, theme_path, config
 
 

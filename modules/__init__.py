@@ -14,6 +14,7 @@ from . import picom
 from . import kitty 
 from . import alacritty
 from . import fastfetch
+from . import apps
 
 modules = {
     "colors": colors.parse_colors,
@@ -31,5 +32,6 @@ modules = {
     "kitty": kitty.parse_kitty,
     "alacritty": alacritty.parse_alacritty,
     "fastfetch": fastfetch.parse_fastfetch,
+    "apps": apps.parse_apps,
     "zsh": zsh.parse_zsh,
 }

@@ -1,7 +1,7 @@
 import json
 import logging
 import os
-from typing import Dict, List
+from typing import Dict, Tuple
 
 from .utils import (append_if_not_present, module_wrapper,
                     overwrite_or_append_line, read_file, write_file)
@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 @module_wrapper(tool="i3")
-def parse_i3(template_dir: str, destination_dir: str, config: Dict, theme_path: str):
+def parse_i3(template_dir: str, destination_dir: str, config: Dict, theme_path: str, **kwargs) -> Tuple[Dict, str]:
     """
     Parser for i3
     """
@@ -19,7 +19,7 @@ def parse_i3(template_dir: str, destination_dir: str, config: Dict, theme_path: 
     _configure_terminal(config, destination_dir, theme_path)
     _configure_picom(config, destination_dir, theme_path)
 
-    return config
+    return config, kwargs['theme_apply_script']
 
 
 def _configure_terminal(config: Dict, dest: str, theme_path: str):

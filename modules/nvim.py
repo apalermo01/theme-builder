@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 
 @module_wrapper(tool="nvim")
-def parse_nvim(template_dir: str, destination_dir: str, config: Dict, theme_path: str):
+def parse_nvim(template_dir: str, destination_dir: str, config: Dict, theme_path: str, **kwargs):
     """
     Example neovim configs:
 
@@ -54,7 +54,7 @@ def parse_nvim(template_dir: str, destination_dir: str, config: Dict, theme_path
     if "font_family" in config:
         _configure_font(config['font_family'], theme_path)
 
-    return config
+    return config, kwargs['theme_apply_script']
 
 
 def _configure_colorscheme(nvim_config: Dict, theme_path: str):

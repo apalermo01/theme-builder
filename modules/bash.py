@@ -1,7 +1,7 @@
 import logging
 import os
 from textwrap import dedent
-from typing import Dict
+from typing import Dict, Tuple
 
 # from .utils import append_text, write_source_to_file, append_source_to_file
 from .utils import append_text, module_wrapper
@@ -10,9 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 @module_wrapper(tool="bash")
-def parse_bash(
-    config: Dict, template_dir: str, destination_dir: str, theme_path: str
-) -> Dict:
+def parse_bash(config: Dict, destination_dir, **kwargs) -> Tuple[Dict, str]:
 
     logger.info("Loading bash...")
 
@@ -22,10 +20,9 @@ def parse_bash(
         wallpaper_file = config["wallpaper"]["file"]
         wallpaper_path = os.path.expanduser(f"~/Pictures/wallpapers/{wallpaper_file}")
     else:
-        wallpaper_path = ''
+        wallpaper_path = ""
 
     prompts_dict = {
-
         "cowsay_fortune": (
             "fortune | cowsay -f $(ls /usr/share/cowsay/cows/ " "| shuf -n1)\n"
         ),
@@ -52,8 +49,8 @@ def parse_bash(
             if d == "run_pywal" and wallpaper_path is None:
                 logger.error("Cannot add pywal to bash config, no wallpaper")
                 continue
-            if d == 'neofetch':
+            if d == "neofetch":
                 logger.warning("using fastfetch instead of neofetch")
             append_text(dest, prompts_dict[d])
 
-    return config
+    return config, kwargs['theme_apply_script']
