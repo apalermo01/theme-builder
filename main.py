@@ -6,27 +6,53 @@ import shutil
 import stat
 import subprocess
 from datetime import datetime
-from typing import Literal
 from textwrap import dedent
+from typing import Dict, List, Literal
 
 import yaml
+
 from modules import modules
-from modules.scripts import parse_scripts
 from modules.utils import configure_colors, validate_config
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
-def init_script() -> str:
-    return dedent("""
-    #!/usr/bin/env bash
-    """)
 
-def get_theme_config(theme_path: str) -> dict:
-    all_files = os.listdir(theme_path)
+ORDER: List = [
+    "colors",
+    "i3",
+    "hyprland",
+    "polybar",
+    "waybar",
+    "wallpaper",
+    "nvim",
+    "tmux",
+    "rofi",
+    "picom",
+    "fish",
+    "bash",
+    "zsh",
+    "kitty",
+    "alacritty",
+    "fastfetch",
+]
+
+
+def init_script() -> str:
+    return dedent(
+        """
+    #!/usr/bin/env bash
+    """
+    )
+
+
+def get_theme_config(theme_path: str) -> Dict:
+    """Load the config file for the selected theme, allow for different file types"""
+
+    all_files: List = os.listdir(theme_path)
     for f in all_files:
         if "theme" in f:
-            extension = f.split(".")[1]
+            extension: str = f.split(".")[1]
 
             if extension == "json":
                 ftype: str = "json"
@@ -41,29 +67,41 @@ def get_theme_config(theme_path: str) -> dict:
 
             with open(os.path.join(theme_path, f), "r") as f:
                 if ftype == "json":
-                    config: dict = json.load(f)
+                    config: Dict = json.load(f)
                 else:
-                    config: dict = yaml.safe_load(f)
+                    config: Dict = yaml.safe_load(f)
 
             return config
 
     raise ValueError("theme file not found!")
 
 
-def build_theme(theme_name: str, test: bool, orient: str, nvim_only: bool = False):
+def build_theme(theme_name: str, test: bool, orient: str):
+    """Generate a set of dotfiles and cache it in the build directory.
+    theme_name: str - name of the selected theme. Must be present in ./themes/
+    test:
+        true: searches for themes in the 'tests' directory
+        false: searches for themes in the 'themes' directory
+    orient:
+    """
 
+    # where to search for the theme name
     if test:
         theme_path: str = os.path.join("tests", theme_name)
     else:
         theme_path: str = os.path.join("themes", theme_name)
 
-    config = get_theme_config(theme_path)
+    # load and validate the config
+    config: Dict = get_theme_config(theme_path)
 
     res, config = validate_config(config, theme_path)
+
     if not res:
         raise ValueError("Invalid configuration!")
 
-    destination_base = os.path.join(theme_path, "build")
+    # configure where the cached config files should live
+    # remove an old version of it if it already exists
+    destination_base: str = os.path.join(theme_path, "build")
 
     if os.path.exists(destination_base):
         shutil.rmtree(destination_base)
@@ -72,56 +110,43 @@ def build_theme(theme_name: str, test: bool, orient: str, nvim_only: bool = Fals
     os.makedirs(destination_base)
     logger.debug(f"created directory {destination_base}")
 
-    ### get path config
-    ### TODO: make this configurable
+    # load config file specifying paths for each tool
     with open("./configs/paths.yaml", "r") as f:
-        path_config = yaml.safe_load(f)
+        path_config: Dict = yaml.safe_load(f)
 
-    logger.info("=========== BUILDING THEME ===========")
+    loglen = 8 + 2 + len("BUILDING THEME") + 2 + len(theme_name)
+    logger.info("=" * loglen)
+    logger.info(f"==== BUILDING THEME {theme_name} ====")
+    logger.info("=" * loglen)
 
-    tools_updated = {}
-    order = [
-        "colors",
-        "i3",
-        "hyprland",
-        "polybar",
-        "waybar",
-        "wallpaper",
-        "nvim",
-        "tmux",
-        "rofi",
-        "picom",
-        "fish",
-        "bash",
-        "zsh",
-        "kitty",
-        "alacritty",
-        "fastfetch",
-    ]
+    # set up a dictionary with info on updated tools
+    tools_updated: Dict = {}
 
-    if nvim_only:
-        order = ["colors", "nvim"]
-    
-    theme_apply_script = init_script()
+    # start building the script to install the script
+    theme_apply_script: str = init_script()
 
-    for key in order:
+    # now loop through all the tools
+    for key in ORDER:
         if key in config:
-            logger.debug(f"processing {key}")
 
-            destination_path = os.path.join(
+            logger.debug(f"processing key {key}")
+
+            # set where the files should be written to 
+            # ex: themes/theme_name/build/.config/tool_name
+            #                             ^^^^^^^^^^^^^^^^^
+            #                             This is destination_path
+            destination_path: str = os.path.join(
                 destination_base, path_config[key]["destination_path"]
             )
 
-            if "template_dir" in config[key]:
-                logger.warning(
-                    "WRONG KEY NAME. Use template_path instead of template_dir"
-                )
-                break
-            if "template_path" in config[key]:
-                template_path = config[key]["template_path"]
+            # by default, the template configs live in 
+            # project_root/default_configs/toolname/...
+            if 'template_path' in config[key]:
+                template_path: str = config[key]['template_path']
             else:
-                template_path = path_config[key]["template_path"]
+                template_path: str = path_config[key]["template_path"]
 
+            # Build the theme 
             config, theme_apply_script = modules[key](
                 template_dir=template_path,
                 destination_dir=destination_path,
@@ -131,154 +156,21 @@ def build_theme(theme_name: str, test: bool, orient: str, nvim_only: bool = Fals
                 theme_apply_script=theme_apply_script
             )
 
-            logger.info("theme apply script = ")
-            logger.info(theme_apply_script)
+            tools_updated[key] = {'destination_dir': destination_path}
 
-            tools_updated[key] = {"destination_dir": destination_path}
-
+   # configure templated colors
     configure_colors(theme_path)
-    # logger.warning(f"writing {theme_apply_script}\n\nto {destination_base}")
-    with open(os.path.join(destination_base, "install_theme.sh"), "w") as f:
+
+    # take all the lines that each module wrote for the installer and write them 
+    # to a script
+    install_script_path = os.path.join(destination_base, "install_theme.sh")
+    with open(install_script_path, 'w') as f:
         f.write(theme_apply_script)
+
     return tools_updated, theme_path, config
 
-
-def copy_theme(
-    tools: dict,
-    theme_path: str,
-    make_backup: bool,
-    destination_root: str,
-    orient: Literal["roles", "config"],
-    config: dict,
-    nvim_only: bool = False,
-    wsl_compat: bool = False,
-    no_script_exec: bool = False,
-):
-    """
-    tools: dictionary of tools that have been updated
-    theme_path: path to the theme that was just built
-    make_backup: whether or not to make a backup folder
-    destination_root: 'HOME' or path to where dotfiles should live
-    orient: how to structure the theme file.
-
-    roles:
-    /path/to/dotfiles/
-    ├─ i3/
-    │  ├─ config
-    ├─ tmux/
-    │  ├─ tmux.conf
-
-    config:
-
-    home/username/
-    ├─ .config/
-    │  ├─ i3/
-    │  │  ├─ config
-    ├─ .tmux.conf
-
-    """
-    print("==========================")
-    print("=== COPYING THEME ========")
-    print("==========================")
-
-    ### TODO: allow custom path configs
-    with open("./configs/paths.yaml", "r") as f:
-        path_config = yaml.safe_load(f)
-
-    if orient not in ["roles", "config"]:
-        raise ValueError()
-
-    if make_backup:
-        backup_id = datetime.now().strftime("%Y-%m-%d::%X")
-        backup_root = os.path.join(destination_root, "dotfiles_backups", backup_id)
-    else:
-        backup_root = None
-
-    for t in tools:
-
-        if nvim_only and t not in ["colors", "nvim"]:
-            continue
-
-        logger.info(f"copying {t}...")
-
-        # TODO: abstract out list of roles / tools to skip
-        if t in ["colors", "wallpaper"]:
-            continue
-
-        # check how we're structuring the destination path
-        if orient == "roles":
-            destination_path = os.path.join(destination_root, t)
-            sub_path = t
-        else:
-            destination_path = os.path.join(
-                destination_root, path_config[t].get("config_path", "")
-            )
-            sub_path = path_config[t]["config_path"]
-
-        # get the source path
-        source_path = tools[t]["destination_dir"]
-
-        # make backup
-        if len(sub_path) > 0:
-            logger.debug("sub path is not empty")
-            if make_backup and os.path.exists(destination_path) and len(sub_path) > 0:
-                if not backup_root:
-                    raise ValueError("Expected backup_root to be non-null")
-                if not os.path.exists(backup_root):
-                    os.makedirs(backup_root)
-                backup_path = os.path.join(backup_root, sub_path)
-                logger.debug(f"{destination_path} -> {backup_path}")
-                shutil.copytree(destination_path, backup_path)
-
-            # move the files
-            if os.path.exists(destination_path):
-                shutil.rmtree(destination_path)
-            logger.debug(f"{source_path} -> {destination_path}")
-            shutil.copytree(source_path, destination_path)
-
-        else:
-            logger.debug("looping through files in ", source_path)
-            for file in os.listdir(source_path):
-                if make_backup and os.path.exists(os.path.join(destination_path, file)):
-                    if not backup_root:
-                        raise ValueError("Expected backup_root to be non-null")
-                    if not os.path.exists(backup_root):
-                        os.makedirs(backup_root)
-
-                    logger.info(
-                        f"backing up {os.path.join(destination_path, file)} to {os.path.join(backup_root, file)}"
-                    )
-                    shutil.copy2(
-                        os.path.join(destination_path, file),
-                        os.path.join(backup_root, file),
-                    )
-
-                logger.debug(
-                    f"copying {os.path.join(source_path, file)} to {os.path.join(destination_path, file)}"
-                )
-                shutil.copy2(
-                    os.path.join(source_path, file),
-                    os.path.join(destination_path, file),
-                )
-    if "scripts" in config and not nvim_only:
-        root = destination_root
-        if orient == "roles":
-            root = os.path.join(root, "scripts")
-        parse_scripts(config, root)
-
-    # additional scripts that need to run to install the theme
-    if "theme_scripts" in config and not nvim_only:
-        path = config["theme_scripts"]["path"]
-        for file in sorted(os.listdir(path)):
-            subprocess.call(os.path.join(path, file))
-
-    logger.info("Theme migration complete!")
-    logger.info(
-        "If using i3 and / or tmux, you'll have to refresh each of those "
-        + "to see the changes take effect ($mod+shift+r, <leader>I, "
-        + "respectively.)"
-    )
-
+def copy_theme(*args, **kwargs):
+    logger.error("Directly copying themes is not supported (yet?)")
 
 def move_to_dotfiles(
     tools,
@@ -287,132 +179,7 @@ def move_to_dotfiles(
     theme_name,
     dotfiles_path,
 ):
-    with open("./configs/paths.yaml", "r") as f:
-        path_config = yaml.safe_load(f)
-
-    original_dir = os.getcwd()
-    dotfiles_theme_path = os.path.join(dotfiles_path, theme_name)
-    if "git" not in dotfiles_theme_path or len(dotfiles_theme_path) < 8:
-        raise ValueError(
-            f"'git' is not in the dotfiles path OR the path is "
-            + "less than 8 characters. While not a bug, this is "
-            + "suspicious, so I'm crashing. To fix this, just "
-            + "put the dotfiles retool in a folder called 'git'"
-        )
-
-    if os.path.exists(dotfiles_theme_path):
-        logger.debug(f"removing {dotfiles_theme_path}")
-        shutil.rmtree(dotfiles_theme_path)
-
-    os.makedirs(dotfiles_theme_path)
-
-    # os.chdir(dotfiles_path)
-    # subprocess.run(["git", "checkout", "-B", "dev"])
-    # os.chdir(original_dir)
-
-    for t in tools:
-        logger.info(f"processing {t}...")
-
-        if t in ["colors", "wallpaper"]:
-            continue
-
-        # check how we're structuring the destination path
-        if orient == "roles":
-            destination_path = os.path.join(dotfiles_theme_path, t)
-            sub_path = t
-
-        else:
-            destination_path = os.path.join(
-                dotfiles_theme_path, path_config[t].get("config_path", "")
-            )
-            sub_path = path_config[t]["config_path"]
-
-        # get the source path
-        source_path = tools[t]["destination_dir"]
-
-        # make backup
-        if len(sub_path) > 0:
-            logger.debug("sub path is not empty")
-            logger.debug(f"{source_path} -> {destination_path}")
-            shutil.copytree(source_path, destination_path, dirs_exist_ok=True)
-
-        else:
-            logger.debug("looping through files in ", source_path)
-            for file in os.listdir(source_path):
-                src = os.path.join(source_path, file)
-                dest = os.path.join(destination_path, file)
-                logger.debug(f"{src} -> {dest}")
-                shutil.copy2(src, dest)
-
-    # handle scripts
-    if "theme_scripts" in config:
-        destination_path = os.path.join(dotfiles_theme_path, ".config", "theme_scripts")
-        source_path = config["theme_scripts"].get(
-            "path", f"./themes/{theme_name}/scripts/"
-        )
-        for file in os.listdir(source_path):
-            logger.debug(
-                f"copying {os.path.join(source_path, file)} to {os.path.join(destination_path, file)}"
-            )
-
-            if not os.path.exists(destination_path):
-                os.mkdir(destination_path)
-
-            shutil.copy2(
-                os.path.join(source_path, file), os.path.join(destination_path, file)
-            )
-
-    # handle scripts directory (this also handles wallpapers)
-    # TODO: there's a bunch of redundant logic happening here with the
-    # other script handling sections. Need to clean this up a bit.
-    scripts_path = os.path.join("themes", theme_name, "build", "theme_scripts")
-    scripts_dest = os.path.join(dotfiles_theme_path, ".config", "theme_scripts")
-    if os.path.exists(scripts_path):
-        logger.info("moving scripts...")
-        for file in os.listdir(scripts_path):
-
-            if not os.path.exists(scripts_dest):
-                os.mkdir(scripts_dest)
-            src = os.path.join(scripts_path, file)
-            dest = os.path.join(scripts_dest, file)
-            shutil.copy2(src, dest)
-            logger.info(f"{src} -> {dest}")
-
-            # make the script executable
-            if file[-3:] == ".sh":
-                os.chmod(
-                    os.path.join(scripts_dest, file),
-                    os.stat(os.path.join(scripts_dest, file)).st_mode | stat.S_IEXEC,
-                )
-
-    # handle wallpaper
-    # if 'wallpaper' in config:
-
-    #     wallpaper_path: str = config["wallpaper"]["file"]
-    #
-    #     # if just the filename was given, look in the project's wallpaper folder:
-    #     if "/" not in wallpaper_path:
-    #         wallpaper_path = os.path.join(".", "wallpapers", wallpaper_path)
-    #
-    #     wallpaper_dest: str = os.path.expanduser(
-    #         f"~/Pictures/wallpapers/{wallpaper_path.split('/')[-1]}"
-    #     )
-    #
-    #     if not os.path.exists(os.path.expanduser("~/Pictures/wallpapers/")):
-    #         os.makedirs(os.path.expanduser("~/Pictures/wallpapers/"))
-
-    os.chdir(dotfiles_path)
-    date = datetime.now().strftime("%Y-%m-%d")
-    subprocess.run(
-        [
-            "git",
-            "add",
-            ".",
-        ]
-    )
-    subprocess.run(["git", "commit", "-m", f"theme builder - {date} - {theme_name}"])
-
-
+    logger.error("copying themes to dotfiles repo is not supported yet")
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--theme")
@@ -434,13 +201,8 @@ def parse_args():
         "--destination-structure", default="roles", choices=["roles", "config", "stow"]
     )
 
-    parser.add_argument(
-        "--nvim-only", default=False, action=argparse.BooleanOptionalAction
-    )
-
     args = parser.parse_args()
     return args
-
 
 def main():
     args = parse_args()
@@ -449,7 +211,6 @@ def main():
         theme_name,
         args.test,
         args.destination_structure,
-        args.nvim_only,
     )
 
     if args.migration_method == "none":
@@ -465,6 +226,7 @@ def main():
             config,
             args.nvim_only,
         )
+
     if args.migration_method == "dotfiles":
         move_to_dotfiles(
             tools_updated,
