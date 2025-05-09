@@ -10,11 +10,11 @@ way, you define what you want to be common among all themes (e.g. keybindings)
 in `default_configs` and define the theme-specific differences in the
 theme-specific folder.
 
-![Screenshot for i3 catppuccin theme](themes/i3_catppuccin/i3_catppuccin_screenshot.png)
+![Screenshot for i3 catppuccin theme](themes/i3_catppuccin_mocha/i3_catppuccin_mocha_screenshot.png)
 
-![Screenshot for trees theme](themes/i3_trees/trees_screenshot.png)
+<!-- ![Screenshot for trees theme](themes/i3_trees/trees_screenshot.png) -->
 
-![Screenshot for rosepine theme](themes/i3_rose_pine/i3_rose_pine_screenshot.png)
+<!-- ![Screenshot for rosepine theme](themes/i3_rose_pine/i3_rose_pine_screenshot.png) -->
 
 
 https://github.com/user-attachments/assets/4556e1a2-8e1f-4903-9539-e09ff9867280
