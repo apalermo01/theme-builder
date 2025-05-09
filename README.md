@@ -104,14 +104,15 @@ live in `./themes/theme_name/i3/config`.
 - [x] make new option for builder to move dots into repo instead of directly to the final destination
 - [x] convert all theme configs to yaml
 - [ ] set up hyprland / waybar
-- [ ] write up comprehensive documentation
+- [x] write up comprehensive documentation
 - [ ] add better screenshots + workflow documentation
-
-**other programs to add**
-- [ ] sioyek
-- [ ] zathura
-- [ ] firefox (if possible)
-- [ ] zen (if possible)
+- [ ] rework every plugin to return a list of strings for the install script that will be concatenated on write
+- [ ] replace os.path.join with pathlib.Path for file operations
+- [ ] refactor all modules to read options from a SCHEMA dictionary (see modules/apps.py)
+- [ ] write an export command that creates a json/yaml schema from the available options that can be read by an lsp
+- [ ] verify exit status for curl commands
+- [ ] more robust testing with CI automations
+- [ ] create a CLI that can be called globally
 
 # Credits
 Big thanks to Stavros Grigoriou (stav121) for providing the initial inspiration
