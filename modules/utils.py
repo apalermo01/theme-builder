@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 def module_wrapper(tool):
     def func_runner(module):
         def inner(
-            config: Dict, theme_path: str, template_dir: str, destination_dir: str, orient: str
+            config: Dict, theme_path: str, template_dir: str, destination_dir: str, orient: str, **kwargs
         ):
 
             # default files
@@ -47,6 +47,7 @@ def module_wrapper(tool):
                 theme_path=theme_path,
                 template_dir=template_dir,
                 destination_dir=destination_dir,
+                **kwargs,
             )
         return inner
 

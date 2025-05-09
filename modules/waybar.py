@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 @module_wrapper(tool="waybar")
 def parse_waybar(
-    config: Dict, template_dir: str, destination_dir: str, theme_path: str
+    config: Dict, template_dir: str, destination_dir: str, theme_path: str, **kwargs
 ):
     """
     Requires waybar config to be fully defined in the theme
@@ -28,7 +28,7 @@ def parse_waybar(
         for line in css:
             f.write(line)
 
-    return config
+    return config, kwargs['theme_apply_script']
 
 
 def _parse_colors(css, theme_path: str):

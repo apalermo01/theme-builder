@@ -2,14 +2,14 @@ import json
 import logging
 import os
 import subprocess
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 import matplotlib.pyplot as plt
 
 logger = logging.getLogger(__name__)
 
 
-def parse_colors(config: Dict, theme_path: str, **kwargs) -> Dict:
+def parse_colors(config: Dict, theme_path: str, **kwargs) -> Tuple[Dict, str]:
     """Function to parse the colorscheme
 
     Arguments to config:
@@ -51,7 +51,7 @@ def parse_colors(config: Dict, theme_path: str, **kwargs) -> Dict:
         colorscheme = json.load(f)
 
     make_pallet_image(colorscheme, theme_path)
-    return config
+    return config, kwargs['theme_apply_script']
 
 
 def _write_pallet_to_colorscheme(pallet: str, colorscheme_path: str):

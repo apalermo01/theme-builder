@@ -2,7 +2,7 @@
 import logging
 import os
 from textwrap import dedent
-from typing import Dict
+from typing import Dict, Tuple
 
 from .utils import append_text, module_wrapper
 
@@ -11,8 +11,8 @@ logger = logging.getLogger(__name__)
 
 @module_wrapper(tool="fish")
 def parse_fish(
-    config: Dict, template_dir: str, destination_dir: str, theme_path: str
-) -> Dict:
+    config: Dict, destination_dir: str, **kwargs
+) -> Tuple[Dict, str]:
 
     logger.info("Loading fish...")
 
@@ -55,4 +55,4 @@ def parse_fish(
             if d == "neofetch":
                 logger.warning("using fastfetch instead of neofetch")
             append_text(dest, prompts_dict[d])
-    return config
+    return config, kwargs['theme_apply_script']

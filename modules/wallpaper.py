@@ -1,8 +1,8 @@
 import logging
 import os
-import stat
 import shutil
-from typing import Dict, List
+import stat
+from typing import Dict, List, Tuple
 
 logger = logging.getLogger(__name__)
 
@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 def parse_wallpaper(
     config: Dict, theme_path: str, destination_dir: str, **kwargs
-) -> Dict:
+) -> Tuple[Dict, str]:
     """Parse wallpaper info
 
     config options:
@@ -31,11 +31,11 @@ def parse_wallpaper(
         )
 
     if method == "feh":
-        return feh_theme(config, theme_path)
+        return feh_theme(config, theme_path), kwargs["theme_apply_script"]
     if method == "hyprpaper":
-        return hyprpaper_theme(config, theme_path)
+        return hyprpaper_theme(config, theme_path), kwargs["theme_apply_script"]
     if method == "None":
-        return move_wp_only(config, theme_path)
+        return move_wp_only(config, theme_path), kwargs["theme_apply_script"]
 
 
 def move_wp_only(config: Dict, theme_path: str):
@@ -93,7 +93,7 @@ def feh_theme(config: Dict, theme_path: str):
             f.write(text)
 
     logger.info(f"added {text} to i3 config")
-    
+
     # write wallpaper cmd to a script
     cmd_text: str = f"feh --bg-fill {wallpaper_dest}"
     wp_script_path = os.path.join(theme_path, "build", "theme_scripts")

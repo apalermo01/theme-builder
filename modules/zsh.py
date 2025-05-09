@@ -2,7 +2,7 @@
 import logging
 import os
 from textwrap import dedent
-from typing import Dict
+from typing import Dict, Tuple
 
 from .utils import append_text, module_wrapper
 
@@ -11,8 +11,8 @@ logger = logging.getLogger(__name__)
 
 @module_wrapper(tool="zsh")
 def parse_zsh(
-    config: Dict, template_dir: str, destination_dir: str, theme_path: str
-) -> Dict:
+    config: Dict, template_dir: str, destination_dir: str, theme_path: str, **kwargs
+) -> Tuple[Dict, str]:
 
     logger.info("Loading zsh...")
 
@@ -60,4 +60,4 @@ def parse_zsh(
     append_text(dest, '\neval "$(direnv hook zsh)"')
     append_text(dest, '\neval "$(fzf --zsh)"')
     append_text(dest, '\neval "$(zoxide init --cmd cd zsh)"')
-    return config
+    return config, kwargs['theme_apply_script']

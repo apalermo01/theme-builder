@@ -1,6 +1,6 @@
 import logging
 import os
-from typing import Dict
+from typing import Dict, Tuple
 
 from .utils import append_text, module_wrapper
 
@@ -9,8 +9,8 @@ logger = logging.getLogger(__name__)
 
 @module_wrapper(tool="kitty")
 def parse_kitty(
-    config: Dict, template_dir: str, destination_dir: str, theme_path: str
-) -> Dict:
+    config: Dict, template_dir: str, destination_dir: str, theme_path: str, **kwargs
+) -> Tuple[Dict, str]:
 
     logger.info("Loading kitty...")
 
@@ -37,4 +37,4 @@ def parse_kitty(
             f"bold_italic_font     auto\n",
         )
 
-    return config
+    return config, kwargs['theme_apply_script']

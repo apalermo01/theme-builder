@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 @module_wrapper(tool="polybar")
 def parse_polybar(
-    config: Dict, template_dir: str, destination_dir: str, theme_path: str
+    config: Dict, template_dir: str, destination_dir: str, theme_path: str, **kwargs
 ):
 
     logger.info("Loading polybar...")
@@ -60,7 +60,7 @@ def parse_polybar(
     )
 
 
-    return config
+    return config, kwargs['theme_apply_script']
 
 
 def _parse_colors(polybar: configparser.ConfigParser, theme_path: str):

@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 @module_wrapper(tool="hyprland")
 def parse_hyprland(
-    template_dir: str, destination_dir: str, config: Dict, theme_path: str
+    template_dir: str, destination_dir: str, config: Dict, theme_path: str, **kwargs
 ):
     """
     TODO: validate variables. For example, check if a terminal is passed to
@@ -27,7 +27,7 @@ def parse_hyprland(
     _configure_animations(config, destination_dir, theme_path)
     _configure_colors(config, destination_dir, theme_path)
 
-    return config
+    return config, kwargs['theme_apply_script']
 
 
 def _configure_variables(config: Dict, destination_dir: str, theme_path: str):
