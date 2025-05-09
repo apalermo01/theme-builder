@@ -5,10 +5,8 @@ import os
 import shutil
 import stat
 import subprocess
-from datetime import datetimer
-from textwrap import dedent
-from typing import Dict, List, Literal
-
+from datetime import datetime
+from typing import Dict, List
 
 import yaml
 
@@ -18,13 +16,9 @@ from modules.utils import configure_colors, validate_config
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
-def init_script() -> str:
-    return dedent("""
-    #!/usr/bin/env bash
-    """)
-
 ORDER: List = [
     "colors",
+    "apps",
     "i3",
     "hyprland",
     "polybar",
@@ -44,11 +38,7 @@ ORDER: List = [
 
 
 def init_script() -> str:
-    return dedent(
-        """
-    #!/usr/bin/env bash\n\n
-    """
-    )
+    return "#!/usr/bin/env bash\n\n"
 
 
 def get_theme_config(theme_path: str) -> Dict:
@@ -136,7 +126,7 @@ def build_theme(theme_name: str, test: bool, orient: str):
 
             logger.debug(f"processing key {key}")
 
-            # set where the files should be written to 
+            # set where the files should be written to
             # ex: themes/theme_name/build/.config/tool_name
             #                             ^^^^^^^^^^^^^^^^^
             #                             This is destination_path
@@ -144,38 +134,42 @@ def build_theme(theme_name: str, test: bool, orient: str):
                 destination_base, path_config[key]["destination_path"]
             )
 
-            # by default, the template configs live in 
+            # by default, the template configs live in
             # project_root/default_configs/toolname/...
-            if 'template_path' in config[key]:
-                template_path: str = config[key]['template_path']
+            if "template_path" in config[key]:
+                template_path: str = config[key]["template_path"]
             else:
                 template_path: str = path_config[key]["template_path"]
 
-            # Build the theme 
+            # Build the theme
             config, theme_apply_script = modules[key](
                 template_dir=template_path,
                 destination_dir=destination_path,
                 config=config,
                 theme_path=theme_path,
                 orient=orient,
-                theme_apply_script=theme_apply_script
+                theme_apply_script=theme_apply_script,
             )
 
-            tools_updated[key] = {'destination_dir': destination_path}
+            tools_updated[key] = {"destination_dir": destination_path}
+            logger.info("theme apply script = ")
+            logger.info(theme_apply_script)
 
-   # configure templated colors
+    # configure templated colors
     configure_colors(theme_path)
 
-    # take all the lines that each module wrote for the installer and write them 
+    # take all the lines that each module wrote for the installer and write them
     # to a script
     install_script_path = os.path.join(destination_base, "install_theme.sh")
-    with open(install_script_path, 'w') as f:
+    with open(install_script_path, "w") as f:
         f.write(theme_apply_script)
 
     return tools_updated, theme_path, config
 
+
 def copy_theme(*args, **kwargs):
     logger.error("Directly copying themes is not supported (yet?)")
+
 
 def move_to_dotfiles(
     tools,
@@ -238,7 +232,7 @@ def move_to_dotfiles(
                 shutil.copy2(src, dest)
 
     # copy the install script to the cache
-    scripts_src  = os.path.join("themes", theme_name, "build", "install_theme.sh")
+    scripts_src = os.path.join("themes", theme_name, "build", "install_theme.sh")
     scripts_dest = os.path.join(dotfiles_theme_path, ".config", "install_theme.sh")
     logger.info(f"{scripts_src} -> {scripts_dest}")
     shutil.copy2(scripts_src, scripts_dest)
@@ -246,7 +240,7 @@ def move_to_dotfiles(
 
     # append any additional theme scripts
     if "theme_scripts" in config:
-        source_path: str = config['theme_scripts'].get(
+        source_path: str = config["theme_scripts"].get(
             "path", f"./themes/{theme_name}/scripts/"
         )
         for file in os.listdir(source_path):
@@ -273,6 +267,7 @@ def move_to_dotfiles(
     )
     subprocess.run(["git", "commit", "-m", f"theme builder - {date} - {theme_name}"])
 
+
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--theme")
@@ -296,6 +291,7 @@ def parse_args():
 
     args = parser.parse_args()
     return args
+
 
 def main():
     args = parse_args()

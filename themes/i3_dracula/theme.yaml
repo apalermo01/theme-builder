@@ -57,7 +57,7 @@ fastfetch:
       to: fastfetch/config.jsonc
 
 apps:
-  name: dracula
+  name: Dracula
   provides:
     qt: 
       - colorscheme
