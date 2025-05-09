@@ -34,7 +34,7 @@ ORDER: List = [
     "kitty",
     "alacritty",
     "fastfetch",
-    "okular"
+    "okular",
 ]
 
 
@@ -104,13 +104,14 @@ def build_theme(theme_name: str, test: bool, orient: str):
         logger.debug(f"removed directory {destination_base}")
 
     os.makedirs(destination_base)
+    os.makedirs(os.path.join(destination_base, "global"))
     logger.debug(f"created directory {destination_base}")
 
     # load config file specifying paths for each tool
     with open("./configs/paths.yaml", "r") as f:
         path_config: Dict = yaml.safe_load(f)
 
-    loglen = 8 + 2 + len("BUILDING THEME") + 3 + len(theme_name)
+    loglen = 8 + 2 + len("BUILDING THEME") + 1 + len(theme_name)
     logger.info("=" * loglen)
     logger.info(f"==== BUILDING THEME {theme_name} ====")
     logger.info("=" * loglen)
@@ -122,6 +123,18 @@ def build_theme(theme_name: str, test: bool, orient: str):
     theme_apply_script: str = init_script()
 
     # now loop through all the tools
+    destination_path: str = os.path.join(
+        destination_base, path_config["global"]["destination_path"]
+    )
+    config, theme_apply_script = modules["global"](
+        config=config,
+        template_dir=path_config["global"]["template_path"],
+        theme_path=theme_path,
+        orient=orient,
+        destination_dir=destination_path,
+        theme_apply_script=theme_apply_script,
+    )
+    tools_updated["global"] = {"destination_dir": destination_path}
     for key in ORDER:
         if key in config:
 
@@ -153,8 +166,6 @@ def build_theme(theme_name: str, test: bool, orient: str):
             )
 
             tools_updated[key] = {"destination_dir": destination_path}
-            logger.info("theme apply script = ")
-            logger.info(theme_apply_script)
 
     # configure templated colors
     configure_colors(theme_path)
@@ -179,6 +190,11 @@ def move_to_dotfiles(
     theme_name,
     dotfiles_path,
 ):
+    loglen = 8 + 2 + len("COPYING THEME TO DOTFILES:") + 1 + len(theme_name)
+    logger.info("=" * loglen)
+    logger.info(f"==== COPYING THEME TO DOTFILES: {theme_name} ====")
+    logger.info("=" * loglen)
+
     with open("./configs/paths.yaml", "r") as f:
         path_config = yaml.safe_load(f)
 
@@ -198,6 +214,16 @@ def move_to_dotfiles(
 
     os.makedirs(dotfiles_theme_path)
 
+    # deal with global settings
+    if 'wsl' not in theme_name:
+        profile_src = os.path.join(
+            "./", tools['global']['destination_dir'], ".profile"
+        )
+        profile_dst = os.path.join(
+            dotfiles_theme_path, 'profile'
+        )
+        shutil.copy2(profile_src, profile_dst)
+        logger.info(f"{profile_src} -> {profile_dst}")
     for t in tools:
         logger.info(f"processing {t}...")
 
