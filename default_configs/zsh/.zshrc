@@ -173,6 +173,7 @@ alias gl="git log --all --graph --pretty=\
     format:'%C(magenta)%h %C(white) %an %ar%C(auto) %D%n%s%n'"
 alias gp='git push'
 alias gpu='git pull'
+alias gcm="git add . && git commit -m $(date +%D)"
 
 if [[ -f "${HOME}/work_cmds.sh" ]]; then
     source ~/work_cmds.sh

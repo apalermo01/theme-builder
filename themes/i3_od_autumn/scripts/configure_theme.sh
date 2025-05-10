@@ -17,9 +17,9 @@
 #
 # set_onedark $onedark_options
 
-
-if test -e ~/.config/polybar/i3_polybar_start.sh
+if [ -f ~/.config/polybar/i3_polybar_start.sh ]; then
     bash ~/.config/polybar/i3_polybar_start.sh
-end
+fi
+
 
 
