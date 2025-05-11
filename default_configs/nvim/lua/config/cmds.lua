@@ -181,3 +181,16 @@ vim.api.nvim_create_autocmd("QuitPre", {
 		end
 	end,
 })
+
+-- use zen to open urls
+local _orig_open = vim.ui.open
+
+vim.ui.open = function(input, opts)
+    local target = input or vim.fn.expand("<cfile>")
+
+    if target:match("^[%a][%w+,-]*://") then
+        vim.fn.jobstart({ "zen", target }, { detach = true })
+    else
+        return _orig_open(input, opts)
+    end
+end

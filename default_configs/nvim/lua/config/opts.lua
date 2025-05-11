@@ -17,11 +17,7 @@ set.tabstop = 4
 set.shiftwidth = 4
 set.softtabstop = 4
 set.expandtab = true
-autocmd('FileType', {
-    group = group,
-    pattern = { "nix" },
-    callback = NixSettings
-})
+
 
 set.number = true
 set.rnu = true
@@ -83,3 +79,21 @@ local is_windows = vim.fn.has("win32") ~= 0
 local sep = is_windows and "\\" or "/"
 local delim = is_windows and ";" or ":"
 vim.env.PATH = table.concat({ vim.fn.stdpath("data"), "mason", "bin" }, sep) .. delim .. vim.env.PATH
+
+autocmd('FileType', {
+    group = group,
+    pattern = { "nix" },
+    callback = NixSettings
+})
+
+autocmd('FileType', {
+    group = group,
+    pattern = { 'nix',
+                'lua',
+                'python',
+                'i3config',
+                'man' },
+    callback = function()
+        vim.wo.spell = false
+    end
+})

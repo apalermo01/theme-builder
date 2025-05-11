@@ -1,4 +1,5 @@
 zinit ice depth=1; zinit light romkatv/powerlevel10k
+alias nu="bash ~/Documents/git/dotfiles/nix-update.sh"
 
 
 
