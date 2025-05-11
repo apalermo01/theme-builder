@@ -5,9 +5,9 @@ local group = augroup('config', {})
 
 -- functions
 function NixSettings()
-    set.tabstop = 2
-    set.shiftwidth = 2
-    set.softtabstop = 2
+    vim.opt_local.tabstop = 2
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.softtabstop = 2
 end
 
 -- General
@@ -80,20 +80,22 @@ local sep = is_windows and "\\" or "/"
 local delim = is_windows and ";" or ":"
 vim.env.PATH = table.concat({ vim.fn.stdpath("data"), "mason", "bin" }, sep) .. delim .. vim.env.PATH
 
+local ft_group = augroup('ftgroup', {})
+
 autocmd('FileType', {
-    group = group,
+    group = ft_group,
     pattern = { "nix" },
     callback = NixSettings
 })
 
 autocmd('FileType', {
-    group = group,
+    group = ft_group,
     pattern = { 'nix',
                 'lua',
                 'python',
                 'i3config',
                 'man' },
     callback = function()
-        vim.wo.spell = false
+        vim.opt_local.spell = false
     end
 })

@@ -18,6 +18,7 @@ def parse_i3(template_dir: str, destination_dir: str, config: Dict, theme_path: 
     logger.info("configuring i3...")
     _configure_terminal(config, destination_dir, theme_path)
     _configure_picom(config, destination_dir, theme_path)
+    _configure_font(config, destination_dir, theme_path)
 
     return config, kwargs['theme_apply_script']
 
@@ -66,4 +67,20 @@ def _configure_picom(config: Dict, dest: str, theme_path: str):
     append_if_not_present("\nexec killall picom\n", dest_path)
     append_if_not_present(
         "\nexec_always picom --backend glx --config ~/.config/picom/picom.conf\n", dest_path
+    )
+
+def _configure_font(config: Dict, dest: str, theme_path: str):
+    if 'font' in config['i3']:
+        font: str = config['i3']['font']
+    elif 'font_family' in config:
+        font: str = config['font_family']
+    else:
+        font: str = 'xft:URWGothic-Book'
+
+    font_size: int = config['i3'].get('font_size', 11)
+    i3_config_path = os.path.join(theme_path, "build", "i3/config") 
+    pattern: str = "font "
+    txt: str = f"font {font} {font_size}"
+    overwrite_or_append_line(
+        pattern=pattern, replace_text=txt, dest=i3_config_path
     )

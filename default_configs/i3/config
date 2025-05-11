@@ -28,9 +28,9 @@ bindsym $mod+Shift+Right move right
 bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
 # split orientation
-bindsym $mod+Ctrl+h split h;exec notify-send 'tile horizontally'
-bindsym $mod+Shift+v split v;exec notify-send 'tile vertically'
-bindsym $mod+q split toggle
+bindsym $mod+Ctrl+h split h; exec notify-send 'tile horizontally'
+bindsym $mod+Shift+v split v; exec notify-send 'tile vertically'
+bindsym $mod+q split toggle; exec notify-send 'toggled splt method'
 
 # toggle fullscreen mode for the focused container
 bindsym $mod+Shift+f fullscreen toggle
@@ -55,15 +55,15 @@ bindsym $mod+Shift+s exec flameshot gui
 bindsym $mod+a focus parent
 
 # move the currently focused window to the scratchpad
-bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+Shift+minus move scratchpad; exec notify-send "moved to scratchpad. $mod+minus to show"
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym $mod+minus scratchpad show
 
 # navigate workspaces next / previous
-bindsym $mod+Ctrl+Right workspace next
-bindsym $mod+Ctrl+Left workspace prev
+# bindsym $mod+Ctrl+Right workspace next
+# bindsym $mod+Ctrl+Left workspace prev
 
 # workspaces
 set $ws1 1
@@ -132,7 +132,7 @@ mode "$mode_system" {
 }
 
 # Resize window (you can also use the mouse for that)
-bindsym $mod+r mode "resize"; exec notify-send 'resize (Esc to go back to normal)'
+bindsym $mod+r mode "resize"; exec notify-send 'resize use hjkl to resize- Esc to go back to normal'
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
         # Pressing left will shrink the window’s width.
@@ -151,23 +151,28 @@ mode "resize" {
         bindsym Right resize grow width 10 px or 10 ppt
 
         # exit resize mode: Enter or Escape
-        bindsym Return mode "default"; exec notify-send 'default mode'
-        bindsym Escape mode "default"; exec notify-send 'default mode'
+        bindsym Return mode "default"; exec notify-send 'back to default mode'
+        bindsym Escape mode "default"; exec notify-send 'back to default mode'
 }
-
 
 # Press $mod+Shift+g to enter the gap mode. Choose o or i for modifying outer/inner gaps. Press one of + / - (in-/decrement for current workspace) or 0 (remove gaps for current workspace). If you also press Shift with these keys, the change will be global for all workspaces.
 set $mode_gaps Gaps: (o) outer, (i) inner
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
-bindsym $mod+g mode "$mode_gaps"; exec notify-send "gaps mode (Esc to go back to normal, i=inner, o=outer)"
+
+bindsym $mod+g mode "$mode_gaps"; exec "notify-send \\"gaps mode\\" \\"(Esc to go back to normal, i=inner, o=outer)\\""
 
 mode "$mode_gaps" {
-        bindsym o      mode "$mode_gaps_outer"
-        bindsym i      mode "$mode_gaps_inner"
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+        bindsym o      mode "$mode_gaps_outer"; exec "notify-send \\"gaps-outer\\" \
+            \\"+: inc cur, -: dec cur, 0: set cur 0\n\
+               S++: inc all, S+-: dec all, S+0: set all 0\\""
+        bindsym i      mode "$mode_gaps_inner"; exec "notify-send \\"gaps-inner\\" \
+            \\"+: inc cur, -: dec cur, 0: set cur 0\n\
+               S++: inc all, S+-: dec all, S+0: set all 0\\""
+        bindsym Return mode "default"; exec notify-send "back to default mode"
+        bindsym Escape mode "default"; exec notify-send "back to default mode"
 }
+
 mode "$mode_gaps_inner" {
         bindsym plus  gaps inner current plus 5
         bindsym minus gaps inner current minus 5
@@ -177,8 +182,8 @@ mode "$mode_gaps_inner" {
         bindsym Shift+minus gaps inner all minus 5
         bindsym Shift+0     gaps inner all set 0
 
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+        bindsym Return mode "default"; exec notify-send "back to default mode"
+        bindsym Escape mode "default"; exec notify-send "back to default mode"
 }
 mode "$mode_gaps_outer" {
         bindsym plus  gaps outer current plus 5
@@ -189,10 +194,9 @@ mode "$mode_gaps_outer" {
         bindsym Shift+minus gaps outer all minus 5
         bindsym Shift+0     gaps outer all set 0
 
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+        bindsym Return mode "default"; exec notify-send "back to default mode"
+        bindsym Escape mode "default"; exec notify-send "back to default mode"
 }
-
 
 bindsym $mod+u border none
 bindsym $mod+y border pixel 5
@@ -285,7 +289,7 @@ for_window [urgent=latest] focus
 # '
 exec --no-startup-id nm-applet
 exec_always --no-startup-id $HOME/.config/polybar/i3_polybar_start.sh
-exec_always --no-startup-id $HOME/shift_monitor.sh
+exec_always --no-startup-id "bash $HOME/shift_monitor.sh"
 exec --no-startup-id dunst
 
 # i3 lock
@@ -293,3 +297,12 @@ bindsym $mod+Ctrl+l exec "i3lock"
 
 # auto lock
 exec "xautolock -detectsleep -time 3 -locker \"i3lock\""
+
+bindsym $mod+Ctrl+Shift+h exec "notify-send \\"keybindings:\\" \\"\
+$mod+shfit+b: workspace back and forth\n\
+$mod+Ctrl+h:  tile horizontally\n\
+$mod+Shift+v: tile vertically\n\
+$mod+q:       toggle split method\n\
+$mod+Shift+s: screenshot\n\
+$mod+\
+\\""
