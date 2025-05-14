@@ -296,7 +296,8 @@ exec --no-startup-id dunst
 bindsym $mod+Ctrl+l exec "i3lock"
 
 # auto lock
-exec "xautolock -detectsleep -time 3 -locker \"i3lock\""
+# exec "xautolock -detectsleep -time 3 -locker \"i3lock\""
+# exec xss-lock 
 
 bindsym $mod+Ctrl+Shift+h exec "notify-send \\"keybindings:\\" \\"\
 $mod+shfit+b: workspace back and forth\n\
