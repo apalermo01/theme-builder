@@ -96,7 +96,7 @@ map("n", "<leader>ont", function()
 	end
 
 	local formatted_name = os.date("%Y-%m-%d") .. "_" .. input:gsub(" ", "-") .. ".md"
-	local notes_path = os.getenv("NOTES_PATH") or "~/notes/"
+	local notes_path = os.getenv("OBSIDIAN_NOTES_DIR") or "~/notes/"
 	local full_path = notes_path .. "/0-notes/0-notes/0-inbox/" .. formatted_name
 	vim.cmd("edit " .. full_path)
 end, { desc = "create a new technical note" })
@@ -109,7 +109,7 @@ map("n", "<leader>onp", function()
 	end
 
 	local formatted_name = os.date("%Y-%m-%d") .. "_" .. input:gsub(" ", "-") .. ".md"
-	local notes_path = os.getenv("NOTES_PATH") or "~/notes"
+	local notes_path = os.getenv("OBSIDIAN_NOTES_DIR") or "~/notes"
 	local full_path = notes_path .. "/0-notes/1-private/0-inbox/" .. formatted_name
 	vim.cmd("edit " .. full_path)
 end, { desc = "create a new personal note" })
