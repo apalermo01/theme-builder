@@ -189,7 +189,7 @@ vim.ui.open = function(input, opts)
     local target = input or vim.fn.expand("<cfile>")
 
     if target:match("^[%a][%w+,-]*://") then
-        vim.fn.jobstart({ "zen", target }, { detach = true })
+        vim.fn.jobstart({ "firefox", target }, { detach = true })
     else
         return _orig_open(input, opts)
     end

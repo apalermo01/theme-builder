@@ -47,7 +47,7 @@ return {
     keys = {
         { "<leader>oo",  ":cd " .. OBSIDIAN_NOTES_DIR .. "<CR>", "n", desc = "jump to notes directory" },
         {
-            "<leader>on",
+            "<leader>onf",
             function()
                 local current_file = vim.fn.expand("%:p")
                 if string.find(current_file, OBSIDIAN_NOTES_DIR, 1, true) then
