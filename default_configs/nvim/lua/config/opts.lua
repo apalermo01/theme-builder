@@ -94,7 +94,8 @@ autocmd('FileType', {
                 'lua',
                 'python',
                 'i3config',
-                'man' },
+                'man',
+                'go' },
     callback = function()
         vim.opt_local.spell = false
     end
