@@ -98,6 +98,7 @@ autocmd('FileType', {
                 'go',
                 'gomod',
                 'checkhealth',
+                'gitcommit',
     },
     callback = function()
         vim.opt_local.spell = false
