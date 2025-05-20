@@ -100,16 +100,16 @@ return {
 		})
 
 		-- bigquery
-		local proj_file = vim.fn.expand("$HOME/.bq_project")
-		if vim.fn.filereadable(proj_file) ~= 0 then
-			local project_id = vim.fn.trim(vim.fn.readfile(proj_file)[1] or "")
-			if project_id ~= "" then
-				require("lspconfig").bqls.setup({
-					settings = {
-						project_id = project_id,
-					},
-				})
-			end
-		end
+		-- local proj_file = vim.fn.expand("$HOME/.bq_project")
+		-- if vim.fn.filereadable(proj_file) ~= 0 then
+		-- 	local project_id = vim.fn.trim(vim.fn.readfile(proj_file)[1] or "")
+		-- 	if project_id ~= "" then
+		-- 		require("lspconfig").bqls.setup({
+		-- 			settings = {
+		-- 				project_id = project_id,
+		-- 			},
+		-- 		})
+		-- 	end
+		-- end
 	end,
 }
