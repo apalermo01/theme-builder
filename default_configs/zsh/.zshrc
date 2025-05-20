@@ -38,6 +38,16 @@ function start_tutoring() {
     ./scripts/tutoring.sh
 }
 
+function problems() {
+    if [[ ! -d "${HOME}/Documents/git/notes" ]]; then
+        echo "notes folder not found"
+        return
+    fi
+
+    cd "${HOME}/Documents/git/notes/"
+    ./problems.sh
+
+}
 
 ###########
 # General #
