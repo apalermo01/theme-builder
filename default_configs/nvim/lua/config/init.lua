@@ -2,6 +2,7 @@ require("config.remap")
 require("config.opts")
 require("config.lazy_init")
 require("config.cmds")
+require("config.test_lsp")
 
 local augroup = vim.api.nvim_create_augroup
 
@@ -17,4 +18,3 @@ function _G.get_oil_winbar()
 		return vim.api.nvim_buf_get_name(0)
 	end
 end
-
