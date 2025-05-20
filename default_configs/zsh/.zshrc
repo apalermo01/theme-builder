@@ -186,6 +186,11 @@ alias gpu='git pull'
 alias gcm="git add . && git commit -m $(date +%D)"
 alias nu="bash ~/Documents/git/dotfiles/nix-update.sh"
 
+alias lf="yazi"
+alias l="yazi"
+alias y="yazi"
+alias ya="yazi"
+
 if [[ -f "${HOME}/work_cmds.sh" ]]; then
     source ~/work_cmds.sh
 fi
