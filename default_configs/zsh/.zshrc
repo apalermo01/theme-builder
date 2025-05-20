@@ -54,6 +54,7 @@ function problems() {
 ###########
 
 export MANPAGER="nvim +Man!"
+export EDITOR="nvim"
 
 function quick_commit() {
     today=$(date "+%Y-%m-%d")
