@@ -192,6 +192,8 @@ alias l="yazi"
 alias y="yazi"
 alias ya="yazi"
 
+alias cat="bat"
+alias ls="eza"
 if [[ -f "${HOME}/work_cmds.sh" ]]; then
     source ~/work_cmds.sh
 fi
