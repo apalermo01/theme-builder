@@ -72,6 +72,7 @@ autocmd("LspAttach", {
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
+        "onsails/lspkind.nvim",
 		"stevearc/conform.nvim",
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",

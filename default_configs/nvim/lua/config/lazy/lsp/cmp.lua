@@ -1,6 +1,5 @@
 -- auto complete
 
-local lspkind = require("lspkind")
 
 -- `/` cmdline setup.
 local cmp = require("cmp")
@@ -28,8 +27,25 @@ cmp.setup.cmdline(":", {
 
 return {
 	"hrsh7th/nvim-cmp",
+	dependencies = {
+        "onsails/lspkind.nvim",
+		"stevearc/conform.nvim",
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
+		"hrsh7th/cmp-nvim-lsp",
+		"hrsh7th/cmp-buffer",
+		"hrsh7th/cmp-path",
+		"hrsh7th/cmp-cmdline",
+		"hrsh7th/nvim-cmp",
+		"L3MON4D3/LuaSnip",
+		"saadparwaiz1/cmp_luasnip",
+		"j-hui/fidget.nvim",
+		"f3fora/cmp-spell",
+		"Dynge/gitmoji.nvim",
+	},
 	config = function()
 		local cmp = require("cmp")
+        local lspkind = require("lspkind")
 		local cmp_select = { behavior = cmp.SelectBehavior.Select }
 		cmp.setup({
 			snippet = {
