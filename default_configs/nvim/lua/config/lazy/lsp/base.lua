@@ -7,8 +7,10 @@ autocmd("LspAttach", {
 	callback = function(e)
 		local opts = { buffer = e.buf }
 		local buf = e.buf
+        local builtin = require('telescope.builtin')
 		local client = assert(vim.lsp.get_client_by_id(e.data.client_id))
-
+        
+        -- lsp keybindings
 		map("n", "gd", function()
 			vim.lsp.buf.definition()
 		end, { buffer = buf, desc = "lsp: go to definition" })
@@ -16,20 +18,26 @@ autocmd("LspAttach", {
 		map("n", "<leader>lgd", function()
 			vim.lsp.buf.definition()
 		end, { buffer = buf, desc = "lsp: go to definition" })
+
 		map("n", "K", function()
 			vim.lsp.buf.hover()
 		end, { buffer = buf, desc = "lsp: hover" })
+
 		map("n", "<leader>lws", function()
 			vim.lsp.buf.workspace_symbol()
 		end, { buffer = buf, desc = "lsp: show workspace symbols" })
+
 		-- map("n", "<leader>ld", function() vim.lsp.buf.open_float() end, { buffer = buf, desc = "lsp: open float" })
 		-- map("n", "<leader>lof", function() vim.lsp.buf.open_float() end, { buffer = buf, desc = "lsp: open float" })
+        --
 		map("n", "<leader>lca", function()
 			vim.lsp.buf.code_action()
 		end, { buffer = buf, desc = "lsp: show code actions" })
+
 		map("n", "<leader>lrr", function()
 			vim.lsp.buf.references()
 		end, { buffer = buf, desc = "lsp: show references" })
+
 		map("n", "<leader>lrn", function()
 			vim.lsp.buf.rename()
 		end, { buffer = buf, desc = "lsp: rename" })
@@ -43,6 +51,7 @@ autocmd("LspAttach", {
 		map("n", "[d", function()
 			vim.lsp.buf.goto_next()
 		end, { buffer = buf, desc = "lsp: goto next" })
+
 		map("n", "]d", function()
 			vim.lsp.buf.goto_prev()
 		end, { buffer = buf, desc = "lsp: goto prev"})
@@ -66,12 +75,19 @@ autocmd("LspAttach", {
 				vim.lsp.buf.references()
 			end, { buffer = buf, desc = "lsp: show obisdian-style backlinks"})
 		end
+
+        -- telescope keybindings
+	    map('n', '<leader>flr', builtin.lsp_references, { desc = 'lsp references' })
+	    map('n', '<leader>fli', builtin.lsp_implementations, { desc = 'lsp implementations' })
+	    map('n', '<leader>fld', builtin.lsp_definitions, { desc = 'lsp definitions' })
+
 	end,
 })
 
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
+        "onsails/lspkind.nvim",
 		"stevearc/conform.nvim",
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",

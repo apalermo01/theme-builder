@@ -17,9 +17,6 @@ return {
 			"nil_ls",
 			"bashls",
             "yamlls",
-            -- "sqls",
-            -- "efm",
-            "postgres_lsp",
 		} or {
             "lua_ls",
 			"html",
@@ -32,9 +29,6 @@ return {
 			"markdown_oxide",
 			"bashls",
             "yamlls",
-            "sqls",
-            "efm",
-            "postgres_lsp",
 		},
 
 		handlers = {
@@ -92,30 +86,6 @@ return {
 					},
 				})
 			end,
-
-            -- ["sqls"] = function()
-            --     require("lspconfig").sqls.setup({
-            --         cmd = { "sqls" },
-            --         filetypes = { "sql", "psql" },
-            --         root_dir = function(fname)
-            --             return require("lspconfig.util").root_pattern(".sqitch.conf", "sqitch.plan", ".git")(fname)
-            --                 or require("lspconfig.util").path.dirname(fname)
-            --         end,
-            --         settings = {},
-            --     })
-            -- end,
-            --
-            -- ["efm"] = function()
-            --     init_options = {documentFormatting = false},
-            --     root_dir = function(fname)
-            --         return require("lspconfig.util").root_pattern(".sqitch.conf", "sqitch.plan", ".git")(fname)
-            --     end,
-            --     filetype = {"sql"},
-            --     settings = {
-            --         rootMarkers 
-            --     }
-            --
-            -- end,
 		},
 	},
     config = function(_, opts)
