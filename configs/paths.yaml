@@ -90,3 +90,8 @@ global:
   template_path: 'default_configs/global/'
   destination_path: 'global/'
   config_path: ''
+
+yazi:
+  template_path: 'default_configs/yazi/'
+  destination_path: 'yazi/'
+  config_path: '.config/'

@@ -66,3 +66,7 @@ apps:
     qt.colorscheme: plasma-apply-colorscheme 
 
 okular: {}
+
+yazi:
+  dark: dracula
+  light: dracula

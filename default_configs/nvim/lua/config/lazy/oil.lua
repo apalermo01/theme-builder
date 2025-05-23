@@ -74,6 +74,7 @@ return {
 
 	config = function(_, opts)
 		require("oil").setup(opts)
-		map("n", "-", "<cmd>Oil --float <CR>", { desc = "Open parent directory" })
+		-- map("n", "-", "<cmd>Oil --float <CR>", { desc = "Open parent directory" })
+		map("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
 	end,
 }
