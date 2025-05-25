@@ -19,8 +19,8 @@ def parse_yazi(
 
     yazi_theme_path: str = os.path.join(theme_path, 'build', 'yazi/theme.toml')
     if os.path.exists(yazi_theme_path):
-        with open(yazi_theme_path, "rb") as f:
-            yazi_cfg = toml.load(f)
+        yazi_cfg = toml.load(yazi_theme_path)
+        # with open(yazi_theme_path, "rb") as f:
     else:
         yazi_cfg = {}
 
@@ -34,7 +34,8 @@ def parse_yazi(
     if 'light' in config['yazi']:
         yazi_cfg['flavor']['light'] = config['yazi']['light']
     
-    with open(yazi_theme_path, "wb") as f:
+    # toml.dump
+    with open(yazi_theme_path, "w") as f:
         toml.dump(yazi_cfg, f)
 
     return config, kwargs['theme_apply_script']

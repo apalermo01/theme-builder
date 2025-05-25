@@ -36,8 +36,8 @@ bindsym $mod+q split toggle; exec notify-send 'toggled splt method'
 bindsym $mod+Shift+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+bindsym $mod+s layout stacking; exec notify-send 'stack layout. $mod+w to tab'
+bindsym $mod+w layout tabbed; exec notify-send 'tabbed layout. $mod+s to stack
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
@@ -210,7 +210,7 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="rofi -dmenu -i -p 'apps'"
 
 # default terminal
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec kitty
 
 
 # bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2%
@@ -233,7 +233,7 @@ bindsym XF86TouchpadOff exec --no-startup-id synclient Touchpadoff=1
 bindsym XF86MonBrightnessUp exec --no-startup-id sudo brightnessctl set +5%
 bindsym XF86MonBrightnessDown exec --no-startup-id sudo brightnessctl set 5%-
 
-# font xft:URWGothic-Book 11
+font JetBrains NF Mono 11
 bindsym $mod+f exec firefox
 bindsym $mod+z exec zen
 
@@ -305,7 +305,8 @@ $mod+Ctrl+h:  tile horizontally\n\
 $mod+Shift+v: tile vertically\n\
 $mod+q:       toggle split method\n\
 $mod+Shift+s: screenshot\n\
-$mod+\
+$mod+s:       stacked layout\n\
+$mod+w:       tabbed layout\n\
 \\""
 
 
