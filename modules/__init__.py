@@ -17,6 +17,7 @@ from . import fastfetch
 from . import apps
 from . import okular
 from . import global_settings
+from . import yazi
 
 modules = {
     "colors": colors.parse_colors,
@@ -38,4 +39,6 @@ modules = {
     "zsh": zsh.parse_zsh,
     "okular": okular.parse_okular,
     "global": global_settings.parse_global,
+    "yazi": yazi.parse_yazi,
+
 }
