@@ -45,7 +45,7 @@ return {
     },
 
     keys = {
-        { "<leader>oo",  ":cd " .. OBSIDIAN_NOTES_DIR .. "<CR>", "n", desc = "jump to notes directory" },
+        { "<leader>ond",  ":cd " .. OBSIDIAN_NOTES_DIR .. "<CR>", "n", desc = "jump to notes directory" },
         {
             "<leader>onf",
             function()
@@ -120,7 +120,7 @@ return {
             end,
             -- ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/1-notes/2-source-material<cr>:bd<CR>",
             "n",
-            desc = "New technical note",
+            desc = "New note in normal folder",
         },
         {
             "<leader>onp",
@@ -137,7 +137,10 @@ return {
                 vim.cmd("edit " .. full_path)
             end,
             "n",
-            desc = "New note",
+            desc = "New note in private folder",
         },
+        {
+            "<leader>oo", "<cmd>ObsidanOpen<cr>", "n", desc = "open current file in obsidian"
+        }
     },
 }
