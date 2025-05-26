@@ -34,14 +34,13 @@ zsh:
 kitty: {}
 picom:
   template_path: themes/i3_trees/picom/
-
 apps:
   name: Everforest
   provides:
-    qt: 
-      - colorscheme
-
+    qt: [colorscheme]
   requires:
-    qt.colorscheme: plasma-apply-colorscheme 
-
+    qt.colorscheme: plasma-apply-colorscheme
 okular: {}
+yazi:
+  dark: everforest-medium
+  light: everforest-medium
