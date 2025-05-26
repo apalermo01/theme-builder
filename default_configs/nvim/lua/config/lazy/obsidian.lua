@@ -140,7 +140,7 @@ return {
             desc = "New note in private folder",
         },
         {
-            "<leader>oo", "<cmd>ObsidanOpen<cr>", "n", desc = "open current file in obsidian"
+            "<leader>oo", "<cmd>ObsidianOpen<cr>", "n", desc = "open current file in obsidian"
         }
     },
 }
