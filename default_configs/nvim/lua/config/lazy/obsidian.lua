@@ -139,8 +139,33 @@ return {
             "n",
             desc = "New note in private folder",
         },
-        {
-            "<leader>oo", "<cmd>ObsidianOpen<cr>", "n", desc = "open current file in obsidian"
-        }
+		{
+			"<leader>oo",
+			function()
+				local vault_root = os.getenv("NOTES_PATH") -- "/home/alex/Documents/git/notes"
+				local vault_name = vim.fn.fnamemodify(vault_root, ":t") -- "notes"
+				local function urlencode(str)
+					return (
+						str:gsub("([^%w%-_%.~])", function(c)
+							return string.format("%%%02X", string.byte(c))
+						end)
+					)
+				end
+
+				local abs = vim.fn.expand("%:p") -- full path of current buffer
+				if not vim.startswith(abs, vault_root) then
+					vim.notify("File is not inside your Obsidian vault", vim.log.levels.WARN)
+					return
+				end
+
+				local rel = abs:sub(#vault_root + 2) -- strip "/…/notes/"
+				local uri = ("obsidian://open?vault=%s&file=%s"):format(vault_name, urlencode(rel))
+
+				-- use Neovim's non-blocking launcher instead of os.execute/nohup
+				vim.system({ "obsidian", uri }, { detach = true })
+			end,
+			"n",
+			desc = "open current file in obsidian",
+		},
     },
 }
