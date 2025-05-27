@@ -195,10 +195,11 @@ alias gpu='git pull'
 alias gcm="git add . && git commit -m $(date +%D)"
 alias nu="bash ~/Documents/git/dotfiles/nix-update.sh"
 
-alias lf="yazi"
-alias l="yazi"
+alias lf="y"
+alias l="y"
 alias y="yazi"
-alias ya="yazi"
+alias ya="y"
+alias yazi="y"
 
 alias cat="bat --no-pager"
 alias ls="eza"
