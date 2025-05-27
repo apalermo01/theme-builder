@@ -24,7 +24,7 @@ tmux:
 rofi:
   template_path: themes/i3_trees/rofi
 zsh:
-  feats: [run_pywal]
+  feats: [run_pywal, cbonsai]
   append:
     - from: additions.zsh
       to: zsh/.zshrc
