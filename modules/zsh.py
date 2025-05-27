@@ -17,20 +17,19 @@ def parse_zsh(
     logger.info("Loading zsh...")
 
     feats = config["zsh"].get("feats", [])
-    logger.debug(f"feats = {feats}") 
+    logger.debug(f"feats = {feats}")
 
     if "wallpaper" in config:
         wallpaper_file = config["wallpaper"]["file"]
         wallpaper_path = os.path.expanduser(f"~/Pictures/wallpapers/{wallpaper_file}")
     else:
         wallpaper_path = None
-    
+
     prompts_dict = {
-        "cowsay_fortune": (
-            "fortune | cowsay -r\n"
-        ),
+        "cowsay_fortune": ("fortune | cowsay -r\n"),
         "neofetch": "fastfetch\n",
         "fastfetch": "fastfetch\n",
+        "cbonsai": "cbonsai -p\n",
         "run_pywal": f"wal -n -e -i {wallpaper_path} > /dev/null \n",
         "git_onefetch": dedent(
             """
@@ -54,10 +53,10 @@ def parse_zsh(
             if d == "run_pywal" and wallpaper_path is None:
                 logger.error("Cannot add pywal to fish config, no wallpaper")
                 continue
-            if d == 'neofetch':
+            if d == "neofetch":
                 logger.warning("using fastfetch instead of neofetch")
             append_text(dest, prompts_dict[d])
     append_text(dest, '\neval "$(direnv hook zsh)"')
     append_text(dest, '\neval "$(fzf --zsh)"')
     append_text(dest, '\neval "$(zoxide init --cmd cd zsh)"')
-    return config, kwargs['theme_apply_script']
+    return config, kwargs["theme_apply_script"]
