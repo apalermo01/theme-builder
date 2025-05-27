@@ -25,8 +25,14 @@ tmux: {}
 rofi: {}
 
 zsh: 
-  feats: ["run_pywal", "neofetch"]
+  feats: ["run_pywal", "fastfetch"]
   ohmyposh: https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/nordtron.omp.json
+
+
+fastfetch: 
+  overwrite: 
+    - from: config.jsonc
+      to: fastfetch/config.jsonc
 
 kitty: {}
 

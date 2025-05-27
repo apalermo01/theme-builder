@@ -60,5 +60,6 @@ def parse_zsh(
     append_text(dest, '\neval "$(fzf --zsh)"')
     append_text(dest, '\neval "$(zoxide init --cmd cd zsh)"')
     if 'ohmyposh' in config['zsh']:
-        append_text(dest, f'\neval "$(oh-my-posh init zsh --config {config['zsh']['ohmyposh']})"')
+        cfg_url = config['zsh']['ohmyposh']
+        append_text(dest, f'\neval "$(oh-my-posh init zsh --config {cfg_url})"')
     return config, kwargs["theme_apply_script"]
