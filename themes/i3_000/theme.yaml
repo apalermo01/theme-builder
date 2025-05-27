@@ -26,6 +26,7 @@ rofi: {}
 
 zsh: 
   feats: ["run_pywal", "neofetch"]
+  ohmyposh: https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/nordtron.omp.json
 
 kitty: {}
 
