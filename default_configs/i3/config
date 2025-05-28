@@ -206,24 +206,15 @@ bindsym $mod+n border normal
 bindsym $mod+Shift+q kill
 
 # start program launcher
-#bindsym $mod+d exec --no-startup-id rofi -show run
 bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --dmenu="rofi -dmenu -i -p 'apps'"
 
 # default terminal
 bindsym $mod+Return exec kitty
 
-
-# bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2%
-# bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2%
-# bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
-
 bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 0.02+
 bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume        @DEFAULT_AUDIO_SINK@ 0.02-
 bindsym XF86AudioMute        exec --no-startup-id wpctl set-mute          @DEFAULT_AUDIO_SINK@ toggle
-
-# bindsym XF86AudioRaiseVolume exec --no-startup-id pamixer -i 2
-# bindsym XF86AudioLowerVolume exec --no-startup-id pamixer -d 2
-# bindsym XF86AudioMute        exec --no-startup-id pamixer -t
+bindsym $mod+y pavucontrol
 
 # touchpad on and off controller on laptop with Fn+<touchpad control functional key>
 bindsym XF86TouchpadOn exec --no-startup-id synclient Touchpadoff=0
@@ -235,7 +226,6 @@ bindsym XF86MonBrightnessDown exec --no-startup-id sudo brightnessctl set 5%-
 
 font JetBrains NF Mono 11
 bindsym $mod+f exec firefox
-bindsym $mod+z exec zen
 
 # pretty sure this is for ubuntu
 # bindsym $mod+b exec brave-browser
@@ -275,6 +265,7 @@ for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
 for_window [class="zoom"] floating enable
+for_window [class="firefox"] border pixel 5
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
