@@ -207,6 +207,41 @@ if [[ -f "${HOME}/work_cmds.sh" ]]; then
     source ~/work_cmds.sh
 fi
 
+ba () {
+    echo "bootstrapping aliases"
+    if [ -f aliases.sh ]; then
+        echo "aliases.sh found, sourcing..."
+        source aliases.sh
+    else
+        read -q "?aliases.sh not found. Make one? [y/n]: " mk_alias
+        if [[ ! $mk_alias =~ ^[Yy]$ ]]; then
+            echo "exiting..."
+            exit
+        fi
+
+        cat <<EOF > aliases.sh
+            #!/usr/bin/env bash
+
+            a() {
+                echo "Aliases quick reference: "
+            }
+
+            # enter any other project-specific alias commands here:
+EOF
+    fi
+}
+
+function _maybe_source_aliases() {
+    if [[ -f aliases.sh ]]; then
+        read -q "?aliases.sh found - would you like to source it? [Y/n]: " src
+        if [[ $src =~ ^[Yn]$ ]]; then
+            source aliases.sh
+        fi
+    fi
+}
+
+autoload -U add-zsh-hook
+add-zsh-hook chpwd _maybe_source_aliases
 #######################
 # Additional settings #
 #######################
