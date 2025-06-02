@@ -7,8 +7,8 @@
 # set -l onedark_options '-b'
 #
 # if set -q VIM
-#     # Using from vim/neovim.
 #     set onedark_options "-256"
+# fi
 # else if string match -iq "eterm*" $TERM
 #     # Using from emacs.
 #     function fish_title; true; end
@@ -21,5 +21,5 @@ if [ -f ~/.config/polybar/i3_polybar_start.sh ]; then
     bash ~/.config/polybar/i3_polybar_start.sh
 fi
 
-
+# source ~/.tmux.od_autumn.tmux
 

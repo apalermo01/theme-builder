@@ -99,6 +99,18 @@ return {
             desc = "move to tags (private)",
         },
         {
+            "<leader>ort",
+            ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-notes/0-notes/4-rough-notes<cr>:bd<CR>",
+            "n",
+            desc = "move to rough nots (normal)",
+        },
+        {
+            "<leader>orp",
+            ":!mv '%:p' " .. OBSIDIAN_NOTES_DIR .. "/0-notes/1-private/4-rough-notes<cr>:bd<CR>",
+            "n",
+            desc = "move to rough notes (private)",
+        },
+        {
             "<leader>odd",
             ":!rm '%:p'<CR>:bd<CR>",
             "n",

@@ -26,6 +26,9 @@ tmux:
   append: 
     - from: tmux.conf
       to: tmux/.tmux.conf
+  # overwrite:
+  #   - from: od_autumn.tmux
+  #     to: tmux/.tmux.od_autumn.tmux
 
 rofi: 
   template_path: ./themes/i3_od_autumn/rofi/
