@@ -234,7 +234,7 @@ EOF
 function _maybe_source_aliases() {
     if [[ -f aliases.sh ]]; then
         read -q "?aliases.sh found - would you like to source it? [Y/n]: " src
-        if [[ $src =~ ^[Yn]$ ]]; then
+        if [[ $src =~ ^[Yy]$ ]]; then
             source aliases.sh
         fi
     fi

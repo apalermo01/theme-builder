@@ -83,7 +83,7 @@ return {
 				["<C-o>"] = cmp.mapping.open_docs(),
 				["<TAB>"] = cmp.mapping.select_next_item(cmp_select),
 				["<S-TAB>"] = cmp.mapping.select_prev_item(cmp_select),
-				["<C-y>"] = cmp.mapping.confirm({ select = true }),
+				["<C-y>"] = cmp.mapping.confirm(),
 
 				-- fn1+h/j/k/l mapped to arrow keys
 				-- fn1+y is mapped to >
@@ -105,20 +105,20 @@ return {
 			}),
 		})
 
-		local api = vim.api
-		local lsp_util = vim.lsp.util
-
-		local help_lines = {
-			"Cmp mappings:",
-			"<C-p> • prev item",
-			"<C-n> • next item",
-			"<C-k>/<C-j> • scroll docs",
-			"<C-space> • trigger complete",
-			"<C-y> • confirm ",
-			"<C-e> • abort   ",
-			"<C-o> • open docs",
-		}
-
+		-- local api = vim.api
+		-- local lsp_util = vim.lsp.util
+		--
+		-- local help_lines = {
+		-- 	"Cmp mappings:",
+		-- 	"<C-p> • prev item",
+		-- 	"<C-n> • next item",
+		-- 	"<C-k>/<C-j> • scroll docs",
+		-- 	"<C-space> • trigger complete",
+		-- 	"<C-y> • confirm ",
+		-- 	"<C-e> • abort   ",
+		-- 	"<C-o> • open docs",
+		-- }
+		--
 		-- local help_buf = api.nvim_create_buf(false, true)
 		-- api.nvim_buf_set_option(help_buf, "bufhidden", "hide")
 		-- api.nvim_buf_set_lines(help_buf, 0, -1, false, help_lines)
