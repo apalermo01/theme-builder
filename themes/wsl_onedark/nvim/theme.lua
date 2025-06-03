@@ -5,7 +5,9 @@ return {
         priority = 1000, -- Ensure it loads first
         opts = {
             options = {
-                highlight_inactive_windows = false
+                highlight_inactive_windows = true,
+                cursorline = true,
+
             }
         }
     },
