@@ -190,6 +190,7 @@ vim.ui.open = function(input, opts)
 
     if target:match("^[%a][%w+,-]*://") then
         vim.fn.jobstart({ "firefox", target }, { detach = true })
+        vim.notify('opening ' .. target .. ' in firefox')
     else
         return _orig_open(input, opts)
     end
