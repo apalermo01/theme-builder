@@ -47,3 +47,9 @@ picom:
 theme_scripts:
   path: ./themes/i3_tokyonight/scripts/
 okular: {}
+apps:
+  name: TokyoNight
+  provides:
+    qt: [colorscheme]
+  requires:
+    qt.colorscheme: plasma-apply-colorscheme
