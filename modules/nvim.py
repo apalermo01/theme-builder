@@ -51,8 +51,12 @@ def parse_nvim(template_dir: str, destination_dir: str, config: Dict, theme_path
     if "nvchad_separator" in nvim_config:
         _configure_nvchad_separator(nvim_config, theme_path)
 
-    if "font_family" in config:
-        _configure_font(config['font_family'], theme_path)
+    if "font_family" in config or os.environ['FONT']:
+        if os.environ['FONT']:
+            font = os.environ['FONT']
+        else:
+            font = config['font_family']
+        _configure_font(font, theme_path)
 
     return config, kwargs['theme_apply_script']
 

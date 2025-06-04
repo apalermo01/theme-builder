@@ -19,10 +19,15 @@ def parse_kitty(
             os.path.join(destination_dir, "kitty.conf"), "chsh -s /usr/bin/fish\n"
         )
 
-    if "font_family" in config:
+    if "font_family" in config or os.environ['FONT']:
+
+        if os.environ['FONT']:
+            font = os.environ['FONT']
+        else:
+            font = config['font_family']
         append_text(
             os.path.join(destination_dir, "kitty.conf"),
-            f"font_family   family=\"{config['font_family']}\"\n",
+            f"font_family   family=\"{font}\"\n",
         )
         append_text(
             os.path.join(destination_dir, "kitty.conf"),
@@ -36,5 +41,17 @@ def parse_kitty(
             os.path.join(destination_dir, "kitty.conf"),
             f"bold_italic_font     auto\n",
         )
+
+    if 'font_size' in config or os.environ.get('FONTSIZEPX'):
+        if os.environ.get('FONTSIZEPX'):
+            font_size = os.environ['FONTSIZEPX']
+        else:
+            font_size = config['font_size']
+        append_text(
+            os.path.join(destination_dir, "kitty.conf"),
+            f"font_size     {font_size}\n",
+        )
+        
+
 
     return config, kwargs['theme_apply_script']

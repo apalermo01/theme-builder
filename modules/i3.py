@@ -70,7 +70,9 @@ def _configure_picom(config: Dict, dest: str, theme_path: str):
     )
 
 def _configure_font(config: Dict, dest: str, theme_path: str):
-    if 'font' in config['i3']:
+    if os.environ['FONT']:
+        font: str = os.environ['FONT']
+    elif 'font' in config['i3']:
         font: str = config['i3']['font']
     elif 'font_family' in config:
         font: str = config['font_family']
