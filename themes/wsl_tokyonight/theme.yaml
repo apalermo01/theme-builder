@@ -1,0 +1,26 @@
+---
+colors:
+  method: manual
+font_family: JetBrains NF Mono
+nvim:
+  template_path: default_configs/nvim
+  colorscheme: tokyonight
+  overwrite:
+    - from: theme.lua
+      to: nvim/lua/config/theme.lua
+tmux:
+  append:
+    - from: tmux.conf
+      to: tmux/.tmux.conf
+zsh:
+  feats: [fastfetch]
+  append:
+    - from: additions.zsh
+      to: zsh/.zshrc
+  overwrite:
+    - from: p10k.zsh
+      to: zsh/.p10k.zsh
+fastfetch:
+  overwrite:
+    - from: config.jsonc
+      to: fastfetch/config.jsonc
