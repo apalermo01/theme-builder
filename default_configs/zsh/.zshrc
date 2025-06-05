@@ -180,6 +180,7 @@ alias vi='nvim'
 alias nivm='nvim'
 alias v='nvim'
 alias tutoring="start_tutoring"
+
 chi3() {
     cwd=$(pwd)
     cd ${HOME}/Documents/git/dotfiles 

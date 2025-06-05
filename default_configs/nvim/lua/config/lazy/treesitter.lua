@@ -37,8 +37,6 @@ return {
 				"requirements",
 				"sql",
                 "nix"
-
-
 			},
 			sync_install = false,
 			auto_install = true,
