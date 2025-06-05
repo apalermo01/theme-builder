@@ -156,6 +156,8 @@ move_note_on_type() {
     echo "vault restructure complete"
 }
 
+bt() { ~/Scripts/bluetooth.sh }
+
 ###########
 # Aliases #
 ###########
@@ -166,8 +168,8 @@ alias onp='new_personal_note'
 alias og='move_note_on_type'
 
 # other
-alias personal='bash ~/personal_docs.sh'
-alias reading='bash ~/reading_session.sh'
+alias personal='bash ~/Scripts/personal_docs.sh'
+alias reading='bash ~/Scripts/reading_session.sh'
 alias notes='cd ~/Documents/git/notes'
 alias n='cd ~/Documents/git/notes'
 alias o='obsidian'
@@ -178,8 +180,18 @@ alias vi='nvim'
 alias nivm='nvim'
 alias v='nvim'
 alias tutoring="start_tutoring"
-alias chi3="cd ${HOME}/Documents/git/dotfiles && bash scripts/random_i3_theme.sh"
-alias chwsl="cd ${HOME}/Documents/git/dotfiles && bash scripts/random_wsl_theme.sh"
+chi3() {
+    cwd=$(pwd)
+    cd ${HOME}/Documents/git/dotfiles 
+    bash scripts/random_i3_theme.sh
+    cd $(cwd)
+}
+chwsl() {
+    cwd=$(pwd)
+    cd ${HOME}/Documents/git/dotfiles 
+    bash scripts/random_wsl_theme.sh
+    cd $(cwd)
+}
 
 # git aliases 
 # https://www.youtube.com/watch?v=G3NJzFX6XhY
@@ -188,8 +200,7 @@ alias ga='git add -p'
 alias gc='git commit'
 alias gb='git branch'
 alias gd="git diff --output-indicator-new=' ' --output-indicator-old=' '"
-alias gl="git log --all --graph --pretty=\
-    format:'%C(magenta)%h %C(white) %an %ar%C(auto) %D%n%s%n'"
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 alias gp='git push'
 alias gpu='git pull'
 alias gcm="git add . && git commit -m $(date +%D)"
@@ -242,6 +253,7 @@ function _maybe_source_aliases() {
 
 autoload -U add-zsh-hook
 add-zsh-hook chpwd _maybe_source_aliases
+
 #######################
 # Additional settings #
 #######################
