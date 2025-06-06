@@ -9,7 +9,7 @@ return {
 		},
 		spec = {
 			-- Top-level <leader> groups
-			["<leader>"] = {
+			[" "] = {
 				b = { name = "Buffers" },
 				t = { name = "Tabs" },
 				v = { name = "LSP" },
@@ -21,7 +21,7 @@ return {
 				o = { name = "Obsidian" },
 			},
 			-- Double-leader → Terminal
-			["<leader><leader>"] = {
+			["  "] = {
 				t = { name = "Terminal" },
 			},
 		},
