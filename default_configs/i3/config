@@ -290,6 +290,9 @@ bindsym $mod+Ctrl+l exec "i3lock"
 # exec "xautolock -detectsleep -time 3 -locker \"i3lock\""
 # exec xss-lock 
 
+# other fancy scripts / tools
+
+# show help notification
 bindsym $mod+Ctrl+Shift+h exec "notify-send \\"keybindings:\\" \\"\
 $mod+shfit+b: workspace back and forth\n\
 $mod+Ctrl+h:  tile horizontally\n\
@@ -300,7 +303,8 @@ $mod+s:       stacked layout\n\
 $mod+w:       tabbed layout\n\
 \\""
 
+# open a note
+bindsym $mod+shift+n exec bash ~/Scripts/dmenu_notes.sh
 
-# exec --no-startup-id xautolock -time 1 -locker 'i3lock' -notify 30 -notifier 'notify-send -u critical -t 5000 "locking in 30 seconds"'
 exec_always --no-startup-id systemctl --user import-environment DISPLAY XAUTHORITY
 exec_always systemctl --user start xss-lock-i3
