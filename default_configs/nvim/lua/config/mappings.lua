@@ -1,4 +1,3 @@
-vim.g.mapleader = " "
 
 -- top-level keys:
 -- buffer operations:  <leader>b
