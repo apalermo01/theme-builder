@@ -259,14 +259,14 @@ end, { desc = "DAP: Eval" })
 map(
 	"n",
 	"<leader>ond",
-	":cd " .. (os.getenv("OBSIDIAN_NOTES_DIR") or "~/notes") .. "<CR>",
+	":cd " .. (OBSIDIAN_NOTES_DIR) .. "<CR>",
 	{ desc = "jump to notes directory" }
 )
 
 -- Format current file as Obsidian note (only if inside vault)
 map("n", "<leader>onf", function()
 	local current_file = vim.fn.expand("%:p")
-	local vault = os.getenv("OBSIDIAN_NOTES_DIR") or "~/notes"
+	local vault = OBSIDIAN_NOTES_DIR
 	if not current_file:find(vault, 1, true) then
 		print("Cannot format file— not in notes directory")
 		return
@@ -281,7 +281,7 @@ map("n", "<leader>obl", "<cmd>ObsidianBacklinks<CR>", { desc = "show backlinks (
 map(
 	"n",
 	"<leader>okt",
-	":!mv '%:p' " .. (os.getenv("OBSIDIAN_NOTES_DIR") or "~/notes") .. "/0-notes/0-notes/1-zettelkasten<CR>:bd<CR>",
+	":!mv '%:p' " .. (OBSIDIAN_NOTES_DIR) .. "/0-notes/0-notes/1-zettelkasten<CR>:bd<CR>",
 	{ desc = "move to technical notes" }
 )
 
@@ -289,7 +289,7 @@ map(
 map(
 	"n",
 	"<leader>okp",
-	":!mv '%:p' " .. (os.getenv("OBSIDIAN_NOTES_DIR") or "~/notes") .. "/0-notes/1-private/1-zettelkasten<CR>:bd<CR>",
+	":!mv '%:p' " .. (OBSIDIAN_NOTES_DIR) .. "/0-notes/1-private/1-zettelkasten<CR>:bd<CR>",
 	{ desc = "move to personal notes" }
 )
 
@@ -297,7 +297,7 @@ map(
 map(
 	"n",
 	"<leader>ost",
-	":!mv '%:p' " .. (os.getenv("OBSIDIAN_NOTES_DIR") or "~/notes") .. "/0-notes/0-notes/2-source-material<CR>:bd<CR>",
+	":!mv '%:p' " .. (OBSIDIAN_NOTES_DIR) .. "/0-notes/0-notes/2-source-material<CR>:bd<CR>",
 	{ desc = "move to source material (technical)" }
 )
 
@@ -305,7 +305,7 @@ map(
 map(
 	"n",
 	"<leader>osp",
-	":!mv '%:p' " .. (os.getenv("OBSIDIAN_NOTES_DIR") or "~/notes") .. "/0-notes/1-private/2-source-material<CR>:bd<CR>",
+	":!mv '%:p' " .. (OBSIDIAN_NOTES_DIR) .. "/0-notes/1-private/2-source-material<CR>:bd<CR>",
 	{ desc = "move to source material (private)" }
 )
 
@@ -313,7 +313,7 @@ map(
 map(
 	"n",
 	"<leader>ott",
-	":!mv '%:p' " .. (os.getenv("OBSIDIAN_NOTES_DIR") or "~/notes") .. "/0-notes/0-notes/3-tags<CR>:bd<CR>",
+	":!mv '%:p' " .. (OBSIDIAN_NOTES_DIR) .. "/0-notes/0-notes/3-tags<CR>:bd<CR>",
 	{ desc = "move to tags (normal)" }
 )
 
@@ -321,7 +321,7 @@ map(
 map(
 	"n",
 	"<leader>otp",
-	":!mv '%:p' " .. (os.getenv("OBSIDIAN_NOTES_DIR") or "~/notes") .. "/0-notes/1-private/3-tags<CR>:bd<CR>",
+	":!mv '%:p' " .. (OBSIDIAN_NOTES_DIR) .. "/0-notes/1-private/3-tags<CR>:bd<CR>",
 	{ desc = "move to tags (private)" }
 )
 
@@ -329,7 +329,7 @@ map(
 map(
 	"n",
 	"<leader>ort",
-	":!mv '%:p' " .. (os.getenv("OBSIDIAN_NOTES_DIR") or "~/notes") .. "/0-notes/0-notes/4-rough-notes<CR>:bd<CR>",
+	":!mv '%:p' " .. (OBSIDIAN_NOTES_DIR) .. "/0-notes/0-notes/4-rough-notes<CR>:bd<CR>",
 	{ desc = "move to rough notes (normal)" }
 )
 
@@ -337,7 +337,7 @@ map(
 map(
 	"n",
 	"<leader>orp",
-	":!mv '%:p' " .. (os.getenv("OBSIDIAN_NOTES_DIR") or "~/notes") .. "/0-notes/1-private/4-rough-notes<CR>:bd<CR>",
+	":!mv '%:p' " .. (OBSIDIAN_NOTES_DIR) .. "/0-notes/1-private/4-rough-notes<CR>:bd<CR>",
 	{ desc = "move to rough notes (private)" }
 )
 
@@ -352,7 +352,7 @@ map("n", "<leader>ont", function()
 		return
 	end
 	local formatted_name = os.date("%Y-%m-%d") .. "_" .. input:gsub(" ", "-") .. ".md"
-	local notes_path = os.getenv("OBSIDIAN_NOTES_DIR") or "~/notes"
+	local notes_path = OBSIDIAN_NOTES_DIR
 	local full_path = notes_path .. "/0-notes/0-notes/0-inbox/" .. formatted_name
 	vim.cmd("edit " .. full_path)
 end, { desc = "New note in normal folder" })
@@ -365,14 +365,14 @@ map("n", "<leader>onp", function()
 		return
 	end
 	local formatted_name = os.date("%Y-%m-%d") .. "_" .. input:gsub(" ", "-") .. ".md"
-	local notes_path = os.getenv("OBSIDIAN_NOTES_DIR") or "~/notes"
+	local notes_path = OBSIDIAN_NOTES_DIR
 	local full_path = notes_path .. "/0-notes/1-private/0-inbox/" .. formatted_name
 	vim.cmd("edit " .. full_path)
 end, { desc = "New note in private folder" })
 
 -- Open current file in the Obsidian app (requires `obsidian` CLI in PATH)
 map("n", "<leader>oo", function()
-	local vault_root = os.getenv("OBSIDIAN_NOTES_DIR") or "~/notes"
+	local vault_root = OBSIDIAN_NOTES_DIR
 	local vault_name = vim.fn.fnamemodify(vault_root, ":t")
 	local function urlencode(str)
 		return str:gsub("([^%w%-_%.~])", function(c)
@@ -521,7 +521,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		if client.name == "markdown_oxide" then
 			map("n", "<leader>vrn", function()
 				local file = vim.api.nvim_buf_get_name(0)
-				local vault = os.getenv("OBSIDIAN_NOTES_DIR") or "~/notes"
+				local vault = OBSIDIAN_NOTES_DIR
 				if not file:find(vault, 1, true) then
 					vim.notify("Not in an Obsidian vault. Rename aborted.", vim.log.levels.WARN)
 					return
